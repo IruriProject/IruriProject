@@ -12,7 +12,6 @@
 <style type="text/css">
 .logo {
 	float: left;
-	width: 350px;
 	height: 100%;
 	padding: 3px 10px 10px 130px;
 }
@@ -27,7 +26,7 @@
 }
 .search {
 	float: left;
-	width: 500px;
+	width: 450px;
 	height: 100%;
 	padding: 20px;
 	margin: 0 auto;
@@ -59,7 +58,7 @@
 .usernav a{
 	text-align:center;
 	color:gray;
-	font-size:14px;
+	font-size:15px;
 }
 .usernav a:hover{
 	text-align:center;

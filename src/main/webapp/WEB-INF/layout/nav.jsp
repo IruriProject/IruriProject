@@ -82,19 +82,19 @@
 	list-style: none;
 }
 .o_menu li {
-	width: 160px;
+	width: 170px;
 	float: left;
 	border: none;
 	height: 50px;
 	line-height: 50px;
-	text-align: center;
-	font-size: 18px;
+	text-align: right;
+	font-size: 20px;
 	font-weight: 700;
 	cursor: pointer;
 }
 .o_menu li:hover {
 	border: none;
-	text-align: center;
+	text-align: right;
 	font-weight: bold;
 	color: #fff;
 	cursor: pointer;
