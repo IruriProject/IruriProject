@@ -4,4 +4,6 @@
 
 <mapper namespace="spring.mvc.mapper.UFnMapperInter">
 
+
+
 </mapper>
