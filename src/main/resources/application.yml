@@ -1,0 +1,35 @@
+#tomcat port
+server:
+  port: 9003 #3조니까!
+
+#jsp
+spring:
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/
+#      suffix: .jsp
+  devtools:
+    livereload:
+      enabled: true
+
+#files
+  servlet:
+    multipart:
+      file-size-threshold: 1MB
+      location: /WEB-INF/
+      max-file-size: 100MB
+      max-request-size: 100MB
+      
+#mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://iruri.cft5merq7wis.ap-northeast-2.rds.amazonaws.com:3306/iruri?serverTimezone=Asia/Seoul
+    username: iruri
+    password: iruri1226
+    
+#mybatis
+mybatis:
+  type-aliases-package: spring.mvc.mapper, spring.mvc.dto #mapper, dto 있는 패키지, 패키지.*도 가능
+  mapper-locations:
+  - /mapper/**/*.xml
+ 
