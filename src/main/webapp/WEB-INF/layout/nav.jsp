@@ -82,7 +82,7 @@
 	list-style: none;
 }
 .o_menu li {
-	width: 170px;
+	width: 160px;
 	float: left;
 	border: none;
 	height: 50px;
@@ -91,6 +91,7 @@
 	font-size: 20px;
 	font-weight: 700;
 	cursor: pointer;
+	margin-top: 5px;
 }
 .o_menu li:hover {
 	border: none;

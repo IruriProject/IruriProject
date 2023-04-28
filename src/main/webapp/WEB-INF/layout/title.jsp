@@ -26,7 +26,7 @@
 }
 .search {
 	float: left;
-	width: 450px;
+	width: 480px;
 	height: 100%;
 	padding: 20px;
 	margin: 0 auto;
@@ -50,7 +50,7 @@
 .searchipput:focus {outline: 1.5px solid #4E9F3D;}
 .usernav {
 	float: right;
-	width: 300px;
+	width: 270px;
 	height: 100%;
 	padding: 50px 30px 30px 0px;
 	margin-top:-10px;
