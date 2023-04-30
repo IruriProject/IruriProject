@@ -37,7 +37,7 @@ div.layout div.main {
 	min-height: 400px;
   	margin: 30px 100px;
   	width: 80%;
-  	padding:50px;
+  	padding:40px;
 }
 div.layout div.footer {
 	height: 130px;
