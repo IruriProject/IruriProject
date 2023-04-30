@@ -1,8 +1,36 @@
 package spring.mvc.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import spring.mvc.dto.EnterpriseDto;
+import spring.mvc.mapper.EnterpriseMapperInter;
 
 @Service
 public class EnterpriseService {
+	
+	@Autowired
+	EnterpriseMapperInter mapper;
 
+	public int enterIdPassCheck(String e_id, String e_pw) {
+		
+		Map<String, String> map=new HashMap<>();
+		
+		map.put("e_id", e_id);
+		map.put("e_pw", e_pw);
+		
+		return mapper.EnterIdPassCheck(map);
+	}
+	
+	public EnterpriseDto findEnterdataById(String e_id) {
+		return mapper.findEnterById(e_id);
+	}
+	
+	public void joinEnterprise(EnterpriseDto dto) {
+		mapper.joinEnterprise(dto);
+	}
+	
 }
