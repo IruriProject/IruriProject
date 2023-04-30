@@ -134,7 +134,7 @@ $(document).ready(function(){
         <li>
             <a href="/mypage" class="mainMenu">회원서비스</a>
             <ul class="subMenu">
-                <li><a href="hi">개인정보 관리</a></li>
+                <li><a href="/edit">개인정보 관리</a></li>
                 <li><a href="hi">이력서 관리</a></li>
                 <li><a href="hi">관심 기업</a></li>
                 <li><a href="hi">지원현황</a></li>

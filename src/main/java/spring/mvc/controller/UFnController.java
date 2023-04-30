@@ -14,5 +14,9 @@ public class UFnController {
 	public String uphoto() {
 		return "/user/updatephoto";
 	}
+	@GetMapping("/edit")
+	public String euser() {
+		return "/user/editmain";
+	}
 	
 }

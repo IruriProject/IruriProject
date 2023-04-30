@@ -1,18 +1,20 @@
 @charset "EUC-KR";
 .bg-light{background-color:#ffffff !important}
 .mb-0{margin-bottom:0 !important}
-.h-100{height:100% !important}
-.d-flex{display:flex !important}
-.w-100{width:100% !important}
+.mb-2{margin-bottom:.5rem !important}
 .mb-4{margin-bottom:1.5rem !important}
-.pt-4{padding-top:1.5rem !important}
-.px-4{padding-right:1.5rem !important}
+.h-100{height:100% !important}
+.w-100{width:100% !important}
+.w-75{width:75% !important}
+.w-25{width:25% !important}
+.d-flex{display:flex !important}
 .col-sm-12{flex:0 0 auto;width:100%}
 .col-md-6{flex:0 0 auto;width:50%}
 .col-xl-4{flex:0 0 auto;width:33.33333%}
 .p-4{padding:1.5rem !important}
-.mb-2{margin-bottom:.5rem !important}
 .py-3{padding-top:1rem !important;padding-bottom:1rem !important}
+.px-4{padding-right:1.5rem !important}
+.pt-4{padding-top:1.5rem !important}
 .ms-3{margin-left:1rem !important}
 .justify-content-between{justify-content:space-between !important}
 .align-items-center{align-items:center !important}
