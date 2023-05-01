@@ -122,7 +122,7 @@ body {
 				var loginPw = "${sessionScope.loginPw}";
 				var inputPw = document.getElementById("inputPw").value;
 				if (loginPw === inputPw) {
-					location.href = "update/user";
+					location.href = "updateuser";
 				} else {
 					alert("비밀번호가 일치하지 않습니다.");
 				}

@@ -76,6 +76,7 @@ public class JoinController {
 	public String logout(HttpSession session) {
 		
 		session.removeAttribute("loginId");
+		session.removeAttribute("loginPw");
 		session.removeAttribute("loginStatus");
 		session.removeAttribute("loginName");
 		

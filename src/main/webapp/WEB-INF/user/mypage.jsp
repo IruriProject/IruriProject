@@ -40,7 +40,7 @@ div {
 				<div class="col-sm-12 col-md-3 col-xl-4 w-25">
 					<div style="width: 150px; height: 200px;">사진</div>
 					<!-- 모달창 띄우기, 사진 등록 jsp 생성(input file)한 후 / 또는 ajax, 사진을 user에 update하면 된다. -->
-					<button>사진 등록</button>
+					<button type="button" onclick="location.href='updatephoto'">사진 등록</button>
 					<br>
 					<button type="button" onclick="location.href='update'">개인정보 수정</button>
 				</div>

@@ -11,9 +11,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form action="uphoto">
+<form action="updatephoto">
 <input type="file">
 <button type="submit">저장</button>
+사진등록 모달창!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 </form>
 </body>
 </html>
