@@ -4,4 +4,8 @@
 
 <mapper namespace="spring.mvc.mapper.EFnMapperInter">
 
+	<select id="getPosting" parameterType="String" resultType="Map">
+		select POSTING.*, ENTERPRISE.* from POSTING inner join ENTERPRISE on POSTING.e_num = ENTERPRISE.e_num where POSTING.p_num = #{p_num}
+	</select>
+
 </mapper>
