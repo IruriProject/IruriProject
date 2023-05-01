@@ -8,19 +8,19 @@ public class UFnController {
 
 	@GetMapping("/mypage")
 	public String home() {
-		return "/user/mypagetest";
+		return "/user/mypage";
 	}
 	@GetMapping("/updatephoto")
 	public String uphoto() {
 		return "/user/updatephoto";
 	}
-	@GetMapping("/edit")
+	@GetMapping("/update")
 	public String edit() {
-		return "/user/editmain";
+		return "/user/updatemain";
 	}
-	@GetMapping("/edituser")
+	@GetMapping("/update/user")
 	public String euser() {
-		return "/user/edituser";
+		return "/user/updateuser";
 	}
 	
 }
