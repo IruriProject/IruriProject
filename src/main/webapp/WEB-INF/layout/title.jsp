@@ -15,12 +15,13 @@
 	height: 100%;
 	padding: 3px 10px 10px 130px;
 }
-.logo a {
+
+.a {
 	color: #000;
 	font-weight: bold;
 	text-align: center;
 }
-.logo a:hover {
+.a:hover {
 	color: #000;
 	text-decoration: none;
 }
@@ -79,8 +80,25 @@
 </div>
 
 <div class="usernav">
-<a href="#">로그인</a> | <a href="#">회원가입</a>
-<span class="glyphicon glyphicon-envelope" style="padding:0 10px;"></span>
+
+	<!-- 로그아웃 상태 -->
+	<c:if test="${sessionScope.loginStatus==null }">
+	<a href="login">로그인</a> | <a href="join">회원가입</a>
+	</c:if>
+	
+	<!-- 로그인 상태 / 개인 -->
+	<c:if test="${sessionScope.loginStatus=='user' }">
+	${sessionScope.loginName }님 안녕하세요
+	<span class="glyphicon glyphicon-envelope" style="padding:0 10px;"></span> <br>
+	<a href="logout" style="padding-left: 100px;">로그아웃</a>
+	</c:if>
+	
+	<!-- 로그인 상태 / 기업 -->
+	<c:if test="${sessionScope.loginStatus=='enterprise' }">
+	${sessionScope.loginName }님 안녕하세요 <br>
+	[기업회원]
+	<a href="logout">로그아웃</a>
+	</c:if>
 </div>
 </body>
 </html>

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import spring.mvc.dto.UserDto;
 import spring.mvc.mapper.UserMapperInter;
 
 @Service
@@ -14,6 +15,7 @@ public class UserService {
 	@Autowired
 	UserMapperInter mapper;
 
+	//로그인
 	public int userIdPassCheck(String u_id, String u_pw) {
 		
 		Map<String, String> map=new HashMap<>();
@@ -22,5 +24,15 @@ public class UserService {
 		map.put("u_pw", u_pw);
 		
 		return mapper.userIdPassCheck(map);
+	}
+	
+	//id로 유저정보 찾기
+	public UserDto findUserdataById(String u_id) {
+		return mapper.findUserById(u_id);
+	}
+	
+	//회원가입
+	public void joinUser(UserDto dto) {
+		mapper.joinUser(dto);
 	}
 }

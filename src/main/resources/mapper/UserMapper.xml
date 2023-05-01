@@ -6,6 +6,16 @@
 
 	<!-- 로그인 -->
 	<select id="userIdPassCheck" parameterType="Map" resultType="int">
-	select count(*) from member where u_id=#{u_id} and u_pw=#{u_pw}
+	select count(*) from USER where u_id=#{u_id} and u_pw=#{u_pw}
 	</select>
+	
+	<!-- id로 user 정보찾기 -->
+	<select id="findUserById" resultType="udto" parameterType="String">
+	select * from USER where u_id=#{u_id}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="joinUser" parameterType="udto">
+	insert into USER values(null,#{u_id},#{u_pw},#{u_name},#{u_gender},#{u_birth},#{u_hp},#{u_email},#{u_addr},null,#{u_email_agree})
+	</insert>
 </mapper>

@@ -9,6 +9,8 @@ import lombok.Data;
 public class UserDto {
 
 	private String u_num;
+	private String u_id;
+	private String u_pw;
 	private String u_name;
 	private String u_gender;
 	private String u_birth;
@@ -16,4 +18,5 @@ public class UserDto {
 	private String u_email;
 	private String u_addr;
 	private String u_photo;
+	private String u_email_agree;
 }
