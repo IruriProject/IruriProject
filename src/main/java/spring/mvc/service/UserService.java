@@ -36,7 +36,5 @@ public class UserService {
 		mapper.joinUser(dto);
 	}
 	
-	public void updateUser(UserDto dto) {
-		mapper.updateUser(dto);
-	}
+
 }

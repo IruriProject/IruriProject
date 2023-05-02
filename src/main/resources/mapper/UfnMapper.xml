@@ -3,7 +3,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="spring.mvc.mapper.UFnMapperInter">
-
-
-
+	<!-- 정보 변경 -->
+	<update id="updateUser" parameterType="udto">
+	update USER set u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email}, u_addr=#{u_addr} where u_id=#{u_id}
+	</update>
+	
+	<update id="updatePhoto" parameterType="udto">
+	update USER set u_photo=#{u_photo} where u_id=#{u_id}
+	</update>
+	
 </mapper>

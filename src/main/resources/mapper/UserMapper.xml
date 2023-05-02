@@ -19,8 +19,4 @@
 	insert into USER values(null,#{u_id},#{u_pw},#{u_name},#{u_gender},#{u_birth},#{u_hp},#{u_email},#{u_addr},null,#{u_email_agree})
 	</insert>
 	
-	<!-- 정보 변경 -->
-	<update id="updateUser" parameterType="udto">
-	update USER set u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email}, u_addr=#{u_addr} where u_id=#{u_id}
-	</update>
 </mapper>

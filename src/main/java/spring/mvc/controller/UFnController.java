@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.UserDto;
+import spring.mvc.service.UFnService;
 import spring.mvc.service.UserService;
 
 @Controller
 public class UFnController {
 	
 	@Autowired
+	UFnService uservice;
+	
+	@Autowired
 	UserService service;
+	
 
 	@GetMapping("/mypage")
 	public String home() {
@@ -39,8 +44,7 @@ public class UFnController {
 	@PostMapping("/updateUserInfo")
 	public String uInfo(UserDto dto, String addr1, String addr2, String addr3) {
 		dto.setU_addr(addr1+" "+addr2+" "+addr3);
-		service.updateUser(dto);
-		System.out.println(dto);
+		uservice.updateUser(dto);
 		return "redirect:mypage";
 	}
 }
