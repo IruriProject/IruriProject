@@ -165,6 +165,10 @@
   .formbold-w-45 {
     width: 45%;
   }
+  
+  #idcheck{
+    color: red;
+  }
 </style>
 		
 <title>Insert title here</title>
@@ -175,7 +179,7 @@
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
   <div class="formbold-form-wrapper">
-    <form action="action" method="POST">
+    <form action="/action" method="POST">
 
       <div class="formbold-input-wrapp formbold-mb-3">
         <label class="formbold-form-label"> 아이디 </label>
@@ -183,12 +187,48 @@
           <input
             type="text"
             name="u_id"
-            placeholder="가입할 아이디를 입력해주세요"
+            id="u_id"
+            placeholder="영문, 숫자로 구성된 6-12자의 아이디를 입력해주세요"
+            min="6" max="12"
             class="formbold-form-input"
           />
-          <button type="button" class="formbold-btn btn-s">중복확인</button>
-        </div>
+          <button type="button" class="formbold-btn btn-s" id="btn-idcheck">중복확인</button>
+          </div>
+          <div>
+          <div id="idcheck">중복된 아이디입니다.</div>
+          </div>
       </div>
+      
+      <script type="text/javascript">
+        
+	    //아이디입력시 idsuccess값 지움
+	  	$("#loginid").keydown(function(){
+	  		$(".idsuccess").text("");
+	  	})
+	  	
+	    //중복체크 버튼 클릭시
+      	$("#btn-idcheck").click(function(){
+      		
+      		const id=$("#u_id").val(); 
+      		
+	  		$.ajax({
+	  			type:"get",
+	  			url:"/member/idcheck",
+	  			dataType:"json",
+	  			data:{"id":id},
+	  			success:function(res){
+	  				if(res.count==0){
+	  					$(".idsuccess").text("ok");
+	  				}else{
+	  					$(".idsuccess").text("fail");
+	  				}
+	  			}
+	  		})
+	  		
+      		$("#idcheck").html();
+      	})
+      
+      </script>
 
       <div class="formbold-mb-3">
         <label class="formbold-form-label"> 비밀번호 </label>
