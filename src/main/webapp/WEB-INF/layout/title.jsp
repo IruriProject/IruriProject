@@ -72,7 +72,7 @@
 <body>
 <div class="logo">
 <!-- <a href="main"><h1 style="color:#4E9F3D; font-size:36px;">이루리</h1></a> -->
-<a href="${root }"><img src="${root }/image/logo.jpg" style="width:170px;"></a>
+<a href="${root }/"><img src="${root }/image/logo.jpg" style="width:170px;"></a>
 </div>
 <div class="search">
       <i class="glyphicon glyphicon-search" id="searchcon" style="color:#41644a;"></i>
@@ -83,21 +83,21 @@
 
 	<!-- 로그아웃 상태 -->
 	<c:if test="${sessionScope.loginStatus==null }">
-	<a href="login">로그인</a> | <a href="join">회원가입</a>
+	<a href="/login">로그인</a> | <a href="/join">회원가입</a>
 	</c:if>
 	
 	<!-- 로그인 상태 / 개인 -->
 	<c:if test="${sessionScope.loginStatus=='user' }">
 	${sessionScope.loginName }님 안녕하세요
 	<span class="glyphicon glyphicon-envelope" style="padding:0 10px;"></span> <br>
-	<a href="logout" style="padding-left: 100px;">로그아웃</a>
+	<a href="/logout" style="padding-left: 100px;">로그아웃</a>
 	</c:if>
 	
 	<!-- 로그인 상태 / 기업 -->
 	<c:if test="${sessionScope.loginStatus=='enterprise' }">
 	${sessionScope.loginName }님 안녕하세요 <br>
 	[기업회원]
-	<a href="logout">로그아웃</a>
+	<a href="/logout">로그아웃</a>
 	</c:if>
 </div>
 </body>

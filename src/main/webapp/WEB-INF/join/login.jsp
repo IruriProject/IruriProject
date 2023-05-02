@@ -124,7 +124,7 @@
 <!-- 개인로그인 -->
 <div class="formbold-main-wrapper">
   <div class="formbold-form-wrapper">
-    <form action="login/user" method="POST">
+    <form action="/login/user" method="POST">
 
       <div class="formbold-mb-3">
         <label for="login" class="formbold-form-label"> 일반회원 로그인 </label>
@@ -151,7 +151,7 @@
 <!-- 기업로그인 -->
 <div class="formbold-main-wrapper">
   <div class="formbold-form-wrapper">
-    <form action="login/enterprise" method="POST">
+    <form action="/login/enterprise" method="POST">
 
       <div class="formbold-mb-3">
         <label for="login" class="formbold-form-label"> 기업회원 로그인 </label>
