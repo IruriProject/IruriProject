@@ -16,9 +16,16 @@
 		select count(h_num) from HEART where u_num=#{u_num}
 	</select>
 	
+	<insert id="likeEnterprise" parameterType="hdto">
+		insert into heart (u_num, e_num) values (#{u_num},#{e_num})
+	</insert>
+	
 	<select id="getEnterPrise" resultType="edto" parameterType="string">
 		select * from ENTERPRISE where e_num=#{e_num}
 	</select>
+	
+	
+	
 	
 	
 </mapper>

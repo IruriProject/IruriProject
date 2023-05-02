@@ -1,5 +1,7 @@
 package spring.mvc.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -49,27 +51,22 @@ public class UFnController {
 		return "redirect:mypage";
 	}
 	
-	
-	@GetMapping("/enterprise")
-	public ModelAndView likeEnterPrise(String num) {
-		
+	//관심기업페이지
+	@GetMapping("/enterLike")
+	public ModelAndView likeEnterList(String num) {
+			
 		ModelAndView model=new ModelAndView();
+			
+		EnterpriseDto dto=uservice.getEnterPrise(num);
 		int countLikeEnter= uservice.countLikeEnterprise(num);
 		
 		model.addObject("countLikeEnter", countLikeEnter);
+		model.addObject("dto", dto);
 		model.setViewName("/user/likeenterprise");
-		
+			
 		return model;
 	}
-/*
- * @GetMapping("/enterprise") public ModelAndView getEnterPrise(String num) {
- * 
- * ModelAndView model=new ModelAndView();
- * 
- * EnterpriseDto dto=uservice.getEnterPrise(num); model.addObject("dto", dto);
- * model.setViewName("/user/likeenterprise");
- * 
- * return model; }
- */ 
-  }
-
+	
+	
+	
+}

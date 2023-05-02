@@ -90,7 +90,7 @@ div {
 					</div>
 					<br>
 					<div class="h-100 bg-light rounded p-4">
-						<button type="button" onclick="location.href='enterprise'">관심기업</button>
+						<button type="button" onclick="location.href='enterLike'">관심기업</button>
 						<button type="button" onclick="location.href=''">관심직종</button>
 						<button type="button" onclick="location.href=''">관심채용</button>
 						<button type="button" onclick="location.href=''">관심근무지</button>
@@ -177,7 +177,7 @@ div {
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h6 class="mb-0">관심 기업</h6>
-					<a href="enterprise">Show All</a>
+					<a href="enterLike">Show All</a>
 				</div>
 				<div class="table-responsive">
 					<table

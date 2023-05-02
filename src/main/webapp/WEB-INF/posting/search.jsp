@@ -15,7 +15,7 @@
 siasia
 
 	
-	<button type="button" id="btnlikeenterprise" class="glyphicon glyphicon-heart-empty" style="width: 200px;" >좋아요</button>
+	
 	
 </body>
 </html>

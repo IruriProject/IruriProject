@@ -45,6 +45,7 @@ div {
 	<h3 class="alert alert-info">총 ${countLikeEnter }개의 관심 기업</h3>
 
 	<!-- Recent Sales Start -->
+	<!-- <form action="getEnter" method="get" ></form> -->
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
@@ -59,11 +60,11 @@ div {
 							<tr class="text-dark">
 								<th scope="col"><input class="form-check-input"
 									type="checkbox"></th>
+								<th scope="col">No.</th>
 								<th scope="col">기업명</th>
 								<th scope="col">주소</th>
 								<th scope="col">전화번호</th>
 								<th scope="col">이메일</th>
-								<th scope="col">Status</th>
 								<th scope="col">Action</th>
 							</tr>
 						</thead>
