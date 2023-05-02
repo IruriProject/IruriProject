@@ -90,9 +90,10 @@ div {
 					</div>
 					<br>
 					<div class="h-100 bg-light rounded p-4">
-						<button type="button">관심기업</button>
-						<button type="button">관심직종</button>
-						<button type="button">관심근무지</button>
+						<button type="button" onclick="location.href='enterprise'">관심기업</button>
+						<button type="button" onclick="location.href=''">관심직종</button>
+						<button type="button" onclick="location.href=''">관심채용</button>
+						<button type="button" onclick="location.href=''">관심근무지</button>
 						<br>
 					</div>
 				</div>
@@ -175,66 +176,8 @@ div {
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h6 class="mb-0">관심기업</h6>
-					<a href="">Show All</a>
-				</div>
-				<div class="table-responsive">
-					<table
-						class="table text-start align-middle table-bordered table-hover mb-0">
-						<thead>
-							<tr class="text-dark">
-								<th scope="col"><input class="form-check-input"
-									type="checkbox"></th>
-								<th scope="col">Date</th>
-								<th scope="col">Invoice</th>
-								<th scope="col">Customer</th>
-								<th scope="col">Amount</th>
-								<th scope="col">Status</th>
-								<th scope="col">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-							</tr>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-							</tr>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<!-- Recent Sales End -->
-
-
-		<!-- Recent Sales Start -->
-		<div class="container-fluid pt-4 px-4">
-			<div class="bg-light text-center rounded p-4">
-				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h6 class="mb-0">관심채용</h6>
-					<a href="">Show All</a>
+					<h6 class="mb-0">관심 기업</h6>
+					<a href="enterprise">Show All</a>
 				</div>
 				<div class="table-responsive">
 					<table
@@ -292,7 +235,122 @@ div {
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h6 class="mb-0">관심 직종</h6>
-					<a href="">Show All</a>
+					<a href="occupation">Show All</a>
+				</div>
+				<div class="table-responsive">
+					<table
+						class="table text-start align-middle table-bordered table-hover mb-0">
+						<thead>
+							<tr class="text-dark">
+								<th scope="col"><input class="form-check-input"
+									type="checkbox"></th>
+								<th scope="col">Date</th>
+								<th scope="col">Invoice</th>
+								<th scope="col">Customer</th>
+								<th scope="col">Amount</th>
+								<th scope="col">Status</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input class="form-check-input" type="checkbox"></td>
+								<td>01 Jan 2045</td>
+								<td>INV-0123</td>
+								<td>Jhon Doe</td>
+								<td>$123</td>
+								<td>Paid</td>
+								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+							</tr>
+							<tr>
+								<td><input class="form-check-input" type="checkbox"></td>
+								<td>01 Jan 2045</td>
+								<td>INV-0123</td>
+								<td>Jhon Doe</td>
+								<td>$123</td>
+								<td>Paid</td>
+								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+							</tr>
+							<tr>
+								<td><input class="form-check-input" type="checkbox"></td>
+								<td>01 Jan 2045</td>
+								<td>INV-0123</td>
+								<td>Jhon Doe</td>
+								<td>$123</td>
+								<td>Paid</td>
+								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- Recent Sales End -->
+
+
+		<!-- Recent Sales Start -->
+		<div class="container-fluid pt-4 px-4">
+			<div class="bg-light text-center rounded p-4">
+				<div class="d-flex align-items-center justify-content-between mb-4">
+					<h6 class="mb-0">관심 채용</h6>
+					<a href="scrap">Show All</a>
+				</div>
+				<div class="table-responsive">
+					<table
+						class="table text-start align-middle table-bordered table-hover mb-0">
+						<thead>
+							<tr class="text-dark">
+								<th scope="col"><input class="form-check-input"
+									type="checkbox"></th>
+								<th scope="col">Date</th>
+								<th scope="col">Invoice</th>
+								<th scope="col">Customer</th>
+								<th scope="col">Amount</th>
+								<th scope="col">Status</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input class="form-check-input" type="checkbox"></td>
+								<td>01 Jan 2045</td>
+								<td>INV-0123</td>
+								<td>Jhon Doe</td>
+								<td>$123</td>
+								<td>Paid</td>
+								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+							</tr>
+							<tr>
+								<td><input class="form-check-input" type="checkbox"></td>
+								<td>01 Jan 2045</td>
+								<td>INV-0123</td>
+								<td>Jhon Doe</td>
+								<td>$123</td>
+								<td>Paid</td>
+								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+							</tr>
+							<tr>
+								<td><input class="form-check-input" type="checkbox"></td>
+								<td>01 Jan 2045</td>
+								<td>INV-0123</td>
+								<td>Jhon Doe</td>
+								<td>$123</td>
+								<td>Paid</td>
+								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- Recent Sales End -->
+		
+		<!-- Recent Sales Start -->
+		<div class="container-fluid pt-4 px-4">
+			<div class="bg-light text-center rounded p-4">
+				<div class="d-flex align-items-center justify-content-between mb-4">
+					<h6 class="mb-0">관심 근무지</h6>
+					<a href="place">Show All</a>
 				</div>
 				<div class="table-responsive">
 					<table

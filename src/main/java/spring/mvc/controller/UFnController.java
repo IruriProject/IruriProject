@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.UserDto;
 import spring.mvc.service.UFnService;
 import spring.mvc.service.UserService;
@@ -47,4 +48,28 @@ public class UFnController {
 		uservice.updateUser(dto);
 		return "redirect:mypage";
 	}
-}
+	
+	
+	@GetMapping("/enterprise")
+	public ModelAndView likeEnterPrise(String num) {
+		
+		ModelAndView model=new ModelAndView();
+		int countLikeEnter= uservice.countLikeEnterprise(num);
+		
+		model.addObject("countLikeEnter", countLikeEnter);
+		model.setViewName("/user/likeenterprise");
+		
+		return model;
+	}
+/*
+ * @GetMapping("/enterprise") public ModelAndView getEnterPrise(String num) {
+ * 
+ * ModelAndView model=new ModelAndView();
+ * 
+ * EnterpriseDto dto=uservice.getEnterPrise(num); model.addObject("dto", dto);
+ * model.setViewName("/user/likeenterprise");
+ * 
+ * return model; }
+ */ 
+  }
+
