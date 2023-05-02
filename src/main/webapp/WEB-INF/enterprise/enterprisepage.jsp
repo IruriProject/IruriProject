@@ -14,12 +14,15 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
 	rel="stylesheet">
-	
+
 
 <!-- Libraries Stylesheet -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link href="${root }/css/usercss/owl.carousel.min.css" rel="stylesheet">
 <link href="${root }/css/usercss/tempusdominus-bootstrap-4.min.css"
 	rel="stylesheet" />
@@ -43,28 +46,26 @@
 		<div class="container-fluid pt-4 px-4">
 			<div class="row g-4 hi">
 				<div class="col-sm-12 col-md-6 col-xl-7 w-25">
-					<div style="width: 150px; height: 100%"><img src="${dto.e_logo }" width="100%"></div>
-					<br><br>
-					<button type="button" onclick="location.href='update'">회사정보 수정</button>
+					<div style="width: 150px; height: 100%">
+						<img src="${dto.e_logo }" width="100%">
+					</div>
+					<br>
+					<br>
+					<button type="button" onclick="location.href='update'">회사정보
+						수정</button>
 				</div>
 				<div class="col-sm-12 col-md-6 col-xl-7 w-75">
 					<div class="h-100 bg-light rounded p-4">
-						기업명 : ${dto.e_name }
-						<br>
+						기업명 : ${dto.e_name } <br>
 					</div>
 					<br>
 					<div class="h-100 bg-light rounded p-4">
-						전화번호 : ${dto.e_tel }
-						<br>
+						전화번호 : ${dto.e_tel } <br>
 					</div>
 					<br>
-					<div class="h-100 bg-light rounded p-4">
-						위치 : ${dto.e_addr }
-					</div>
+					<div class="h-100 bg-light rounded p-4">위치 : ${dto.e_addr }</div>
 					<br>
-					<div class="h-100 bg-light rounded p-4">
-						관심기업수
-					</div>
+					<div class="h-100 bg-light rounded p-4">관심기업수</div>
 				</div>
 			</div>
 		</div>
@@ -153,44 +154,26 @@
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col"><input class="form-check-input"
-									type="checkbox"></th>
-								<th scope="col">Date</th>
-								<th scope="col">Invoice</th>
-								<th scope="col">Customer</th>
-								<th scope="col">Amount</th>
-								<th scope="col">Status</th>
-								<th scope="col">Action</th>
+								<th scope="col" style="text-align: center">공고제목</th>
+								<th scope="col" style="text-align: center">공고일</th>
+								<th scope="col" style="text-align: center">직종</th>
+								<th scope="col" style="text-align: center">공고마감일</th>
+								<th scope="col" style="text-align: center">공고상태</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-							</tr>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-							</tr>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-							</tr>
+							<c:forEach var="post" items="${postings }">
+								<tr>
+									<td style="text-align: left"><a
+										href="posting/detailpage?p_num=${post.p_num }">&nbsp;&nbsp;${post.p_title }</a></td>
+									<td><fmt:formatDate value="${post.p_writeday }"
+											pattern="yyyy-MM-dd" /></td>
+									<td>${post.p_type }</td>
+									<td>${post.p_enddate }</td>
+									<td><select><option value="지원가능" ${post.p_status=="지원가능"?'selected':'' }>지원가능</option>
+											<option value="지원마감" ${post.p_status=="지원마감"?'selected':'' }>지원마감</option></select></td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
@@ -256,10 +239,13 @@
 		<!-- Recent Sales End -->
 		<br>
 		<button type="button" style="width: 100%; height: 50px;">열람권신청</button>
-		<br><br>
+		<br>
+		<br>
 		<button type="button" style="width: 100%; height: 50px;">기업인증</button>
-		<br><br>
-		<button type="button"style="width: 100%; height: 50px;" onclick="location.href='confirmpass?e_num=${dto.e_num}'">기업회원탈퇴</button>
+		<br>
+		<br>
+		<button type="button" style="width: 100%; height: 50px;"
+			onclick="location.href='enterprise/confirmpass?e_num=${dto.e_num}'">기업회원탈퇴</button>
 
 	</div>
 	<!-- Content End -->

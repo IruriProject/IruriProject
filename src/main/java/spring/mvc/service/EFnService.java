@@ -1,5 +1,6 @@
 package spring.mvc.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class EFnService {
 	
 	public void insertPosting(PostingDto dto) {
 		mapper.insertPosting(dto);
+	}
+	
+	public List<PostingDto> getAllPostings(String e_num){
+		return mapper.getAllPostings(e_num);
 	}
 
 }

@@ -25,6 +25,11 @@ public class EFnController {
 
 	@Autowired
 	EnterpriseService e_service;
+	
+	@GetMapping("")
+	public String posting() {
+		return "/posting/search";
+	}
 
 	@GetMapping("/write")
 	public String writeForm(Model model, HttpSession session) {
