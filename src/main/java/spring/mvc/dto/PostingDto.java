@@ -25,5 +25,5 @@ public class PostingDto {
 	private String p_status;
 	private int p_hirenum;
 	private Timestamp p_startdate;
-	private Timestamp p_enddate;
+	private String p_enddate;
 }
