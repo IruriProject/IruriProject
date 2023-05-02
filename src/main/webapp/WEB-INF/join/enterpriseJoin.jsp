@@ -175,7 +175,7 @@
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
   <div class="formbold-form-wrapper">
-    <form action="/action/enter" method="POST">
+    <form action="action/enter" method="POST">
 
       <div class="formbold-input-wrapp formbold-mb-3">
         <label class="formbold-form-label"> 아이디 </label>
