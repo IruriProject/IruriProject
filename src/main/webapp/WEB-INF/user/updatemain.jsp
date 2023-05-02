@@ -65,13 +65,22 @@ body {
 }
 
 .formbold-form-input {
-	width: 100%;
+	width: 95%;
 	padding: 13px 22px;
 	border-radius: 5px;
 	border: 1px solid #dde3ec;
 	font-weight: 500;
 	font-size: 16px;
 	color: #536387;
+	outline: none;
+	resize: none;
+}
+#i{	
+	cursor: pointer;
+	width: 3%;
+	padding: 15px;
+	border-radius: 5px;
+	border: 0px solid #dde3ec;
 	outline: none;
 	resize: none;
 }
@@ -110,8 +119,9 @@ body {
 		<br>
 	</div>
 	<div class="formbold-mb-3">
-		<input type="password" id="inputPw" class="formbold-form-input"
+		<input type="password" id="inputPw" class="formbold-form-input" style="float:left"
 			placeholder="비밀번호 입력">
+		<i class="glyphicon glyphicon-eye-open" id="i"></i>
 	</div>
 	<button onclick="checkPw()" class="formbold-btn">버튼</button>
 
@@ -129,6 +139,21 @@ body {
 			}
 		</script>
 	</c:if>
+	<script type="text/javascript">
+	$(document).ready(function(){
+	    $('#i').on('click',function(){
+	        $('input').toggleClass('active');
+	        if($('input').hasClass('active')){
+	            $(this).attr('class',"glyphicon glyphicon-eye-close")
+	            .prev('input').attr('type',"text");
+	        }else{
+	            $(this).attr('class',"glyphicon glyphicon-eye-open")
+	            .prev('input').attr('type','password');
+	        }
+	    });
+	});
+
+	</script>
 
 </body>
 </html>

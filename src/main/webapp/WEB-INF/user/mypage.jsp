@@ -15,7 +15,6 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
 	rel="stylesheet">
 	
-
 <!-- Libraries Stylesheet -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -43,10 +42,12 @@ div {
 		<div class="container-fluid pt-4 px-4">
 			<div class="row g-4">
 				<div class="col-sm-12 col-md-3 col-xl-4 w-25">
-					<div style="width: 150px; height: 200px;">사진</div>
+					<div style="width: 150px; height: 200px;" id="photoZone">
+					<img alt="" src="/photo/${dto.u_photo}" style="width: 150px; height: 200px;">
+					</div>
 					<!-- 모달창 띄우기, 사진 등록 jsp 생성(input file)한 후 / 또는 ajax, 사진을 user에 update하면 된다. -->
 					
-					<div class="container">
+					<div>
 					  <!-- Modal -->
 					  <div class="modal fade" id="myPhoto" role="dialog">
 					    <div class="modal-dialog">
@@ -58,10 +59,12 @@ div {
 					          <h4 class="modal-title">사진 등록</h4>
 					        </div>
 					        <div class="modal-body">
-					          <input type="file">
+					          <input type="file" id="inputFile">
+					          
 					        </div>
 					        <div class="modal-footer">
-					          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					          <button type="button" class="btn btn-default" id="uPhoto" loginId="${sessionScope.loginId}">등록</button>
+					          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					        </div>
 					      </div>
 					    </div>
@@ -83,7 +86,7 @@ div {
 					</div>
 					<br>
 					<div class="h-100 bg-light rounded p-4">
-						<button type="button">이력서 등록</button>
+						<button type="button" onclick="location.href='insertresume'">이력서 등록</button>
 						<button type="button">지원현황</button>
 						<button type="button">이력서 열람</button>
 						<br>
@@ -169,6 +172,63 @@ div {
 			</div>
 		</div>
 		<!-- Widgets End -->
+		
+		<!-- Recent Sales Start -->
+		<div class="container-fluid pt-4 px-4">
+			<div class="bg-light text-center rounded p-4">
+				<div class="d-flex align-items-center justify-content-between mb-4">
+					<h6 class="mb-0">이력서 목록</h6>
+					<a href="">Show All</a>
+				</div>
+				<div class="table-responsive">
+					<table
+						class="table text-start align-middle table-bordered table-hover mb-0">
+						<thead>
+							<tr class="text-dark">
+								<th scope="col"><input class="form-check-input"
+									type="checkbox"></th>
+								<th scope="col">Date</th>
+								<th scope="col">Invoice</th>
+								<th scope="col">Customer</th>
+								<th scope="col">Amount</th>
+								<th scope="col">Status</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input class="form-check-input" type="checkbox"></td>
+								<td>01 Jan 2045</td>
+								<td>INV-0123</td>
+								<td>Jhon Doe</td>
+								<td>$123</td>
+								<td>Paid</td>
+								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+							</tr>
+							<tr>
+								<td><input class="form-check-input" type="checkbox"></td>
+								<td>01 Jan 2045</td>
+								<td>INV-0123</td>
+								<td>Jhon Doe</td>
+								<td>$123</td>
+								<td>Paid</td>
+								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+							</tr>
+							<tr>
+								<td><input class="form-check-input" type="checkbox"></td>
+								<td>01 Jan 2045</td>
+								<td>INV-0123</td>
+								<td>Jhon Doe</td>
+								<td>$123</td>
+								<td>Paid</td>
+								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- Recent Sales End -->
 
 
 		<!-- Recent Sales Start -->
@@ -346,7 +406,7 @@ div {
 
 	</div>
 	<!-- Content End -->
-	</div>
+	
 
 	<!-- JavaScript Libraries -->
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -356,6 +416,29 @@ div {
 
 	<!-- Template Javascript -->
 	<script src="${root }/js/main.js"></script>
+	
+	<!-- 사진 등록 Ajax -->
+	<script type="text/javascript">
+	$(document).on("click", "#uPhoto", function(){
+		var u_id =$(this).attr("loginId"); //본인의 num을 호출
+		var form = new FormData();
+		form.append("u_photo", $("#inputFile")[0].files[0]);//선택한 한 개만 반드시 추가해준다.
+		form.append("u_id", u_id);
+	 	 $.ajax({
+			type : "post",
+			dataType : "text",
+			url : "/updatePhoto",
+			processData : false,
+			contentType : false,
+			data : form,
+			success : function() {
+				location.reload();
+			}
+		}) 
+	})
+	
+
+	</script>
 </body>
 
 </html>

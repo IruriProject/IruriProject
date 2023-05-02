@@ -8,8 +8,8 @@
 	update USER set u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email}, u_addr=#{u_addr} where u_id=#{u_id}
 	</update>
 	
-	<update id="updatePhoto" parameterType="udto">
-	update USER set u_photo=#{u_photo} where u_id=#{u_id}
+	<update id="updatePhoto" parameterType="Map">
+		update USER set u_photo=#{u_photo} where u_id=#{u_id}
 	</update>
 	
 </mapper>
