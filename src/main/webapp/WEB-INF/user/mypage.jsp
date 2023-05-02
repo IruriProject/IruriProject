@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +14,12 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
 	rel="stylesheet">
+	
 
 <!-- Libraries Stylesheet -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link href="${root }/css/usercss/owl.carousel.min.css" rel="stylesheet">
 <link href="${root }/css/usercss/tempusdominus-bootstrap-4.min.css"
 	rel="stylesheet" />
@@ -40,7 +45,35 @@ div {
 				<div class="col-sm-12 col-md-3 col-xl-4 w-25">
 					<div style="width: 150px; height: 200px;">사진</div>
 					<!-- 모달창 띄우기, 사진 등록 jsp 생성(input file)한 후 / 또는 ajax, 사진을 user에 update하면 된다. -->
-					<button type="button" onclick="location.href='updatephoto'">사진 등록</button>
+					
+					<div class="container">
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+					
+					<button type="button" data-toggle="modal" data-target="#myModal">사진 등록</button>
 					<br>
 					<button type="button" onclick="location.href='update'">개인정보 수정</button>
 				</div>
