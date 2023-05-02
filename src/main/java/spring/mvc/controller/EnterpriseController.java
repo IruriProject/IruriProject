@@ -65,4 +65,5 @@ public class EnterpriseController {
 			return "/enterprise/confirmFail";
 
 	}
+
 }

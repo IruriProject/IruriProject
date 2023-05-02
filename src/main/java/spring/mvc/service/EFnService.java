@@ -26,5 +26,9 @@ public class EFnService {
 	public List<PostingDto> getAllPostings(String e_num){
 		return mapper.getAllPostings(e_num);
 	}
+	
+	public void updatePostingStatus(Map<String, String> map) {
+		mapper.updatePostingStatus(map);
+	}
 
 }

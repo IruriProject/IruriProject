@@ -55,7 +55,7 @@
 					<div>
 						<label for="p_workday" class="formbold-form-label"> 요일 </label> <input
 							type="text" name="p_workday" id="p_workday"
-							placeholder="ex: 월,화,수,목,금" class="formbold-form-input" />
+							placeholder="ex: 월/수/금" class="formbold-form-input" />
 					</div>
 					<div>
 						<label for="p_hirenum" class="formbold-form-label"> 채용인원 </label>

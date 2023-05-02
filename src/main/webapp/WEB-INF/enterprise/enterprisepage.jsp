@@ -170,7 +170,7 @@
 											pattern="yyyy-MM-dd" /></td>
 									<td>${post.p_type }</td>
 									<td>${post.p_enddate }</td>
-									<td><select><option value="지원가능" ${post.p_status=="지원가능"?'selected':'' }>지원가능</option>
+									<td><select class="pStatus" pnum=${post.p_num }><option value="지원가능" ${post.p_status=="지원가능"?'selected':'' }>지원가능</option>
 											<option value="지원마감" ${post.p_status=="지원마감"?'selected':'' }>지원마감</option></select></td>
 								</tr>
 							</c:forEach>
@@ -180,6 +180,25 @@
 			</div>
 		</div>
 		<!-- Recent Sales End -->
+		
+		<script>
+		
+		$(".pStatus").change(function(){
+			var pStatus=$(this).val();
+			var pNum=$(this).attr("pnum");
+			//alert(pNum+","+pStatus);
+			$.ajax({
+				type:"get",
+				data:{"p_num":pNum,"p_status":pStatus},
+				dataType:"html",
+				url:"/posting/updateStatus",
+				success:function(){
+					alert("모집상태 변경 완료");
+				}
+			})
+		})
+		
+		</script>
 
 		<!-- Recent Sales Start -->
 		<div class="container-fluid pt-4 px-4">

@@ -16,5 +16,10 @@
 	<select id="getAllPostings" parameterType="String" resultType="pdto">
 		select * from POSTING where e_num=#{e_num}
 	</select>
+	
+	<!-- 공고상태 변경 -->
+	<update id="updatePostingStatus" parameterType="Map">
+		update POSTING set p_status=#{p_status} where p_num=#{p_num}
+	</update>
 
 </mapper>
