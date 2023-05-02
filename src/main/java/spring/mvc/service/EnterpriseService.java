@@ -33,4 +33,12 @@ public class EnterpriseService {
 		mapper.joinEnterprise(dto);
 	}
 	
+	public void withdrawEnterprise(String e_num,String e_pw) {
+		Map<String, String> map=new HashMap<>();
+		map.put("e_num", e_num);
+		map.put("e_pw", e_pw);
+		
+		mapper.withdrawEnterprise(map);
+	}
+	
 }

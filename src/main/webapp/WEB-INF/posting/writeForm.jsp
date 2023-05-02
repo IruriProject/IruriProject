@@ -17,9 +17,12 @@
 <body>
 	<div class="formbold-main-wrapper">
 		<div class="formbold-form-wrapper">
-			<form action="insertPosting" method="POST">
-			<div align="center">
-				<h2 style="font-weight: 600; color: #416442; background-color: #e3f2c9; width: 300px; height: 50px; font-size:1.8em; padding:10px 0px; border-radius: 10px; text-align: center;">공고등록</h2>
+			<form action="writeposting" method="POST">
+				<input type="hidden" name="e_num" id="e_num" value=${enterNum }
+					class="formbold-form-input" />
+				<div align="center">
+					<h2
+						style="font-weight: 600; color: #416442; background-color: #e3f2c9; width: 300px; height: 50px; font-size: 1.8em; padding: 10px 0px; border-radius: 10px; text-align: center;">공고등록</h2>
 				</div>
 				<br>
 				<div class="formbold-input-wrapp formbold-mb-3">
@@ -29,6 +32,12 @@
 						<input type="text" name="p_title" id="p_title"
 							placeholder="공고 제목을 입력해주세요." class="formbold-form-input" />
 					</div>
+				</div>
+
+				<div class="formbold-mb-3">
+					<label for="p_type" class="formbold-form-label"> 직종 </label> <input
+						type="text" name="p_type" id="p_type"
+						placeholder="직종을 입력해주세요 (ex: 광고/홍보)" class="formbold-form-input" />
 				</div>
 
 				<div class="formbold-mb-3">
@@ -78,8 +87,8 @@
 
 				<div class="formbold-mb-3">
 					<label for="p_content" class="formbold-form-label"> 상세내용 </label>
-						<textarea name="p_content" id="p_content" placeholder="상세내용을 입력해주세요."
-						class="pcontent-input"></textarea>
+					<textarea name="p_content" id="p_content"
+						placeholder="상세내용을 입력해주세요." class="pcontent-input"></textarea>
 				</div>
 
 				<div class="formbold-mb-3">
@@ -87,7 +96,7 @@
 					</label> <input type="date" name="p_enddate" id="p_enddate"
 						class="formbold-form-input" />
 				</div>
-<br>
+				<br>
 				<div class="formbold-checkbox-wrapper">
 					<label for="supportCheckbox" class="formbold-checkbox-label">
 						<div class="formbold-relative">
@@ -200,7 +209,7 @@ body {
 
 .pcontent-input {
 	width: 100%;
-	height:500px;
+	height: 500px;
 	padding: 13px 22px;
 	border-radius: 5px;
 	border: 1px solid #dde3ec;
@@ -212,8 +221,8 @@ body {
 	resize: none;
 }
 
-.formbold-form-input::placeholder, select.formbold-form-input, .pcontent-input::placeholder, 
-	.formbold-form-input[type='date']::-webkit-datetime-edit-text,
+.formbold-form-input::placeholder, select.formbold-form-input,
+	.pcontent-input::placeholder, .formbold-form-input[type='date']::-webkit-datetime-edit-text,
 	.formbold-form-input[type='date']::-webkit-datetime-edit-month-field,
 	.formbold-form-input[type='date']::-webkit-datetime-edit-day-field,
 	.formbold-form-input[type='date']::-webkit-datetime-edit-year-field {
