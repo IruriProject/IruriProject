@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.UserDto;
 import spring.mvc.service.UFnService;
 import spring.mvc.service.UserService;
@@ -90,5 +91,20 @@ public class UFnController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	//관심기업페이지
+	@GetMapping("/enterLike")
+	public ModelAndView likeEnterList(String num) {
+			
+		ModelAndView model=new ModelAndView();
+			
+		EnterpriseDto dto=uservice.getEnterPrise(num);
+		int countLikeEnter= uservice.countLikeEnterprise(num);
+		
+		model.addObject("countLikeEnter", countLikeEnter);
+		model.addObject("dto", dto);
+		model.setViewName("/user/likeenterprise");
+			
+		return model;
 	}
 }
