@@ -171,8 +171,8 @@ $(document).ready(function(){
 </nav>
 	<nav class="othermenu">
 		<ul class="o_menu">
-			<li><a href="insertresume">이력서등록</a></li>
-			<li><a href="/posting/insertForm">공고등록</a></li>
+			<li><a href="hi">이력서등록</a></li>
+			<li><a href="${root }/posting/write">공고등록</a></li>
 		</ul>
 	</nav>
 </body>

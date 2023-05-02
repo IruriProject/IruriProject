@@ -57,7 +57,8 @@ body {
 	width: 200px;
 	height: 80px;
 	border: 2px solid #e3f2c9;
-	border-radius: 10px; margin : 20px;
+	border-radius: 10px;
+	margin: 20px;
 	text-align: center;
 	line-height: 80px;
 	font-size: 1.5em;
@@ -114,8 +115,17 @@ body {
 							<div class="withbtnTitle fw-bolder mb-1"
 								style="color: #41644a; font-size: 2em">${dto.p_title }</div>
 							<div>
-								<button type="button" class="btn btn-info mt-2">지원하기</button>
-								<button type="button" class="btn btn-info mt-2">공고 스크랩</button>
+								<c:if
+									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
+									<button type="button" class="btn btn-info mt-2">지원하기</button>
+									<button type="button" class="btn btn-info mt-2">공고 스크랩</button>
+								</c:if>
+								<c:if
+									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='enterprise' }">
+									<button type="button" class="btn btn-info mt-2">수정</button>
+									<button type="button" class="btn btn-info mt-2">삭제</button>
+									<button type="button" class="btn btn-info mt-2">끌어올리기</button>
+								</c:if>
 							</div>
 						</div>
 
