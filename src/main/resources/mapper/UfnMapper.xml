@@ -12,6 +12,10 @@
 		update USER set u_photo=#{u_photo} where u_id=#{u_id}
 	</update>
 	
+		<select id="getResume" resultType="rdto" parameterType="String">
+		select * from RESUME where u_num=#{u_num} and r_presume=1
+		</select>
+	
 	<select id="countLikeEnterprise" resultType="int" parameterType="String">
 		select count(h_num) from HEART where u_num=#{u_num}
 	</select>

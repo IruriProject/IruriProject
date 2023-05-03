@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.EnterpriseDto;
+import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.UserDto;
 import spring.mvc.service.UFnService;
 import spring.mvc.service.UserService;
@@ -37,7 +38,9 @@ public class UFnController {
 		  ModelAndView model = new ModelAndView();
 		    String u_id = (String) session.getAttribute("loginId");
 		    UserDto dto = service.findUserdataById(u_id);
+		    ResumeDto rdto = uservice.getResume(dto.getU_num());
 		    model.addObject("dto", dto);
+		    model.addObject("rdto", rdto);
 		    model.setViewName("/user/mypage");
 		return model;
 	}

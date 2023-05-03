@@ -42,7 +42,6 @@
 					<div style="width: 150px; height: 200px;" id="photoZone">
 					<img alt="" src="/photo/${dto.u_photo}" style="width: 150px; height: 200px;">
 					</div>
-					<!-- 모달창 띄우기, 사진 등록 jsp 생성(input file)한 후 / 또는 ajax, 사진을 user에 update하면 된다. -->
 					
 					<div>
 					  <!-- Modal -->
@@ -76,8 +75,14 @@
 					<div class="h-100 bg-light rounded p-4">
 						<div
 							class="d-flex align-items-center justify-content-between mb-4">
-							대표이력서가 들어갈 자리입니다.
-							<!-- ajax를 활용한 이력서 공개/비공개 0/1 update -->
+							<c:if test="${rdto.r_title==null}">
+							<h3>대표이력서가 없습니다.</h3>
+							<button onclick="location.href='#'">대표이력서 설정하기</button>
+							<!-- 이력서 목록 페이지로 -->
+							</c:if>
+							<c:if test="${rdto.r_title!=null}">
+							<h3>${rdto.r_title}</h3>							
+							</c:if>
 						<button type="button">이력서 공개하기</button>
 						</div>
 					</div>
@@ -85,7 +90,7 @@
 					<div class="h-100 bg-light rounded p-4">
 						<button type="button" onclick="location.href='insertresume'">이력서 등록</button>
 						<button type="button">지원현황</button>
-						<button type="button">이력서 열람</button>
+						<button type="button">내 이력서 목록</button>
 						<br>
 					</div>
 					<br>

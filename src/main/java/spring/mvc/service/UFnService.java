@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.HeartDto;
+import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.UserDto;
 import spring.mvc.mapper.UFnMapperInter;
 
@@ -40,6 +41,10 @@ public class UFnService {
 		
 		
 		return mapper.getEnterPrise(num);
+	}
+	//id로 유저정보 찾기
+	public ResumeDto getResume(String u_num) {
+	    return mapper.getResume(u_num);
 	}
 	
 }
