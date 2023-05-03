@@ -35,6 +35,11 @@ public class UserService {
 	public void joinUser(UserDto dto) {
 		mapper.joinUser(dto);
 	}
+
+	//id 중복확인
+	public int getSearchId(String u_id) {
+		return mapper.getSearchId(u_id);
+	}
 	
 
 }
