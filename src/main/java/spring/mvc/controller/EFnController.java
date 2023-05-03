@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.PostingDto;
@@ -134,5 +135,11 @@ public class EFnController {
 		return "redirect:../enterprise";
 		
 	}
-
+	
+	@ResponseBody
+	@GetMapping("/addrsearch")
+	public List<PostingDto> addrSearch(String p_addr) {
+		
+		return service.getAddrSearch(p_addr);
+	}
 }

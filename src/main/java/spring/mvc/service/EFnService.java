@@ -49,4 +49,8 @@ public class EFnService {
 		
 		return mapper.getPagingList(map);
 	}
+	
+	public List<PostingDto> getAddrSearch(String p_addr){
+		return mapper.getAddrPostings(p_addr);
+	}
 }
