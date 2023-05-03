@@ -118,7 +118,7 @@ body {
 								<c:if
 									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
 									<button type="button" class="btn btn-info mt-2">지원하기</button>
-									<button type="button" class="btn btn-info mt-2">공고 스크랩</button>
+									<button type="button" id="btnscrap" class="btn btn-info mt-2">공고 스크랩</button>
 								</c:if>
 								<c:if
 									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='enterprise' }">
@@ -191,8 +191,12 @@ body {
 						<div id="section3" class="container-fluid scpy">
 							<div class="withbtn">
 								<div class="withbtnTitle">기업정보</div>
-								<div>
-									<button type="button" id="btnLikeEnter" class="btn btn-info glyphicon glyphicon-heart-empty">기업 찜하기</button>
+								<div class="likeEnter">
+								<c:if
+									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
+									<button type="button" u_id=${sessionScope.loginId} e_num=${dto.e_num }
+									id="btnLikeEnter" class="btn btn-info glyphicon glyphicon-heart-empty ">기업 찜하기</button>
+								</c:if>
 								</div>
 							</div>
 
@@ -235,5 +239,58 @@ body {
 			</div>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+			
+			//로그인 안했을 때 기업 찜 버튼 누르면 로그인 해주세요
+			$("#btnLikeEnter").click(function(){
+				
+				//alert("로그인 해줘잉");
+				
+				var e_num=$(this).attr("e_num");
+				var u_id=$(this).attr("u_id");
+				//alert(e_num);
+				//alert(u_id);
+				
+				$.ajax({
+					
+					type:"post",
+					dataType:"json",
+					data:{
+						
+						"e_num":e_num,
+						"u_id":u_id
+					},
+					url:"hinsert",
+					success:function(res){
+						alert("좋아요 성공");
+						
+					}
+				})
+			});
+			
+			
+			//스크랩
+			$("#btnscrap").click(function(){
+				
+				alert("스크랩할거임?");
+			});
+			
+			
+			
+			
+			
+			
+		
+	
+	
+	</script>
+	
+	
+	
+	
+	
+	
+	
 </body>
 </html>
