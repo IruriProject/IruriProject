@@ -12,12 +12,12 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 <body>
-	<form action="confirmpassAction" method="post">
-	<input type="hidden" name="e_num" value="${e_num }">
+	<form action="confirmpwAction" method="post">
+	<input type="hidden" name="p_num" value="${p_num }">
 		<div>비밀번호 입력</div>
 		<br>
-		<input type="text" placeholder="비밀번호 입력" name="inputpass">
-		<button type="submit" class="btn btn-info">탈퇴하기</button>
+		<input type="text" placeholder="비밀번호 입력" name="inputpw">
+		<button type="submit" class="btn btn-info">공고삭제</button>
 	</form>
 </body>
 </html>

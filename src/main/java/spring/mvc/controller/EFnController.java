@@ -91,7 +91,7 @@ public class EFnController {
 
 	@Autowired
 	EnterpriseService e_service;
-	
+
 	@GetMapping("")
 	public String posting() {
 		return "/posting/search";
@@ -107,6 +107,13 @@ public class EFnController {
 		return "/posting/writeForm";
 	}
 
+	@PostMapping("/writeposting")
+	public String writeposting(@ModelAttribute PostingDto dto) {
+		service.insertPosting(dto);
+
+		return "redirect:/";
+	}
+
 	@GetMapping("/detailpage")
 	public ModelAndView detailPage(String p_num) {
 		ModelAndView mview = new ModelAndView();
@@ -117,23 +124,15 @@ public class EFnController {
 		return mview;
 	}
 
-	@PostMapping("/writeposting")
-	public String writeposting(@ModelAttribute PostingDto dto) {
-		service.insertPosting(dto);
-
-		return "redirect:/";
-	}
-	
 	@GetMapping("/updateStatus")
 	public String updatePostingStatus(@RequestParam String p_status, @RequestParam String p_num) {
-		Map<String, String> map=new HashMap<>();
+		Map<String, String> map = new HashMap<>();
 		map.put("p_status", p_status);
 		map.put("p_num", p_num);
-		
+
 		service.updatePostingStatus(map);
-		
+
 		return "redirect:../enterprise";
-		
 	}
 	
 	@ResponseBody
@@ -141,5 +140,54 @@ public class EFnController {
 	public List<PostingDto> addrSearch(String p_addr) {
 		
 		return service.getAddrSearch(p_addr);
+	}
+}
+
+	@GetMapping("/confirmpw")
+	public String confirmpw(@RequestParam String p_num, Model model) {
+		model.addAttribute("p_num", p_num);
+
+		return "/posting/confirmPw";
+	}
+
+	@PostMapping("/confirmpwAction")
+	public String confirmpassAction(@RequestParam String p_num, @RequestParam String inputpw, HttpSession session) {
+
+		String loginId = (String) session.getAttribute("loginId");
+		EnterpriseDto dto = e_service.findEnterdataById(loginId);
+
+		if (inputpw.equals(dto.getE_pw())) {
+
+			service.deletePosting(p_num);
+
+			return "redirect:/enterprise";
+
+		} else
+			return "/enterprise/confirmFail";
+
+	}
+
+	@GetMapping("/update")
+	public ModelAndView updateForm(@RequestParam String p_num) {
+		ModelAndView mview = new ModelAndView();
+		mview.addObject("dto", service.getPosting(p_num));
+		mview.setViewName("/posting/updateForm");
+		return mview;
+	}
+
+	@PostMapping("/updateposting")
+	public String updateAction(@ModelAttribute PostingDto dto) {
+
+		service.updatePosting(dto);
+
+		return "redirect:/posting/detailpage?p_num=" + dto.getP_num();
+
+	}
+
+	@GetMapping("/messagedetail")
+	public String messagedetail() {
+
+		return "/message/detailPage";
+
 	}
 }

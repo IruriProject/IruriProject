@@ -26,36 +26,38 @@ public class EnterpriseController {
 	EFnService efn_service;
 
 	@GetMapping("")
-	public ModelAndView enterprisepage(HttpSession session) {
+	public ModelAndView enterprisePage(HttpSession session) {
 		ModelAndView mview = new ModelAndView();
 
 		String loginId = (String) session.getAttribute("loginId");
-		
 		EnterpriseDto dto=service.findEnterdataById(loginId);
 
 		mview.addObject("dto", dto);
-		mview.addObject("postings", efn_service.getAllPostings(dto.getE_num()));
-		mview.setViewName("/enterprise/enterprisepage");
+		mview.addObject("postings", efn_service.getPreviewPostings(dto.getE_num()));
+		mview.addObject("postingCount", efn_service.getAllPostings(dto.getE_num()).size());
+		mview.addObject("messages", efn_service.getPreviewMessages(dto.getE_num()));
+		
+		mview.setViewName("/enterprise/enterprisePage");
 
 		return mview;
 	}
 
-	@GetMapping("/confirmpass")
+	@GetMapping("/confirmpw")
 	public String confirmpass(@RequestParam String e_num, Model model) {
 		model.addAttribute("e_num", e_num);
 
-		return "/enterprise/confirmPass";
+		return "/enterprise/confirmPw";
 	}
 
-	@PostMapping("/confirmpassAction")
-	public String confirmpassAction(@RequestParam String e_num, @RequestParam String inputpass, HttpSession session) {
+	@PostMapping("/confirmpwAction")
+	public String confirmpassAction(@RequestParam String e_num, @RequestParam String inputpw, HttpSession session) {
 
 		String loginId = (String) session.getAttribute("loginId");
 		EnterpriseDto dto = service.findEnterdataById(loginId);
 
-		if (inputpass.equals(dto.getE_pw())) {
+		if (inputpw.equals(dto.getE_pw())) {
 
-			service.withdrawEnterprise(e_num, inputpass);
+			service.withdrawEnterprise(e_num, inputpw);
 
 			session.removeAttribute("loginId");
 			session.removeAttribute("loginStatus");
@@ -64,6 +66,11 @@ public class EnterpriseController {
 		} else
 			return "/enterprise/confirmFail";
 
+	}
+	
+	@GetMapping("/update")
+	public String updateForm() {
+		return "/enterprise/updateForm";
 	}
 
 }

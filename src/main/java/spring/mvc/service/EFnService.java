@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import spring.mvc.dto.PostingDto;
 import spring.mvc.mapper.EFnMapperInter;
 
+import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.PostingDto;
 import spring.mvc.mapper.EFnMapperInter;
 
@@ -28,11 +29,31 @@ public class EFnService {
 	
 	public List<PostingDto> getAllPostings(String e_num){
 		return mapper.getAllPostings(e_num);
+	}	
+	public List<PostingDto> getPreviewPostings(String e_num){
+		return mapper.getPreviewPostings(e_num);
 	}
 	
 	public void updatePostingStatus(Map<String, String> map) {
 		mapper.updatePostingStatus(map);
 	}
+	
+	public void deletePosting(String p_num) {
+		mapper.deletePosting(p_num);
+	}
+	
+	public void updatePosting(PostingDto dto) {
+		mapper.updatePosting(dto);
+	}
+	
+	public List<Map<String, Object>> getAllMessages(String e_num){
+		return mapper.getAllMessages(e_num);
+	
+	}
+	public List<Map<String, Object>> getPreviewMessages(String e_num){
+		return mapper.getPreviewMessages(e_num);
+	}
+	
 
 	public int getTotalCount() {
 		return mapper.getTotalCount();
