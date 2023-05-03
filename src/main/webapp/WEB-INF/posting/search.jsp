@@ -148,10 +148,6 @@ $(".gu").click(function(){
 	$("#basic-list").empty();
 	$(".pagination").empty();
 	
-	if(gu_name=='전체'){
-		
-	}else{
-	
 	$.ajax({
 		type:"get",
 		url:"addrsearch",
@@ -188,9 +184,8 @@ $(".gu").click(function(){
 			
 			$("#addr-box").html(s);
 		}
-	} // ajax끝
+	}) // ajax끝
 	
-	}) //else끝
 })
 
 </script>
