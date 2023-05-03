@@ -65,7 +65,6 @@ body {
 }
 
 .formbold-form-input {
-	width: 95%;
 	padding: 13px 22px;
 	border-radius: 5px;
 	border: 1px solid #dde3ec;
@@ -113,17 +112,17 @@ body {
 <body>
 
 	<div class="formbold-main-wrapper">
-		<h1>
+		<h3 style="text-align: center">
 			회원님의 개인정보 보호를 위해<br> 비밀번호를 다시 한 번 입력해주세요.
-		</h1>
+		</h3>
 		<br>
 	</div>
-	<div class="formbold-mb-3">
-		<input type="password" id="inputPw" class="formbold-form-input" style="float:left"
-			placeholder="비밀번호 입력">
-		<i class="glyphicon glyphicon-eye-open" id="i"></i>
+	<div class="formbold-mb-3" style="text-align: center">
+		<input type="password" id="inputPw" class="formbold-form-input"	
+			placeholder="비밀번호 입력" style="width:345px; height:45px; margin-bottom: 20px;">
+		<i class="glyphicon glyphicon-eye-open" id="i"></i><br>
+	<button onclick="checkPw()" class="formbold-btn" style="width:380px; height:45px; line-height: 0px;" >비밀번호 확인</button>
 	</div>
-	<button onclick="checkPw()" class="formbold-btn">버튼</button>
 
 	<!-- 버튼 눌렀을 때 현재 로그인된 아이디의 비밀번호와 input에 친 비밀번호가 같을 시 edituser로 넘어가게 됨. -->
 	<c:if test="${sessionScope.loginPw!=null }">

@@ -17,12 +17,27 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<style type="text/css">
-	div{
-	border: 1px solid gray;}
-	td{
-	font-size: 1.5em;}
-	</style>
+<style type="text/css">
+div {
+	border: 1px solid gray;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	margin-right: 10px;
+	border: 0;
+	float: left;
+}
+
+td {
+	font-size: 1.5em;
+}
+</style>
 </head>
 <body>
 	<div class="formbold-main-wrapper">
@@ -35,11 +50,13 @@
 						등록</h2>
 				</div>
 				<br>
-				<div class="formbold-input-wrapp formbold-mb-3" style="height:250px;">
+				<div class="formbold-input-wrapp formbold-mb-3"
+					style="height: 250px;">
 					<label for="p_title" class="formbold-form-label"> 기본정보 </label> <span
 						style="font-size: 2.5em">${sessionScope.loginName }</span>
-					<div style="float:left; width:150px; height:200px;">
-					<img alt="" src="/photo/${dto.u_photo}" style="width: 150px; height: 200px;">
+					<div style="float: left; width: 150px; height: 200px;">
+						<img alt="" src="/photo/${dto.u_photo}"
+							style="width: 150px; height: 200px;">
 					</div>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<c:if test="${dto.u_gender=='남' }">
@@ -49,9 +66,8 @@
 					여성
 					</c:if>
 					&nbsp;&nbsp;/&nbsp;&nbsp; ${dto.u_birth }
-					(${2023-dto.u_birth.substring(0, 4)+1}세) 
-					<br>
-					<table style="border:1px solid red;">
+					(${2023-dto.u_birth.substring(0, 4)+1}세) <br>
+					<table style="border: 1px solid red;">
 						<tr>
 							<td width=100>연락처</td>
 							<td>${dto.u_hp }</td>
@@ -72,14 +88,20 @@
 						type="text" name="r_title" id="r_title" step="50"
 						placeholder="25글자 이내로 자신을 표현해보세요." class="formbold-form-input" />
 				</div>
-				
+
 				<div class="formbold-mb-3">
-					<label class="formbold-form-label">희망지역</label>
-						<select class="formbold-form-input" name="r_ltype" id="r_ltype">
-							<option>w</option>
-						</select>
+					<label class="formbold-form-label">희망지역</label> <select
+						class="formbold-form-input" name="r_larea" id="r_larea">
+						<option>w</option>
+					</select>
 				</div>
-				
+
+				<div class="formbold-mb-3">
+					<label for="p_type" class="formbold-form-label"> 희망직종 </label> <input
+						type="text" name="r_ltask" id="r_ltask"
+						placeholder="직종을 입력해주세요 (ex: 광고/홍보)" class="formbold-form-input" />
+				</div>
+
 				<div class="formbold-mb-3">
 					<label class="formbold-form-label">희망고용형태</label> <select
 						class="formbold-form-input" name="r_ltype" id="r_ltype">
@@ -90,47 +112,94 @@
 
 				<div class="formbold-input-flex">
 					<div>
-						<label for="r_lperiod" class="formbold-form-label"> 희망기간 </label> <input
-							type="text" name="r_lperiod" id="r_lperiod" placeholder="ex:6개월"
-							class="formbold-form-input" />
+						<label for="r_lperiod" class="formbold-form-label"> 희망기간 </label>
+						<input type="text" name="r_lperiod" id="r_lperiod"
+							placeholder="ex:6개월" class="formbold-form-input" />
 					</div>
 					<div>
 						<label for="r_lday" class="formbold-form-label"> 희망요일 </label> <input
-							type="text" name="r_lday" id="r_lday"
-							placeholder="ex: 월,화,수,목,금" class="formbold-form-input" />
+							type="text" name="r_lday" id="r_lday" placeholder="ex: 월,화,수,목,금"
+							class="formbold-form-input" />
 					</div>
 				</div>
 
 				<div class="formbold-mb-3">
-					<label for="p_content" class="formbold-form-label"> 상세내용 </label>
-					<textarea name="p_content" id="p_content"
-						placeholder="상세내용을 입력해주세요." class="pcontent-input"></textarea>
+					<label for="r_content" class="formbold-form-label"> 자기소개서</label>
+
+
+					<ul class="introduceTab__list">
+						<li><a href="#FreeDoc" class="first on">직접입력</a></li>
+						<li><a href="#OneMinDoc" class="">1분 자동완성</a></li>
+					</ul>
+
+					<script type="text/javascript">
+						$(document).ready(function() {
+							// 직접입력 버튼 클릭 시
+							$("a[href='#FreeDoc']").click(function() {
+								// Freedoc div 보여주기
+								$("#FreeDoc").css("display", "block");
+								// OneMinDoc div 숨기기
+								$("#OneMinDoc").css("display", "none");
+								// 직접입력 버튼에 on 클래스 추가
+								$("a[href='#FreeDoc']").addClass("on");
+								// 1분 자동완성 버튼에서 on 클래스 제거
+								$("a[href='#OneMinDoc']").removeClass("on");
+							});
+
+							// 1분 자동완성 버튼 클릭 시
+							$("a[href='#OneMinDoc']").click(function() {
+								// OneMinDoc div 보여주기
+								$("#OneMinDoc").css("display", "block");
+								// FreeDoc div 숨기기
+								$("#FreeDoc").css("display", "none");
+								// 1분 자동완성 버튼에 on 클래스 추가
+								$("a[href='#OneMinDoc']").addClass("on");
+								// 직접입력 버튼에서 on 클래스 제거
+								$("a[href='#FreeDoc']").removeClass("on");
+							});
+						});
+					</script>
+
+					<div id="FreeDoc" class="introduceWrap" style="display: block;">
+
+						<div class="resizable-textarea">
+							<textarea name="r_content" id="r_content" cols="30" rows="10"
+								placeholder="나의 강점과 특징에 대해 소개하고 어떤 사람인지 설명해 보세요.
+직접 작성이 어려울 땐 간편입력을 활용하세요!"
+								class="rcontent-input">직접 입력이다.</textarea>
+						</div>
+					</div>
+
+					<div id="OneMinDoc" class="introduceWrap" style="display: none;">
+						<h3 class="hide">자기소개서 1분 자동완성</h3><br>
+						<div id="SampleArea">
+							<div class="exampleArea">
+								<ul class="subjectList">
+
+									<li class="selected">성격</li>
+									<li>경력사항</li>
+									<li>지원동기</li>
+								</ul>
+							</div>
+						</div>
+						<textarea name="r_content" id="r_content" cols="30" rows="10"
+							placeholder="나의 강점과 특징에 대해 소개하고 어떤 사람인지 설명해 보세요.
+직접 작성이 어려울 땐 간편입력을 활용하세요!"
+							class="rcontent-input" readonly="readonly">간편 입력이다.</textarea>
+							<!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
+
+					</div>
+
 				</div>
 
-				<div class="formbold-mb-3">
-					<label for="p_enddate" class="formbold-form-label"> 공고 마감일
-					</label> <input type="date" name="p_enddate" id="p_enddate"
-						class="formbold-form-input" />
-				</div>
 				<br>
-				<div class="formbold-checkbox-wrapper">
-					<label for="supportCheckbox" class="formbold-checkbox-label">
-						<div class="formbold-relative">
-							<input type="checkbox" id="supportCheckbox"
-								class="formbold-input-checkbox" />
-							<div class="formbold-checkbox-inner">
-								<span class="formbold-opacity-0"> <svg width="11"
-										height="8" viewBox="0 0 11 8" class="formbold-stroke-current"
-										fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-											d="M8.81868 0.688604L4.16688 5.4878L2.05598 3.29507C1.70417 2.92271 1.1569 2.96409 0.805082 3.29507C0.453266 3.66742 0.492357 4.24663 0.805082 4.61898L3.30689 7.18407C3.54143 7.43231 3.85416 7.55642 4.16688 7.55642C4.47961 7.55642 4.79233 7.43231 5.02688 7.18407L10.0696 2.05389C10.4214 1.68154 10.4214 1.10233 10.0696 0.729976C9.71776 0.357624 9.17049 0.357625 8.81868 0.688604Z"
-											fill="white" />
-                </svg>
-								</span>
-							</div>
-						</div>근로 기준에 준수하여 공고 작성하였습니다.
-					</label>
-				</div>
+				<input type="checkbox" name="r_presume">대표이력서 설정
+				<br>
+				<input type="checkbox" name="r_private">이력서 비공개
+				<!-- 대표이력서 체크되면 1(대표이력서), 비공개 체크되면 1(비공개)되게 해야함 -->
+				
+
+				
 
 				<button class="formbold-btn">공고등록</button>
 			</form>
@@ -223,7 +292,7 @@ body {
 	resize: none;
 }
 
-.pcontent-input {
+.rcontent-input {
 	width: 100%;
 	height: 500px;
 	padding: 13px 22px;

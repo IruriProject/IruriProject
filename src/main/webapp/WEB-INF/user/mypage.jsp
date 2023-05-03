@@ -29,9 +29,6 @@
 <!-- Template Stylesheet -->
 <link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style type="text/css">
-div {
-	border: 1px solid gray;
-}
 </style>
 </head>
 
@@ -40,8 +37,8 @@ div {
 
 		<!-- Content Start -->
 		<div class="container-fluid pt-4 px-4">
-			<div class="row g-4">
-				<div class="col-sm-12 col-md-3 col-xl-4 w-25">
+			<div class="row g-4"style="border:1px solid gray">
+				<div class="col-sm-12 col-md-3 col-xl-4 w-25" >
 					<div style="width: 150px; height: 200px;" id="photoZone">
 					<img alt="" src="/photo/${dto.u_photo}" style="width: 150px; height: 200px;">
 					</div>
