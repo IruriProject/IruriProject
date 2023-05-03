@@ -1,5 +1,8 @@
 package spring.mvc.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.UserDto;
@@ -137,5 +141,13 @@ public class JoinController {
 		return "/join/joinPassSuccess";
 	}
 	
-	
+	//회원가입 상세-유저 아이디 중복체크
+	@GetMapping("/user/idcheck")
+	@ResponseBody
+	public Map<String, Integer> userIdCheck(String u_id) {
+		
+		Map<String, Integer> map=new HashMap<>();
+		map.put("count", service.getSearchId(u_id));
+		return map;
+	}
 }

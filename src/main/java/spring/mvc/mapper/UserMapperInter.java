@@ -12,5 +12,6 @@ public interface UserMapperInter {
 	public int userIdPassCheck(Map<String, String> map);
 	public UserDto findUserById(String u_id);
 	public void joinUser(UserDto dto);
+	public int getSearchId(String u_id);
 
 }

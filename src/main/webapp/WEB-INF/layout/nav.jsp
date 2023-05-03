@@ -123,9 +123,9 @@ $(document).ready(function(){
 	<nav class="nav_header">
     <ul>
         <li>
-            <a href="/posting" class="mainMenu">채용정보</a>
+            <a href="/posting/search" class="mainMenu">채용정보</a>
             <ul class="subMenu">
-                <li><a href="/posting">공고검색</a></li>
+                <li><a href="/posting/search">공고검색</a></li>
                 <li><a href="hi">sub메뉴</a></li>
                 <li><a href="hi">sub메뉴</a></li>
                 <li><a href="hi">sub메뉴</a></li>
