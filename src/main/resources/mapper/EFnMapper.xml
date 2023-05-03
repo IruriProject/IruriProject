@@ -44,6 +44,7 @@
 	<!-- 지역별 검색 -->
 	<select id="getAddrPostings" parameterType="String" resultType="pdto">
 	select * from POSTING where p_addr=#{p_addr} order by p_num desc
+	</select>
 	
 	<delete id="deletePosting" parameterType="String">
 		delete from POSTING where p_num=#{p_num}
