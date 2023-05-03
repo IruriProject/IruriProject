@@ -18,6 +18,11 @@
 		select * from POSTING where e_num=#{e_num}
 	</select>
 	
+	<select id="getPreviewPostings" parameterType="String" resultType="pdto">
+		select * from POSTING where e_num=#{e_num} limit 0,3
+	</select>
+	
+	
 	<!-- 공고상태 변경 -->
 	<update id="updatePostingStatus" parameterType="Map">
 		update POSTING set p_status=#{p_status} where p_num=#{p_num}
@@ -30,5 +35,15 @@
 	<update id="updatePosting" parameterType="pdto">
 		update POSTING set p_title=#{p_title},p_type=#{p_type},p_pay=#{p_pay},p_period=#{p_period},p_workday=#{p_workday},p_starttime=#{p_starttime},p_endtime=#{p_endtime},p_employtype=#{p_employtype},p_content=#{p_content},p_enddate=#{p_enddate},p_hirenum=#{p_hirenum} where p_num=#{p_num}
 	</update>
+	
+	
+	<!-- 쪽지 -->
+	<select id="getAllMessages" parameterType="String" resultType="Map">
+		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num}
+	</select>
+	
+	<select id="getPreviewMessages" parameterType="String" resultType="Map">
+		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num} limit 0,3
+	</select>
 
 </mapper>

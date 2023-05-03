@@ -78,53 +78,25 @@
 					<div class="h-100 bg-light rounded p-4">
 						<div
 							class="d-flex align-items-center justify-content-between mb-2">
-							<h6 class="mb-0">쪽지함</h6>
+							<h6 class="mb-0">쪽지관리</h6>
 							<a href="">Show All</a>
 						</div>
+						
+						<c:forEach var="msg" items="${messages }">
+						
 						<div class="d-flex align-items-center border-bottom py-3">
 							<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
 								alt="" style="width: 40px; height: 40px;">
 							<div class="w-100 ms-3">
 								<div class="d-flex w-100 justify-content-between">
-									<h6 class="mb-0">Jhon Doe</h6>
-									<small>15 minutes ago</small>
+									<h6 class="mb-0">${msg.u_name }</h6>
+									<small><fmt:formatDate value="${msg.m_day}" pattern="yy-MM-dd"/></small>
 								</div>
-								<span>Short message goes here...</span>
+								<span>${msg.m_content }</span>
 							</div>
 						</div>
-						<div class="d-flex align-items-center border-bottom py-3">
-							<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
-								alt="" style="width: 40px; height: 40px;">
-							<div class="w-100 ms-3">
-								<div class="d-flex w-100 justify-content-between">
-									<h6 class="mb-0">Jhon Doe</h6>
-									<small>15 minutes ago</small>
-								</div>
-								<span>Short message goes here...</span>
-							</div>
-						</div>
-						<div class="d-flex align-items-center border-bottom py-3">
-							<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
-								alt="" style="width: 40px; height: 40px;">
-							<div class="w-100 ms-3">
-								<div class="d-flex w-100 justify-content-between">
-									<h6 class="mb-0">Jhon Doe</h6>
-									<small>15 minutes ago</small>
-								</div>
-								<span>Short message goes here...</span>
-							</div>
-						</div>
-						<div class="d-flex align-items-center pt-3">
-							<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
-								alt="" style="width: 40px; height: 40px;">
-							<div class="w-100 ms-3">
-								<div class="d-flex w-100 justify-content-between">
-									<h6 class="mb-0">Jhon Doe</h6>
-									<small>15 minutes ago</small>
-								</div>
-								<span>Short message goes here...</span>
-							</div>
-						</div>
+						</c:forEach>
+					
 					</div>
 				</div>
 				<div class="col-sm-12 col-md-6 col-xl-4">

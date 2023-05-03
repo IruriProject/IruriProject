@@ -33,8 +33,10 @@ public class EnterpriseController {
 		EnterpriseDto dto=service.findEnterdataById(loginId);
 
 		mview.addObject("dto", dto);
-		mview.addObject("postings", efn_service.getAllPostings(dto.getE_num()));
+		mview.addObject("postings", efn_service.getPreviewPostings(dto.getE_num()));
 		mview.addObject("postingCount", efn_service.getAllPostings(dto.getE_num()).size());
+		mview.addObject("messages", efn_service.getPreviewMessages(dto.getE_num()));
+		
 		mview.setViewName("/enterprise/enterprisePage");
 
 		return mview;
