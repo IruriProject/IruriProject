@@ -121,9 +121,9 @@ body {
 									<button type="button" class="btn btn-info mt-2">공고 스크랩</button>
 								</c:if>
 								<c:if
-									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='enterprise' }">
-									<button type="button" class="btn btn-info mt-2">수정</button>
-									<button type="button" class="btn btn-info mt-2">삭제</button>
+									test="${sessionScope.loginStatus=='enterprise'&&sessionScope.loginId==dto.e_id }">
+									<button type="button" class="btn btn-info mt-2" onclick="location.href='/posting/update?p_num=${dto.p_num}'">수정</button>
+									<button type="button" class="btn btn-info mt-2" onclick="location.href='confirmpw?p_num=${dto.p_num}'">삭제</button>
 									<button type="button" class="btn btn-info mt-2">끌어올리기</button>
 								</c:if>
 							</div>

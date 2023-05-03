@@ -132,7 +132,13 @@ $(document).ready(function(){
             </ul>
         </li>
         <li>
-            <a href="/mypage" class="mainMenu">회원서비스</a>
+            <c:if test="${sessionScope.loginStatus=='enterprise' }">
+           	 <a href="/enterprise" class="mainMenu">기업서비스</a>
+            </c:if>
+            
+            <c:if test="${sessionScope.loginStatus!='enterprise' }">
+            	<a href="/mypage" class="mainMenu">회원서비스</a>
+            </c:if>
             <ul class="subMenu">
                 <li><a href="/update">개인정보 관리</a></li>
                 <li><a href="hi">이력서 관리</a></li>

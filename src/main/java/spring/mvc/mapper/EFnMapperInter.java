@@ -17,5 +17,10 @@ public interface EFnMapperInter {
 	public List<PostingDto> getAllPostings(String e_num);
 	
 	public void updatePostingStatus(Map<String, String> map);
+	
+	public void deletePosting(String p_num);
+	
+	public void updatePosting(PostingDto dto);
+
 
 }

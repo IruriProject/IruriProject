@@ -30,5 +30,14 @@ public class EFnService {
 	public void updatePostingStatus(Map<String, String> map) {
 		mapper.updatePostingStatus(map);
 	}
+	
+	public void deletePosting(String p_num) {
+		mapper.deletePosting(p_num);
+	}
+	
+	public void updatePosting(PostingDto dto) {
+		mapper.updatePosting(dto);
+	}
+	
 
 }

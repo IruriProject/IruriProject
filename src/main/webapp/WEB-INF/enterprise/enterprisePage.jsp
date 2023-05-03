@@ -51,7 +51,7 @@
 					</div>
 					<br>
 					<br>
-					<button type="button" onclick="location.href='update'">회사정보
+					<button type="button" onclick="location.href='/enterprise/update'">회사정보
 						수정</button>
 				</div>
 				<div class="col-sm-12 col-md-6 col-xl-7 w-75">
@@ -162,6 +162,9 @@
 							</tr>
 						</thead>
 						<tbody>
+						<c:if test="${postingCount==0 }">
+						<tr><td colspan="5">게시한 공고가 없습니다.</td></tr>
+						</c:if>
 							<c:forEach var="post" items="${postings }">
 								<tr>
 									<td style="text-align: left"><a
@@ -264,7 +267,7 @@
 		<br>
 		<br>
 		<button type="button" style="width: 100%; height: 50px;"
-			onclick="location.href='enterprise/confirmpass?e_num=${dto.e_num}'">기업회원탈퇴</button>
+			onclick="location.href='enterprise/confirmpw?e_num=${dto.e_num}'">기업회원탈퇴</button>
 
 	</div>
 	<!-- Content End -->
