@@ -79,11 +79,11 @@
 						<div
 							class="d-flex align-items-center justify-content-between mb-2">
 							<h6 class="mb-0">쪽지관리</h6>
-							<a href="">Show All</a>
+							<a href="/posting/writemessage">쪽지보내기</a><a href="">Show All</a>
 						</div>
 						
 						<c:forEach var="msg" items="${messages }">
-						<a href="/posting/messagedetail">
+						<a href="/posting/messagedetail?m_num=${msg.m_num }">
 							<div class="d-flex align-items-center border-bottom py-3">
 								<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
 									alt="" style="width: 40px; height: 40px;">
