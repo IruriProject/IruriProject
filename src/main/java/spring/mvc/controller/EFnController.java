@@ -96,23 +96,28 @@ public class EFnController {
 			return "/enterprise/confirmFail";
 
 	}
-	
-	
+
 	@GetMapping("/update")
 	public ModelAndView updateForm(@RequestParam String p_num) {
-		ModelAndView mview=new ModelAndView();
+		ModelAndView mview = new ModelAndView();
 		mview.addObject("dto", service.getPosting(p_num));
 		mview.setViewName("/posting/updateForm");
 		return mview;
 	}
-	
-	
+
 	@PostMapping("/updateposting")
 	public String updateAction(@ModelAttribute PostingDto dto) {
-		
+
 		service.updatePosting(dto);
-		
-		return "redirect:/posting/detailpage?p_num="+dto.getP_num();
-		
+
+		return "redirect:/posting/detailpage?p_num=" + dto.getP_num();
+
+	}
+
+	@GetMapping("/messagedetail")
+	public String messagedetail() {
+
+		return "/message/detailPage";
+
 	}
 }

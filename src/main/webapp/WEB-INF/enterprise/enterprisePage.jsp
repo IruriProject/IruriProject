@@ -83,18 +83,19 @@
 						</div>
 						
 						<c:forEach var="msg" items="${messages }">
-						
-						<div class="d-flex align-items-center border-bottom py-3">
-							<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
-								alt="" style="width: 40px; height: 40px;">
-							<div class="w-100 ms-3">
-								<div class="d-flex w-100 justify-content-between">
-									<h6 class="mb-0">${msg.u_name }</h6>
-									<small><fmt:formatDate value="${msg.m_day}" pattern="yy-MM-dd"/></small>
+						<a href="/posting/messagedetail">
+							<div class="d-flex align-items-center border-bottom py-3">
+								<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
+									alt="" style="width: 40px; height: 40px;">
+								<div class="w-100 ms-3">
+									<div class="d-flex w-100 justify-content-between">
+										<h6 class="mb-0">${msg.u_name }</h6>
+										<small><fmt:formatDate value="${msg.m_day}" pattern="yy-MM-dd"/></small>
+									</div>
+									<span>${msg.m_content }</span>
 								</div>
-								<span>${msg.m_content }</span>
 							</div>
-						</div>
+						</a>
 						</c:forEach>
 					
 					</div>
