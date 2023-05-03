@@ -15,5 +15,17 @@ public class BoardDto {
 	private String b_title;
 	private String b_content;
 	private String b_photo;
+	private int b_readcount; //추가
 	private Timestamp b_writeday;
+
+	//추가(new아이콘)
+	private boolean newFlag;
+
+	public boolean isNewFlag() {
+	    return newFlag;
+	}
+
+	public void setNewFlag(boolean newFlag) {
+	    this.newFlag = newFlag;
+	}
 }
