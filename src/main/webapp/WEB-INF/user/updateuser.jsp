@@ -175,11 +175,11 @@
 </style>
 </head>
 <body>
-	개인정보 관리
-	<br> 내 정보 수정******
-	<br> 비밀번호변경
-	<br> 회원탈퇴
-	<h1>주소API value값 지정 안됨</h1>
+	<div style="position: absolute; top:310px; font-size: 1.5em;">
+	<b>내 정보 수정</b><br><br>
+	<a href="updatepw">비밀번호변경</a><br><br>
+	<a>회원탈퇴</a>
+	</div>
 	
 <div class="formbold-main-wrapper">
   <!-- Author: FormBold Team -->

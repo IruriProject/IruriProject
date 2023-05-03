@@ -49,6 +49,15 @@ public class UFnController {
 	public String update() {
 		return "/user/updatemain";
 	}
+	@GetMapping("/resumelist")
+	public String list() {
+		return "/user/resumelist";
+	}
+	@GetMapping("/updatepw")
+	public String upw() {
+		return "/user/updatepw";
+	}
+	
 	@GetMapping("/insertresume")
 	public ModelAndView insertResume(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView();

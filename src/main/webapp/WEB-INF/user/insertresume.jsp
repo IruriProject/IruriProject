@@ -37,6 +37,9 @@ li {
 td {
 	font-size: 1.5em;
 }
+.autoResume td{
+	font-size:1em;
+}
 </style>
 </head>
 <body>
@@ -156,6 +159,11 @@ td {
 								$("a[href='#OneMinDoc']").addClass("on");
 								// 직접입력 버튼에서 on 클래스 제거
 								$("a[href='#FreeDoc']").removeClass("on");
+								$("#personality").show();
+								$("#defaultLi").css("background-color",
+								"#cce891");
+								$("#personality").siblings()
+										.hide();
 							});
 						});
 					</script>
@@ -163,7 +171,7 @@ td {
 					<div id="FreeDoc" class="introduceWrap" style="display: block;">
 
 						<div class="resizable-textarea">
-							<textarea name="r_content" id="r_content" cols="30" rows="10"
+							<textarea name="r_content" id="r_content" style="height: 100px;"
 								placeholder="나의 강점과 특징에 대해 소개하고 어떤 사람인지 설명해 보세요.
 직접 작성이 어려울 땐 간편입력을 활용하세요!"
 								class="rcontent-input">직접 입력이다.</textarea>
@@ -171,37 +179,102 @@ td {
 					</div>
 
 					<div id="OneMinDoc" class="introduceWrap" style="display: none;">
-						<h3 class="hide">자기소개서 1분 자동완성</h3><br>
-						<div id="SampleArea">
-							<div class="exampleArea">
-								<ul class="subjectList">
 
-									<li class="selected">성격</li>
-									<li>경력사항</li>
-									<li>지원동기</li>
+						<div class="resizable-textarea">
+							<br>
+							<div
+								style="width: 100px; height: 200px; display: inline-block">
+								<ul>
+									<li id="defaultLi" role="button" value="성격">성 격</li>
+									<li role="button" value="경력사항">경력사항</li>
+									<li role="button" value="지원동기">지원동기</li>
 								</ul>
 							</div>
-						</div>
-						<textarea name="r_content" id="r_content" cols="30" rows="10"
-							placeholder="나의 강점과 특징에 대해 소개하고 어떤 사람인지 설명해 보세요.
+							<div class="autoResume" style="display: inline-block; overflow: scroll; width:450px; height:200px;">
+								<table id="personality">
+									<tr>
+										<td style="border-bottom:1px solid gray;">주위 사람들의 기분을 좋게 하는 명쾌하고 활발한 성격을 지니고 있습니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom:1px solid gray;">주어진 일만 하는 소극적인 모습보다는 스스로 찾아서 하는 적극적인 성격을 지니고 있습니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom:1px solid gray;">환한 미소와 함께 타인을 배려하며 매사에 적극적으로 도전해 나가는 편입니다.</td>
+									</tr>
+									<!-- 1px solid gray css 한번에 주기 -->
+								</table>
+								
+								<hr>
+								<table id="career">
+									<tr>
+										<td>4</td>
+									</tr>
+									<tr>
+										<td>5</td>
+									</tr>
+									<tr>
+										<td>6</td>
+									</tr>
+								</table>
+								<table id="motivation">
+									<tr>
+										<td>7</td>
+									</tr>
+									<tr>
+										<td>8</td>
+									</tr>
+									<tr>
+										<td>9</td>
+									</tr>
+								</table>
+							</div>
+							<textarea name="r_content" id="r_content" style="height: 100px;"
+								placeholder="나의 강점과 특징에 대해 소개하고 어떤 사람인지 설명해 보세요.
 직접 작성이 어려울 땐 간편입력을 활용하세요!"
-							class="rcontent-input" readonly="readonly">간편 입력이다.</textarea>
+								class="rcontent-input" readonly="readonly">간편 입력이다.</textarea>
 							<!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
 
+
+
+							<script type="text/javascript">
+								$(".resizable-textarea li").click(
+										function() {
+											$(this).css("background-color",
+													"#cce891");
+											$(this).siblings()
+													.css("background-color",
+															"white");
+
+											const addr = $(this).attr("value"); //li의 value는 숫자만 가능
+
+											if (addr == "성격") {
+												$("#personality").show();
+												$("#personality").siblings()
+														.hide();
+											} else if (addr == "경력사항") {
+												$("#career").show();
+												$("#career").siblings().hide();
+											} else if (addr == "지원동기") {
+												$("#motivation").show();
+												$("#motivation").siblings()
+														.hide();
+											}
+
+										})
+							</script>
+
+						</div>
 					</div>
 
-				</div>
+					<br> <input type="checkbox" name="r_presume">대표이력서 설정
+					<br> <input type="checkbox" name="r_private">이력서 비공개
+					<!-- 대표이력서 체크되면 1(대표이력서), 비공개 체크되면 1(비공개)되게 해야함 -->
 
-				<br>
-				<input type="checkbox" name="r_presume">대표이력서 설정
-				<br>
-				<input type="checkbox" name="r_private">이력서 비공개
-				<!-- 대표이력서 체크되면 1(대표이력서), 비공개 체크되면 1(비공개)되게 해야함 -->
-				
 
-				
 
-				<button class="formbold-btn">공고등록</button>
+
+					<button class="formbold-btn">공고등록</button>
+					<!-- 수정시 writeday가 now로 update -->
 			</form>
 		</div>
 	</div>

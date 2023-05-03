@@ -14,11 +14,14 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
 	rel="stylesheet">
-	
+
 <!-- Libraries Stylesheet -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link href="${root }/css/usercss/owl.carousel.min.css" rel="stylesheet">
 <link href="${root }/css/usercss/tempusdominus-bootstrap-4.min.css"
 	rel="stylesheet" />
@@ -37,60 +40,77 @@
 
 		<!-- Content Start -->
 		<div class="container-fluid pt-4 px-4">
-			<div class="row g-4"style="border:1px solid gray">
-				<div class="col-sm-12 col-md-3 col-xl-4 w-25" >
+			<div class="row g-4" style="border: 1px solid gray">
+				<div class="col-sm-12 col-md-3 col-xl-4 w-25">
 					<div style="width: 150px; height: 200px;" id="photoZone">
-					<img alt="" src="/photo/${dto.u_photo}" style="width: 150px; height: 200px;">
+						<img alt="" src="/photo/${dto.u_photo}"
+							style="width: 150px; height: 200px;">
 					</div>
-					
+
 					<div>
-					  <!-- Modal -->
-					  <div class="modal fade" id="myPhoto" role="dialog">
-					    <div class="modal-dialog">
-					    
-					      <!-- Modal content-->
-					      <div class="modal-content">
-					        <div class="modal-header">
-					          <button type="button" class="close" data-dismiss="modal">&times;</button>
-					          <h4 class="modal-title">사진 등록</h4>
-					        </div>
-					        <div class="modal-body">
-					          <input type="file" id="inputFile">
-					          
-					        </div>
-					        <div class="modal-footer">
-					          <button type="button" class="btn btn-default" id="uPhoto" loginId="${sessionScope.loginId}">등록</button>
-					          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					        </div>
-					      </div>
-					    </div>
-					  </div>
+						<!-- Modal -->
+						<div class="modal fade" id="myPhoto" role="dialog">
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">사진 등록</h4>
+									</div>
+									<div class="modal-body">
+										<input type="file" id="inputFile">
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" id="uPhoto"
+											loginId="${sessionScope.loginId}">등록</button>
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">닫기</button>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					
-					<button type="button" data-toggle="modal" data-target="#myPhoto">사진 등록 및 변경</button>
+
+					<button type="button" data-toggle="modal" data-target="#myPhoto">사진
+						등록 및 변경</button>
 					<br>
-					<button type="button" onclick="location.href='update'">개인정보 수정</button>
+					<button type="button" onclick="location.href='update'">개인정보
+						수정</button>
 				</div>
 				<div class="col-sm-12 col-md-6 col-xl-7 w-75">
 					<div class="h-100 bg-light rounded p-4">
 						<div
 							class="d-flex align-items-center justify-content-between mb-4">
 							<c:if test="${rdto.r_title==null}">
-							<h3>대표이력서가 없습니다.</h3>
-							<button onclick="location.href='#'">대표이력서 설정하기</button>
-							<!-- 이력서 목록 페이지로 -->
+								<h3>대표이력서가 없습니다.</h3>
+								<button onclick="location.href='#'">대표이력서 설정하기</button>
+								<!-- 이력서 목록 페이지로 -->
 							</c:if>
 							<c:if test="${rdto.r_title!=null}">
-							<h3>${rdto.r_title}</h3>							
+								<h3>${rdto.r_title}</h3>
+								<br>
+							최종수정일 : ${rdto.r_writeday }<br>
+								<c:if test="${rdto.r_private==0}">
+							공개중
+							<button type="button">이력서 비공개</button>
 							</c:if>
-						<button type="button">이력서 공개하기</button>
+							
+								<c:if test="${rdto.r_private==1}">
+							비공개중
+							<button type="button">이력서 공개</button>
+								</c:if>
+
+							</c:if>
 						</div>
 					</div>
 					<br>
 					<div class="h-100 bg-light rounded p-4">
-						<button type="button" onclick="location.href='insertresume'">이력서 등록</button>
+						<button type="button" onclick="location.href='insertresume'">이력서
+							등록</button>
 						<button type="button">지원현황</button>
-						<button type="button">내 이력서 목록</button>
+						<button type="button" onclick="location.href='resumelist'">내 이력서 목록</button>
 						<br>
 					</div>
 					<br>
@@ -175,7 +195,7 @@
 			</div>
 		</div>
 		<!-- Widgets End -->
-		
+
 		<!-- Recent Sales Start -->
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
@@ -406,7 +426,7 @@
 			</div>
 		</div>
 		<!-- Recent Sales End -->
-		
+
 		<!-- Recent Sales Start -->
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
@@ -466,7 +486,7 @@
 
 	</div>
 	<!-- Content End -->
-	
+
 
 	<!-- JavaScript Libraries -->
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -476,28 +496,26 @@
 
 	<!-- Template Javascript -->
 	<script src="${root }/js/main.js"></script>
-	
+
 	<!-- 사진 등록 Ajax -->
 	<script type="text/javascript">
-	$(document).on("click", "#uPhoto", function(){
-		var u_id =$(this).attr("loginId"); //본인의 num을 호출
-		var form = new FormData();
-		form.append("u_photo", $("#inputFile")[0].files[0]);//선택한 한 개만 반드시 추가해준다.
-		form.append("u_id", u_id);
-	 	 $.ajax({
-			type : "post",
-			dataType : "text",
-			url : "/updatePhoto",
-			processData : false,
-			contentType : false,
-			data : form,
-			success : function() {
-				location.reload();
-			}
-		}) 
-	})
-	
-
+		$(document).on("click", "#uPhoto", function() {
+			var u_id = $(this).attr("loginId"); //본인의 num을 호출
+			var form = new FormData();
+			form.append("u_photo", $("#inputFile")[0].files[0]);//선택한 한 개만 반드시 추가해준다.
+			form.append("u_id", u_id);
+			$.ajax({
+				type : "post",
+				dataType : "text",
+				url : "/updatePhoto",
+				processData : false,
+				contentType : false,
+				data : form,
+				success : function() {
+					location.reload();
+				}
+			})
+		})
 	</script>
 </body>
 
