@@ -13,7 +13,6 @@ public class TilesConfig {
 
 	@Bean
 	public TilesConfigurer tilesConfigurer() {
-		System.out.println("tiles");
 		TilesConfigurer tilesConfigurer = new TilesConfigurer();
 		tilesConfigurer.setDefinitions(new String[] {"/WEB-INF/tiles.xml"});
 		tilesConfigurer.setCheckRefresh(true);

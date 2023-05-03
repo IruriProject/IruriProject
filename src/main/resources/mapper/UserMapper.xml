@@ -18,4 +18,10 @@
 	<insert id="joinUser" parameterType="udto">
 	insert into USER values(null,#{u_id},#{u_pw},#{u_name},#{u_gender},#{u_birth},#{u_hp},#{u_email},#{u_addr},null,#{u_email_agree})
 	</insert>
+	
+	<!-- id중복체크 -->
+	<select id="getSearchId" parameterType="String" resultType="int">
+	select count(*) from USER where u_id=#{u_id}
+	</select>
+	
 </mapper>

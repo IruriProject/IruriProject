@@ -166,7 +166,7 @@
     width: 45%;
   }
   
-  #idcheck{
+  #idcheck,#pwcheck{
     color: red;
   }
 </style>
@@ -179,7 +179,7 @@
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
   <div class="formbold-form-wrapper">
-    <form action="/action" method="POST">
+    <form action="action" method="POST" name="joinform" onsubmit="return check()">
 
       <div class="formbold-input-wrapp formbold-mb-3">
         <label class="formbold-form-label"> 아이디 </label>
@@ -189,44 +189,68 @@
             name="u_id"
             id="u_id"
             placeholder="영문, 숫자로 구성된 6-12자의 아이디를 입력해주세요"
-            min="6" max="12"
+            min="6" max="12" required
+            onkeyup="characterCheck(this);idcheckClean();" onkeydown="characterCheck(this);idcheckClean();"
             class="formbold-form-input"
           />
           <button type="button" class="formbold-btn btn-s" id="btn-idcheck">중복확인</button>
           </div>
           <div>
-          <div id="idcheck">중복된 아이디입니다.</div>
+          <div id="idcheck"></div>
+          <input type="hidden" value="idUnchecked" name="isDuplication" id="isDuplication">
           </div>
       </div>
       
       <script type="text/javascript">
-        
-	    //아이디입력시 idsuccess값 지움
-	  	$("#loginid").keydown(function(){
-	  		$(".idsuccess").text("");
-	  	})
-	  	
+      //아이디
+      
+        function idcheckClean(){
+        	$("#idcheck").html("");
+        	$("#isDuplication").val("isUnchecked");
+        	$("#isDuplication").removeAttr("disabled");
+        	$("#btn-idcheck").css("background-color","#cce891");
+        }
+      
 	    //중복체크 버튼 클릭시
       	$("#btn-idcheck").click(function(){
       		
-      		const id=$("#u_id").val(); 
+      		const u_id=$("#u_id").val();
+      		
+      		if(u_id.length<6 || u_id.length>12){
+      			$("#idcheck").text("아이디는 6자 이상 12자 이하만 가능합니다.");
+      			return false;
+      		}
       		
 	  		$.ajax({
 	  			type:"get",
-	  			url:"/member/idcheck",
+	  			url:"/user/idcheck",
 	  			dataType:"json",
-	  			data:{"id":id},
+	  			data:{"u_id":u_id},
 	  			success:function(res){
 	  				if(res.count==0){
-	  					$(".idsuccess").text("ok");
+	  					$("#idcheck").text("가입이 가능한 아이디입니다.");
+	  					$("#isDuplication").val("isChecked");
+	  					$("#isDuplication").attr("disabled","true");
+	  					$("#btn-idcheck").css("background-color","lightgray");
 	  				}else{
-	  					$(".idsuccess").text("fail");
+	  					$("#idcheck").text("중복된 아이디입니다.");
+	  					
 	  				}
 	  			}
 	  		})
 	  		
-      		$("#idcheck").html();
       	})
+      	
+      	//특수문자감지
+      	function characterCheck(obj){
+      		
+		var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
+
+		if( regExp.test(obj.value) ){
+			$("#idcheck").html("특수문자는 입력하실수 없습니다.");
+			obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지우기
+			}
+		}
       
       </script>
 
@@ -235,7 +259,8 @@
         <input
           type="password"
           id="pw1"
-          name="u_pw"
+          name="u_pw" 
+          min="6" max="12" required
           placeholder="비밀번호를 입력해주세요"
           class="formbold-form-input"
         />
@@ -246,17 +271,38 @@
         <input
           type="password"
           id="pw2"
-          placeholder="비밀번호를 동일하게 입력해주세요"
+          min="6" max="12" required
+          placeholder="비밀번호를 다시 입력해주세요"
           class="formbold-form-input"
         />
+      <div id="pwcheck"></div>
+      <input type="hidden" id="pwChecked" value="ok">
       </div>
+      
+      <script type="text/javascript">
+      //비밀번호
+      
+      $("#pw2").change(function(){
+	      pw1=$("#pw1").val();
+	      pw2=$("#pw2").val();
+	      
+	      if(pw1!=pw2){
+    		  $("#pwcheck").html("비밀번호가 일치하지 않습니다.");
+    	  }else{
+    		  $("#pwcheck").html("유효한 비밀번호입니다.");
+    		  $("#pwcheck").css("color","green");
+    		  $("#pwChecked").val("no");
+    	  }
+      })
+            
+      </script>
 
       <div class="formbold-mb-3">
         <label class="formbold-form-label"> 이름 </label>
         <input
           type="text"
           id="u_name"
-          name="u_name"
+          name="u_name" required
           placeholder="이름을 입력해주세요"
           class="formbold-form-input"
         />
@@ -270,7 +316,7 @@
             type="text"
             name="u_hp"
             id="phone"
-            placeholder="- 없이 핸드폰 번호를 입력해주세요"
+            placeholder="- 없이 입력해주세요" required
             class="formbold-form-input"
           />
           <button type="button" id="sms-btn" class="formbold-btn btn-s">인증번호발송</button>
@@ -278,7 +324,7 @@
           <input
             type="text"
             id="sms-id"
-            placeholder="인증번호입력"
+            placeholder="인증번호입력" required
             class="formbold-form-input"
           />
           <button type="button" class="formbold-btn btn-s">확인</button>
@@ -297,7 +343,7 @@
       
       <div class="formbold-mb-3">
         <label class="formbold-form-label"> 생년월일 </label>
-        <input type="date" name="u_birth" id="u_birth" class="formbold-form-input" />
+        <input type="date" name="u_birth" id="u_birth" class="formbold-form-input" required />
       </div>
 
       <div class="formbold-mb-3">
@@ -306,7 +352,7 @@
           type="email"
           name="u_email"
           id="u_email"
-          placeholder="example@email.com 형태로 입력해주세요"
+          placeholder="example@email.com 형태로 입력해주세요" required
           class="formbold-form-input"
         />
       </div>
@@ -314,7 +360,7 @@
       <div class="formbold-mb-3">
         <label class="formbold-form-label"> 주소 </label>
         <div style="align-content: flex-end;">
-        <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input" style="width: 300px;">
+        <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input" style="width: 300px;" required>
 		<input type="button" class="formbold-btn btn-s" onclick="sample6_execDaumPostcode()" value="검색"><br>
         </div>
 		<input type="text" id="sample6_address" name="addr1" placeholder="주소" class="formbold-form-input" disabled ><br><br>
@@ -355,7 +401,7 @@
         </label>
       </div>
 
-      <button class="formbold-btn btn-m">가입하기</button>
+      <button class="formbold-btn btn-m" id="btnjoin">가입하기</button>
     </form>
   </div>
 </div>
@@ -365,6 +411,17 @@
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
+	//가입시 중복확인 버튼 클릭 여부 확인
+	$("#btnjoin").click(function(){
+		if(document.joinform.isDuplication.value!='isChecked'){
+			alert("아이디 중복확인을 해주세요");
+			return false;
+		};
+	})
+
+
+	//주소 api
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
