@@ -253,8 +253,9 @@ $(".gu").click(function(){
 		${dto.p_pay }
 		</td>
 		<td width="150">
-		<fmt:formatDate value="${dto.p_starttime}" type="time" pattern="HH:mm"/> - 
-		<fmt:formatDate value="${dto.p_endtime}" type="time" pattern="HH:mm"/>
+		<%-- <fmt:formatDate value="${dto.p_starttime}" type="time" pattern="HH:mm"/> - 
+		<fmt:formatDate value="${dto.p_endtime}" type="time" pattern="HH:mm"/> --%>
+		${dto.p_starttime } - ${dto.p_endtime }
 		</td>
 		<td width="100"><fmt:formatDate value="${dto.p_writeday }" pattern="yyyy-MM-dd"/></td>
    		</tr>
