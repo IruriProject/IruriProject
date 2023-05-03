@@ -40,5 +40,6 @@ public class UserService {
 	public int getSearchId(String u_id) {
 		return mapper.getSearchId(u_id);
 	}
+	
 
 }

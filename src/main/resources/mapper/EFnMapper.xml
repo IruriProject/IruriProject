@@ -20,4 +20,19 @@
 	order by e_num desc limit #{start},#{perpage}
 	</select>
 	
+	
+	<insert id="insertPosting" parameterType="pdto">
+		insert into POSTING(e_num,p_title,p_type,p_pay,p_period,p_workday,p_starttime,p_endtime,p_employtype,p_content,p_writeday,p_startdate,p_enddate,p_status,p_hirenum)
+		 values(#{e_num},#{p_title},#{p_type},#{p_pay},#{p_period},#{p_workday},#{p_starttime},#{p_endtime},#{p_employtype},#{p_content},now(),now(),#{p_enddate},'지원가능',#{p_hirenum})
+	</insert>
+	
+	<select id="getAllPostings" parameterType="String" resultType="pdto">
+		select * from POSTING where e_num=#{e_num}
+	</select>
+	
+	<!-- 공고상태 변경 -->
+	<update id="updatePostingStatus" parameterType="Map">
+		update POSTING set p_status=#{p_status} where p_num=#{p_num}
+	</update>
+
 </mapper>

@@ -13,4 +13,5 @@ public interface UserMapperInter {
 	public UserDto findUserById(String u_id);
 	public void joinUser(UserDto dto);
 	public int getSearchId(String u_id);
+
 }

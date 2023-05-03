@@ -1,13 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>       
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Edu+VIC+WA+NT+Beginner:wght@600&family=Gamja+Flower&family=Single+Day&family=Jua&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
   * {
     margin: 0;
@@ -165,120 +170,159 @@
   .formbold-w-45 {
     width: 45%;
   }
+  div{
+  border:1px solid gray;}
 </style>
-	
-<title>Insert title here</title>
 </head>
 <body>
-
+	개인정보 관리
+	<br> 내 정보 수정******
+	<br> 비밀번호변경
+	<br> 회원탈퇴
+	<h1>주소API value값 지정 안됨</h1>
+	
 <div class="formbold-main-wrapper">
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
   <div class="formbold-form-wrapper">
-    <form action="action/enter" method="POST">
-
+    <form action="updateUserInfo" method="POST">
+	<!-- 히든? -->
+	<input type="hidden" name="u_num" value="${dto.u_num }">
+	<input type="hidden" name="u_pw" value="${sessionScope.loginPw }">
       <div class="formbold-input-wrapp formbold-mb-3">
         <label class="formbold-form-label"> 아이디 </label>
         <div>
           <input
             type="text"
-            name="e_id"
-            placeholder="가입할 아이디를 입력해주세요"
+            name="u_id"
             class="formbold-form-input"
+            value="${sessionScope.loginId }"
+            readonly="readonly"
           />
-          <button type="button" class="formbold-btn btn-s">중복확인</button>
         </div>
-      </div>
-
-      <div class="formbold-mb-3">
-        <label class="formbold-form-label"> 비밀번호 </label>
-        <input
-          type="password"
-          id="pw1"
-          name="e_pw"
-          placeholder="비밀번호를 입력해주세요"
-          class="formbold-form-input"
-        />
-      </div>
-
-      <div class="formbold-mb-3">
-        <label class="formbold-form-label"> 비밀번호 확인 </label>
-        <input
-          type="password"
-          id="pw2"
-          placeholder="비밀번호를 동일하게 입력해주세요"
-          class="formbold-form-input"
-        />
-      </div>
-
-      <div class="formbold-mb-3">
-        <label class="formbold-form-label"> 회사/점포명 </label>
-        <input
-          type="text"
-          id="e_name"
-          name="e_name"
-          placeholder="이름을 입력해주세요"
-          class="formbold-form-input"
-        />
       </div>
       
       <div class="formbold-mb-3">
-        <label class="formbold-form-label"> 사업자등록번호 </label>
+        <label class="formbold-form-label"> 이름 </label>
         <input
           type="text"
-          name="e_registnum"
-          id="e_registnum"
-          placeholder="사업자등록번호를 입력해주세요"
+          id="u_name"
+          name="u_name"
+          placeholder="이름을 입력해주세요"
           class="formbold-form-input"
+          value="${sessionScope.loginName }"
+          readonly="readonly"
         />
       </div>
       
       <div class="formbold-mb-3 formbold-input-wrapp">
-        <label class="formbold-form-label"> 회사 전화번호 </label>
+        <label class="formbold-form-label"> 전화번호 </label>
 
         <div>
           <input
             type="text"
-            name="e_tel"
-            id="e_tel"
-            placeholder="- 없이 전화번호를 입력해주세요"
+            name="u_hp"
+            id="phone"
+            placeholder="- 없이 핸드폰 번호를 입력해주세요"
+            class="formbold-form-input"
+            value="${dto.u_hp }"
+          />
+
+          <button type="button" id="sms-btn" class="formbold-btn btn-s">인증번호발송</button>
+          
+          <input
+            type="text"
+            id="sms-id"
+            placeholder="인증번호입력"
             class="formbold-form-input"
           />
-          
+          <button type="button" class="formbold-btn btn-s">확인</button>
         </div>
       </div>
 
       <div class="formbold-mb-3">
-        <label for="e_email" class="formbold-form-label"> 회사 이메일 </label>
+        <label class="formbold-form-label">성별</label>
+
+        <select class="formbold-form-input" name="u_gender">
+        <c:if test="${dto.u_gender=='여'}">
+          <option value="여">여성</option>
+        </c:if>
+        <c:if test="${dto.u_gender=='남'}">
+          <option value="남">남성</option>
+        </c:if>
+        </select>
+      </div>
+      
+      <div class="formbold-mb-3">
+        <label class="formbold-form-label"> 생년월일 </label>
+        <input type="date" name="u_birth" id="u_birth" class="formbold-form-input" value="${dto.u_birth }"/>
+      </div>
+
+      <div class="formbold-mb-3">
+        <label class="formbold-form-label"> 이메일 </label>
         <input
           type="email"
-          name="e_email"
-          id="e_email"
+          name="u_email"
+          id="u_email"
           placeholder="example@email.com 형태로 입력해주세요"
           class="formbold-form-input"
+          value="${dto.u_email }"
         />
       </div>
 
       <div class="formbold-mb-3">
-        <label for="address" class="formbold-form-label"> 회사 주소 </label>
+        <label class="formbold-form-label"> 주소 </label>
         <div style="align-content: flex-end;">
-        <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input" style="width: 300px;">
+        <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input" style="width: 300px;" required="required">
 		<input type="button" class="formbold-btn btn-s" onclick="sample6_execDaumPostcode()" value="검색"><br>
         </div>
-		<input type="text" id="sample6_address" name="addr1" placeholder="주소" class="formbold-form-input" disabled ><br><br>
-		<input type="text" id="sample6_detailAddress" name="addr2" placeholder="상세주소" class="formbold-form-input">
-		<input type="text" id="sample6_extraAddress" name="addr3" placeholder="참고항목" class="formbold-form-input" disabled >
+		<input type="text" id="sample6_address" name="addr1" placeholder="주소" class="formbold-form-input" readonly="readonly" ><br><br>
+		<input type="text" id="sample6_detailAddress" name="addr2" placeholder="상세주소" class="formbold-form-input" >
+		<input type="text" id="sample6_extraAddress" name="addr3" placeholder="참고항목" class="formbold-form-input" readonly="readonly" >
+		
       </div>
 
 	<br><br>
 
-      <button class="formbold-btn btn-m">가입하기</button>
+      <div class="formbold-checkbox-wrapper">
+        <label class="formbold-checkbox-label">
+          <div class="formbold-relative">
+            <input
+              type="checkbox"
+              id="supportCheckbox"
+              name="u_email_agree"
+              class="formbold-input-checkbox"
+              
+            />
+            <div class="formbold-checkbox-inner">
+              <span class="formbold-opacity-0">
+                <svg
+                  width="11"
+                  height="8"
+                  viewBox="0 0 11 8"
+                  class="formbold-stroke-current"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.81868 0.688604L4.16688 5.4878L2.05598 3.29507C1.70417 2.92271 1.1569 2.96409 0.805082 3.29507C0.453266 3.66742 0.492357 4.24663 0.805082 4.61898L3.30689 7.18407C3.54143 7.43231 3.85416 7.55642 4.16688 7.55642C4.47961 7.55642 4.79233 7.43231 5.02688 7.18407L10.0696 2.05389C10.4214 1.68154 10.4214 1.10233 10.0696 0.729976C9.71776 0.357624 9.17049 0.357625 8.81868 0.688604Z"
+                    fill="white"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+          광고성 메일을 받습니다.
+        </label>
+      </div>
+
+      <button class="formbold-btn btn-m">변경하기</button>
+      <button class="formbold-btn btn-m" type="button" onclick="location.href='../mypage'">변경 취소</button>
     </form>
   </div>
 </div>
-
+	
 </body>
-
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -331,5 +375,25 @@
     }
     
   
+    
+    //문자발송
+     $("#sms-btn").click(function(){
+    	
+	    const msgModule = require('coolsms-node-sdk').default
+	
+		// 인증을 위해 발급받은 본인의 API Key를 사용합니다.
+		const apiKey = 'NCSXNDMDJQXS14ZS'
+		const apiSecret = 'PB0HDL4TIDTSIA3NG8ZWH5DGC9DNASSY'
+		const messageService = new msgModule(apiKey, apiSecret);
+		
+		const params = {
+		  text: '[쿨에스엠에스 테스트] hello world!', // 문자 내용
+		  to: $("#phone").val(), // 수신번호 (받는이)
+		  from: '01023953374' // 발신번호 (보내는이)
+		}
+		messageService.sendMany([params]).then(console.log).catch(console.error)
+		
+    })
+    
 </script>
 </html>

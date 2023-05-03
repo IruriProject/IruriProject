@@ -132,12 +132,12 @@ $(document).ready(function(){
             </ul>
         </li>
         <li>
-            <a href="#" class="mainMenu">회원서비스</a>
+            <a href="/mypage" class="mainMenu">회원서비스</a>
             <ul class="subMenu">
-                <li><a href="hi">sub메뉴</a></li>
-                <li><a href="hi">sub메뉴</a></li>
-                <li><a href="hi">sub메뉴</a></li>
-                <li><a href="hi">sub메뉴</a></li>
+                <li><a href="/update">개인정보 관리</a></li>
+                <li><a href="hi">이력서 관리</a></li>
+                <li><a href="hi">관심 기업</a></li>
+                <li><a href="hi">지원현황</a></li>
             </ul>
         </li>
         <li>
@@ -172,7 +172,7 @@ $(document).ready(function(){
 	<nav class="othermenu">
 		<ul class="o_menu">
 			<li><a href="hi">이력서등록</a></li>
-			<li><a href="hi">공고등록</a></li>
+			<li><a href="${root }/posting/write">공고등록</a></li>
 		</ul>
 	</nav>
 </body>

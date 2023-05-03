@@ -18,4 +18,10 @@
 	<insert id="joinEnterprise" parameterType="edto">
 	insert into ENTERPRISE values(null,#{e_id},#{e_pw},#{e_name},#{e_registnum},null,#{e_tel},#{e_addr},#{e_email},0,0)
 	</insert>
+	
+	<!-- 기업탈퇴 -->
+	<delete id="withdrawEnterprise" parameterType="Map">
+		delete from ENTERPRISE where e_num=#{e_num} and e_pw=#{e_pw}
+	</delete>
+	
 </mapper>
