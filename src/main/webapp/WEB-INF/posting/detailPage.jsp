@@ -261,7 +261,7 @@ body {
 						"e_num":e_num,
 						"u_id":u_id
 					},
-					url:"hinsert",
+					url:"/hinsert",
 					success:function(res){
 						alert("좋아요 성공");
 						
