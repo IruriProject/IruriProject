@@ -144,7 +144,7 @@ body {
 							</div>
 							<div class="postingContent">${dto.p_period }</div>
 							<div class="postingContent">${dto.p_workday }</div>
-							<div class="postingContent">${dto.p_starttime }~${dto.p_endtime }</div>
+							<div class="postingContent"><fmt:formatDate value="${dto.p_starttime }" pattern="HH:mm"/>&nbsp;~&nbsp;<fmt:formatDate value="${dto.p_endtime }" pattern="HH:mm"/> </div>
 						</div>
 					</section>
 					<br>
