@@ -11,6 +11,7 @@ import spring.mvc.dto.PostingDto;
 @Mapper
 public interface EFnMapperInter {
 	
+	//공고
 	public Map<String, Object> getPosting(String p_num);
 	
 	public void insertPosting(PostingDto dto);
@@ -24,8 +25,14 @@ public interface EFnMapperInter {
 	
 	public void updatePosting(PostingDto dto);
 	
+	
+	//쪽지
 	public List<Map<String, Object>> getAllMessages(String e_num);
 	public List<Map<String, Object>> getPreviewMessages(String e_num);
+	
+	public Map<String, Object> getMessage(String m_num);
+	
+	public void insertMessage(MessageDto dto);
 
 
 }

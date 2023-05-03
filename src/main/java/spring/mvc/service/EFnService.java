@@ -16,6 +16,8 @@ public class EFnService {
 	@Autowired
 	EFnMapperInter mapper;
 	
+	
+	//공고
 	public Map<String, Object> getPosting(String p_num) {
 		return mapper.getPosting(p_num);
 	}
@@ -43,13 +45,21 @@ public class EFnService {
 		mapper.updatePosting(dto);
 	}
 	
+	
+	//쪽지
 	public List<Map<String, Object>> getAllMessages(String e_num){
 		return mapper.getAllMessages(e_num);
-	
 	}
 	public List<Map<String, Object>> getPreviewMessages(String e_num){
 		return mapper.getPreviewMessages(e_num);
 	}
 	
+	public Map<String, Object> getMessage(String m_num) {
+		return mapper.getMessage(m_num);
+	}
+	
+	public void insertMessage(MessageDto dto) {
+		mapper.insertMessage(dto);
+	}
 
 }
