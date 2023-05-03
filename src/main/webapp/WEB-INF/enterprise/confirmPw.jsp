@@ -12,9 +12,12 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 <body>
-	<script type="text/javascript">
-		alert("비밀번호가 다릅니다. 다시 입력해주세요.");
-		history.back();
-	</script>
+	<form action="confirmpwAction" method="post">
+	<input type="hidden" name="e_num" value="${e_num }">
+		<div>비밀번호 입력</div>
+		<br>
+		<input type="text" placeholder="비밀번호 입력" name="inputpw">
+		<button type="submit" class="btn btn-info">탈퇴하기</button>
+	</form>
 </body>
 </html>
