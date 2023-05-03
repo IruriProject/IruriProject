@@ -1,5 +1,6 @@
 package spring.mvc.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,5 +40,21 @@ public class EFnService {
 		mapper.updatePosting(dto);
 	}
 	
+	public int getTotalCount() {
+		return mapper.getTotalCount();
+	}
+	public List<PostingDto> getPagingList(String searchcolumn, String searchword, int start, int perpage){
+		Map<String, Object> map=new HashMap<>();
+		
+		map.put("searchcolumn", searchcolumn);
+		map.put("searchword", searchword);
+		map.put("start", start);
+		map.put("perpage", perpage);
 
+		return mapper.getPagingList(map);
+	}
+
+	public List<PostingDto> getAddrSearch(String p_addr){
+		return mapper.getAddrPostings(p_addr);
+	}
 }

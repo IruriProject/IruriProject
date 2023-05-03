@@ -12,6 +12,10 @@ public interface EFnMapperInter {
 	
 	public Map<String, Object> getPosting(String p_num);
 	
+	public int getTotalCount();
+	
+	public List<PostingDto> getPagingList(Map<String, Object> map);
+	
 	public void insertPosting(PostingDto dto);
 	
 	public List<PostingDto> getAllPostings(String e_num);
@@ -21,6 +25,6 @@ public interface EFnMapperInter {
 	public void deletePosting(String p_num);
 	
 	public void updatePosting(PostingDto dto);
-
-
+	
+	public List<PostingDto> getAddrPostings(String p_addr);
 }

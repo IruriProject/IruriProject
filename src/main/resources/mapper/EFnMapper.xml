@@ -9,9 +9,21 @@
 		select POSTING.*, ENTERPRISE.* from POSTING inner join ENTERPRISE on POSTING.e_num = ENTERPRISE.e_num where POSTING.p_num = #{p_num}
 	</select>
 	
+	<select id="getTotalCount" resultType="int">
+	select count(*) from POSTING
+	</select>
+	
+	<select id="getPagingList" parameterType="Map" resultType="pdto">
+	select * from POSTING 
+		<if test="searchcolumn!=null and searchword!=null">
+		where ${searchcolumn} like concat('%',#{searchword},'%')
+		</if>
+	order by p_num desc limit #{start},#{perpage}
+	</select>
+	
 	<insert id="insertPosting" parameterType="pdto">
-		insert into POSTING(e_num,p_title,p_type,p_pay,p_period,p_workday,p_starttime,p_endtime,p_employtype,p_content,p_writeday,p_startdate,p_enddate,p_status,p_hirenum)
-		 values(#{e_num},#{p_title},#{p_type},#{p_pay},#{p_period},#{p_workday},#{p_starttime},#{p_endtime},#{p_employtype},#{p_content},now(),now(),#{p_enddate},'지원가능',#{p_hirenum})
+		insert into POSTING(e_num,p_title,p_type,p_pay,p_period,p_workday,p_starttime,p_endtime,p_employtype,p_content,p_writeday,p_startdate,p_enddate,p_status,p_hirenum,p_addr)
+		 values(#{e_num},#{p_title},#{p_type},#{p_pay},#{p_period},#{p_workday},#{p_starttime},#{p_endtime},#{p_employtype},#{p_content},now(),now(),#{p_enddate},'지원가능',#{p_hirenum},#{p_addr})
 	</insert>
 	
 	<select id="getAllPostings" parameterType="String" resultType="pdto">
@@ -22,6 +34,11 @@
 	<update id="updatePostingStatus" parameterType="Map">
 		update POSTING set p_status=#{p_status} where p_num=#{p_num}
 	</update>
+	
+	<!-- 지역별 검색 -->
+	<select id="getAddrPostings" parameterType="String" resultType="pdto">
+	select * from POSTING where p_addr=#{p_addr} order by p_num desc
+	</select>
 	
 	<delete id="deletePosting" parameterType="String">
 		delete from POSTING where p_num=#{p_num}
