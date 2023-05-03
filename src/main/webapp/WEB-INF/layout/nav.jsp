@@ -123,9 +123,9 @@ $(document).ready(function(){
 	<nav class="nav_header">
     <ul>
         <li>
-            <a href="/posting" class="mainMenu">채용정보</a>
+            <a href="/posting/search" class="mainMenu">채용정보</a>
             <ul class="subMenu">
-                <li><a href="/posting">공고검색</a></li>
+                <li><a href="/posting/search">공고검색</a></li>
                 <li><a href="hi">sub메뉴</a></li>
                 <li><a href="hi">sub메뉴</a></li>
                 <li><a href="hi">sub메뉴</a></li>
@@ -141,8 +141,8 @@ $(document).ready(function(){
             </c:if>
             <ul class="subMenu">
                 <li><a href="/update">개인정보 관리</a></li>
-                <li><a href="hi">이력서 관리</a></li>
-                <li><a href="hi">관심 기업</a></li>
+                <li><a href="/resumelist">이력서 관리</a></li>
+                <li><a href="/likeenterprise">관심 기업</a></li>
                 <li><a href="hi">지원현황</a></li>
             </ul>
         </li>
@@ -177,7 +177,7 @@ $(document).ready(function(){
 </nav>
 	<nav class="othermenu">
 		<ul class="o_menu">
-			<li><a href="hi">이력서등록</a></li>
+			<li><a href="insertresume">이력서등록</a></li>
 			<li><a href="${root }/posting/write">공고등록</a></li>
 		</ul>
 	</nav>

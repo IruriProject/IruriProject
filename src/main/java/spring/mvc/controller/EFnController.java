@@ -1,20 +1,27 @@
 package spring.mvc.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import spring.mvc.dto.PostingDto;
+import spring.mvc.service.EFnService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.EnterpriseDto;
@@ -28,7 +35,12 @@ public class EFnController {
 
 	@Autowired
 	EFnService service;
-	
+
+	@GetMapping("/insertForm")
+	public String insertForm() {
+		return "/posting/InsertForm";
+	}
+
 	@GetMapping("/search")
 	public ModelAndView l(@RequestParam(value = "currentPage",defaultValue = "1") int currentPage,
 			@RequestParam(value = "searchcolumn",required = false) String sc, 
@@ -37,6 +49,7 @@ public class EFnController {
 		ModelAndView model=new ModelAndView();
 		
 		int totalCount=service.getTotalCount();
+
 		  int totalPage; 
 	      int startPage; 
 	      int endPage; 
@@ -73,11 +86,12 @@ public class EFnController {
 	       
 		model.setViewName("/posting/search");
 		return model;
+
 	}
-	
+
 	@Autowired
 	EnterpriseService e_service;
-	
+
 	@GetMapping("")
 	public String posting() {
 		return "/posting/search";
@@ -128,6 +142,7 @@ public class EFnController {
 		return service.getAddrSearch(p_addr);
 	}
 
+
 	@GetMapping("/confirmpw")
 	public String confirmpw(@RequestParam String p_num, Model model) {
 		model.addAttribute("p_num", p_num);
@@ -151,23 +166,28 @@ public class EFnController {
 			return "/enterprise/confirmFail";
 
 	}
-	
-	
+
 	@GetMapping("/update")
 	public ModelAndView updateForm(@RequestParam String p_num) {
-		ModelAndView mview=new ModelAndView();
+		ModelAndView mview = new ModelAndView();
 		mview.addObject("dto", service.getPosting(p_num));
 		mview.setViewName("/posting/updateForm");
 		return mview;
 	}
-	
-	
+
 	@PostMapping("/updateposting")
 	public String updateAction(@ModelAttribute PostingDto dto) {
-		
+
 		service.updatePosting(dto);
-		
-		return "redirect:/posting/detailpage?p_num="+dto.getP_num();
-		
+
+		return "redirect:/posting/detailpage?p_num=" + dto.getP_num();
+
+	}
+
+	@GetMapping("/messagedetail")
+	public String messagedetail() {
+
+		return "/message/detailPage";
+
 	}
 }

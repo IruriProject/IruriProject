@@ -184,7 +184,7 @@ $(".gu").click(function(){
 			
 			$("#addr-box").html(s);
 		}
-	} // ajax끝
+	}) // ajax끝
 	
 })
 

@@ -192,7 +192,7 @@ body {
 							<div class="withbtn">
 								<div class="withbtnTitle">기업정보</div>
 								<div>
-									<button type="button" class="btn btn-info">기업 찜하기</button>
+									<button type="button" id="btnLikeEnter" class="btn btn-info glyphicon glyphicon-heart-empty">기업 찜하기</button>
 								</div>
 							</div>
 
