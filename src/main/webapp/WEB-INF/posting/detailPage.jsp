@@ -8,9 +8,12 @@
 <meta charset="utf-8">
 <title>이루리_ 공고상세페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <c:set var="root" value="<%=request.getContextPath()%>" />
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -99,6 +102,10 @@ body {
 .withbtnTitle {
 	font-size: 2.2em;
 }
+
+.modal-header{
+	justify-content: flex-end;
+}
 </style>
 </head>
 <body>
@@ -118,7 +125,7 @@ body {
 							<div>
 								<c:if
 									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
-									<button type="button" class="btn btn-info mt-2">지원하기</button>
+									<button type="button" class="btn btn-info mt-2" data-toggle="modal" data-target="#myModal">지원하기</button>
 									<button type="button" id="btnscrap" class="btn btn-info mt-2">공고 스크랩</button>
 								</c:if>
 								<c:if
@@ -131,6 +138,26 @@ body {
 							</div>
 						</div>
 						
+					  <!-- 지원하기 모달 -->
+						
+					  <!-- Modal -->
+					  <div class="modal fade" id="myModal" role="dialog">
+					    <div class="modal-dialog modal-lg">
+					      <div class="modal-content">
+					        <div class="modal-header">
+					          <h4 class="modal-title"> ${dto.p_title } - ${dto.e_name } 회사에 지원하기 &nbsp;</h4>
+					          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					        </div>
+					        <div class="modal-body">
+					          <p>지원하기</p>
+					        </div>
+					        <div class="modal-footer">
+					          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					        </div>
+					      </div>
+					    </div>
+					  </div>
+											
 						<script type="text/javascript">
 						
 						function reloadAlert(){
