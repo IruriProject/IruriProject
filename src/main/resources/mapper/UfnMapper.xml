@@ -5,36 +5,45 @@
 <mapper namespace="spring.mvc.mapper.UFnMapperInter">
 	<!-- 정보 변경 -->
 	<update id="updateUser" parameterType="udto">
-	update USER set u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email}, u_addr=#{u_addr} where u_id=#{u_id}
+		update USER set u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email},
+		u_addr=#{u_addr} where u_id=#{u_id}
 	</update>
-	
+
+	<update id="updatePw" parameterType="Map">
+		update USER set u_pw=#{u_pw}
+		where u_id=#{u_id}
+	</update>
+
 	<update id="updatePhoto" parameterType="Map">
-		update USER set u_photo=#{u_photo} where u_id=#{u_id}
+		update USER set
+		u_photo=#{u_photo} where u_id=#{u_id}
 	</update>
-	
-		<select id="getResume" resultType="rdto" parameterType="String">
-		select * from RESUME where u_num=#{u_num} and r_presume=1
-		</select>
-	
-	<select id="countLikeEnterprise" resultType="int" parameterType="String">
+
+	<select id="getResume" resultType="rdto" parameterType="String">
+		select *
+		from RESUME where u_num=#{u_num} and r_presume=1
+	</select>
+
+	<select id="countLikeEnterprise" resultType="int"
+		parameterType="String">
 		select count(h_num) from HEART where u_num=#{u_num}
 	</select>
-	
-	<select id="getEnterPrise" resultType="edto" parameterType="string">
+
+	<select id="getEnterPrise" resultType="edto"
+		parameterType="string">
 		select * from ENTERPRISE where e_num=#{e_num}
 	</select>
-	
+
 	<!-- 좋아요버튼 누르면 데이터 저장됨 -->
 	<insert id="insertLikeEnter" parameterType="hdto">
-		insert into HEART (u_num, e_num) values (#{u_num},#{e_num})
+		insert into HEART
+		(u_num, e_num) values (#{u_num},#{e_num})
 	</insert>
-	
+
 	<!-- 좋아요버튼 다시 누르면 데이터 삭제됨 -->
 	<delete id="deleteLikeEnter" parameterType="String">
-		delete from HEART where h_num=#{h_num}
+		delete from HEART
+		where h_num=#{h_num}
 	</delete>
-	
-	
-	
-	
+
 </mapper>
