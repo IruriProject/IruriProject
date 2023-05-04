@@ -73,5 +73,13 @@
 	<select id="getPreviewMessages" parameterType="String" resultType="Map">
 		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num} limit 0,3
 	</select>
+	
+	<select id="getMessage" parameterType="String" resultType="Map">
+		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where m_num=#{m_num}
+	</select>
+	
+	<insert id="insertMessage" parameterType="mdto">
+		insert into MESSAGE(e_num,u_num,m_content,m_day) values(#{e_num},#{u_num},#{m_content},now())
+	</insert>
 
 </mapper>

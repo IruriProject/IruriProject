@@ -44,7 +44,7 @@
 </head>
 <body>
  <div id="messages">
-      <div class="msg-left">
+      <!-- <div class="msg-left">
         <img
           src="https://modo-phinf.pstatic.net/20210723_122/1627028806407Dfqxr_PNG/mosarHvgbl.png?type=f320_320"
           width="30"
@@ -57,18 +57,14 @@
         ><span style="margin-left: 10px"
           >010-2352-3242 혹은 maro@gmail.com으로 연락바랍니다.</span
         >
-      </div>
+      </div> -->
       <div class="msg-right">
         <img
-          src="https://i.pinimg.com/564x/60/14/b0/6014b02c75baba9b34663ea77223c677.jpg"
+          src="/photo/${dto.u_photo }"
           width="30"
           style="border-radius: 100%"
-        /><b>박예은 님</b><br /><br />
-        <span style="margin-left: 10px">안녕하세요. 마로블루입니다.</span
-        ><br /><span style="margin-left: 10px"
-          >박예은님 면접을 진행하고자 연락드렸습니다.<br /></span
-        ><span style="margin-left: 10px"
-          >010-2352-3242 혹은 maro@gmail.com으로 연락바랍니다.</span
+        /><b>${dto.u_name }님</b><br /><br />
+        <span style="margin-left: 10px">${dto.m_content }</span
         >
       </div>
     </div>
