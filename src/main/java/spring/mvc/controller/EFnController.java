@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.EnterpriseDto;
+import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.PostingDto;
 import spring.mvc.service.EFnService;
 import spring.mvc.service.EnterpriseService;
@@ -184,10 +185,48 @@ public class EFnController {
 
 	}
 
+	
+	//쪽지
 	@GetMapping("/messagedetail")
-	public String messagedetail() {
+	public ModelAndView messagedetail(@RequestParam String m_num) {
+		ModelAndView mview=new ModelAndView();
+		
+		mview.addObject("dto", service.getMessage(m_num));
+		mview.setViewName("/message/detailPage");
 
-		return "/message/detailPage";
+		return mview;
 
+	}
+	
+	@GetMapping("/writemessage")
+	public String writemessageForm(HttpSession session, Model model) {
+		
+		String loginId=(String)session.getAttribute("loginId");
+		EnterpriseDto edto= e_service.findEnterdataById(loginId);
+		
+		model.addAttribute("edto", edto);
+		
+		
+		return "/message/writeForm";
+	}
+	
+	@PostMapping("/writemessageAction")
+	public String writemessageAction(@ModelAttribute MessageDto dto) {
+		service.insertMessage(dto);
+		
+		return "redirect:/enterprise";
+	}
+	
+	@GetMapping("/allMessages")
+	public ModelAndView allMessages(HttpSession session) {
+		ModelAndView mview=new ModelAndView();
+		
+		String loginId=(String)session.getAttribute("loginId");
+		EnterpriseDto dto= e_service.findEnterdataById(loginId);
+		
+		mview.addObject("list", service.getAllMessages(dto.getE_num()));
+		mview.setViewName("/message/messageList");
+		
+		return mview;
 	}
 }
