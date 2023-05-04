@@ -4,8 +4,11 @@
 
 <mapper namespace="spring.mvc.mapper.BoardMapperInter">
 
-	<select id="getTotalCount" resultType="int">
+	<select id="getTotalCount" resultType="int" parameterType="Map">
 		select count(*) from BOARD
+		<if test="keyword!=null">
+		where b_title like concat('%',#{keyword},'%') or b_content like concat('%',#{keyword},'%')
+		</if>
 	</select>
 	
 	<update id="updateReadCount" parameterType="String">
@@ -21,7 +24,22 @@
 	</select>
 	
 	<select id="getList" parameterType="HashMap" resultType="bdto">
-		select * from BOARD order by b_num desc limit #{start},#{perpage}
+		select * from BOARD 
+		 <if test="keyword!=null">
+        where b_title like concat('%',#{keyword},'%') or b_content like concat('%',#{keyword},'%') 
+	    </if>
+	    
+	    <if test="sort=='b_num'">
+	      order by b_num asc
+	    </if>
+	    
+	    <if test="sort=='b_writeday'">
+	        order by b_writeday desc
+	    </if>
+	    <if test="sort=='b_readcount'">
+	        order by b_readcount desc
+	    </if>
+	    limit #{start},#{perpage}
 	</select>
 		
 	<select id="getAllphotos"  parameterType="String" resultType="bdto">	
@@ -31,6 +49,18 @@
 	<insert id="insertBoard" parameterType="bdto">
 	insert into BOARD (b_loginid ,b_title, b_content, b_photo, b_readcount,b_writeday) values(#{b_loginid},#{b_title},#{b_content},#{b_photo},0,now())
 	</insert>
+	
+	<update id="updateBoard" parameterType="bdto">
+		update BOARD set b_title=#{b_title}, b_content=#{b_content}
+		<if test="b_photo!='no'">
+		,b_photo=#{b_photo} 
+		</if>
+		where b_num=#{b_num}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="String">
+		delete from BOARD where b_num=#{b_num}
+	</delete>
 	
 	<!--boardComment-->
 	

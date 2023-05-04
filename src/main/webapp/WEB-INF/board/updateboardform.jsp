@@ -102,7 +102,7 @@ body {
 
 .bcontent-input {
 	width: 100%;
-	height:300px;
+	height:500px;
 	padding: 13px 22px;
 	border-radius: 5px;
 	border: 1px solid #dde3ec;
@@ -242,9 +242,10 @@ body {
 <body>
 <div class="formbold-main-wrapper">
 		<div class="formbold-form-wrapper">
-			<form action="insertBoard" method="post" enctype="multipart/form-data">
+			<form action="updateBoard" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="b_num" value="${bdto.b_num }">
 			<div align="center">
-				<h2 style="font-weight: 600; color: #416442; background-color: #e3f2c9; width: 300px; height: 50px; font-size:1.8em; padding:10px 0px; border-radius: 10px; text-align: center;">일자리이야기 작성</h2>
+				<h2 style="font-weight: 600; color: #416442; background-color: #e3f2c9; width: 300px; height: 50px; font-size:1.8em; padding:10px 0px; border-radius: 10px; text-align: center;">일자리이야기 수정</h2>
 				</div>
 				<br>
 				<div class="formbold-input-wrapp formbold-mb-3">
@@ -252,24 +253,24 @@ body {
 
 					<div>
 						<input type="text" name="b_title" id="b_title"
-							placeholder="제목을 입력해주세요." class="formbold-form-input"  required="required"/>
+							placeholder="제목을 입력해주세요." value="${bdto.b_title }" class="formbold-form-input"  required="required"/>
 					</div>
 				</div>
 
 				<div class="formbold-mb-3">
 					<label for="p_content" class="formbold-form-label"> 내용 </label>
-						<textarea name="b_content" id="b_content" placeholder="내용을 입력해주세요."
-						class="bcontent-input" required="required" ></textarea>
+						<textarea name="b_content" id="b_content" placeholder="내용을 입력해주세요." 
+						class="bcontent-input" required="required" >${bdto.b_content }</textarea>
 				</div>
 
 				<div class="formbold-mb-3">
 					<label for="p_enddate" class="formbold-form-label" > 이미지 </label>
-					 <input type="file" name="upload" id="b_photo" multiple="multiple"
+					 <input type="file" name="upload" id="b_photo" multiple="multiple" 
 						class="formbold-form-input" />
 				</div>
 				
 				<button type="button" class="formbold-cancel-btn" onclick="location.href='boardlist?currentPage=${currentPage}'" style="margin-left:10px;">취소</button>
-				<button type="submit" class="formbold-btn" >등록</button>
+				<button type="submit" class="formbold-btn" >수정</button>
 			</form>
 		</div>
 	</div>

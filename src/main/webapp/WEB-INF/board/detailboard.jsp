@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style type="text/css">
+
 .formbold-comment-btn {
 	margin: 0 auto;
 	font-size: 16px;
@@ -23,7 +24,8 @@
 	background-color: #4E9F3D;
 	color: white;
 	cursor: pointer;
-	float: right;
+	float: left;
+	margin-left:3%;
 }
 
 .formbold-comment-btn:hover {
@@ -35,6 +37,7 @@
 }
 
 .bcontent-comment-input {
+	float:left;
 	width: 86%;
 	height: 100px;
 	padding: 13px 22px;
@@ -60,6 +63,7 @@
 .dropdown {
 	position: relative;
 	display: inline-block;
+	cursor: pointer;
 }
 
 .dropdown-content {
@@ -93,19 +97,22 @@
 	background-color: #e3f2c9;
 }
 
-
+.acount{
+	color: #4E9F3D;
+}
 .answer{
-	padding:30px;
+	width:100%;
+	padding:10px;
 }
 .name {
-	padding:10px;
+	padding:5px;
 }
 .content{
 	padding:10px;
 }
 .day{
 	color:gray;
-	margin-left:50px;
+	margin-left:16px;
 	font-size: 0.9em;
 }
 .amod , .adel{
@@ -114,6 +121,44 @@
 	font-size:0.7em;
 	padding: 5px;
 	color:gray;
+}
+
+
+.formbold-before-btn {
+	display:inline-block;
+	width:45%;
+	font-size: 16px;
+	border-radius: 5px;
+	padding: 14px 25px;
+	border: none;
+	font-weight: 500;
+	background-color: #4E9F3D;
+	color: white;
+	cursor: pointer;
+	float: right;
+}
+
+.formbold-next-btn{
+	display:inline-block;
+	width:45%;
+	font-size: 16px;
+	border-radius: 5px;
+	padding: 14px 25px;
+	border: none;
+	font-weight: 500;
+	background-color: #fff;
+	border:1px solid #4E9F3D;
+	color: #4E9F3D;
+	cursor: pointer;
+	float: right;
+	
+}
+.formbold-btn:hover {
+	box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.formbold-w-45 {
+	width: 45%;
 }
 
 </style>
@@ -170,10 +215,10 @@ function list() {
 			$("span.acount").text(res.length);
 			var s = "";
 			
-			$.each(res,function(i, dto) {
-				s += "<div class='answer'>";
+			/* $.each(res,function(i, dto) {
+			     s += "<div class='answer'>";
 				 s += "<b class='name'>" + dto.bc_loginid + "</b><br><br><span class='content'>" + dto.bc_content + "</span>"; 
-				s += "<span class='day'>" + dto.bc_writeday + "</span>";
+				 s += "<span class='day'>" + dto.bc_writeday + "</span>";
 				if (loginok != 'null' && myid == dto.bc_loginid) {
 					s += "<span data-toggle='modal' data-target='#answermodal' class='glyphicon glyphicon-edit amod' b_num='" + dto.b_bum + "'></span>";
 					s += "&nbsp;&nbsp;";
@@ -181,7 +226,32 @@ function list() {
 				} 
 				s += "</div><hr>";
 			});
-			
+			 */
+			 
+			 $.each(res,function(i, dto) {
+			     s += "<div class='answer'>";
+				 s += "<b class='name'>" + dto.bc_loginid + "</b>"; 
+				 s += "<span class='day'>" + dto.bc_writeday + "</span>";
+				 
+
+					if (loginok != 'null' && myid == dto.bc_loginid) {
+						s+="<div class='dropdown' style='float:right;'>";
+						s+="<span class='glyphicon glyphicon-option-vertical' style='color: gray; font-size: 17px;'></span>";
+						s+="<div class='dropdown-content'>";
+						s+="<button type='button' data-toggle='modal' data-target='#answermodal'  style='text-align:center;' onclick='location.href='update?num="+ dto.b_num +"'>수정</button>";
+						s+="<button type='button' style='text-align:center;' onclick='location.href='delete?num="+ dto.b_num +"'>삭제</button>";
+						s+="</div></div>";
+					} 
+					
+				 s +="<br><br><span class='content'>" + dto.bc_content + "</span>";
+
+
+
+
+
+				s += "</div><hr>";
+			});
+			 
 			
 			$("div.alist").html(s);
 		}
@@ -192,28 +262,24 @@ function list() {
 
 </head>
 <body>
-<table style="width: 700px; margin:0 auto;">
+<table style="width: 80%; margin:0 auto;">
 		<tr>
-			<td
-				style="display: flex; height: 90px; justify-content: space-between; align-items: center;">
-				<h2 style="margin: 0; font-weight: bold;">${bdto.b_title}</h2>
-				<div class="dropdown">
-					<span class="glyphicon glyphicon-option-vertical"
-						style="color: gray; font-size: 17px;"></span>
-					<div class="dropdown-content">
-				<!-- 글쓰기는 로그인 중일때만 -->	
-				<c:if test="${sessionScope.loginStatus!=null }">
-				<button type="button" style="text-align:center;" onclick="location.href='form'">글쓰기</button>
-				</c:if>
-				
-				<!-- 로그인 중이면서, 본인글만 수정, 삭제 버튼 보이게  -->
-				<c:if test="${sessionScope.loginStatus !=null and sessionScope.loginId==bdto.b_loginid}">
-				<button type="button" style="text-align:center;" onclick="location.href='updateform?num=${dto.b_num}&currentPage=${currentPage }'">수정</button>
-				<button type="button" style="text-align:center;" onclick="location.href='delete?num=${dto.b_num}&currentPage=${currentPage }'">삭제</button>
-				</c:if>
-					</div>
-				</div>
-			</td>
+		<td style="display: flex; height: 90px; justify-content: space-between; align-items: center;">
+    <h2 style="margin: 0; font-weight: bold;">${bdto.b_title}</h2>
+    <c:if test="${sessionScope.loginStatus!=null}">
+        <div class="dropdown">
+            <span class="glyphicon glyphicon-option-vertical" style="color: gray; font-size: 17px;"></span>
+            <div class="dropdown-content">
+                <button type="button" style="text-align:center;" onclick="location.href='form'">글쓰기</button>
+                <c:if test="${sessionScope.loginId==bdto.b_loginid}">
+                    <button type="button" style="text-align:center;" onclick="location.href='updateform?b_num=${bdto.b_num}&currentPage=${currentPage }'">수정</button>
+                    <button type="button" style="text-align:center;" onclick="location.href='delete?b_num=${bdto.b_num}&currentPage=${currentPage }'">삭제</button>
+                </c:if>
+            </div>
+        </div>
+    </c:if>
+</td>
+
 		</tr>
 		<tr>
 			<td>
@@ -225,7 +291,7 @@ function list() {
 						pattern="yyyy-MM-dd HH:mm" />
 			</span> <span
 				style="color: gray; float: right; font-size: 14px; padding: 10px;">
-					<i class="glyphicon glyphicon-comment"></i> 댓글갯수
+					<i class="glyphicon glyphicon-comment"></i> <span class="acount"></span>
 			</span> <span
 				style="color: gray; float: right; font-size: 14px; padding: 10px;">
 					<i class="	glyphicon glyphicon-eye-open"></i> ${bdto.b_readcount }
@@ -253,7 +319,7 @@ function list() {
 				
 				 <span
 				style="color: gray; float: left; font-size: 14px; padding: 10px;">
-					<i class="glyphicon glyphicon-comment"></i> <b><span class="acount"></span></b>
+					<i class="glyphicon glyphicon-comment"></i>&nbsp;&nbsp;댓글 <b><span class="acount"></span></b>개
 			</span> 
 			<br><hr>
 			</td>
@@ -262,15 +328,11 @@ function list() {
 		<tr>
 			<td>
 			
-				<!-- 댓글출력 -->
-				<div class="alist">
-				
-				</div>
-				
+			
 					<input type="hidden" name="b_num" id="b_num" value="${bdto.b_num }"> 
 					<c:if test="${sessionScope.loginStatus!=null }">
 					
-					<div class="aform">
+					<div class="aform" style="margin-bottom:130px;">
 						<div class="form-inline">
 						<textarea name="bc_content" id="bc_content" placeholder="댓글을 입력해주세요"
 						class="bcontent-comment-input" required="required" ></textarea>
@@ -278,11 +340,37 @@ function list() {
 							<button type="button" class="formbold-comment-btn" id="btncommentadd">등록</button>
 						</div>
 					</div>
+				<hr>
 				</c:if>
+				
+			
+				<!-- 댓글출력 -->
+				<div class="alist">
+				
+				</div>
+				
 			</td>
 		</tr>
+		
+		<tr>
+			<td style="margin: 10%; width:80%; display:flex; justify-content:space-between; text-align:center;">
+				<button type="button" class="btn btn-default"
+					onclick="location.href='boardlist?currentPage=${currentPage}'"
+					style="margin: 0 auto; width: 30%;">목록</button>
+			</td>
+		</tr>
+		
+		<tr>
+			<td style="margin: 10%; width:80%; display:flex; justify-content:space-between; text-align:center;">
+				<button type="button" class="formbold-before-btn">이전게시물</button>
+				<button type="button" class="formbold-next-btn" >다음게시물</button>
+			</td>
+		</tr>
+
 	
 	</table>
-	<button type="button" class="btn btn-default" onclick="location.href='boardlist?currentPage=${currentPage}'" style="margin: 0 auto;width:80px;">목록</button>
+				
+				
+	
 </body>
 </html>

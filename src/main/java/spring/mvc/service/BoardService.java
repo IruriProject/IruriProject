@@ -2,6 +2,7 @@ package spring.mvc.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,12 @@ public class BoardService {
 	BoardMapperInter mapperInter;
 	
 	
-	public int getTotalCount() {
+	public int getTotalCount(String keyword) {
 		// TODO Auto-generated method stub
-		return mapperInter.getTotalCount();
+		
+		Map<String, String> map= new HashMap<>();
+		map.put("keyword", keyword);
+		return mapperInter.getTotalCount(map);
 	}
 
 
@@ -41,12 +45,14 @@ public class BoardService {
 	}
 
 
-	public List<BoardDto> getList(int start, int perpage) {
+	public List<BoardDto> getList(String sort, String keyword, int start, int perpage) {
 		// TODO Auto-generated method stub
-		HashMap<String, Integer> map= new HashMap<>();
+		HashMap<String, Object> map= new HashMap<>();
+		map.put("sort", sort);
+		map.put("keyword", keyword);
 		map.put("start", start);
 		map.put("perpage", perpage);
-		
+
 		return mapperInter.getList(map);
 	}
 	
@@ -61,6 +67,15 @@ public class BoardService {
 		 return mapperInter.getAllphotos(b_num);
 	}
 	
+	public void updateBoard(BoardDto bdto) {
+		// TODO Auto-generated method stub
+		mapperInter.updateBoard(bdto);
+	}
+	
+	public void deleteBoard(String b_num) {
+		
+		mapperInter.deleteBoard(b_num);
+	}
 	
 	//boardComment
 	public void insertComment(BCommentDto bc_dto) {
