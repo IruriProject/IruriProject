@@ -157,10 +157,12 @@ body {
 						</script>
 
 						<!-- Post meta content-->
-						<div class="text-muted fst-italic mb-2">${dto.e_name }
+						<div class="text-muted fst-italic mb-2"><b>${dto.e_name }</b>
 							/ 공고일 :
 							<fmt:formatDate value="${dto.p_writeday }" pattern="yyyy-MM-dd" />
+							<span style="float: right">스크랩 : 0명</span> <span style="float: right">열람 : 0명</span>&nbsp;&nbsp;/&nbsp;&nbsp;
 						</div>
+						
 					</header>
 
 					<!-- Post content-->
