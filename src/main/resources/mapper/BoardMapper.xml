@@ -4,4 +4,55 @@
 
 <mapper namespace="spring.mvc.mapper.BoardMapperInter">
 
+	<select id="getTotalCount" resultType="int">
+		select count(*) from BOARD
+	</select>
+	
+	<update id="updateReadCount" parameterType="String">
+		update BOARD set b_readcount=b_readcount+1 where b_num=#{b_num}
+	</update>
+	
+	<select id="getData" parameterType="String" resultType="bdto">
+		select * from BOARD where b_num=#{b_num}
+	</select>
+	
+	<select id="getMaxNum" resultType="int">
+		select ifnull(max(b_num),0) from BOARD
+	</select>
+	
+	<select id="getList" parameterType="HashMap" resultType="bdto">
+		select * from BOARD order by b_num desc limit #{start},#{perpage}
+	</select>
+		
+	<select id="getAllphotos"  parameterType="String" resultType="bdto">	
+	select b_photo from BOARD  where b_num=#{b_bum} order by b_num
+	</select>
+		
+	<insert id="insertBoard" parameterType="bdto">
+	insert into BOARD (b_loginid ,b_title, b_content, b_photo, b_readcount,b_writeday) values(#{b_loginid},#{b_title},#{b_content},#{b_photo},0,now())
+	</insert>
+	
+	<!--boardComment-->
+	
+	<insert id="insertComment" parameterType="bcdto">
+		insert into B_COMMENT (b_num, bc_loginid, bc_content, bc_writeday) values (#{b_num}, #{bc_loginid}, #{bc_content},now())
+	</insert>
+	
+	<!-- 최신글 올라가게  b_num desc -->
+	<select id="getAllComments" parameterType="String" resultType="bcdto">
+		select * from B_COMMENT  where b_num=#{b_num} order by bc_num desc
+	</select>
+	
+	<select id="getComment" parameterType="String" resultType="bcdto">
+		select * from B_COMMENT where b_num=#{b_num}
+	</select>
+	
+	<update id="updateComment" parameterType="bcdto">
+		update B_COMMENT set bc_content=#{bc_content} where b_num=#{b_num}
+	</update>
+	
+	<delete id="deleteComment" parameterType="String">
+		delete from B_COMMENT where bc_num=#{bc_num}
+	</delete>
+	
 </mapper>

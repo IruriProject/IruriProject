@@ -156,9 +156,9 @@ $(document).ready(function(){
             </ul>
         </li>
         <li>
-            <a href="#" class="mainMenu">알바이야기</a>
+            <a href="/board/boardlist" class="mainMenu">일자리이야기</a>
             <ul class="subMenu">
-              	<li><a href="hi">sub메뉴</a></li>
+              	<li><a href="/board/form">입력폼</a></li>
                 <li><a href="hi">sub메뉴</a></li>
                 <li><a href="hi">sub메뉴</a></li>
                 <li><a href="hi">sub메뉴</a></li>

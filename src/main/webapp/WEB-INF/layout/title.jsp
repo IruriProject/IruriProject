@@ -72,7 +72,7 @@
 <body>
 <div class="logo">
 <!-- <a href="main"><h1 style="color:#4E9F3D; font-size:36px;">이루리</h1></a> -->
-<a href="${root }/"><img src="${root }/image/logo.jpg" style="width:170px;"></a>
+<a href="${root }/"><img alt="logo" src="${root }/image/logo.jpg" style="width:170px;"></a>
 </div>
 <div class="search">
       <i class="glyphicon glyphicon-search" id="searchcon" style="color:#41644a;"></i>
