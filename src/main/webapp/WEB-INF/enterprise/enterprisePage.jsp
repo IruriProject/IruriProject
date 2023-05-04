@@ -101,7 +101,7 @@ border-radius: 10px;
 						<div
 							class="d-flex align-items-center justify-content-between mb-2">
 							<h4 class="mb-5"><b>쪽지관리</b></h4>
-							<a href="/posting/writemessage">쪽지보내기</a><a class="atag" href="/posting/allMessages">Show All</a>
+							<a href="/posting/writemessage">쪽지보내기</a><a class="atag" href="/posting/allMessages">더보기</a>
 						</div>
 						
 						<c:forEach var="msg" items="${messages }">
@@ -144,7 +144,7 @@ border-radius: 10px;
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h4 class="mb-5"><b>공고현황</b></h4>
-					<a class="atag" href="/posting/postinglist">Show All</a>
+					<a class="atag" href="/posting/postinglist">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table
@@ -205,51 +205,27 @@ border-radius: 10px;
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h4 class="mb-5"><b>지원자현황</b></h4>
-					<a href="" class="atag">Show All</a>
+					<a href="" class="atag">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col"><input class="form-check-input"
-									type="checkbox"></th>
-								<th scope="col">Date</th>
-								<th scope="col">Invoice</th>
-								<th scope="col">Customer</th>
-								<th scope="col">Amount</th>
-								<th scope="col">Status</th>
-								<th scope="col">Action</th>
+								<th scope="col" style="text-align: center">지원자명</th>
+								<th scope="col" style="text-align: center">지원공고</th>
+								<th scope="col" style="text-align: center">이력서보기</th>
+								<th scope="col" style="text-align: center">지원날짜</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+								<td>최보현</td>
+								<td>안녕</td>
+								<td>이력서 입니다...</td>
+								<td>2023/02/03</td>
 							</tr>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-							</tr>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-							</tr>
+						
 						</tbody>
 					</table>
 				</div>

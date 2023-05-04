@@ -1,5 +1,7 @@
 package spring.mvc.dto;
 
+import java.sql.Timestamp;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -11,4 +13,5 @@ public class ApplicantDto {
 	private String a_num;
 	private String p_num;
 	private String r_num;
+	private Timestamp a_writeday;
 }
