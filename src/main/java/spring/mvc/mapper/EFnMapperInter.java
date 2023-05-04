@@ -27,9 +27,9 @@ public interface EFnMapperInter {
 	//쪽지
 	public List<Map<String, Object>> getAllMessages(String e_num);
 	public List<Map<String, Object>> getPreviewMessages(String e_num);
-	
+	public void reposting(String p_num);
+	public int getMaxNumOfPosting();
 	public Map<String, Object> getMessage(String m_num);
-	
 	public void insertMessage(MessageDto dto);
 
 }

@@ -41,4 +41,12 @@ public class EnterpriseService {
 		mapper.withdrawEnterprise(map);
 	}
 	
+	public void updateResAccessStatus(String e_name, String e_res_access) {
+		
+		Map<String, String> map=new HashMap<>();
+		map.put("e_name", e_name);
+		map.put("e_res_access", e_res_access);
+		
+		mapper.updateResAccessStatus(map);
+	}
 }

@@ -18,8 +18,8 @@ public class PostingDto {
 	private int p_pay;
 	private String p_period;
 	private String p_workday;
-	private Time p_starttime;
-	private Time p_endtime;
+	private String p_starttime;
+	private String p_endtime;
 	private String p_employtype;
 	private String p_addr;
 	private String p_content;
