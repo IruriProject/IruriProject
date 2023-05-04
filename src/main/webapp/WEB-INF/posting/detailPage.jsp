@@ -127,6 +127,7 @@ body {
 									<button type="button" class="btn btn-info mt-2" onclick="location.href='confirmpw?p_num=${dto.p_num}'">삭제</button>
 									<button type="button" class="btn btn-info mt-2" onclick="reloadAlert()">끌어올리기</button>
 								</c:if>
+								<button type="button" class="btn btn-info mt-2" onclick="copyUrl()">링크 복사</button>
 							</div>
 						</div>
 						
@@ -134,13 +135,23 @@ body {
 						
 						function reloadAlert(){
 							const p_num=$("#p_num").val();	
-							const a=confirm("게시글을 끌어올리시겠습니까? \n 확인을 누르시면 공고 마감일은 일주일 뒤로 업데이트됩니다.");
+							const a=confirm("게시글을 끌어올리시겠습니까? \n 공고 마감일이 일주일 뒤로 연장됩니다.");
 							
 							if(a){
 								location.href="/posting/reposting?p_num="+p_num;
 							}else{
 								return false;
 							}
+						}
+						
+						//현재 url 변수로 가져오기
+						let nowUrl = window.location.href;
+
+						function copyUrl(){ 
+						  //nowUrl 변수에 담긴 주소를 복사
+						  	navigator.clipboard.writeText(nowUrl).then(res=>{
+							  alert("주소가 복사되었습니다");
+							})
 						}
 						
 						</script>
