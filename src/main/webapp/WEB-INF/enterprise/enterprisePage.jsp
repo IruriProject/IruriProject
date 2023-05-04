@@ -233,7 +233,7 @@
 		</div>
 		<!-- Recent Sales End -->
 		<br>
-		<button type="button" style="width: 100%; height: 50px;">열람권신청</button>
+		<button type="button" style="width: 100%; height: 50px;" onclick="location.href='/enterprise/applyaccess'">열람권신청</button>
 		<br>
 		<br>
 		<button type="button" style="width: 100%; height: 50px;">기업인증</button>

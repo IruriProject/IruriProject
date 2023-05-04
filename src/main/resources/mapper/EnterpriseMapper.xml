@@ -24,4 +24,17 @@
 		delete from ENTERPRISE where e_num=#{e_num} and e_pw=#{e_pw}
 	</delete>
 	
+	<!-- 열람권 신청 -->
+	<update id="updateResAccessStatus" parameterType="String">
+	update ENTERPRISE
+	 set e_res_access = 
+	  <if test="e_res_access==1">
+	    0
+	  </if>
+	  <if test="e_res_access==0">
+	    1
+	  </if>
+	 where e_name=#{e_name}
+	</update>
+	
 </mapper>
