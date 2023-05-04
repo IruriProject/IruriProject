@@ -74,4 +74,12 @@ public class EFnService {
 	public List<PostingDto> getAddrSearch(String p_addr){
 		return mapper.getAddrPostings(p_addr);
 	}
+	
+	public void reposting(String p_num) {
+		mapper.reposting(p_num);
+	}
+	
+	public int getMaxNumOfPosting() {
+		return mapper.getMaxNumOfPosting();
+	}
 }

@@ -188,6 +188,13 @@ public class EFnController {
 	public String messagedetail() {
 
 		return "/message/detailPage";
-
+	}
+	
+	@GetMapping("/reposting")
+	public String reloadPosting(String p_num) {
+		service.reposting(p_num);
+		
+		int maxNum=service.getMaxNumOfPosting();
+		return "redirect:/posting/detailpage?p_num="+maxNum;
 	}
 }
