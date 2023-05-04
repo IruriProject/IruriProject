@@ -144,7 +144,7 @@ border-radius: 10px;
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h4 class="mb-5"><b>공고현황</b></h4>
-					<a class="atag" href="">Show All</a>
+					<a class="atag" href="/posting/postinglist">Show All</a>
 				</div>
 				<div class="table-responsive">
 					<table

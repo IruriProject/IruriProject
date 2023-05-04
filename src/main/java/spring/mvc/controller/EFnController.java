@@ -36,6 +36,9 @@ public class EFnController {
 
 	@Autowired
 	EFnService service;
+	
+	@Autowired
+	EnterpriseService e_service;
 
 	@GetMapping("/insertForm")
 	public String insertForm() {
@@ -90,9 +93,6 @@ public class EFnController {
 
 	}
 
-	@Autowired
-	EnterpriseService e_service;
-
 	@GetMapping("")
 	public String posting() {
 		return "/posting/search";
@@ -134,6 +134,19 @@ public class EFnController {
 		service.updatePostingStatus(map);
 
 		return "redirect:../enterprise";
+	}
+	
+	@GetMapping("/postinglist")
+	public ModelAndView getAllPostings(HttpSession session) {
+		ModelAndView mview=new ModelAndView();
+		
+		String loginId=(String)session.getAttribute("loginId");
+		EnterpriseDto dto= e_service.findEnterdataById(loginId);
+		
+		mview.addObject("list", service.getAllPostings(dto.getE_num()));
+		mview.setViewName("/posting/postingList");
+		
+		return mview;
 	}
 	
 	@ResponseBody
