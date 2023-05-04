@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>IRURI_공고등록</title>
+<title>IRURI_쪽지발송</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
@@ -17,77 +17,24 @@
 <body>
 	<div class="formbold-main-wrapper">
 		<div class="formbold-form-wrapper">
-			<form action="insertPosting" method="POST">
-			<div align="center">
-				<h2 style="font-weight: 600; color: #416442; background-color: #e3f2c9; width: 300px; height: 50px; font-size:1.8em; padding:10px 0px; border-radius: 10px; text-align: center;">공고등록</h2>
-				</div>
-				<br>
+			<form action="writemessageAction" method="POST">
+				<input type="hidden" name="e_num" id="e_num" value=${edto.e_num }
+					class="formbold-form-input" />
+				
 				<div class="formbold-input-wrapp formbold-mb-3">
-					<label for="p_title" class="formbold-form-label"> 공고제목 </label>
+					<label for="u_num" class="formbold-form-label"> 인재번호 </label>
 
 					<div>
-						<input type="text" name="p_title" id="p_title"
-							placeholder="공고 제목을 입력해주세요." class="formbold-form-input" />
+						<input type="text" name="u_num" id="u_num"
+							placeholder="인재 번호를 입력해주세요." class="formbold-form-input" />
 					</div>
 				</div>
 
 				<div class="formbold-mb-3">
-					<label for="p_pay" class="formbold-form-label"> 급여 </label> <input
-						type="number" name="p_pay" id="p_pay" step="50"
-						placeholder="급여를 입력해주세요 (ex: 3000000)" class="formbold-form-input" />
+					<label for="p_content" class="formbold-form-label"> 쪽지내용 </label>
+					<textarea name="m_content" id="m_content" class="pcontent-input">###님, 안녕하세요.&#10;기업 ${edto.e_name }입니다.&#10;&#10;저희 ${edto.e_name }에서 귀하를 면접진행하고자 하니&#10;${edto.e_email } 혹은 ${edto.e_tel }로 회신바랍니다.&#10;&#10;감사합니다.</textarea>
 				</div>
-
-				<div class="formbold-input-flex">
-					<div>
-						<label for="p_period" class="formbold-form-label"> 기간 </label> <input
-							type="text" name="p_period" id="p_period" placeholder="ex:6개월"
-							class="formbold-form-input" />
-					</div>
-					<div>
-						<label for="p_workday" class="formbold-form-label"> 요일 </label> <input
-							type="text" name="p_workday" id="p_workday"
-							placeholder="ex: 월,화,수,목,금" class="formbold-form-input" />
-					</div>
-					<div>
-						<label for="p_hirenum" class="formbold-form-label"> 채용인원 </label>
-						<input type="number" name="p_hirenum" id="p_hirenum"
-							placeholder="ex:0" class="formbold-form-input" />
-					</div>
-				</div>
-
-				<div class="formbold-input-flex">
-					<div>
-						<label for="p_starttime" class="formbold-form-label"> 시작시간
-						</label> <input type="time" name="p_starttime" id="p_starttime"
-							placeholder="ex:6개월" class="formbold-form-input" />
-					</div>
-					<div>
-						<label for="p_endtime" class="formbold-form-label"> 끝시간 </label> <input
-							type="time" name="p_endtime" id="p_endtime" placeholder="ex:6개월"
-							class="formbold-form-input" />
-					</div>
-				</div>
-
-				<div class="formbold-mb-3">
-					<label class="formbold-form-label">고용형태</label> <select
-						class="formbold-form-input" name="p_employtype" id="p_employtype">
-						<option value="정규직">정규직</option>
-						<option value="기간제">기간제</option>
-					</select>
-				</div>
-
-				<div class="formbold-mb-3">
-					<label for="p_content" class="formbold-form-label"> 상세내용 </label>
-						<textarea name="p_content" id="p_content" placeholder="상세내용을 입력해주세요."
-						class="pcontent-input"></textarea>
-				</div>
-
-				<div class="formbold-mb-3">
-					<label for="p_enddate" class="formbold-form-label"> 공고 마감일
-					</label> <input type="date" name="p_enddate" id="p_enddate"
-						class="formbold-form-input" />
-				</div>
-<br>
+				
 				<div class="formbold-checkbox-wrapper">
 					<label for="supportCheckbox" class="formbold-checkbox-label">
 						<div class="formbold-relative">
@@ -103,11 +50,11 @@
                 </svg>
 								</span>
 							</div>
-						</div>근로 기준에 준수하여 공고 작성하였습니다.
+						</div>해당 인재에게 쪽지를 발송합니다.
 					</label>
 				</div>
 
-				<button class="formbold-btn">공고등록</button>
+				<button class="formbold-btn">쪽지전송</button>
 			</form>
 		</div>
 	</div>
@@ -200,7 +147,7 @@ body {
 
 .pcontent-input {
 	width: 100%;
-	height:500px;
+	height: 300px;
 	padding: 13px 22px;
 	border-radius: 5px;
 	border: 1px solid #dde3ec;
@@ -212,8 +159,8 @@ body {
 	resize: none;
 }
 
-.formbold-form-input::placeholder, select.formbold-form-input, .pcontent-input::placeholder, 
-	.formbold-form-input[type='date']::-webkit-datetime-edit-text,
+.formbold-form-input::placeholder, select.formbold-form-input,
+	.pcontent-input::placeholder, .formbold-form-input[type='date']::-webkit-datetime-edit-text,
 	.formbold-form-input[type='date']::-webkit-datetime-edit-month-field,
 	.formbold-form-input[type='date']::-webkit-datetime-edit-day-field,
 	.formbold-form-input[type='date']::-webkit-datetime-edit-year-field {

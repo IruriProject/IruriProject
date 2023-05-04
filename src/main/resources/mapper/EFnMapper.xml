@@ -4,8 +4,82 @@
 
 <mapper namespace="spring.mvc.mapper.EFnMapperInter">
 
+	<!-- 디테일페이지 출력용(enter 조인) -->
 	<select id="getPosting" parameterType="String" resultType="Map">
 		select POSTING.*, ENTERPRISE.* from POSTING inner join ENTERPRISE on POSTING.e_num = ENTERPRISE.e_num where POSTING.p_num = #{p_num}
 	</select>
+
+	<select id="getTotalCount" resultType="int">
+	select count(*) from POSTING
+	</select>
+	
+	<select id="getPagingList" parameterType="Map" resultType="pdto">
+	select * from POSTING 
+		<if test="searchcolumn!=null and searchword!=null">
+		where ${searchcolumn} like concat('%',#{searchword},'%')
+		</if>
+	order by p_num desc limit #{start},#{perpage}
+	</select>
+	
+	
+	<insert id="insertPosting" parameterType="pdto">
+		insert into POSTING(e_num,p_title,p_type,p_pay,p_period,p_workday,p_starttime,p_endtime,p_employtype,p_content,p_writeday,p_startdate,p_enddate,p_status,p_hirenum)
+		 values(#{e_num},#{p_title},#{p_type},#{p_pay},#{p_period},#{p_workday},#{p_starttime},#{p_endtime},#{p_employtype},#{p_content},now(),now(),#{p_enddate},'지원가능',#{p_hirenum})
+	</insert>
+	
+	<select id="getAllPostings" parameterType="String" resultType="pdto">
+		select * from POSTING where e_num=#{e_num}
+	</select>
+	
+	<select id="getPreviewPostings" parameterType="String" resultType="pdto">
+		select * from POSTING where e_num=#{e_num} limit 0,3
+	</select>
+	
+	
+	<!-- 공고상태 변경 -->
+	<update id="updatePostingStatus" parameterType="Map">
+		update POSTING set p_status=#{p_status} where p_num=#{p_num}
+	</update>
+	
+	<!-- 지역별 검색 -->
+	<select id="getAddrPostings" parameterType="String" resultType="pdto">
+	select * from POSTING where p_addr=#{p_addr} order by p_num desc
+	</select>
+	
+	
+	<delete id="deletePosting" parameterType="String">
+		delete from POSTING where p_num=#{p_num}
+	</delete>
+	<update id="updatePosting" parameterType="pdto">
+		update POSTING set p_title=#{p_title},p_type=#{p_type},p_pay=#{p_pay},p_period=#{p_period},p_workday=#{p_workday},p_starttime=#{p_starttime},p_endtime=#{p_endtime},p_employtype=#{p_employtype},p_content=#{p_content},p_enddate=#{p_enddate},p_hirenum=#{p_hirenum} where p_num=#{p_num}
+	</update>
+	
+	<!-- 공고 끌어올리기 -->
+	<update id="reposting" parameterType="String">
+	UPDATE POSTING JOIN (SELECT MAX(p_num) AS max_num, DATE_ADD(NOW(), INTERVAL 7 DAY) AS new_p_enddate FROM POSTING) AS subquery
+	SET POSTING.p_num = subquery.max_num + 1, POSTING.p_enddate = subquery.new_p_enddate, POSTING.p_writeday=now()
+	WHERE POSTING.p_num = #{p_num}
+	</update>
+	
+	<select id="getMaxNumOfPosting" resultType="int">
+	select max(p_num) from POSTING
+	</select>
+	
+	<!-- 쪽지 -->
+	<select id="getAllMessages" parameterType="String" resultType="Map">
+		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num}
+	</select>
+	
+	<select id="getPreviewMessages" parameterType="String" resultType="Map">
+		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num} limit 0,3
+	</select>
+	
+	<select id="getMessage" parameterType="String" resultType="Map">
+		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where m_num=#{m_num}
+	</select>
+	
+	<insert id="insertMessage" parameterType="mdto">
+		insert into MESSAGE(e_num,u_num,m_content,m_day) values(#{e_num},#{u_num},#{m_content},now())
+	</insert>
 
 </mapper>

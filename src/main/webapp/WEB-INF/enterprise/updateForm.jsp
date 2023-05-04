@@ -165,12 +165,8 @@
   .formbold-w-45 {
     width: 45%;
   }
-  
-  #idcheck,#pwcheck{
-    color: red;
-  }
 </style>
-		
+	
 <title>Insert title here</title>
 </head>
 <body>
@@ -179,88 +175,27 @@
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
   <div class="formbold-form-wrapper">
-    <form action="action" method="POST" name="joinform" onsubmit="return check()">
+    <form action="action/enter" method="POST">
 
       <div class="formbold-input-wrapp formbold-mb-3">
         <label class="formbold-form-label"> 아이디 </label>
         <div>
           <input
             type="text"
-            name="u_id"
-            id="u_id"
-            placeholder="영문, 숫자로 구성된 6-12자의 아이디를 입력해주세요"
-            min="6" max="12" required
-            onkeyup="characterCheck(this);idcheckClean();" onkeydown="characterCheck(this);idcheckClean();"
+            name="e_id"
+            placeholder="가입할 아이디를 입력해주세요"
             class="formbold-form-input"
           />
-          <button type="button" class="formbold-btn btn-s" id="btn-idcheck">중복확인</button>
-          </div>
-          <div>
-          <div id="idcheck"></div>
-          <input type="hidden" value="idUnchecked" name="isDuplication" id="isDuplication">
-          </div>
+          <button type="button" class="formbold-btn btn-s">중복확인</button>
+        </div>
       </div>
-      
-      <script type="text/javascript">
-      //아이디
-      
-        function idcheckClean(){
-        	$("#idcheck").html("");
-        	$("#isDuplication").val("isUnchecked");
-        	$("#isDuplication").removeAttr("disabled");
-        	$("#btn-idcheck").css("background-color","#cce891");
-        }
-      
-	    //중복체크 버튼 클릭시
-      	$("#btn-idcheck").click(function(){
-      		
-      		const u_id=$("#u_id").val();
-      		
-      		if(u_id.length<6 || u_id.length>12){
-      			$("#idcheck").text("아이디는 6자 이상 12자 이하만 가능합니다.");
-      			return false;
-      		}
-      		
-	  		$.ajax({
-	  			type:"get",
-	  			url:"/user/idcheck",
-	  			dataType:"json",
-	  			data:{"u_id":u_id},
-	  			success:function(res){
-	  				if(res.count==0){
-	  					$("#idcheck").text("가입이 가능한 아이디입니다.");
-	  					$("#isDuplication").val("isChecked");
-	  					$("#isDuplication").attr("disabled","true");
-	  					$("#btn-idcheck").css("background-color","lightgray");
-	  				}else{
-	  					$("#idcheck").text("중복된 아이디입니다.");
-	  					
-	  				}
-	  			}
-	  		})
-	  		
-      	})
-      	
-      	//특수문자감지
-      	function characterCheck(obj){
-      		
-		var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
-
-		if( regExp.test(obj.value) ){
-			$("#idcheck").html("특수문자는 입력하실수 없습니다.");
-			obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지우기
-			}
-		}
-      
-      </script>
 
       <div class="formbold-mb-3">
         <label class="formbold-form-label"> 비밀번호 </label>
         <input
           type="password"
           id="pw1"
-          name="u_pw" 
-          min="6" max="12" required
+          name="e_pw"
           placeholder="비밀번호를 입력해주세요"
           class="formbold-form-input"
         />
@@ -271,137 +206,73 @@
         <input
           type="password"
           id="pw2"
-          min="6" max="12" required
-          placeholder="비밀번호를 다시 입력해주세요"
+          placeholder="비밀번호를 동일하게 입력해주세요"
           class="formbold-form-input"
         />
-      <div id="pwcheck"></div>
-      <input type="hidden" id="pwChecked" value="ok">
       </div>
-      
-      <script type="text/javascript">
-      //비밀번호
-      
-      $("#pw2").change(function(){
-	      pw1=$("#pw1").val();
-	      pw2=$("#pw2").val();
-	      
-	      if(pw1!=pw2){
-    		  $("#pwcheck").html("비밀번호가 일치하지 않습니다.");
-    	  }else{
-    		  $("#pwcheck").html("유효한 비밀번호입니다.");
-    		  $("#pwcheck").css("color","green");
-    		  $("#pwChecked").val("no");
-    	  }
-      })
-            
-      </script>
 
       <div class="formbold-mb-3">
-        <label class="formbold-form-label"> 이름 </label>
+        <label class="formbold-form-label"> 회사/점포명 </label>
         <input
           type="text"
-          id="u_name"
-          name="u_name" required
+          id="e_name"
+          name="e_name"
           placeholder="이름을 입력해주세요"
           class="formbold-form-input"
         />
       </div>
       
+      <div class="formbold-mb-3">
+        <label class="formbold-form-label"> 사업자등록번호 </label>
+        <input
+          type="text"
+          name="e_registnum"
+          id="e_registnum"
+          placeholder="사업자등록번호를 입력해주세요"
+          class="formbold-form-input"
+        />
+      </div>
+      
       <div class="formbold-mb-3 formbold-input-wrapp">
-        <label class="formbold-form-label"> 전화번호 </label>
+        <label class="formbold-form-label"> 회사 전화번호 </label>
 
         <div>
           <input
             type="text"
-            name="u_hp"
-            id="phone"
-            placeholder="- 없이 입력해주세요" required
+            name="e_tel"
+            id="e_tel"
+            placeholder="- 없이 전화번호를 입력해주세요"
             class="formbold-form-input"
           />
-          <button type="button" id="sms-btn" class="formbold-btn btn-s">인증번호발송</button>
-          
-          <input
-            type="text"
-            id="sms-id"
-            placeholder="인증번호입력" required
-            class="formbold-form-input"
-          />
-          <button type="button" class="formbold-btn btn-s">확인</button>
           
         </div>
       </div>
 
       <div class="formbold-mb-3">
-        <label class="formbold-form-label">성별</label>
-
-        <select class="formbold-form-input" name="u_gender">
-          <option value="남">남성</option>
-          <option value="여">여성</option>
-        </select>
-      </div>
-      
-      <div class="formbold-mb-3">
-        <label class="formbold-form-label"> 생년월일 </label>
-        <input type="date" name="u_birth" id="u_birth" class="formbold-form-input" required />
-      </div>
-
-      <div class="formbold-mb-3">
-        <label class="formbold-form-label"> 이메일 </label>
+        <label for="e_email" class="formbold-form-label"> 회사 이메일 </label>
         <input
           type="email"
-          name="u_email"
-          id="u_email"
-          placeholder="example@email.com 형태로 입력해주세요" required
+          name="e_email"
+          id="e_email"
+          placeholder="example@email.com 형태로 입력해주세요"
           class="formbold-form-input"
         />
       </div>
 
       <div class="formbold-mb-3">
-        <label class="formbold-form-label"> 주소 </label>
+        <label for="address" class="formbold-form-label"> 회사 주소 </label>
         <div style="align-content: flex-end;">
-        <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input" style="width: 300px;" required>
+        <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input" style="width: 300px;">
 		<input type="button" class="formbold-btn btn-s" onclick="sample6_execDaumPostcode()" value="검색"><br>
         </div>
-		<input type="text" id="sample6_address" name="addr1" placeholder="주소" class="formbold-form-input" readonly="readonly"><br><br>
+		<input type="text" id="sample6_address" name="addr1" placeholder="주소" class="formbold-form-input" disabled ><br><br>
 		<input type="text" id="sample6_detailAddress" name="addr2" placeholder="상세주소" class="formbold-form-input">
-		<input type="text" id="sample6_extraAddress" name="addr3" placeholder="참고항목" class="formbold-form-input" readonly="readonly">
+		<input type="text" id="sample6_extraAddress" name="addr3" placeholder="참고항목" class="formbold-form-input" disabled >
       </div>
 
 	<br><br>
 
-      <div class="formbold-checkbox-wrapper">
-        <label class="formbold-checkbox-label">
-          <div class="formbold-relative">
-            <input
-              type="checkbox"
-              id="supportCheckbox"
-              name="u_email_agree"
-              class="formbold-input-checkbox"
-            />
-            <div class="formbold-checkbox-inner">
-              <span class="formbold-opacity-0">
-                <svg
-                  width="11"
-                  height="8"
-                  viewBox="0 0 11 8"
-                  class="formbold-stroke-current"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8.81868 0.688604L4.16688 5.4878L2.05598 3.29507C1.70417 2.92271 1.1569 2.96409 0.805082 3.29507C0.453266 3.66742 0.492357 4.24663 0.805082 4.61898L3.30689 7.18407C3.54143 7.43231 3.85416 7.55642 4.16688 7.55642C4.47961 7.55642 4.79233 7.43231 5.02688 7.18407L10.0696 2.05389C10.4214 1.68154 10.4214 1.10233 10.0696 0.729976C9.71776 0.357624 9.17049 0.357625 8.81868 0.688604Z"
-                    fill="white"
-                  />
-                </svg>
-              </span>
-            </div>
-          </div>
-          광고성 메일을 받습니다.
-        </label>
-      </div>
-
-      <button class="formbold-btn btn-m" id="btnjoin">가입하기</button>
+      <button class="formbold-btn btn-m">가입하기</button>
     </form>
   </div>
 </div>
@@ -411,17 +282,6 @@
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-
-	//가입시 중복확인 버튼 클릭 여부 확인
-	$("#btnjoin").click(function(){
-		if(document.joinform.isDuplication.value!='isChecked'){
-			alert("아이디 중복확인을 해주세요");
-			return false;
-		};
-	})
-
-
-	//주소 api
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -471,26 +331,5 @@
     }
     
   
-    
-    //문자발송
-     $("#sms-btn").click(function(){
-    	
-	    const msgModule = require('coolsms-node-sdk').default
-	
-		// 인증을 위해 발급받은 본인의 API Key를 사용합니다.
-		const apiKey = 'NCSXNDMDJQXS14ZS'
-		const apiSecret = 'PB0HDL4TIDTSIA3NG8ZWH5DGC9DNASSY'
-		const messageService = new msgModule(apiKey, apiSecret);
-		
-		const params = {
-		  text: '[쿨에스엠에스 테스트] hello world!', // 문자 내용
-		  to: $("#phone").val(), // 수신번호 (받는이)
-		  from: '01023953374' // 발신번호 (보내는이)
-		}
-		messageService.sendMany([params]).then(console.log).catch(console.error)
-		
-    })
-    
 </script>
-
 </html>
