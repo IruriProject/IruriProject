@@ -178,7 +178,7 @@
 	<div style="position: absolute; top:310px; font-size: 1.5em;">
 	<b>내 정보 수정</b><br><br>
 	<a href="updatepw">비밀번호변경</a><br><br>
-	<a>회원탈퇴</a>
+	<a href="deleteform">회원탈퇴</a>
 	</div>
 	
 <div class="formbold-main-wrapper">
@@ -188,7 +188,6 @@
     <form action="updateUserInfo" method="POST">
 	<!-- 히든? -->
 	<input type="hidden" name="u_num" value="${dto.u_num }">
-	<input type="hidden" name="u_pw" value="${sessionScope.loginPw }">
       <div class="formbold-input-wrapp formbold-mb-3">
         <label class="formbold-form-label"> 아이디 </label>
         <div>

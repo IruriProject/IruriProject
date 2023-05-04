@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,7 @@ public class UFnController {
 	@Autowired
 	UserService service;
 
+	// 마이페이지 이동
 	@GetMapping("/mypage")
 	public ModelAndView home(HttpSession session) {
 		ModelAndView model = new ModelAndView();
@@ -47,21 +49,24 @@ public class UFnController {
 		return model;
 	}
 
+	// 수정메인페이지 이동
 	@GetMapping("/update")
 	public ModelAndView update(HttpSession session) {
-	ModelAndView model = new ModelAndView();
-	String u_id = (String) session.getAttribute("loginId");
-	UserDto dto = service.findUserdataById(u_id);
-	model.addObject("dto", dto);
-	model.setViewName("/user/updatemain");
-	return model;
+		ModelAndView model = new ModelAndView();
+		String u_id = (String) session.getAttribute("loginId");
+		UserDto dto = service.findUserdataById(u_id);
+		model.addObject("dto", dto);
+		model.setViewName("/user/updatemain");
+		return model;
 	}
 
+	// 이력서목록 페이지로 이동
 	@GetMapping("/resumelist")
 	public String list() {
 		return "/user/resumelist";
 	}
 
+	// 비밀번호변경페이지로 이동
 	@GetMapping("/updatepw")
 	public ModelAndView upw(HttpSession session) {
 		ModelAndView model = new ModelAndView();
@@ -72,6 +77,7 @@ public class UFnController {
 		return model;
 	}
 
+	// 이력서등록 페이지로 이동
 	@GetMapping("/insertresume")
 	public ModelAndView insertResume(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView();
@@ -83,6 +89,7 @@ public class UFnController {
 		return model;
 	}
 
+	// 개인정보수정페이지로 이동
 	@GetMapping("/updateuser")
 	public ModelAndView uuser(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView();
@@ -94,13 +101,26 @@ public class UFnController {
 		return model;
 	}
 
+	// 회원탈퇴 페이지로 이동
 	@GetMapping("/deleteform")
-	public String delete(UserDto dto) {
-		dto.getU_num();
-		return "/user/quit";
+	public String deleteform(HttpSession session, Model model) {
+		String u_id = (String) session.getAttribute("loginId");
+		UserDto dto = service.findUserdataById(u_id);
+		model.addAttribute("dto", dto);
+		return "/user/deletepage";
 	}
-	
 
+	//탈퇴
+	@PostMapping("/delete")
+	public String delete(String u_num, HttpSession session) {
+		uservice.deleteUser(u_num);
+		session.removeAttribute("loginId");
+		session.removeAttribute("loginStatus");
+		session.removeAttribute("loginName");
+		return "redirect:/";
+	}
+
+	// 유저정보 변경
 	@PostMapping("/updateUserInfo")
 	public String uInfo(UserDto dto, String addr1, String addr2, String addr3) {
 		dto.setU_addr(addr1 + " " + addr2 + " " + addr3);
@@ -108,13 +128,14 @@ public class UFnController {
 		return "redirect:mypage";
 	}
 
+	// 비밀번호 변경
 	@PostMapping("/updatePw")
-	public String uPw(String u_id, String u_pw, HttpSession session) {
+	public String uPw(String u_id, String u_pw) {
 		uservice.updatePw(u_id, u_pw);
-		session.setAttribute("loginPw", u_pw); // 세션에 새로운 비밀번호 정보 저장
 		return "redirect:mypage";
 	}
 
+	// 사진등록
 	@PostMapping("/updatePhoto")
 	@ResponseBody
 	public void photoUpload(String u_id, MultipartFile u_photo, HttpSession session) {

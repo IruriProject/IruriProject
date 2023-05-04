@@ -20,5 +20,6 @@ public interface UFnMapperInter {
 	public ResumeDto getResume(String u_num);
 	public void insertLikeEnter(HeartDto dto);
 	public void deleteLikeEnter(String num);
-	
+	public UserDto findUserByNum(String u_num);
+	public void deleteUser(String u_num);
 }

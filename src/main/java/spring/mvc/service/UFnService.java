@@ -53,9 +53,18 @@ public class UFnService {
 		return mapper.getEnterPrise(num);
 	}
 
-	// id로 유저정보 찾기
+	// num으로 이력서 찾기
 	public ResumeDto getResume(String u_num) {
 		return mapper.getResume(u_num);
+	}
+	
+	//num으로 유저정보 찾기
+	public UserDto findUserdataByNum(String u_num) {
+		return mapper.findUserByNum(u_num);
+	}
+	//회원삭제
+	public void deleteUser(String u_num) {
+		mapper.deleteUser(u_num);
 	}
 
 	// 좋아요 한 회원과 기업 데이터 추가
