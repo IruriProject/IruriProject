@@ -37,14 +37,26 @@ public class UFnService {
 		return mapper.countLikeEnterprise(num);
 	}
 	
+	
 	public EnterpriseDto getEnterPrise(String num) {
-		
 		
 		return mapper.getEnterPrise(num);
 	}
 	//id로 유저정보 찾기
 	public ResumeDto getResume(String u_num) {
 	    return mapper.getResume(u_num);
+	}
+	
+	//좋아요 한 회원과 기업 데이터 추가
+	public void insertlikeEnter(HeartDto dto) {
+		
+		mapper.insertLikeEnter(dto);
+	}
+	
+	//좋아요 한 회원과 기업 데이터 삭제
+	public void deleteLikeEnter(String num) {
+		
+		mapper.deleteLikeEnter(num);
 	}
 	
 }

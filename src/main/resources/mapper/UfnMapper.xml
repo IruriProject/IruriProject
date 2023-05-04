@@ -20,14 +20,19 @@
 		select count(h_num) from HEART where u_num=#{u_num}
 	</select>
 	
-	<insert id="likeEnterprise" parameterType="hdto">
-		insert into heart (u_num, e_num) values (#{u_num},#{e_num})
-	</insert>
-	
 	<select id="getEnterPrise" resultType="edto" parameterType="string">
 		select * from ENTERPRISE where e_num=#{e_num}
 	</select>
 	
+	<!-- 좋아요버튼 누르면 데이터 저장됨 -->
+	<insert id="insertLikeEnter" parameterType="hdto">
+		insert into HEART (u_num, e_num) values (#{u_num},#{e_num})
+	</insert>
+	
+	<!-- 좋아요버튼 다시 누르면 데이터 삭제됨 -->
+	<delete id="deleteLikeEnter" parameterType="String">
+		delete from HEART where h_num=#{h_num}
+	</delete>
 	
 	
 	

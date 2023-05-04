@@ -7,6 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.ResumeDto;
+import spring.mvc.dto.HeartDto;
 import spring.mvc.dto.UserDto;
 
 @Mapper
@@ -16,4 +17,6 @@ public interface UFnMapperInter {
 	public int countLikeEnterprise(String num);
 	public EnterpriseDto getEnterPrise(String num);
 	public ResumeDto getResume(String u_num);
+	public void insertLikeEnter(HeartDto dto);
+	public void deleteLikeEnter(String num);
 }

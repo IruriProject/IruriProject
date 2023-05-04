@@ -58,14 +58,14 @@ div {
 						style="width: 1000px;" >
 						<thead>
 							<tr class="text-dark">
-								<th scope="col"><input class="form-check-input"
+								<th scope="col" style="text-align: center;"><input class="form-check-input"
 									type="checkbox"></th>
-								<th scope="col">No.</th>
-								<th scope="col">기업명</th>
-								<th scope="col">주소</th>
-								<th scope="col">전화번호</th>
-								<th scope="col">이메일</th>
-								<th scope="col">Action</th>
+								<th scope="col" style="text-align: center;">No.</th>
+								<th scope="col" style="text-align: center;">기업명</th>
+								<th scope="col" style="text-align: center;">주소</th>
+								<th scope="col" style="text-align: center;">전화번호</th>
+								<th scope="col" style="text-align: center;">이메일</th>
+								<th scope="col" style="text-align: center;">Action</th>
 							</tr>
 						</thead>
 						<tbody>

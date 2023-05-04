@@ -201,21 +201,21 @@
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h6 class="mb-0">이력서 목록</h6>
-					<a href="">Show All</a>
+					<a href="">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col"><input class="form-check-input"
+								<th scope="col" style="text-align: center;"><input class="form-check-input"
 									type="checkbox"></th>
-								<th scope="col">Date</th>
-								<th scope="col">Invoice</th>
-								<th scope="col">Customer</th>
-								<th scope="col">Amount</th>
-								<th scope="col">Status</th>
-								<th scope="col">Action</th>
+								<th scope="col" style="text-align: center;">Date</th>
+								<th scope="col" style="text-align: center;">Invoice</th>
+								<th scope="col" style="text-align: center;">Customer</th>
+								<th scope="col" style="text-align: center;">Amount</th>
+								<th scope="col" style="text-align: center;">Status</th>
+								<th scope="col" style="text-align: center;">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -259,21 +259,21 @@
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h6 class="mb-0">관심 기업</h6>
-					<a href="enterLike">Show All</a>
+					<a href="enterLike">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col"><input class="form-check-input"
+								<th scope="col" style="text-align: center;"><input class="form-check-input"
 									type="checkbox"></th>
-								<th scope="col">Date</th>
-								<th scope="col">Invoice</th>
-								<th scope="col">Customer</th>
-								<th scope="col">Amount</th>
-								<th scope="col">Status</th>
-								<th scope="col">Action</th>
+								<th scope="col" style="text-align: center;">Date</th>
+								<th scope="col" style="text-align: center;">Invoice</th>
+								<th scope="col" style="text-align: center;">Customer</th>
+								<th scope="col" style="text-align: center;">Amount</th>
+								<th scope="col" style="text-align: center;">Status</th>
+								<th scope="col" style="text-align: center;">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -317,21 +317,21 @@
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h6 class="mb-0">관심 직종</h6>
-					<a href="occupation">Show All</a>
+					<a href="occupation">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col"><input class="form-check-input"
+								<th scope="col" style="text-align: center;"><input class="form-check-input"
 									type="checkbox"></th>
-								<th scope="col">Date</th>
-								<th scope="col">Invoice</th>
-								<th scope="col">Customer</th>
-								<th scope="col">Amount</th>
-								<th scope="col">Status</th>
-								<th scope="col">Action</th>
+								<th scope="col" style="text-align: center;">Date</th>
+								<th scope="col" style="text-align: center;">Invoice</th>
+								<th scope="col" style="text-align: center;">Customer</th>
+								<th scope="col" style="text-align: center;">Amount</th>
+								<th scope="col" style="text-align: center;">Status</th>
+								<th scope="col" style="text-align: center;">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -375,21 +375,21 @@
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h6 class="mb-0">관심 채용</h6>
-					<a href="scrap">Show All</a>
+					<a href="scrap">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col"><input class="form-check-input"
+								<th scope="col" style="text-align: center;"><input class="form-check-input"
 									type="checkbox"></th>
-								<th scope="col">Date</th>
-								<th scope="col">Invoice</th>
-								<th scope="col">Customer</th>
-								<th scope="col">Amount</th>
-								<th scope="col">Status</th>
-								<th scope="col">Action</th>
+								<th scope="col" style="text-align: center;">Date</th>
+								<th scope="col" style="text-align: center;">Invoice</th>
+								<th scope="col" style="text-align: center;">Customer</th>
+								<th scope="col" style="text-align: center;">Amount</th>
+								<th scope="col" style="text-align: center;">Status</th>
+								<th scope="col" style="text-align: center;">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -432,21 +432,21 @@
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h6 class="mb-0">관심 근무지</h6>
-					<a href="place">Show All</a>
+					<a href="place">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col"><input class="form-check-input"
+								<th scope="col" style="text-align: center;"><input class="form-check-input"
 									type="checkbox"></th>
-								<th scope="col">Date</th>
-								<th scope="col">Invoice</th>
-								<th scope="col">Customer</th>
-								<th scope="col">Amount</th>
-								<th scope="col">Status</th>
-								<th scope="col">Action</th>
+								<th scope="col" style="text-align: center;">Date</th>
+								<th scope="col" style="text-align: center;">Invoice</th>
+								<th scope="col" style="text-align: center;">Customer</th>
+								<th scope="col" style="text-align: center;">Amount</th>
+								<th scope="col" style="text-align: center;">Status</th>
+								<th scope="col" style="text-align: center;">Action</th>
 							</tr>
 						</thead>
 						<tbody>
