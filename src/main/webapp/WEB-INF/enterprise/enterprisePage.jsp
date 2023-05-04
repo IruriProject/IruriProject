@@ -36,6 +36,28 @@
 .hi div {
 	border: 1px solid gray;
 }
+
+.longsentence{
+	word-break: break-all;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.atag {
+	padding: 8px;
+}
+
+.atag, .atag:hover {
+	color: #416442;
+	text-decoration: none;
+}
+
+.atag:hover {
+background-color: #e3f2c9;
+border-radius: 10px;
+}
 </style>
 </head>
 
@@ -79,23 +101,26 @@
 						<div
 							class="d-flex align-items-center justify-content-between mb-2">
 							<h6 class="mb-0">쪽지관리</h6>
-							<a href="/posting/writemessage">쪽지보내기</a><a href="">Show All</a>
+							<a href="/posting/writemessage">쪽지보내기</a><a href="/posting/allMessages">Show All</a>
 						</div>
 						
 						<c:forEach var="msg" items="${messages }">
-						<a href="/posting/messagedetail?m_num=${msg.m_num }">
-							<div class="d-flex align-items-center border-bottom py-3">
+						
+							<div class="d-flex align-items-center border-bottom py-3 atag">
+							
 								<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
 									alt="" style="width: 40px; height: 40px;">
+									<a class="atag" href="/posting/messagedetail?m_num=${msg.m_num }">
 								<div class="w-100 ms-3">
 									<div class="d-flex w-100 justify-content-between">
 										<h6 class="mb-0">${msg.u_name }</h6>
 										<small><fmt:formatDate value="${msg.m_day}" pattern="yy-MM-dd"/></small>
 									</div>
-									<span>${msg.m_content }</span>
+									<span class="longsentence">${msg.m_content }</span>
 								</div>
+								</a>
 							</div>
-						</a>
+						
 						</c:forEach>
 					
 					</div>
@@ -120,7 +145,7 @@
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h6 class="mb-0">공고현황</h6>
-					<a href="">Show All</a>
+					<a class="atag" href="">Show All</a>
 				</div>
 				<div class="table-responsive">
 					<table
@@ -140,7 +165,7 @@
 						</c:if>
 							<c:forEach var="post" items="${postings }">
 								<tr>
-									<td style="text-align: left"><a
+									<td style="text-align: left"><a class="atag"
 										href="posting/detailpage?p_num=${post.p_num }">&nbsp;&nbsp;${post.p_title }</a></td>
 									<td><fmt:formatDate value="${post.p_writeday }"
 											pattern="yyyy-MM-dd" /></td>

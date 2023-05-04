@@ -146,4 +146,17 @@ public class EFnController {
 		
 		return "redirect:/enterprise";
 	}
+	
+	@GetMapping("/allMessages")
+	public ModelAndView allMessages(HttpSession session) {
+		ModelAndView mview=new ModelAndView();
+		
+		String loginId=(String)session.getAttribute("loginId");
+		EnterpriseDto dto= e_service.findEnterdataById(loginId);
+		
+		mview.addObject("list", service.getAllMessages(dto.getE_num()));
+		mview.setViewName("/message/messageList");
+		
+		return mview;
+	}
 }
