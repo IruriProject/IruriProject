@@ -48,8 +48,13 @@ public class UFnController {
 	}
 
 	@GetMapping("/update")
-	public String update() {
-		return "/user/updatemain";
+	public ModelAndView update(HttpSession session) {
+	ModelAndView model = new ModelAndView();
+	String u_id = (String) session.getAttribute("loginId");
+	UserDto dto = service.findUserdataById(u_id);
+	model.addObject("dto", dto);
+	model.setViewName("/user/updatemain");
+	return model;
 	}
 
 	@GetMapping("/resumelist")
@@ -58,8 +63,13 @@ public class UFnController {
 	}
 
 	@GetMapping("/updatepw")
-	public String upw() {
-		return "/user/updatepw";
+	public ModelAndView upw(HttpSession session) {
+		ModelAndView model = new ModelAndView();
+		String u_id = (String) session.getAttribute("loginId");
+		UserDto dto = service.findUserdataById(u_id);
+		model.addObject("dto", dto);
+		model.setViewName("/user/updatepw");
+		return model;
 	}
 
 	@GetMapping("/insertresume")

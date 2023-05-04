@@ -228,13 +228,13 @@ div {
 				//기존 비밀번호 입력 오류 시
 				if ($("#presentPw").val() == "") {
 					$("#pwError1").text("비밀번호를 입력해주세요");
-				} else if ($("#presentPw").val() != "${sessionScope.loginPw}") {
+				} else if ($("#presentPw").val() != "${dto.u_pw}") {
 					$("#pwError1").text("비밀번호가 올바르지 않습니다.");
 				} else {
 					$("#pwError1").text("");
 				}
 				//새 비밀번호가 현재 로그인된 세션의 비밀번호와 같을때
-				if ($("#newPw").val() == "${sessionScope.loginPw}") {
+				if ($("#newPw").val() == "${dto.u_pw}") {
 					$("#pwError2").text("새 비밀번호는 기존 비밀번호와 일치할 수 없습니다.");
 				} else {
 					$("#pwError2").text("");
