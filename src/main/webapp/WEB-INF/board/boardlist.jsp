@@ -48,9 +48,23 @@
     color: #536387;
     outline: none;
     resize: none;
+    cursor: pointer;
   }
 
 </style>
+<script type="text/javascript">
+$(function(){
+	
+	$("#sort").change(function(){
+		var sort = $(this).val();
+		//alert(sort);
+		
+		location.href="boardlist?sort="+sort;
+		
+	});
+});
+</script>
+
 </head>
 <body>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
@@ -68,26 +82,27 @@
 	</div>
 
 	<div style="width: 100%; height: 50px; padding: 0 6%;">
-		<b class="countst">총<b>&nbsp;${totalCount }</b> 건
-		</b>
+		<b class="countst">총<b style="color: #4E9F3D;">&nbsp;${totalCount }</b> 건</b>
 
 		<div style="width: 25%; float: right;">
-			<input type="text" name="b_search" id="b_search"
-				placeholder="제목+본문검색" class="formbold-b_search-input" />
+			<form action="boardlist" method ="get" class="form-inline">
+				<input type="text" name="keyword" id="keyword" placeholder="제목+본문검색"
+					class="formbold-b_search-input" />
+			</form>
 		</div>
 
 		<div style="width: 12%; float: right; margin-right:5px;">
-			<select class="formbold-form-select" name="occupation"
-				id="occupation">
-				<option value="작성일순">작성일순</option>
-				<option value="조회순">조회순</option>
+			<select class="formbold-form-select" name="sort" id="sort">
+				<option value="b_writeday" ${sort=="b_writeday"?"selected":""}>최신순</option>
+				<option value="b_num" ${sort=="b_num"?"selected":""}>오래된순</option>
+				<option value="b_readcount" ${sort=="b_readcount"?"selected":""}>조회순</option>
 			</select>
 		</div>
 	</div>
 
 	<table class="table table-info"  style="width:1000px;  margin: 0 auto;">
 	<tr>
-		<th style="text-align:center;  height:40px; line-height:40px; font-size:15px;" width="60">번호</th>
+		<!-- <th style="text-align:center;  height:40px; line-height:40px; font-size:15px;" width="60">번호</th> -->
 		<th style="text-align:center; height:40px; line-height:40px; font-size:15px;" width="160">작성자</th>
 		<th style="text-align:center; height:40px; line-height:40px; font-size:15px;" width="460">제목</th>
 		<th style="text-align:center; height:40px; line-height:40px; font-size:15px;" width="80">조회</th>
@@ -105,28 +120,31 @@
 	<c:if test="${totalCount>0 }">
 				<c:forEach var="dto" items="${list }">
 				<tr style=" vertical-align:middle;  height:70px; line-height:70px; font-size:14px;">
-					<td align="center" style="  height:70px; line-height:70px; ">${no }</td>
+					<%-- <td align="center" style="  height:70px; line-height:70px; ">${no }</td> --%>
 					
 					<c:set var="no" value="${no-1 }"/>
 					
-					<td align="center" style="  height:70px; line-height:70px; ">${dto.b_loginid }</td>
+					<td align="center" style="height:70px; line-height:70px; ">${dto.b_loginid }</td>
 					
 					<td style="height:70px; line-height:70px; "> 
 					
 					<a href="detailboard?b_num=${dto.b_num }&currentPage=${currentPage}" style="color:#000;">
-					${dto.b_title }
-					
+					<b style="font-size:16px; font-weight:500;">${dto.b_title }</b>
 					<c:if test="${dto.b_photo!='no' }">
-					<span class="glyphicon glyphicon-picture" style="color:gray; font-size:13px;"></span>
+					<span class="glyphicon glyphicon-picture" style="color:gray; font-size:15px;"></span>
 					</c:if>
 					
 				  	<c:if test="${dto.newFlag}">
-                        <img src="${root }/image/newicon.png" alt="newpng" style="width:17px; padding:1px;" />
+                        <img src="${root }/image/newicon.png" alt="newpng" style="width:21px; margin-bottom:4px; padding:1px;" />
                     </c:if>
+                    <br>
+					<div style="width:20%; height:30px; float:left; line-height:30px; color:gray; overflow: hidden;">${dto.b_content } </div>
 					</a>	
 					</td>
 					
-					<td style=" height:70px; line-height:70px; "align="center">${dto.b_readcount }</td>
+					<td style=" height:70px; line-height:70px; "align="center">
+					<span style="color: gray; float: right; font-size: 13px; padding: 10px;">
+					<i class="	glyphicon glyphicon-eye-open"></i>&nbsp;${dto.b_readcount }</span></td>
 					<td  style=" height:70px; line-height:70px;"align="center">${dto.b_writeday }</td>
 				</tr>
 

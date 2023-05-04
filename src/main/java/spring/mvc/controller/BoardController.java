@@ -48,12 +48,13 @@ public class BoardController {
 	
 	//board
 	@GetMapping("/board/boardlist")
-    public ModelAndView boardlist(@RequestParam (value="currentPage", defaultValue = "1")int currentPage) {
-        ModelAndView model=new ModelAndView();
-        
-        //총 글의 개수
-        int totalCount =bservice.getTotalCount();
-        
+    public ModelAndView boardlist(@RequestParam (value="currentPage", defaultValue = "1")int currentPage,
+    		@RequestParam(required=false) String keyword,
+    		@RequestParam(defaultValue = "b_writeday") String sort) {
+       
+		ModelAndView model=new ModelAndView();
+
+        int totalCount =bservice.getTotalCount(keyword); //총 글의 개수 //keyword 갯수
         int totalPage; //총 페이지수
         int startPage; //각 블럭의 시작페이지
         int endPage; //각 블럭의 끝페이지
@@ -76,8 +77,8 @@ public class BoardController {
         start=(currentPage-1)*perPage;
 
         //각 페이지에서 필요한 게시글 가져오기
-        List<BoardDto> list=bservice.getList(start, perPage);
-
+        List<BoardDto> list=bservice.getList(sort,keyword,start, perPage);
+        
         //new표시
         // 게시물의 작성일자와 현재 날짜 비교하여 "뉴" 아이콘 표시 여부 결정
         String now = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -105,8 +106,9 @@ public class BoardController {
         model.addObject("perBlock", perBlock);
         model.addObject("currentPage", currentPage);
         model.addObject("no", no);
-        
+        model.addObject("sort",sort);        
         model.setViewName("/board/boardlist");
+        
         return model;
         
 	}
@@ -160,9 +162,100 @@ public class BoardController {
 		mapper.insertBoard(bdto);
 
 
-		return "/board/insertboardform";
+		return "redirect:boardlist";
 	}
 
+	
+	@GetMapping("/board/updateform")
+	public ModelAndView updateform(@RequestParam String b_num)
+	{
+		ModelAndView model = new ModelAndView();
+		
+		BoardDto bdto= mapper.getData(b_num);
+		
+		model.addObject("bdto",bdto);
+		model.setViewName("/board/updateboardform");
+		return model;
+	}
+	
+	
+
+	@PostMapping("/board/updateBoard")
+	public String updateBoard(@ModelAttribute BoardDto bdto, 
+			@RequestParam ArrayList<MultipartFile> upload,
+			@RequestParam String b_num,
+			HttpSession session)
+	{
+		
+		//세션에 로그인한 아이디 얻기 
+		String myid=(String)session.getAttribute("loginId");
+
+		//아이디 넘겨서 num값 얻기 	
+		//String usernum = uservice.findUserdataById(myid).getU_num();
+
+		bdto.setB_loginid(myid);
+
+		String path= session.getServletContext().getRealPath("/photo");
+
+		System.out.println(path);
+
+		String uploadName="";
+
+		int idx=1;
+
+		if(upload.get(0).getOriginalFilename().equals("")) 
+			uploadName="no"; 
+		else {
+			for(MultipartFile f:upload) { 
+				SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMddHHmmss");
+				String fName=idx++ +"_"+sdf.format(new Date())+"_"+f.getOriginalFilename(); 
+				uploadName+=fName+","; //누적
+				
+				//업로드된 파일명
+				String uploadfile= mapper.getData(b_num).getB_photo();
+				
+				//파일객체 생성
+				File file= new File(path+"\\"+uploadfile);
+				
+				bdto.setB_photo(fName);
+				
+				//업로드 
+				try {
+					f.transferTo(new File(path+"\\"+fName));
+					file.delete();
+				
+				} catch  (IllegalStateException | IOException e) { // TODO Auto-generated catch block
+					e.printStackTrace(); }
+
+			}
+
+			//마지막 컴마제거 
+			uploadName=uploadName.substring(0, uploadName.length()-1); }
+
+		bdto.setB_photo(uploadName);
+
+		mapper.updateBoard(bdto);
+
+
+		return "redirect:boardlist";
+	}
+
+	
+	@GetMapping("/board/delete")
+	public String delete(String b_num,
+			HttpSession session)
+	{
+		String path= session.getServletContext().getRealPath("/photo");
+		String uploadfile= mapper.getData(b_num).getB_photo();
+		
+		File file= new File(path+"\\"+uploadfile);
+		file.delete();
+	
+		mapper.deleteBoard(b_num);
+		
+		return "redirect:boardlist";
+	}
+		
 	
 	@GetMapping("/board/detailboard")
 	public ModelAndView detailboard(@RequestParam String b_num,
