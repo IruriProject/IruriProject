@@ -114,6 +114,7 @@ body {
 						<div class="withbtn">
 							<div class="withbtnTitle fw-bolder mb-1"
 								style="color: #41644a; font-size: 2em">${dto.p_title }</div>
+								<input type="hidden" id="p_num" value="${dto.p_num }">
 							<div>
 								<c:if
 									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
@@ -124,10 +125,36 @@ body {
 									test="${sessionScope.loginStatus=='enterprise'&&sessionScope.loginId==dto.e_id }">
 									<button type="button" class="btn btn-info mt-2" onclick="location.href='/posting/update?p_num=${dto.p_num}'">수정</button>
 									<button type="button" class="btn btn-info mt-2" onclick="location.href='confirmpw?p_num=${dto.p_num}'">삭제</button>
-									<button type="button" class="btn btn-info mt-2">끌어올리기</button>
+									<button type="button" class="btn btn-info mt-2" onclick="reloadAlert()">끌어올리기</button>
 								</c:if>
+								<button type="button" class="btn btn-info mt-2" onclick="copyUrl()">링크 복사</button>
 							</div>
 						</div>
+						
+						<script type="text/javascript">
+						
+						function reloadAlert(){
+							const p_num=$("#p_num").val();	
+							const a=confirm("게시글을 끌어올리시겠습니까? \n 공고 마감일이 일주일 뒤로 연장됩니다.");
+							
+							if(a){
+								location.href="/posting/reposting?p_num="+p_num;
+							}else{
+								return false;
+							}
+						}
+						
+						//현재 url 변수로 가져오기
+						let nowUrl = window.location.href;
+
+						function copyUrl(){ 
+						  //nowUrl 변수에 담긴 주소를 복사
+						  	navigator.clipboard.writeText(nowUrl).then(res=>{
+							  alert("주소가 복사되었습니다");
+							})
+						}
+						
+						</script>
 
 						<!-- Post meta content-->
 						<div class="text-muted fst-italic mb-2">${dto.e_name }

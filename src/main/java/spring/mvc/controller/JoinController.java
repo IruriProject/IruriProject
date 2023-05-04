@@ -100,6 +100,7 @@ public class JoinController {
 			session.setMaxInactiveInterval(60*60*8); //8시간 세션저장
 			
 			session.setAttribute("loginId", e_id);
+			session.setAttribute("loginPw", e_pw);
 			session.setAttribute("loginStatus", "enterprise");
 			
 			//id에 대한 데이터

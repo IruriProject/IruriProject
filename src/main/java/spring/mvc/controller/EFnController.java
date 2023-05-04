@@ -195,7 +195,14 @@ public class EFnController {
 		mview.setViewName("/message/detailPage");
 
 		return mview;
-
+	}
+	
+	@GetMapping("/reposting")
+	public String reloadPosting(String p_num) {
+		service.reposting(p_num);
+		
+		int maxNum=service.getMaxNumOfPosting();
+		return "redirect:/posting/detailpage?p_num="+maxNum;
 	}
 	
 	@GetMapping("/writemessage")
@@ -215,5 +222,18 @@ public class EFnController {
 		service.insertMessage(dto);
 		
 		return "redirect:/enterprise";
+	}
+	
+	@GetMapping("/allMessages")
+	public ModelAndView allMessages(HttpSession session) {
+		ModelAndView mview=new ModelAndView();
+		
+		String loginId=(String)session.getAttribute("loginId");
+		EnterpriseDto dto= e_service.findEnterdataById(loginId);
+		
+		mview.addObject("list", service.getAllMessages(dto.getE_num()));
+		mview.setViewName("/message/messageList");
+		
+		return mview;
 	}
 }
