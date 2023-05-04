@@ -100,21 +100,21 @@ border-radius: 10px;
 					<div class="h-100 bg-light rounded p-4">
 						<div
 							class="d-flex align-items-center justify-content-between mb-2">
-							<h6 class="mb-0">쪽지관리</h6>
-							<a href="/posting/writemessage">쪽지보내기</a><a href="/posting/allMessages">Show All</a>
+							<h4 class="mb-5"><b>쪽지관리</b></h4>
+							<a href="/posting/writemessage">쪽지보내기</a><a class="atag" href="/posting/allMessages">Show All</a>
 						</div>
 						
 						<c:forEach var="msg" items="${messages }">
 						
-							<div class="d-flex align-items-center border-bottom py-3 atag">
+							<div class="d-flex align-items-center border-bottom py-3 atag mt-3">
 							
 								<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
 									alt="" style="width: 40px; height: 40px;">
 									<a class="atag" href="/posting/messagedetail?m_num=${msg.m_num }">
 								<div class="w-100 ms-3">
 									<div class="d-flex w-100 justify-content-between">
-										<h6 class="mb-0">${msg.u_name }</h6>
-										<small><fmt:formatDate value="${msg.m_day}" pattern="yy-MM-dd"/></small>
+										<h5><b>${msg.u_name }</b>&nbsp;님</h5>
+										<smal><fmt:formatDate value="${msg.m_day}" pattern="yy-MM-dd"/></small>
 									</div>
 									<span class="longsentence">${msg.m_content }</span>
 								</div>
@@ -129,8 +129,7 @@ border-radius: 10px;
 					<div class="h-100 bg-light rounded p-4">
 						<div
 							class="d-flex align-items-center justify-content-between mb-4">
-							<h6 class="mb-0">Calender</h6>
-							<a href="">Show All</a>
+							<h4 class="mb-5"><b>Calendar</b></h4>
 						</div>
 						<div id="calender"></div>
 					</div>
@@ -144,7 +143,7 @@ border-radius: 10px;
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h6 class="mb-0">공고현황</h6>
+					<h4 class="mb-5"><b>공고현황</b></h4>
 					<a class="atag" href="">Show All</a>
 				</div>
 				<div class="table-responsive">
@@ -205,8 +204,8 @@ border-radius: 10px;
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h6 class="mb-0">지원자현황</h6>
-					<a href="">Show All</a>
+					<h4 class="mb-5"><b>지원자현황</b></h4>
+					<a href="" class="atag">Show All</a>
 				</div>
 				<div class="table-responsive">
 					<table
