@@ -5,8 +5,16 @@
 <mapper namespace="spring.mvc.mapper.UFnMapperInter">
 	<!-- 정보 변경 -->
 	<update id="updateUser" parameterType="udto">
-		update USER set u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email},
-		u_addr=#{u_addr} where u_id=#{u_id}
+		update USER set
+		u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email}
+		, u_addr=#{u_addr}
+		where u_id=#{u_id}
+	</update>
+	
+	<!-- 주소 변경 -->
+	<update id="updateUserNoAddr" parameterType="Map">
+		update USER set
+		u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email} where u_id=#{u_id}
 	</update>
 
 	<!-- 비번수정 -->
@@ -26,10 +34,11 @@
 		select *
 		from RESUME where u_num=#{u_num} and r_presume=1
 	</select>
-	
+
 	<!-- 탈퇴 -->
 	<delete id="deleteUser" parameterType="String">
-		delete from USER where u_num=#{u_num}
+		delete from USER where
+		u_num=#{u_num}
 	</delete>
 
 	<select id="countLikeEnterprise" resultType="int"

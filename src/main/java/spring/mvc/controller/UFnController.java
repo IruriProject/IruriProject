@@ -123,9 +123,14 @@ public class UFnController {
 	// 유저정보 변경
 	@PostMapping("/updateUserInfo")
 	public String uInfo(UserDto dto, String addr1, String addr2, String addr3) {
-		dto.setU_addr(addr1 + " " + addr2 + " " + addr3);
-		uservice.updateUser(dto);
-		return "redirect:mypage";
+		if(addr1!="") {
+			dto.setU_addr(addr1 + " " + addr2 + " " + addr3);			
+			uservice.updateUser(dto);
+			return "redirect:mypage";
+		}else {
+			uservice.updateUserNoAddr(dto);
+			return "redirect:mypage";
+		}
 	}
 
 	// 비밀번호 변경

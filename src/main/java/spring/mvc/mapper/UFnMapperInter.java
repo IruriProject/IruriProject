@@ -13,6 +13,7 @@ import spring.mvc.dto.UserDto;
 @Mapper
 public interface UFnMapperInter {
 	public void updateUser(UserDto dto);
+	public void updateUserNoAddr(UserDto dto);
 	public void updatePw(Map<String, String> map);
 	public void updatePhoto(Map<String, String> map);
 	public int countLikeEnterprise(String num);

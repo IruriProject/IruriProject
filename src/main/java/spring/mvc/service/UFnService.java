@@ -23,6 +23,10 @@ public class UFnService {
 		mapper.updateUser(dto);
 	}
 
+	public void updateUserNoAddr(UserDto dto) {
+		mapper.updateUserNoAddr(dto);
+	}
+
 	public void updatePw(String u_id, String u_pw) {
 		// TODO Auto-generated method stub
 		Map<String, String> map = new HashMap<>();
@@ -57,12 +61,13 @@ public class UFnService {
 	public ResumeDto getResume(String u_num) {
 		return mapper.getResume(u_num);
 	}
-	
-	//num으로 유저정보 찾기
+
+	// num으로 유저정보 찾기
 	public UserDto findUserdataByNum(String u_num) {
 		return mapper.findUserByNum(u_num);
 	}
-	//회원삭제
+
+	// 회원삭제
 	public void deleteUser(String u_num) {
 		mapper.deleteUser(u_num);
 	}
@@ -78,7 +83,5 @@ public class UFnService {
 
 		mapper.deleteLikeEnter(num);
 	}
-
-
 
 }

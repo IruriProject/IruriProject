@@ -272,7 +272,7 @@
       <div class="formbold-mb-3">
         <label class="formbold-form-label"> 주소 </label>
         <div style="align-content: flex-end;">
-        <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input" style="width: 300px;" required="required">
+        <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input" style="width: 300px;">
 		<input type="button" class="formbold-btn btn-s" onclick="sample6_execDaumPostcode()" value="검색"><br>
         </div>
 		<input type="text" id="sample6_address" name="addr1" placeholder="주소" class="formbold-form-input" readonly="readonly" ><br><br>
