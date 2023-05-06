@@ -120,6 +120,9 @@ public class EFnController {
 		ModelAndView mview = new ModelAndView();
 
 		mview.addObject("dto", service.getPosting(p_num));
+		mview.addObject("scrapCount", service.scrapByPosting(p_num));
+		mview.addObject("viewerCount", service.viewerByPosting(p_num));
+		
 		mview.setViewName("/posting/detailPage");
 
 		return mview;
@@ -199,17 +202,6 @@ public class EFnController {
 	}
 
 	
-	//쪽지
-	@GetMapping("/messagedetail")
-	public ModelAndView messagedetail(@RequestParam String m_num) {
-		ModelAndView mview=new ModelAndView();
-		
-		mview.addObject("dto", service.getMessage(m_num));
-		mview.setViewName("/message/detailPage");
-
-		return mview;
-	}
-	
 	@GetMapping("/reposting")
 	public String reloadPosting(String p_num) {
 		service.reposting(p_num);
@@ -218,6 +210,8 @@ public class EFnController {
 		return "redirect:/posting/detailpage?p_num="+maxNum;
 	}
 	
+	
+	//쪽지
 	@GetMapping("/writemessage")
 	public String writemessageForm(HttpSession session, Model model) {
 		
@@ -237,7 +231,7 @@ public class EFnController {
 		return "redirect:/enterprise";
 	}
 	
-	@GetMapping("/allMessages")
+	@GetMapping("/messagelist")
 	public ModelAndView allMessages(HttpSession session) {
 		ModelAndView mview=new ModelAndView();
 		

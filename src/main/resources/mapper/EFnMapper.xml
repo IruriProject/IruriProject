@@ -8,6 +8,16 @@
 	<select id="getPosting" parameterType="String" resultType="Map">
 		select POSTING.*, ENTERPRISE.* from POSTING inner join ENTERPRISE on POSTING.e_num = ENTERPRISE.e_num where POSTING.p_num = #{p_num}
 	</select>
+	
+	<!-- 공고별 스크랩 수 -->
+	<select id="scrapByPosting" parameterType="String" resultType="int">
+		select count(*) from SCRAP where p_num=#{p_num}
+	</select>
+	
+	<!-- 공고별 열람 수 -->
+	<select id="viewerByPosting" parameterType="String" resultType="int">
+		select count(*) from VIEWER where p_num=#{p_num}
+	</select>
 
 	<select id="getTotalCount" resultType="int">
 	select count(*) from POSTING

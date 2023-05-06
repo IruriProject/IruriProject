@@ -22,6 +22,8 @@ public interface EFnMapperInter {
 	public List<PostingDto> getPreviewPostings(String e_num);
 	public void deletePosting(String p_num);
 	public void updatePosting(PostingDto dto);
+	public int scrapByPosting(String p_num);
+	public int viewerByPosting(String p_num);
 	
 	
 	//쪽지
