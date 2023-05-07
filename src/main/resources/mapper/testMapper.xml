@@ -8,8 +8,5 @@
 	select * from test
 	</select>
 	
-	<select id="applicantByPosting" parameterType="String" resultType="Map">
-		SELECT a.*,u.* FROM APPLICANT AS a JOIN RESUME AS r ON a.r_num = r.r_num JOIN USER AS u ON r.u_num = u.u_num WHERE a.p_num=#{p_num};
-	</select>
 
 </mapper>

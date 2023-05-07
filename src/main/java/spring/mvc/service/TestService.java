@@ -22,7 +22,5 @@ public class TestService {
 		return list;
 	}
 	
-	public List<Map<String, Object>> applicantByPosting(String p_num){
-		return inter.applicantByPosting(p_num);
-	}
+	
 }

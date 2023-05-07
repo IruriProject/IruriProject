@@ -47,6 +47,9 @@ public class EFnService {
 	public void updatePosting(PostingDto dto) {
 		mapper.updatePosting(dto);
 	}
+	public List<Map<String, Object>> applicantByPosting(String p_num){
+		return mapper.applicantByPosting(p_num);
+	}
 	
 	
 	//스크랩

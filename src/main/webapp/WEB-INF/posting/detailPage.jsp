@@ -15,6 +15,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <link href="${root }/css/postingDetailStyles.css" rel="stylesheet" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <style>
 body {
 	position: relative;
@@ -79,14 +80,14 @@ body {
 
 .cInfo {
 	width: 47%;
-	height: 200px;
+	height: 480px;
 	border: 1px solid #e3f2c9;
 	margin: 10px;
 }
 
 .graphs {
 	text-align: center;
-	line-height: 200px;
+	line-height: 400px;
 }
 
 .withbtn {
@@ -100,6 +101,45 @@ body {
 	font-size: 2.2em;
 }
 </style>
+<script type="text/javascript">
+google.charts.load('current', {
+	  packages:['corechart']
+	}).then(function () {
+				
+	  $.ajax({
+	    url: "/posting/gendergraph",
+	    data:{"p_num":${dto.p_num}},
+	    dataType: "JSON",
+	    success: function(result){
+	    	if(result[0].count==0&&result[1].count==0){
+	    		$("#ageChart").html("<span style='font-size:1.5em;'>해당 공고의 지원자가 없습니다.</span>");
+	    	} else
+	      		drawChart(result);
+	    }
+	  });
+
+	  function drawChart(result) {
+	    var data = new google.visualization.DataTable();
+	    data.addColumn('string', 'gender');
+	    data.addColumn('number', 'count');
+
+	    var dataArray = [];
+
+	    $.each(result, function(i, obj) {
+	      dataArray.push([obj.gender, parseInt(obj.count)]);
+	    });
+
+	    data.addRows(dataArray);
+
+	    var piechart_options = {
+	      colors: ['#4E9F3D', '#cce891']
+	    };
+	    var piechart = new google.visualization.PieChart(document.getElementById('ageChart'));
+	    piechart.draw(data, piechart_options);
+	  }
+	});
+
+</script>
 </head>
 <body>
 	<!-- Page content-->
@@ -241,7 +281,8 @@ body {
 					<section class="mb-4 mt-5">
 						<div class="cInfos">
 							<div class="cInfo graphs">
-								<div>지원자 남녀 비율</div>
+							<h3>지원자 성별 분포도</h3>
+								<div id="ageChart" style="width: 100%; height: 420px"></div>
 							</div>
 							<div class="cInfo graphs">
 								<div>지원자 연령별 그래프</div>

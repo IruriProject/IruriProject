@@ -12,5 +12,4 @@ public interface TestMapperInter {
 	
 	public List<TestDto> selectData();
 	
-	public List<Map<String, Object>> applicantByPosting(String p_num);
 }

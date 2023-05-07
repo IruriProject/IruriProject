@@ -9,6 +9,11 @@
 		select POSTING.*, ENTERPRISE.* from POSTING inner join ENTERPRISE on POSTING.e_num = ENTERPRISE.e_num where POSTING.p_num = #{p_num}
 	</select>
 	
+	<!-- 성별 분포도 -->
+	<select id="applicantByPosting" parameterType="String" resultType="Map">
+		SELECT a.*,u.* FROM APPLICANT AS a JOIN RESUME AS r ON a.r_num = r.r_num JOIN USER AS u ON r.u_num = u.u_num WHERE a.p_num=#{p_num};
+	</select>
+	
 	<!-- 공고별 스크랩 수 -->
 	<select id="scrapByPosting" parameterType="String" resultType="int">
 		select count(*) from SCRAP where p_num=#{p_num}
@@ -21,7 +26,6 @@
 		JOIN POSTING ON SCRAP.p_num = POSTING.p_num
 		WHERE SCRAP.p_num = #{p_num}
 	</select>
-	
 	
 	<!-- 공고별 열람 수 -->
 	<select id="viewerByPosting" parameterType="String" resultType="int">

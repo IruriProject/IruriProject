@@ -22,6 +22,7 @@ public interface EFnMapperInter {
 	public List<PostingDto> getPreviewPostings(String e_num);
 	public void deletePosting(String p_num);
 	public void updatePosting(PostingDto dto);
+	public List<Map<String, Object>> applicantByPosting(String p_num);
 	
 	//스크랩
 	public int scrapByPosting(String p_num);
