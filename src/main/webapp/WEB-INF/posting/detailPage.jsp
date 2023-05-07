@@ -16,6 +16,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <link href="${root }/css/postingDetailStyles.css" rel="stylesheet" />
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e307bbbc3f0eb499cc6f855a21cc9478"></script>
 <style>
 body {
 	position: relative;
@@ -102,7 +103,8 @@ body {
 }
 </style>
 <script type="text/javascript">
-google.charts.load('current', {
+	/* 성별 분포도 */
+	google.charts.load('current', {	
 	  packages:['corechart']
 	}).then(function () {
 				
@@ -112,13 +114,13 @@ google.charts.load('current', {
 	    dataType: "JSON",
 	    success: function(result){
 	    	if(result[0].count==0&&result[1].count==0){
-	    		$("#ageChart").html("<span style='font-size:1.5em;'>해당 공고의 지원자가 없습니다.</span>");
+	    		$("#genderChart").html("<span style='font-size:1.5em;'>해당 공고의 지원자가 없습니다.</span>");
 	    	} else
-	      		drawChart(result);
+	    		drawGenderChart(result);
 	    }
 	  });
 
-	  function drawChart(result) {
+	  function drawGenderChart(result) {
 	    var data = new google.visualization.DataTable();
 	    data.addColumn('string', 'gender');
 	    data.addColumn('number', 'count');
@@ -134,10 +136,55 @@ google.charts.load('current', {
 	    var piechart_options = {
 	      colors: ['#4E9F3D', '#cce891']
 	    };
-	    var piechart = new google.visualization.PieChart(document.getElementById('ageChart'));
+	    var piechart = new google.visualization.PieChart(document.getElementById('genderChart'));
 	    piechart.draw(data, piechart_options);
 	  }
 	});
+	
+	
+	/* 나이 분포도 */
+	google.charts.load('current', {	
+		  packages:['line']
+		}).then(function () {
+					
+		  $.ajax({
+		    url: "/posting/agegraph",
+		    data:{"p_num":${dto.p_num}},
+		    dataType: "JSON",
+		    success: function(result){
+		    	if(result[0].count==0&&result[1].count==0){
+		    		$("#ageChart").html("<span style='font-size:1.5em;'>해당 공고의 지원자가 없습니다.</span>");
+		    	} else
+		    		drawGenderChart(result);
+		    }
+		  });
+
+		  function drawGenderChart(result) {
+		    var data = new google.visualization.DataTable();
+		    data.addColumn('string', 'age');
+		    data.addColumn('number', 'count');
+
+		    var dataArray = [];
+
+		    $.each(result, function(i, obj) {
+		      dataArray.push([obj.age, parseInt(obj.count)]);
+		    });
+
+		    data.addRows(dataArray);
+
+		    var linechart_options = {
+    		  series: {
+    		        0: {color: '#4E9F3D'}
+    		  },
+    		  legend: 'none',
+    		  vAxis:{
+    			  format:'0 명'
+    		  }
+		    };
+		    var linechart = new google.visualization.LineChart(document.getElementById('ageChart'));
+		    linechart.draw(data, linechart_options);
+		  }
+		});
 
 </script>
 </head>
@@ -282,10 +329,11 @@ google.charts.load('current', {
 						<div class="cInfos">
 							<div class="cInfo graphs">
 							<h3>지원자 성별 분포도</h3>
-								<div id="ageChart" style="width: 100%; height: 420px"></div>
+								<div id="genderChart" style="width: 100%; height: 380px"></div>
 							</div>
 							<div class="cInfo graphs">
-								<div>지원자 연령별 그래프</div>
+								<h3>지원자 연령 분포도</h3>
+								<div id="ageChart" style="width: 100%; height: 380px"></div>
 							</div>
 						</div>
 					</section>
