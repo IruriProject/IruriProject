@@ -16,7 +16,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <link href="${root }/css/postingDetailStyles.css" rel="stylesheet" />
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e307bbbc3f0eb499cc6f855a21cc9478"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e307bbbc3f0eb499cc6f855a21cc9478&libraries=services"></script>
 <style>
 body {
 	position: relative;
@@ -185,7 +185,47 @@ body {
 		    linechart.draw(data, linechart_options);
 		  }
 		});
-
+	
+	
+	/* 지도 */
+	$(function(){
+		var mapContainer = document.getElementById('enterMap'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 5 // 지도의 확대 레벨
+	    };  
+	
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+	
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch('${dto.e_addr}', function(result, status) {
+	
+		    // 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
+	
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+	
+		        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.e_name}</div>'
+		        });
+		        infowindow.open(map, marker);
+	
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        map.setCenter(coords);
+		    } 
+		});    
+	});
 </script>
 </head>
 <body>
@@ -339,18 +379,12 @@ body {
 					</section>
 					<br>
 					<!-- 근무지정보-->
-					<section class="mb-4 mt-5">
+					<section class="mb-4 mt-5" style="border: 1px solid #e3f2c9">
 						<h3>근무지정보</h3>
-						<div class="cInfos">
-							<div class="cInfo">
-								<span>기업명: ${dto.e_name }</span><br> <span>회사주소:
-									${dto.e_addr }</span><br>
-								<div>지도</div>
-							</div>
-							<div class="cInfo">
-								<span>근처역1</span><br> <span>근처역2</span><br>
-								<div>근처역3</div>
-							</div>
+						<div style="width: 100%; height: 500px;">
+								<span>기업명 : ${dto.e_name }</span><br> 
+								<span>회사주소 : ${dto.e_addr }</span><br><br>
+								<div style="width: 100%; height: 85%" id="enterMap"></div>
 						</div>
 					</section>
 				</article>
