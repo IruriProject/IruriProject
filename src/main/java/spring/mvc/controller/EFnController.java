@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.PostingDto;
+import spring.mvc.dto.UserDto;
 import spring.mvc.service.EFnService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,7 @@ import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.PostingDto;
 import spring.mvc.service.EFnService;
 import spring.mvc.service.EnterpriseService;
+import spring.mvc.service.UserService;
 
 @Controller
 @RequestMapping("/posting")
@@ -36,9 +38,12 @@ public class EFnController {
 
 	@Autowired
 	EFnService service;
-	
+
 	@Autowired
 	EnterpriseService e_service;
+
+	@Autowired
+	UserService u_service;
 
 	@GetMapping("/insertForm")
 	public String insertForm() {
@@ -46,48 +51,48 @@ public class EFnController {
 	}
 
 	@GetMapping("/search")
-	public ModelAndView l(@RequestParam(value = "currentPage",defaultValue = "1") int currentPage,
-			@RequestParam(value = "searchcolumn",required = false) String sc, 
-			@RequestParam(value = "searchword",required = false) String sw) {
-		
-		ModelAndView model=new ModelAndView();
-		
-		int totalCount=service.getTotalCount();
+	public ModelAndView l(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value = "searchcolumn", required = false) String sc,
+			@RequestParam(value = "searchword", required = false) String sw) {
 
-		  int totalPage; 
-	      int startPage; 
-	      int endPage; 
-	      int start; 
-	      int perPage=10; 
-	      int perBlock=5; 
-	           
-	      //총 페이지 갯수
-	      totalPage=totalCount/perPage+(totalCount%perPage==0?0:1);
-	      
-	      //각 블럭의 시작 페이지 
-	      startPage=(currentPage-1)/perBlock*perBlock+1;
-	      endPage=startPage+perBlock-1;
-	          
-	      if(endPage>totalPage)
-	         endPage=totalPage;
-	       
-	       //각 페이지에서 불러 올 시작번호
-	       start=(currentPage-1)*perPage; 
-	       
-	       List<PostingDto> list=service.getPagingList(sc, sw, start, perPage);
-	       
-	       int no=totalCount-(currentPage-1)*perPage;
-	       
-	       //출력에 필요한 변수를 model에 저장
-	       model.addObject("totalCount", totalCount);
-	       model.addObject("list", list);
-	       model.addObject("totalPage", totalPage);
-	       model.addObject("startPage", startPage);
-	       model.addObject("endPage", endPage);
-	       model.addObject("perBlock", perBlock);
-	       model.addObject("currentPage", currentPage);
-	       model.addObject("no", no);
-	       
+		ModelAndView model = new ModelAndView();
+
+		int totalCount = service.getTotalCount();
+
+		int totalPage;
+		int startPage;
+		int endPage;
+		int start;
+		int perPage = 10;
+		int perBlock = 5;
+
+		// 총 페이지 갯수
+		totalPage = totalCount / perPage + (totalCount % perPage == 0 ? 0 : 1);
+
+		// 각 블럭의 시작 페이지
+		startPage = (currentPage - 1) / perBlock * perBlock + 1;
+		endPage = startPage + perBlock - 1;
+
+		if (endPage > totalPage)
+			endPage = totalPage;
+
+		// 각 페이지에서 불러 올 시작번호
+		start = (currentPage - 1) * perPage;
+
+		List<PostingDto> list = service.getPagingList(sc, sw, start, perPage);
+
+		int no = totalCount - (currentPage - 1) * perPage;
+
+		// 출력에 필요한 변수를 model에 저장
+		model.addObject("totalCount", totalCount);
+		model.addObject("list", list);
+		model.addObject("totalPage", totalPage);
+		model.addObject("startPage", startPage);
+		model.addObject("endPage", endPage);
+		model.addObject("perBlock", perBlock);
+		model.addObject("currentPage", currentPage);
+		model.addObject("no", no);
+
 		model.setViewName("/posting/search");
 		return model;
 
@@ -122,7 +127,7 @@ public class EFnController {
 		mview.addObject("dto", service.getPosting(p_num));
 		mview.addObject("scrapCount", service.scrapByPosting(p_num));
 		mview.addObject("viewerCount", service.viewerByPosting(p_num));
-		
+
 		mview.setViewName("/posting/detailPage");
 
 		return mview;
@@ -138,27 +143,26 @@ public class EFnController {
 
 		return "redirect:../enterprise";
 	}
-	
+
 	@GetMapping("/postinglist")
 	public ModelAndView getAllPostings(HttpSession session) {
-		ModelAndView mview=new ModelAndView();
-		
-		String loginId=(String)session.getAttribute("loginId");
-		EnterpriseDto dto= e_service.findEnterdataById(loginId);
-		
+		ModelAndView mview = new ModelAndView();
+
+		String loginId = (String) session.getAttribute("loginId");
+		EnterpriseDto dto = e_service.findEnterdataById(loginId);
+
 		mview.addObject("list", service.getAllPostings(dto.getE_num()));
 		mview.setViewName("/posting/postingList");
-		
+
 		return mview;
 	}
-	
+
 	@ResponseBody
 	@GetMapping("/addrsearch")
 	public List<PostingDto> addrSearch(String p_addr) {
-		
+
 		return service.getAddrSearch(p_addr);
 	}
-
 
 	@GetMapping("/confirmpw")
 	public String confirmpw(@RequestParam String p_num, Model model) {
@@ -201,46 +205,46 @@ public class EFnController {
 
 	}
 
-	
 	@GetMapping("/reposting")
 	public String reloadPosting(String p_num) {
 		service.reposting(p_num);
-		
-		int maxNum=service.getMaxNumOfPosting();
-		return "redirect:/posting/detailpage?p_num="+maxNum;
+
+		int maxNum = service.getMaxNumOfPosting();
+		return "redirect:/posting/detailpage?p_num=" + maxNum;
 	}
-	
-	
-	//쪽지
+
+	// 쪽지
 	@GetMapping("/writemessage")
-	public String writemessageForm(HttpSession session, Model model) {
-		
-		String loginId=(String)session.getAttribute("loginId");
-		EnterpriseDto edto= e_service.findEnterdataById(loginId);
-		
+	public String writemessageForm(HttpSession session, Model model, @RequestParam String u_id) {
+
+		String loginId = (String) session.getAttribute("loginId");
+		EnterpriseDto edto = e_service.findEnterdataById(loginId);
+
+		UserDto udto = u_service.findUserdataById(u_id);
+
+		model.addAttribute("udto", udto);
 		model.addAttribute("edto", edto);
-		
-		
+
 		return "/message/writeForm";
 	}
-	
+
 	@PostMapping("/writemessageAction")
 	public String writemessageAction(@ModelAttribute MessageDto dto) {
 		service.insertMessage(dto);
-		
+
 		return "redirect:/enterprise";
 	}
-	
+
 	@GetMapping("/messagelist")
 	public ModelAndView allMessages(HttpSession session) {
-		ModelAndView mview=new ModelAndView();
-		
-		String loginId=(String)session.getAttribute("loginId");
-		EnterpriseDto dto= e_service.findEnterdataById(loginId);
-		
+		ModelAndView mview = new ModelAndView();
+
+		String loginId = (String) session.getAttribute("loginId");
+		EnterpriseDto dto = e_service.findEnterdataById(loginId);
+
 		mview.addObject("list", service.getAllMessages(dto.getE_num()));
 		mview.setViewName("/message/messageList");
-		
+
 		return mview;
 	}
 }

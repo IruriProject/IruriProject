@@ -48,12 +48,24 @@ public class EFnService {
 		mapper.updatePosting(dto);
 	}
 	
+	
+	//스크랩
 	public int scrapByPosting(String p_num) {
 		return mapper.scrapByPosting(p_num);
 	}
 	
+	public List<Map<String, Object>> scrapUserByPosting(String p_num){
+		return mapper.scrapUserByPosting(p_num);
+	}
+	
+	
+	//열람
 	public int viewerByPosting(String p_num) {
 		return mapper.viewerByPosting(p_num);
+	}
+	
+	public List<Map<String, Object>> viewerUserByPosting(String p_num){
+		return mapper.viewerUserByPosting(p_num);
 	}
 	
 	

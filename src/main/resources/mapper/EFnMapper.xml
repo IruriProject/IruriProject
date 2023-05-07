@@ -14,11 +14,30 @@
 		select count(*) from SCRAP where p_num=#{p_num}
 	</select>
 	
+	<!-- 공고별 스크랩한 유저 -->
+	<select id="scrapUserByPosting" parameterType="String" resultType="Map">
+		SELECT POSTING.*, SCRAP.*, USER.* FROM SCRAP
+		JOIN USER ON SCRAP.u_num = USER.u_num
+		JOIN POSTING ON SCRAP.p_num = POSTING.p_num
+		WHERE SCRAP.p_num = #{p_num}
+	</select>
+	
+	
 	<!-- 공고별 열람 수 -->
 	<select id="viewerByPosting" parameterType="String" resultType="int">
 		select count(*) from VIEWER where p_num=#{p_num}
 	</select>
+	
+	<!-- 공고별 열람한 유저 -->
+	<select id="viewerUserByPosting" parameterType="String" resultType="Map">
+		SELECT POSTING.*, VIEWER.*, USER.* FROM VIEWER
+		JOIN USER ON VIEWER.u_num = USER.u_num
+		JOIN POSTING ON VIEWER.p_num = POSTING.p_num
+		WHERE VIEWER.p_num = #{p_num}
+	</select>
 
+
+	<!-- 공고 -->
 	<select id="getTotalCount" resultType="int">
 	select count(*) from POSTING
 	</select>

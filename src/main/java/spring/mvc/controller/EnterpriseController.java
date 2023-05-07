@@ -38,6 +38,7 @@ public class EnterpriseController {
 
 		mview.addObject("dto", dto);
 		mview.addObject("heartCount", service.heartByEnter(dto.getE_num()));
+		/* mview.addObject("viewerCount", efn_service.viewerByPosting(p_num)); */
 		mview.addObject("postings", efn_service.getPreviewPostings(dto.getE_num()));
 		mview.addObject("postingCount", efn_service.getAllPostings(dto.getE_num()).size());
 		mview.addObject("messages", efn_service.getPreviewMessages(dto.getE_num()));
@@ -47,10 +48,23 @@ public class EnterpriseController {
 		return mview;
 	}
 	
+	@GetMapping("/scraplist")
+	public ModelAndView scrapList(@RequestParam String p_num) {
+		ModelAndView mview=new ModelAndView();
+		
+		mview.addObject("list", efn_service.scrapUserByPosting(p_num));
+		mview.setViewName("/posting/scrapList");
+		
+		return mview;
+	}
+	
 	@GetMapping("/viewerlist")
 	public ModelAndView viewerList(@RequestParam String p_num) {
 		ModelAndView mview=new ModelAndView();
+		
+		mview.addObject("list", efn_service.viewerUserByPosting(p_num));
 		mview.setViewName("/posting/viewerList");
+		
 		return mview;
 	}
 

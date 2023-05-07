@@ -20,19 +20,21 @@
 			<form action="writemessageAction" method="POST">
 				<input type="hidden" name="e_num" id="e_num" value=${edto.e_num }
 					class="formbold-form-input" />
-				
+				<input type="hidden" name="u_num" id="u_num"
+							value="${udto.u_num }" class="formbold-form-input" />
+							
 				<div class="formbold-input-wrapp formbold-mb-3">
-					<label for="u_num" class="formbold-form-label"> 인재번호 </label>
+					<label for="u_name" class="formbold-form-label"> 인재이름 </label>
 
 					<div>
-						<input type="text" name="u_num" id="u_num"
-							placeholder="인재 번호를 입력해주세요." class="formbold-form-input" />
+						<input type="text" name="u_name" id="u_name" disabled="disabled" readonly="readonly"
+							value="${udto.u_name }" class="formbold-form-input" />
 					</div>
 				</div>
 
 				<div class="formbold-mb-3">
 					<label for="p_content" class="formbold-form-label"> 쪽지내용 </label>
-					<textarea name="m_content" id="m_content" class="pcontent-input">###님, 안녕하세요.&#10;기업 ${edto.e_name }입니다.&#10;&#10;저희 ${edto.e_name }에서 귀하를 면접진행하고자 하니&#10;${edto.e_email } 혹은 ${edto.e_tel }로 회신바랍니다.&#10;&#10;감사합니다.</textarea>
+					<textarea name="m_content" id="m_content" class="pcontent-input">${udto.u_name }님, 안녕하세요.&#10;기업 ${edto.e_name }입니다.&#10;&#10;저희 ${edto.e_name }에서 귀하를 면접진행하고자 하니&#10;${edto.e_email } 혹은 ${edto.e_tel }로 회신바랍니다.&#10;&#10;감사합니다.</textarea>
 				</div>
 				
 				<div class="formbold-checkbox-wrapper">
