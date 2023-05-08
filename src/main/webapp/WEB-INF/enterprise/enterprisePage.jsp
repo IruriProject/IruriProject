@@ -157,7 +157,7 @@
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center" width="30%">공고제목</th>
+								<th scope="col" style="text-align: center" width="40%">공고제목</th>
 								<th scope="col" style="text-align: center">직종</th>
 								<th scope="col" style="text-align: center">공고일</th>
 								<th scope="col" style="text-align: center">공고마감일</th>
