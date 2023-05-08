@@ -37,6 +37,11 @@
 			<th style="text-align: center">인재주소</th>
 			<th style="text-align: center">쪽지보내기</th>
 		</tr>
+		<c:if test="${list.size()==0 }">
+			<tr align="center">
+				<td colspan="7">해당 공고를 스크랩한 인재가 없습니다.</td>
+			</tr>
+		</c:if>
 		<c:forEach var="dto" items="${list }" varStatus="i">
 			<tr align="center">
 				<td>${i.count }</td>

@@ -109,7 +109,12 @@
 							<h4 class="mb-5"><b>쪽지관리</b></h4>
 							<a class="atag" href="/posting/messagelist">Show All</a>
 						</div>
-						
+						<c:if test="${messages.size()==0 }">
+							<div class="w-100" align="center">
+								<br>
+								<span style="color: gray">인재에게 발송한 쪽지가 없습니다.</span>
+							</div>
+						</c:if>
 						<c:forEach var="msg" items="${messages }">
 						
 							<div class="d-flex align-items-center border-bottom py-3 atag mt-3">
