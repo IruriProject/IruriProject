@@ -49,7 +49,7 @@ public class EFnController {
 
 	@Autowired
 	UserService u_service;
-	
+
 	@Autowired
 	UFnService ufn_service;
 
@@ -120,6 +120,12 @@ public class EFnController {
 
 		return "/posting/writeForm";
 	}
+	
+	@GetMapping("/loadingRecentPosting")
+	@ResponseBody
+	public PostingDto loadingRecentPosting(@RequestParam String e_num) {
+		return service.loadingRecentPosting(e_num);
+	}
 
 	@PostMapping("/writeposting")
 	public String writeposting(@ModelAttribute PostingDto dto) {
@@ -131,20 +137,19 @@ public class EFnController {
 	@GetMapping("/detailpage")
 	public ModelAndView detailPage(String p_num, HttpSession session) {
 		ModelAndView mview = new ModelAndView();
-		
-		if(session.getAttribute("loginStatus")=="user") {
-			ViewerDto vdto=new ViewerDto();
-			
+
+		if (session.getAttribute("loginStatus") == "user") {
+			ViewerDto vdto = new ViewerDto();
+
 			vdto.setP_num(p_num);
-			
-			String u_num=u_service.findUserdataById((String)session.getAttribute("loginId")).getU_num();
+
+			String u_num = u_service.findUserdataById((String) session.getAttribute("loginId")).getU_num();
 			vdto.setU_num(u_num);
-			
-			
-			if(ufn_service.getSearchUnum(u_num, p_num)==0) {
+
+			if (ufn_service.getSearchUnum(u_num, p_num) == 0) {
 				ufn_service.insertViewer(vdto);
 			}
-			
+
 		}
 
 		mview.addObject("dto", service.getPosting(p_num));
@@ -233,7 +238,6 @@ public class EFnController {
 
 		}
 
-
 		List<Map<String, Object>> result = new ArrayList<>();
 
 		Map<String, Object> map1 = new HashMap<>();
@@ -243,19 +247,19 @@ public class EFnController {
 		Map<String, Object> map2 = new HashMap<>();
 		map2.put("age", "30대");
 		map2.put("count", thirties);
-		
+
 		Map<String, Object> map3 = new HashMap<>();
 		map3.put("age", "40대");
 		map3.put("count", fourties);
-		
+
 		Map<String, Object> map4 = new HashMap<>();
 		map4.put("age", "50대");
 		map4.put("count", fifties);
-		
+
 		Map<String, Object> map5 = new HashMap<>();
 		map5.put("age", "60대");
 		map5.put("count", sixties);
-		
+
 		Map<String, Object> map6 = new HashMap<>();
 		map6.put("age", "60대 이상");
 		map6.put("count", others);

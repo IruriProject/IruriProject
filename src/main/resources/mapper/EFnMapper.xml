@@ -39,7 +39,11 @@
 		JOIN POSTING ON VIEWER.p_num = POSTING.p_num
 		WHERE VIEWER.p_num = #{p_num}
 	</select>
-
+	
+	<!-- 최근 공고 불러오기 -->
+	<select id="loadingRecentPosting" parameterType="String" resultType="pdto">
+		SELECT * FROM POSTING WHERE e_num = #{e_num} AND p_num = (SELECT MAX(p_num) FROM POSTING WHERE e_num = #{e_num})
+	</select>
 
 	<!-- 공고 -->
 	<select id="getTotalCount" resultType="int">

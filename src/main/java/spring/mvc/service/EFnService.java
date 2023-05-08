@@ -51,6 +51,10 @@ public class EFnService {
 		return mapper.applicantByPosting(p_num);
 	}
 	
+	public PostingDto loadingRecentPosting(String e_num) {
+		return mapper.loadingRecentPosting(e_num);
+	}
+	
 	
 	//스크랩
 	public int scrapByPosting(String p_num) {

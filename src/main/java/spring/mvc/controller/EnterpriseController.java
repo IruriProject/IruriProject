@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.EnterpriseDto;
@@ -38,7 +39,6 @@ public class EnterpriseController {
 
 		mview.addObject("dto", dto);
 		mview.addObject("heartCount", service.heartByEnter(dto.getE_num()));
-		/* mview.addObject("viewerCount", efn_service.viewerByPosting(p_num)); */
 		mview.addObject("postings", efn_service.getPreviewPostings(dto.getE_num()));
 		mview.addObject("postingCount", efn_service.getAllPostings(dto.getE_num()).size());
 		mview.addObject("messages", efn_service.getPreviewMessages(dto.getE_num()));
@@ -47,6 +47,18 @@ public class EnterpriseController {
 
 		return mview;
 	}
+	
+	@GetMapping("/counting")
+	@ResponseBody
+	public Map<String, Integer> counting(@RequestParam String p_num){
+		Map<String, Integer> map=new HashMap<>();
+		
+		map.put("scrapcounting", efn_service.scrapByPosting(p_num));
+		map.put("viewercounting", efn_service.viewerByPosting(p_num));
+		
+		return map;
+	}
+	
 	
 	@GetMapping("/scraplist")
 	public ModelAndView scrapList(@RequestParam String p_num) {

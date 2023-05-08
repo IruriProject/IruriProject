@@ -177,9 +177,9 @@
 								<tr>
 									<td style="text-align: left"><a class="atag"
 										href="posting/detailpage?p_num=${post.p_num }">&nbsp;&nbsp;<b>${post.p_title }</b></a>&nbsp;&nbsp;
-										<span class="counting viewer" title="열람한 인재목록 보기" onclick="location.href='/enterprise/viewerlist?p_num=${post.p_num}'">열람 : 0명</span>
+										<span class="counting viewer" p_num=${post.p_num } title="열람한 인재목록 보기" onclick="location.href='/enterprise/viewerlist?p_num=${post.p_num}'"></span>
 										<span class="counting">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-										<span class="counting scrap" title="스크랩한 인재목록 보기" onclick="location.href='/enterprise/scraplist?p_num=${post.p_num}'">스크랩 : 0명</span>
+										<span class="counting scrap" p_num=${post.p_num } title="스크랩한 인재목록 보기" onclick="location.href='/enterprise/scraplist?p_num=${post.p_num}'"></span>
 									</td>
 									<td>${post.p_type }</td>
 									<td><fmt:formatDate value="${post.p_writeday }"
@@ -192,6 +192,23 @@
 										</select>
 									</td>
 								</tr>
+								
+								 <script type="text/javascript">
+							        $(function(){
+							            var p_num = "${post.p_num}";
+							            $.ajax({
+							                type:"get",
+							                data:{"p_num":p_num},
+							                dataType:"json",
+							                url:"/enterprise/counting",
+							                success:function(res){
+							                    $(".viewer[p_num='"+p_num+"']").text("열람 : "+res.viewercounting+"명");
+							                    $(".scrap[p_num='"+p_num+"']").text("스크랩 : "+res.scrapcounting+"명");
+							                }
+							            });
+							        });
+							    </script>`
+								
 							</c:forEach>
 						</tbody>
 					</table>
