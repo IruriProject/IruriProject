@@ -118,7 +118,8 @@ body {
 								<c:if
 									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
 									<button type="button" class="btn btn-info mt-2">지원하기</button>
-									<button type="button" id="btnscrap" class="btn btn-info mt-2">공고 스크랩</button>
+									<button type="button" id="btnscrap" u_id=${sessionScope.loginId} e_num=${dto.e_num }
+									 class="btn btn-info mt-2">공고 스크랩</button>
 								</c:if>
 								<c:if
 									test="${sessionScope.loginStatus=='enterprise'&&sessionScope.loginId==dto.e_id }">
@@ -195,7 +196,9 @@ body {
 								<c:if
 									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
 									<button type="button" u_id=${sessionScope.loginId} e_num=${dto.e_num }
-									id="btnLikeEnter" class="btn btn-info glyphicon glyphicon-heart-empty ">기업 찜하기</button>
+									id="btnLikeEnter" class="btn btn-info glyphicon glyphicon-heart-empty ">기업찜하기</button>
+									<button type="button" u_id=${sessionScope.loginId} e_num=${dto.e_num }
+									id="prebtnLikeEnter" class="btn btn-info glyphicon glyphicon-heart-empty ">시험찜하기</button>
 								</c:if>
 								</div>
 							</div>
@@ -263,7 +266,7 @@ body {
 					},
 					url:"/hinsert",
 					success:function(res){
-						alert("좋아요 성공");
+						alert("❤️💔좋아요❤️💔");
 						
 					}
 				})
