@@ -29,6 +29,8 @@ import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.PostingDto;
 import spring.mvc.service.EFnService;
 import spring.mvc.service.EnterpriseService;
+import spring.mvc.service.UFnService;
+import spring.mvc.service.UserService;
 
 @Controller
 @RequestMapping("/posting")
@@ -39,6 +41,12 @@ public class EFnController {
 	
 	@Autowired
 	EnterpriseService e_service;
+	
+	@Autowired
+	UserService user_service;
+	
+	@Autowired
+	UFnService ufn_service;
 
 	@GetMapping("/insertForm")
 	public String insertForm() {
@@ -116,12 +124,21 @@ public class EFnController {
 	}
 
 	@GetMapping("/detailpage")
-	public ModelAndView detailPage(String p_num) {
+	public ModelAndView detailPage(String p_num,HttpSession session) {
 		ModelAndView mview = new ModelAndView();
 
+		//p_num에 해당하는 posting 정보
 		mview.addObject("dto", service.getPosting(p_num));
+		
+		//유저 로그인 상태인 경우, u_num에 해당하는 이력서 목록
+		String myId=(String)session.getAttribute("loginId");
+		String loginStatus=(String)session.getAttribute("loginStatus");
+		
+		if(loginStatus.equals("user")) {
+			String u_num=user_service.findUserdataById(myId).getU_num();
+			mview.addObject("rlist", ufn_service.getMyResume(u_num));
+		}
 		mview.setViewName("/posting/detailPage");
-
 		return mview;
 	}
 

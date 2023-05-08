@@ -45,5 +45,10 @@
 		delete from HEART
 		where h_num=#{h_num}
 	</delete>
+	
+	<!-- 작성한 이력서 목록 가져오기 -->
+	<select id="getMyResume" resultType="rdto" parameterType="String">
+	select * from RESUME where u_num=#{u_num}
+	</select>
 
 </mapper>

@@ -1,6 +1,7 @@
 package spring.mvc.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,8 @@ public class UFnService {
 		mapper.deleteLikeEnter(num);
 	}
 
-
+	public List<ResumeDto> getMyResume(String u_num){
+		return mapper.getMyResume(u_num);
+	}
 
 }
