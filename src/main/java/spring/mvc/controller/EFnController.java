@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.PostingDto;
 import spring.mvc.dto.UserDto;
+import spring.mvc.dto.ViewerDto;
 import spring.mvc.service.EFnService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,7 @@ import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.PostingDto;
 import spring.mvc.service.EFnService;
 import spring.mvc.service.EnterpriseService;
+import spring.mvc.service.UFnService;
 import spring.mvc.service.UserService;
 
 @Controller
@@ -47,6 +49,9 @@ public class EFnController {
 
 	@Autowired
 	UserService u_service;
+	
+	@Autowired
+	UFnService ufn_service;
 
 	@GetMapping("/insertForm")
 	public String insertForm() {
@@ -124,8 +129,23 @@ public class EFnController {
 	}
 
 	@GetMapping("/detailpage")
-	public ModelAndView detailPage(String p_num) {
+	public ModelAndView detailPage(String p_num, HttpSession session) {
 		ModelAndView mview = new ModelAndView();
+		
+		if(session.getAttribute("loginStatus")=="user") {
+			ViewerDto vdto=new ViewerDto();
+			
+			vdto.setP_num(p_num);
+			
+			String u_num=u_service.findUserdataById((String)session.getAttribute("loginId")).getU_num();
+			vdto.setU_num(u_num);
+			
+			
+			if(ufn_service.getSearchUnum(u_num, p_num)==0) {
+				ufn_service.insertViewer(vdto);
+			}
+			
+		}
 
 		mview.addObject("dto", service.getPosting(p_num));
 		mview.addObject("scrapCount", service.scrapByPosting(p_num));
