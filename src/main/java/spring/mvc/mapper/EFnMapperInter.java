@@ -22,7 +22,7 @@ public interface EFnMapperInter {
 	public List<PostingDto> getPreviewPostings(String e_num);
 	public void deletePosting(String p_num);
 	public void updatePosting(PostingDto dto);
-	
+	public List<PostingDto> getSearchList(Map<String, Object> map);
 	
 	//쪽지
 	public List<Map<String, Object>> getAllMessages(String e_num);

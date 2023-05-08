@@ -17,6 +17,6 @@ public class BCommentDto {
 	private String bc_loginid;
 	private String bc_content;
 	
-	//@JsonFormat(pattern="yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	private Timestamp bc_writeday;
 }

@@ -18,9 +18,26 @@
 		<if test="searchcolumn!=null and searchword!=null">
 		where ${searchcolumn} like concat('%',#{searchword},'%')
 		</if>
-	order by p_num desc limit #{start},#{perpage}
+		
+			order by p_num desc limit #{start},#{perpage}
 	</select>
-	
+
+	<!-- 헤더 검색 -->
+	<select id="getSearchList" parameterType="Map" resultType="pdto">
+		select * from POSTING
+		<if test="allkeyword!=null">
+			where p_title like concat('%',#{allkeyword},'%')
+		</if>
+		<if test="sort=='p_writeday'">
+			order by p_writeday desc
+		</if>
+		<if test="sort=='p_pay'">
+			order by p_pay desc
+		</if>
+
+		limit #{start},#{perpage}
+	</select>
+
 	
 	<insert id="insertPosting" parameterType="pdto">
 		insert into POSTING(e_num,p_title,p_type,p_pay,p_period,p_workday,p_starttime,p_endtime,p_employtype,p_content,p_writeday,p_startdate,p_enddate,p_status,p_hirenum)
