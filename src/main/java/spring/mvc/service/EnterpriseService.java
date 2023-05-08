@@ -49,4 +49,8 @@ public class EnterpriseService {
 		
 		mapper.updateResAccessStatus(map);
 	}
+	
+	public int heartByEnter(String e_num) {
+		return mapper.heartByEnter(e_num);
+	}
 }

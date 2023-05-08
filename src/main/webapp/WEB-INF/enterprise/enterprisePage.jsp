@@ -55,8 +55,14 @@
 }
 
 .atag:hover {
-background-color: #e3f2c9;
-border-radius: 10px;
+	background-color: #e3f2c9;
+	border-radius: 10px;
+}
+
+.counting{
+	float:right;
+	cursor: pointer;
+	color: #416442;
 }
 </style>
 </head>
@@ -87,7 +93,7 @@ border-radius: 10px;
 					<br>
 					<div class="h-100 bg-light rounded p-4">위치 : ${dto.e_addr }</div>
 					<br>
-					<div class="h-100 bg-light rounded p-4">관심기업수</div>
+					<div class="h-100 bg-light rounded p-4">관심기업으로 선정한 인재수 : ${heartCount } 명</div>
 				</div>
 			</div>
 		</div>
@@ -101,20 +107,25 @@ border-radius: 10px;
 						<div
 							class="d-flex align-items-center justify-content-between mb-2">
 							<h4 class="mb-5"><b>쪽지관리</b></h4>
-							<a href="/posting/writemessage">쪽지보내기</a><a class="atag" href="/posting/allMessages">Show All</a>
+							<a class="atag" href="/posting/messagelist">Show All</a>
 						</div>
-						
+						<c:if test="${messages.size()==0 }">
+							<div class="w-100" align="center">
+								<br>
+								<span style="color: gray">인재에게 발송한 쪽지가 없습니다.</span>
+							</div>
+						</c:if>
 						<c:forEach var="msg" items="${messages }">
 						
 							<div class="d-flex align-items-center border-bottom py-3 atag mt-3">
 							
-								<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
+								<img class="rounded-circle flex-shrink-0" src="/photo/${msg.u_photo }"
 									alt="" style="width: 40px; height: 40px;">
-									<a class="atag" href="/posting/messagedetail?m_num=${msg.m_num }">
+									<a class="atag" href="/posting/messagelist">
 								<div class="w-100 ms-3">
 									<div class="d-flex w-100 justify-content-between">
 										<h5><b>${msg.u_name }</b>&nbsp;님</h5>
-										<smal><fmt:formatDate value="${msg.m_day}" pattern="yy-MM-dd"/></small>
+										<small><fmt:formatDate value="${msg.m_day}" pattern="yy-MM-dd"/></small>
 									</div>
 									<span class="longsentence">${msg.m_content }</span>
 								</div>
@@ -151,9 +162,9 @@ border-radius: 10px;
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center">공고제목</th>
-								<th scope="col" style="text-align: center">공고일</th>
+								<th scope="col" style="text-align: center" width="40%">공고제목</th>
 								<th scope="col" style="text-align: center">직종</th>
+								<th scope="col" style="text-align: center">공고일</th>
 								<th scope="col" style="text-align: center">공고마감일</th>
 								<th scope="col" style="text-align: center">공고상태</th>
 							</tr>
@@ -165,14 +176,39 @@ border-radius: 10px;
 							<c:forEach var="post" items="${postings }">
 								<tr>
 									<td style="text-align: left"><a class="atag"
-										href="posting/detailpage?p_num=${post.p_num }">&nbsp;&nbsp;${post.p_title }</a></td>
+										href="posting/detailpage?p_num=${post.p_num }">&nbsp;&nbsp;<b>${post.p_title }</b></a>&nbsp;&nbsp;
+										<span class="counting viewer" p_num=${post.p_num } title="열람한 인재목록 보기" onclick="location.href='/enterprise/viewerlist?p_num=${post.p_num}'"></span>
+										<span class="counting">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+										<span class="counting scrap" p_num=${post.p_num } title="스크랩한 인재목록 보기" onclick="location.href='/enterprise/scraplist?p_num=${post.p_num}'"></span>
+									</td>
+									<td>${post.p_type }</td>
 									<td><fmt:formatDate value="${post.p_writeday }"
 											pattern="yyyy-MM-dd" /></td>
-									<td>${post.p_type }</td>
 									<td>${post.p_enddate }</td>
-									<td><select class="pStatus" pnum=${post.p_num }><option value="지원가능" ${post.p_status=="지원가능"?'selected':'' }>지원가능</option>
-											<option value="지원마감" ${post.p_status=="지원마감"?'selected':'' }>지원마감</option></select></td>
+									<td>
+										<select class="pStatus" pnum=${post.p_num }>
+											<option value="지원가능" ${post.p_status=="지원가능"?'selected':'' }>지원가능</option>
+											<option value="지원마감" ${post.p_status=="지원마감"?'selected':'' }>지원마감</option>
+										</select>
+									</td>
 								</tr>
+								
+								 <script type="text/javascript">
+							        $(function(){
+							            var p_num = "${post.p_num}";
+							            $.ajax({
+							                type:"get",
+							                data:{"p_num":p_num},
+							                dataType:"json",
+							                url:"/enterprise/counting",
+							                success:function(res){
+							                    $(".viewer[p_num='"+p_num+"']").text("열람 : "+res.viewercounting+"명");
+							                    $(".scrap[p_num='"+p_num+"']").text("스크랩 : "+res.scrapcounting+"명");
+							                }
+							            });
+							        });
+							    </script>`
+								
 							</c:forEach>
 						</tbody>
 					</table>
@@ -183,20 +219,20 @@ border-radius: 10px;
 		
 		<script>
 		
-		$(".pStatus").change(function(){
-			var pStatus=$(this).val();
-			var pNum=$(this).attr("pnum");
-			//alert(pNum+","+pStatus);
-			$.ajax({
-				type:"get",
-				data:{"p_num":pNum,"p_status":pStatus},
-				dataType:"html",
-				url:"/posting/updateStatus",
-				success:function(){
-					alert("모집상태 변경 완료");
-				}
+			$(".pStatus").change(function(){
+				var pStatus=$(this).val();
+				var pNum=$(this).attr("pnum");
+				//alert(pNum+","+pStatus);
+				$.ajax({
+					type:"get",
+					data:{"p_num":pNum,"p_status":pStatus},
+					dataType:"html",
+					url:"/posting/updateStatus",
+					success:function(){
+						alert("모집상태 변경 완료");
+					}
+				})
 			})
-		})
 		
 		</script>
 

@@ -9,6 +9,7 @@ import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.HeartDto;
 import spring.mvc.dto.UserDto;
+import spring.mvc.dto.ViewerDto;
 
 @Mapper
 public interface UFnMapperInter {
@@ -20,5 +21,9 @@ public interface UFnMapperInter {
 	public ResumeDto getResume(String u_num);
 	public void insertLikeEnter(HeartDto dto);
 	public void deleteLikeEnter(String num);
+	
+	//열람
+	public void insertViewer(ViewerDto dto);
+	public int getSearchUnum(Map<String, String> map);
 	
 }
