@@ -40,6 +40,12 @@
 		delete from USER where
 		u_num=#{u_num}
 	</delete>
+	
+	<!-- 이력서 등록 -->
+	<insert id="insertResume" parameterType="rdto">
+		insert into RESUME values(null, #{u_num}, #{r_title}, #{r_larea},
+		#{r_ltask}, #{r_ltype}, #{r_lperiod}, #{r_lday}, #{r_content}, #{r_presume}, #{r_private}, now())
+	</insert>
 
 	<select id="countLikeEnterprise" resultType="int"
 		parameterType="String">

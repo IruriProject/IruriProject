@@ -97,7 +97,7 @@ td {
 					<label class="formbold-form-label">희망지역</label>
 					<div class="searchValue regist__item">
 						<button type="button" id="tagarea" onclick="selectLocation()">지역선택</button>
-						<span id="areainput" name="r_larea"></span>
+						<input id="areainput" name="r_larea" readonly="readonly">
 					</div>
 					<div id="dllocal" class="searchArea"
 						style="display: none; height: 500px;">
@@ -1196,7 +1196,7 @@ td {
 						var areaInput = document.getElementById('areainput');
 						for (var i = 0; i < checkedBoxes.length; i++) {
 							checkedBoxes[i].checked = false;
-							areaInput.textContent = "";
+							areaInput.value = "";
 						}
 					}
 					//시/도 div 보이게
@@ -1218,7 +1218,7 @@ td {
 							alert('최대 3개까지만 선택 가능합니다.');
 							for (var i = 0; i < checkedBoxes.length; i++) {
 								checkedBoxes[i].checked = false;
-								areaInput.textContent = "";
+								areaInput.value = "";
 							}
 							return;
 						}
@@ -1229,7 +1229,7 @@ td {
 											.trim());
 						}
 
-						areaInput.textContent = selectedLocations.join(', ');
+						areaInput.value = selectedLocations.join(', ');
 					}
 					function setSido(sidoId) {
 						// 모든 구/군 체크박스를 숨김
@@ -1250,7 +1250,7 @@ td {
 
 						//시/도 옮길때마다 span비우기
 						var areaInput = document.getElementById('areainput');
-						areaInput.textContent = '';
+						areaInput.value = '';
 					}
 				</script>
 				<div class="formbold-mb-3">
@@ -1285,53 +1285,42 @@ td {
 
 
 					<ul class="introduceTab__list">
-						<li><a href="#FreeDoc" class="first on">직접입력</a></li>
-						<li><a href="#OneMinDoc" class="">1분 자동완성</a></li>
+						<li><button type="button" id="direct" class="first on">직접입력</button></li>
+						<li><button type="button" id="auto" class="">1분 자동완성</button></li>
 					</ul>
 
 					<script type="text/javascript">
-						$(document).ready(
-								function() {
-									// 직접입력 버튼 클릭 시
-									$("a[href='#FreeDoc']").click(
-											function() {
-												// Freedoc div 보여주기
-												$("#FreeDoc").css("display",
-														"block");
-												// OneMinDoc div 숨기기
-												$("#OneMinDoc").css("display",
-														"none");
-												// 직접입력 버튼에 on 클래스 추가
-												$("a[href='#FreeDoc']")
-														.addClass("on");
-												// 1분 자동완성 버튼에서 on 클래스 제거
-												$("a[href='#OneMinDoc']")
-														.removeClass("on");
-											});
-
-									// 1분 자동완성 버튼 클릭 시
-									$("a[href='#OneMinDoc']").click(
-											function() {
-												// OneMinDoc div 보여주기
-												$("#OneMinDoc").css("display",
-														"block");
-												// FreeDoc div 숨기기
-												$("#FreeDoc").css("display",
-														"none");
-												// 1분 자동완성 버튼에 on 클래스 추가
-												$("a[href='#OneMinDoc']")
-														.addClass("on");
-												// 직접입력 버튼에서 on 클래스 제거
-												$("a[href='#FreeDoc']")
-														.removeClass("on");
-												$("#personality").show();
-												$("#defaultLi").css(
-														"background-color",
-														"#cce891");
-												$("#personality").siblings()
-														.hide();
-											});
-								});
+					$(document).ready(function() {
+						  // 직접입력 버튼 클릭 시
+						  $("#direct").click(function() {
+						    // Freedoc div 보여주기
+						    $("#FreeDoc").css("display", "block");
+						    // OneMinDoc div 숨기기
+						    $("#OneMinDoc").css("display", "none");
+						    $(".rcontent-autoInput").val('');
+						    // 직접입력 버튼에 on 클래스 추가
+						    $("#directBtn").addClass("on");
+						    // 1분 자동완성 버튼에서 on 클래스 제거
+						    $("#autoBtn").removeClass("on");
+						  });
+							
+						  // 1분 자동완성 버튼 클릭 시
+						  $("#auto").click(function() {
+						    // OneMinDoc div 보여주기
+						    $("#OneMinDoc").css("display", "block");
+						    // FreeDoc div 숨기기
+						    $("#FreeDoc").css("display", "none");
+						    $(".rcontent-directInput").val('');
+						    // 1분 자동완성 버튼에 on 클래스 추가
+						    $("#autoBtn").addClass("on");
+						    // 직접입력 버튼에서 on 클래스 제거
+						    $("#directBtn").removeClass("on");
+						    $("#personality").show();
+						    $("#personality").siblings().hide();
+						  });
+						});
+					//웹 브라우저 내부에서만 적용되는 변경, 실제로 서버로 전송되는 데이터는 바뀌지않음
+					//배열 - split으로 되는지 확인할것
 					</script>
 
 					<div id="FreeDoc" class="introduceWrap" style="display: block;">
@@ -1340,7 +1329,7 @@ td {
 							<textarea name="r_content" id="r_content" style="height: 100px;"
 								placeholder="나의 강점과 특징에 대해 소개하고 어떤 사람인지 설명해 보세요.
 직접 작성이 어려울 땐 간편입력을 활용하세요!"
-								class="rcontent-input">직접 입력이다.</textarea>
+								class="rcontent-directInput"></textarea>
 						</div>
 					</div>
 
@@ -1348,7 +1337,7 @@ td {
 
 						<div class="resizable-textarea">
 							<br>
-							<div style="width: 100px; height: 200px; display: inline-block">
+							<div style="width:90px; height: 180px;">
 								<ul>
 									<li id="defaultLi" role="button" value="성격">성 격</li>
 									<li role="button" value="경력사항">경력사항</li>
@@ -1356,23 +1345,37 @@ td {
 								</ul>
 							</div>
 							<div class="autoResume"
-								style="display: inline-block; overflow: scroll; width: 450px; height: 200px;">
+								style="overflow: scroll; width: 450px; height: 200px;">
 								<table id="personality">
 									<tr>
-										<td style="border-bottom: 1px solid gray;">주위 사람들의 기분을 좋게
-											하는 명쾌하고 활발한 성격을 지니고 있습니다.</td>
+										<td style="border-bottom: 1px solid gray;">주위 사람들의 기분을 좋게 하는 명쾌하고 활발한 성격을 지니고 있습니다.</td>
 									</tr>
 									<tr>
-										<td style="border-bottom: 1px solid gray;">주어진 일만 하는 소극적인
-											모습보다는 스스로 찾아서 하는 적극적인 성격을 지니고 있습니다.</td>
+										<td style="border-bottom: 1px solid gray;">주어진 일만 하는 소극적인 모습보다는 스스로 찾아서 하는 적극적인 성격을 지니고 있습니다.</td>
 									</tr>
 									<tr>
-										<td style="border-bottom: 1px solid gray;">시작한 일은 끝까지
-											마무리하며, 사소한 일도 최선을 다해 이루어내는 강한 마인드로 집중해 나가는 편입니다.</td>
+										<td style="border-bottom: 1px solid gray;">시작한 일은 끝까지 마무리하며, 사소한 일도 최선을 다해 이루어내는 강한 마인드로 집중해 나가는 편입니다.</td>
 									</tr>
 									<tr>
-										<td style="border-bottom: 1px solid gray;">손과 발이 빨라 업무의
-											효율성이 다른 사람들보다 높으며, 두 사람 이상의 몫을 혼자 해결한다는 평가를 듣곤 합니다.</td>
+										<td style="border-bottom: 1px solid gray;">손과 발이 빨라 업무의 효율성이 다른 사람들보다 높으며, 두 사람 이상의 몫을 혼자 해결한다는 평가를 듣곤 합니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">환한 미소와 함께 타인을 배려하며 매사에 적극적으로 도전해 나가는 편입니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">긍정적인 마인드와 함께 밝은 모습을 지니고 있어 주위 사람들에게 항상 즐거움을 만들어주는 장점을 지니고 있습니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">항상 '최선을 다한다.'는 각오로 임하기 때문에 주위 사람들이 저만의 강한 열정과 끈기를 부러워하는 경우가 많습니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">적극적이고 활발한 성격 덕분에 새로운 사람들과도 짧은 기간 동안 친밀한 관계를 형성하는 장점을 지니고 있습니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">시간 관념과 약속 준수 등을 통하여 주위 사람들에게 강한 신뢰감을 만들어 주기 위해서 끊임없이 노력하고 있습니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">적극적인 성격으로 매사에 직접 부딪히면서 반드시 끝맺음 하는 편입니다.</td>
 									</tr>
 									<!-- 1px solid gray css 한번에 주기 -->
 								</table>
@@ -1380,43 +1383,111 @@ td {
 								<hr>
 								<table id="career">
 									<tr>
-										<td>4</td>
+										<td style="border-bottom: 1px solid gray;">머리로만 지식을 쌓는 것보다 직접 온 몸으로 다양한 노하우를 쌓는 것이 의미 있다는 것을 사회생활을 통해 깨달을 수 있었습니다.</td>
 									</tr>
 									<tr>
-										<td>5</td>
+										<td style="border-bottom: 1px solid gray;">긍정적인 마인드를 가지고 매 순간 집중하며 최선을 다하여 맡은 일처리를 깔끔하게 수행하였습니다.</td>
 									</tr>
 									<tr>
-										<td>6</td>
+										<td style="border-bottom: 1px solid gray;">매장에서 일어나는 다양한 상황에 대처하며 직접적으로 관리하고 효율적으로 업무를 추진하였습니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">다양한 경험을 쌓기 위해 매장 서빙과 주방 보조 등 매장에서 할 수 있는 업무는 주저하지 않고 모두 수행하였습니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">항상 환한 웃음으로 모든 사람을 대하기 위해 밝고 진실된 모습을 유지하였습니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">실무 경험을 직접 쌓으며 보다 가치 있는 나만의 노하우로 업그레이드할 수 있었습니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">짧은 기간이지만 특성에 따른 공정 수행과 효율적인 생산관리 경험을 통해 저만의 장점으로 승화시킬 수 있었습니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">엑셀, 워드, 파워포인트 등의 문서작성 능력과 인터넷 정보검색 능력이 뛰어납니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">적극적인 성격을 바탕으로 스케쥴관리나 보고 서류정리 등의 일상적인 비서 업무 이외에 다양한 업무를 직접 담당하였습니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">저만의 창의적인 아이디어로 비효율적인 부분을 개선하면서 좋은 평가를 받을 수 있었습니다.</td>
 									</tr>
 								</table>
 								<table id="motivation">
 									<tr>
-										<td>7</td>
+										<td style="border-bottom: 1px solid gray;">지금까지 다양한 경험을 통하여 끊임없이 노력하며 제 자신을 업그레이드해 왔습니다.</td>
 									</tr>
 									<tr>
-										<td>8</td>
+										<td style="border-bottom: 1px solid gray;">귀사에서 최고의 역량과 가치만을 보여 드리기 위해서 과감히 도전합니다.</td>
 									</tr>
 									<tr>
-										<td>9</td>
+										<td style="border-bottom: 1px solid gray;">기회를 스스로 만들고 넓은 세상을 직접 경험하기 위해서 과감히 도전해 보고자 합니다.</td>
 									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">급변하는 환경에 대한 민첩한 대응을 할 수 있다는 강한 자신감으로 지원하게 되었습니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">실무 경험을 통하여 저만의 차별적인 노하우를 쌓을 수 있다고 자신합니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">제 능력과 잠재력을 귀사에서 가장 크게 발휘할 수 있다는 자신감이 생겨 이렇게 과감히 도전해 봅니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">한 단계 더 제 자신을 업그레이드하여 차별적인 경쟁력을 만들 수 있다는 강한 자신감이 생겨 과감히 도전하고자 합니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">지치지 않는 열정과 항상 끊임없이 노력하고 배우는 모습을 꾸준히 유지해 나갈 것입니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">깊이 있게 배워 다른 경쟁자들보다 빠르게 업무에 적응할 수 있다고 강하게 자신합니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">저는 끊임없이 자기계발에 집중하고, 적극적으로 행동하기 때문에 이 업무에 가장 적합한 인물이라고 생각합니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">제가 귀사의 밝은 미래와 차별적인 경쟁력을 동시에 만들어갈 수 있는 핵심인재로 거듭 태어난다면 장기적인 비전과 목표를 설정하고 지치지 않는 열정과 끊임없이 노력하고 배우는 모습을 꾸준히 유지해 나갈 것입니다.</td>
+									</tr>
+									<tr>
+										<td style="border-bottom: 1px solid gray;">진정한 프로의 모습으로 성장하기 위해서는 이론적인 기본과 동시에 실무 경험을 통하여 자신만의 차별적인 노하우를 쌓아가는 것을 중요하게 생각합니다.</td>
+									</tr>
+
 								</table>
 							</div>
 							<textarea name="r_content" id="r_content" style="height: 100px;"
-								placeholder="나의 강점과 특징에 대해 소개하고 어떤 사람인지 설명해 보세요.
-직접 작성이 어려울 땐 간편입력을 활용하세요!"
-								class="rcontent-input" readonly="readonly">간편 입력이다.</textarea>
+								placeholder="나의 강점과 특징을 간편하게 등록해 보세요!"
+								class="rcontent-autoInput"></textarea>
 							<!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
 
 
 
 							<script type="text/javascript">
+							var selectedPersonality = "";
+							var selectedCareer = "";
+							var selectedMotivation = "";
+
+								$("#personality td").click(function() {
+									var selectedText = $(this).text();
+									selectedPersonality = selectedText;
+								    updateTextarea();
+								})
+								$("#career td").click(function() {
+									var selectedText = $(this).text();
+									selectedCareer = selectedText;
+								    updateTextarea();
+								})
+								$("#motivation td").click(function() {
+									var selectedText = $(this).text();
+								    selectedMotivation = selectedText;
+								    updateTextarea();
+								})
+								
+								function updateTextarea() {
+   								var selectedText = selectedPersonality + "\n" + selectedCareer + "\n" + selectedMotivation;
+   								$(".rcontent-autoInput").val(selectedText);
+}
+
 								$(".resizable-textarea li").click(
 										function() {
-											$(this).css("background-color",
-													"#cce891");
-											$(this).siblings()
-													.css("background-color",
-															"white");
 
 											const addr = $(this).attr("value"); //li의 value는 숫자만 가능
 
@@ -1443,10 +1514,9 @@ td {
 					<br> <input type="checkbox" name="r_private">이력서 비공개
 					<!-- 대표이력서 체크되면 1(대표이력서), 비공개 체크되면 1(비공개)되게 해야함 -->
 
-
-
-
-					<button class="formbold-btn">공고등록</button>
+					<button id="submitBtn" type="submit" class="formbold-btn">공고등록</button>
+					<script type="text/javascript">
+					</script>
 					<!-- 수정시 writeday가 now로 update -->
 			</form>
 		</div>
@@ -1537,8 +1607,20 @@ body {
 	outline: none;
 	resize: none;
 }
-
-.rcontent-input {
+.rcontent-directInput {
+	width: 100%;
+	height: 500px;
+	padding: 13px 22px;
+	border-radius: 5px;
+	border: 1px solid #dde3ec;
+	background: #ffffff;
+	font-weight: 500;
+	font-size: 16px;
+	color: #536387;
+	outline: none;
+	resize: none;
+}
+.rcontent-autoInput {
 	width: 100%;
 	height: 500px;
 	padding: 13px 22px;

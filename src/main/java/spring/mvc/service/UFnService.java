@@ -46,6 +46,10 @@ public class UFnService {
 
 		mapper.updatePhoto(map);
 	}
+	
+	public void insertResume(ResumeDto dto) {
+		mapper.insertResume(dto);
+	}
 
 	public int countLikeEnterprise(String num) {
 

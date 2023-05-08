@@ -119,6 +119,11 @@ public class UFnController {
 		session.removeAttribute("loginName");
 		return "redirect:/";
 	}
+	@PostMapping("/insertResume")
+	public String insert(ResumeDto dto) {
+		uservice.insertResume(dto);
+		return "redirect:mypage";
+	}
 
 	// 유저정보 변경
 	@PostMapping("/updateUserInfo")

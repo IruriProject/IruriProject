@@ -23,4 +23,5 @@ public interface UFnMapperInter {
 	public void deleteLikeEnter(String num);
 	public UserDto findUserByNum(String u_num);
 	public void deleteUser(String u_num);
+	public void insertResume(ResumeDto dto);
 }
