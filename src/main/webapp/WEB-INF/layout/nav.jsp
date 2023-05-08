@@ -137,14 +137,14 @@ $(document).ready(function(){
             </c:if>
             
             <c:if test="${sessionScope.loginStatus!='enterprise' }">
-            	<a href="/mypage" class="mainMenu">회원서비스</a>
-            </c:if>
+            	<a href="${!empty sessionScope.loginId ? '/mypage' : 'javascript:alert(\'로그인 후 이용해주세요.\');location.href=\'/login\';'}" class="mainMenu">회원서비스</a>
             <ul class="subMenu">
-                <li><a href="/update">개인정보 관리</a></li>
-                <li><a href="/resumelist">이력서 관리</a></li>
-                <li><a href="/likeenterprise">관심 기업</a></li>
-                <li><a href="hi">지원현황</a></li>
+                <li><a href="${!empty sessionScope.loginId ? '/update' : 'javascript:alert(\'로그인 후 이용해주세요.\');location.href=\'/login\';'}">개인정보 관리</a></li>
+                <li><a href="${!empty sessionScope.loginId ? '/resumelist' : 'javascript:alert(\'로그인 후 이용해주세요.\');location.href=\'/login\';'}">이력서 관리</a></li>
+                <li><a href="${!empty sessionScope.loginId ? '/likeenterprise' : 'javascript:alert(\'로그인 후 이용해주세요.\');location.href=\'/login\';'}">관심 기업</a></li>
+                <li><a href="${!empty sessionScope.loginId ? '/hi' : 'javascript:alert(\'로그인 후 이용해주세요.\');location.href=\'/login\';'}">지원현황</a></li>
             </ul>
+            </c:if>
         </li>
         <li>
             <a href="#" class="mainMenu">인재정보</a>
@@ -156,9 +156,9 @@ $(document).ready(function(){
             </ul>
         </li>
         <li>
-            <a href="#" class="mainMenu">알바이야기</a>
+            <a href="/board/boardlist" class="mainMenu">일자리이야기</a>
             <ul class="subMenu">
-              	<li><a href="hi">sub메뉴</a></li>
+              	<li><a href="/board/form">입력폼</a></li>
                 <li><a href="hi">sub메뉴</a></li>
                 <li><a href="hi">sub메뉴</a></li>
                 <li><a href="hi">sub메뉴</a></li>

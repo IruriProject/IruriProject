@@ -36,6 +36,9 @@ public class EFnController {
 
 	@Autowired
 	EFnService service;
+	
+	@Autowired
+	EnterpriseService e_service;
 
 	@GetMapping("/insertForm")
 	public String insertForm() {
@@ -90,9 +93,6 @@ public class EFnController {
 
 	}
 
-	@Autowired
-	EnterpriseService e_service;
-
 	@GetMapping("")
 	public String posting() {
 		return "/posting/search";
@@ -120,6 +120,9 @@ public class EFnController {
 		ModelAndView mview = new ModelAndView();
 
 		mview.addObject("dto", service.getPosting(p_num));
+		mview.addObject("scrapCount", service.scrapByPosting(p_num));
+		mview.addObject("viewerCount", service.viewerByPosting(p_num));
+		
 		mview.setViewName("/posting/detailPage");
 
 		return mview;
@@ -134,6 +137,19 @@ public class EFnController {
 		service.updatePostingStatus(map);
 
 		return "redirect:../enterprise";
+	}
+	
+	@GetMapping("/postinglist")
+	public ModelAndView getAllPostings(HttpSession session) {
+		ModelAndView mview=new ModelAndView();
+		
+		String loginId=(String)session.getAttribute("loginId");
+		EnterpriseDto dto= e_service.findEnterdataById(loginId);
+		
+		mview.addObject("list", service.getAllPostings(dto.getE_num()));
+		mview.setViewName("/posting/postingList");
+		
+		return mview;
 	}
 	
 	@ResponseBody
@@ -186,18 +202,16 @@ public class EFnController {
 	}
 
 	
-	//쪽지
-	@GetMapping("/messagedetail")
-	public ModelAndView messagedetail(@RequestParam String m_num) {
-		ModelAndView mview=new ModelAndView();
+	@GetMapping("/reposting")
+	public String reloadPosting(String p_num) {
+		service.reposting(p_num);
 		
-		mview.addObject("dto", service.getMessage(m_num));
-		mview.setViewName("/message/detailPage");
-
-		return mview;
-
+		int maxNum=service.getMaxNumOfPosting();
+		return "redirect:/posting/detailpage?p_num="+maxNum;
 	}
 	
+	
+	//쪽지
 	@GetMapping("/writemessage")
 	public String writemessageForm(HttpSession session, Model model) {
 		
@@ -215,5 +229,18 @@ public class EFnController {
 		service.insertMessage(dto);
 		
 		return "redirect:/enterprise";
+	}
+	
+	@GetMapping("/messagelist")
+	public ModelAndView allMessages(HttpSession session) {
+		ModelAndView mview=new ModelAndView();
+		
+		String loginId=(String)session.getAttribute("loginId");
+		EnterpriseDto dto= e_service.findEnterdataById(loginId);
+		
+		mview.addObject("list", service.getAllMessages(dto.getE_num()));
+		mview.setViewName("/message/messageList");
+		
+		return mview;
 	}
 }

@@ -32,6 +32,9 @@
 <!-- Template Stylesheet -->
 <link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style type="text/css">
+div {
+	border: 1px solid gray;
+}
 </style>
 </head>
 
@@ -46,7 +49,13 @@
 						<img alt="" src="/photo/${dto.u_photo}"
 							style="width: 150px; height: 200px;">
 					</div>
-
+					${sessionScope.loginName }<br> ${dto.u_gender } /
+					${2023-dto.u_birth.substring(0, 4)+1}세<br>
+					<button type="button" data-toggle="modal" data-target="#myPhoto">사진
+						등록 및 변경</button>
+					<br>
+					<button type="button" onclick="location.href='update'">개인정보
+						수정</button>
 					<div>
 						<!-- Modal -->
 						<div class="modal fade" id="myPhoto" role="dialog">
@@ -73,11 +82,7 @@
 						</div>
 					</div>
 
-					<button type="button" data-toggle="modal" data-target="#myPhoto">사진
-						등록 및 변경</button>
-					<br>
-					<button type="button" onclick="location.href='update'">개인정보
-						수정</button>
+
 				</div>
 				<div class="col-sm-12 col-md-6 col-xl-7 w-75">
 					<div class="h-100 bg-light rounded p-4">
@@ -95,8 +100,8 @@
 								<c:if test="${rdto.r_private==0}">
 							공개중
 							<button type="button">이력서 비공개</button>
-							</c:if>
-							
+								</c:if>
+
 								<c:if test="${rdto.r_private==1}">
 							비공개중
 							<button type="button">이력서 공개</button>
@@ -110,7 +115,8 @@
 						<button type="button" onclick="location.href='insertresume'">이력서
 							등록</button>
 						<button type="button">지원현황</button>
-						<button type="button" onclick="location.href='resumelist'">내 이력서 목록</button>
+						<button type="button" onclick="location.href='resumelist'">내
+							이력서 목록</button>
 						<br>
 					</div>
 					<br>
@@ -208,8 +214,8 @@
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center;"><input class="form-check-input"
-									type="checkbox"></th>
+								<th scope="col" style="text-align: center;"><input
+									class="form-check-input" type="checkbox"></th>
 								<th scope="col" style="text-align: center;">Date</th>
 								<th scope="col" style="text-align: center;">Invoice</th>
 								<th scope="col" style="text-align: center;">Customer</th>
@@ -266,8 +272,8 @@
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center;"><input class="form-check-input"
-									type="checkbox"></th>
+								<th scope="col" style="text-align: center;"><input
+									class="form-check-input" type="checkbox"></th>
 								<th scope="col" style="text-align: center;">Date</th>
 								<th scope="col" style="text-align: center;">Invoice</th>
 								<th scope="col" style="text-align: center;">Customer</th>
@@ -324,8 +330,8 @@
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center;"><input class="form-check-input"
-									type="checkbox"></th>
+								<th scope="col" style="text-align: center;"><input
+									class="form-check-input" type="checkbox"></th>
 								<th scope="col" style="text-align: center;">Date</th>
 								<th scope="col" style="text-align: center;">Invoice</th>
 								<th scope="col" style="text-align: center;">Customer</th>
@@ -382,8 +388,8 @@
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center;"><input class="form-check-input"
-									type="checkbox"></th>
+								<th scope="col" style="text-align: center;"><input
+									class="form-check-input" type="checkbox"></th>
 								<th scope="col" style="text-align: center;">Date</th>
 								<th scope="col" style="text-align: center;">Invoice</th>
 								<th scope="col" style="text-align: center;">Customer</th>
@@ -439,8 +445,8 @@
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center;"><input class="form-check-input"
-									type="checkbox"></th>
+								<th scope="col" style="text-align: center;"><input
+									class="form-check-input" type="checkbox"></th>
 								<th scope="col" style="text-align: center;">Date</th>
 								<th scope="col" style="text-align: center;">Invoice</th>
 								<th scope="col" style="text-align: center;">Customer</th>

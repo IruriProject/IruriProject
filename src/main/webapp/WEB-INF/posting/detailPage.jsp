@@ -8,9 +8,12 @@
 <meta charset="utf-8">
 <title>이루리_ 공고상세페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <c:set var="root" value="<%=request.getContextPath()%>" />
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -99,6 +102,10 @@ body {
 .withbtnTitle {
 	font-size: 2.2em;
 }
+
+.modal-header{
+	justify-content: flex-end;
+}
 </style>
 </head>
 <body>
@@ -114,27 +121,81 @@ body {
 						<div class="withbtn">
 							<div class="withbtnTitle fw-bolder mb-1"
 								style="color: #41644a; font-size: 2em">${dto.p_title }</div>
+								<input type="hidden" id="p_num" value="${dto.p_num }">
 							<div>
 								<c:if
 									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
-									<button type="button" class="btn btn-info mt-2">지원하기</button>
+
+									<%-- <button type="button" class="btn btn-info mt-2">지원하기</button>
 									<button type="button" id="btnscrap" u_id=${sessionScope.loginId} e_num=${dto.e_num }
-									 class="btn btn-info mt-2">공고 스크랩</button>
+									 class="btn btn-info mt-2">공고 스크랩</button> --%>
+
+									<button type="button" class="btn btn-info mt-2" data-toggle="modal" data-target="#myModal">지원하기</button>
+									<button type="button" id="btnscrap" class="btn btn-info mt-2">공고 스크랩</button>
+
 								</c:if>
 								<c:if
 									test="${sessionScope.loginStatus=='enterprise'&&sessionScope.loginId==dto.e_id }">
 									<button type="button" class="btn btn-info mt-2" onclick="location.href='/posting/update?p_num=${dto.p_num}'">수정</button>
 									<button type="button" class="btn btn-info mt-2" onclick="location.href='confirmpw?p_num=${dto.p_num}'">삭제</button>
-									<button type="button" class="btn btn-info mt-2">끌어올리기</button>
+									<button type="button" class="btn btn-info mt-2" onclick="reloadAlert()">끌어올리기</button>
 								</c:if>
+								<button type="button" class="btn btn-info mt-2" onclick="copyUrl()">링크 복사</button>
 							</div>
 						</div>
+						
+					  <!-- 지원하기 모달 -->
+						
+					  <!-- Modal -->
+					  <div class="modal fade" id="myModal" role="dialog">
+					    <div class="modal-dialog modal-lg">
+					      <div class="modal-content">
+					        <div class="modal-header">
+					          <h4 class="modal-title"> ${dto.p_title } - ${dto.e_name } 회사에 지원하기 &nbsp;</h4>
+					          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					        </div>
+					        <div class="modal-body">
+					          <p>지원하기</p>
+					        </div>
+					        <div class="modal-footer">
+					          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					        </div>
+					      </div>
+					    </div>
+					  </div>
+											
+						<script type="text/javascript">
+						
+						function reloadAlert(){
+							const p_num=$("#p_num").val();	
+							const a=confirm("게시글을 끌어올리시겠습니까? \n 공고 마감일이 일주일 뒤로 연장됩니다.");
+							
+							if(a){
+								location.href="/posting/reposting?p_num="+p_num;
+							}else{
+								return false;
+							}
+						}
+						
+						//현재 url 변수로 가져오기
+						let nowUrl = window.location.href;
+
+						function copyUrl(){ 
+						  //nowUrl 변수에 담긴 주소를 복사
+						  	navigator.clipboard.writeText(nowUrl).then(res=>{
+							  alert("주소가 복사되었습니다");
+							})
+						}
+						
+						</script>
 
 						<!-- Post meta content-->
-						<div class="text-muted fst-italic mb-2">${dto.e_name }
+						<div class="text-muted fst-italic mb-2"><b>${dto.e_name }</b>
 							/ 공고일 :
 							<fmt:formatDate value="${dto.p_writeday }" pattern="yyyy-MM-dd" />
+							<span style="float: right">&nbsp;&nbsp;/&nbsp;&nbsp;스크랩 : ${scrapCount}명</span> <span style="float: right">열람 : ${viewerCount }명</span>
 						</div>
+						
 					</header>
 
 					<!-- Post content-->

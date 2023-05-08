@@ -22,14 +22,16 @@ public interface EFnMapperInter {
 	public List<PostingDto> getPreviewPostings(String e_num);
 	public void deletePosting(String p_num);
 	public void updatePosting(PostingDto dto);
+	public int scrapByPosting(String p_num);
+	public int viewerByPosting(String p_num);
 	
 	
 	//쪽지
 	public List<Map<String, Object>> getAllMessages(String e_num);
 	public List<Map<String, Object>> getPreviewMessages(String e_num);
-	
+	public void reposting(String p_num);
+	public int getMaxNumOfPosting();
 	public Map<String, Object> getMessage(String m_num);
-	
 	public void insertMessage(MessageDto dto);
 
 }

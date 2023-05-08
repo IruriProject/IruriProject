@@ -13,10 +13,14 @@ import spring.mvc.dto.UserDto;
 @Mapper
 public interface UFnMapperInter {
 	public void updateUser(UserDto dto);
+	public void updateUserNoAddr(UserDto dto);
+	public void updatePw(Map<String, String> map);
 	public void updatePhoto(Map<String, String> map);
 	public int countLikeEnterprise(String num);
 	public EnterpriseDto getEnterPrise(String num);
 	public ResumeDto getResume(String u_num);
 	public void insertLikeEnter(HeartDto dto);
 	public void deleteLikeEnter(String num);
+	public UserDto findUserByNum(String u_num);
+	public void deleteUser(String u_num);
 }

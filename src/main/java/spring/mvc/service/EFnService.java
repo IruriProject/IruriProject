@@ -48,6 +48,14 @@ public class EFnService {
 		mapper.updatePosting(dto);
 	}
 	
+	public int scrapByPosting(String p_num) {
+		return mapper.scrapByPosting(p_num);
+	}
+	
+	public int viewerByPosting(String p_num) {
+		return mapper.viewerByPosting(p_num);
+	}
+	
 	
 	//쪽지
 	public List<Map<String, Object>> getAllMessages(String e_num){
@@ -83,5 +91,13 @@ public class EFnService {
 	
 	public List<PostingDto> getAddrSearch(String p_addr){
 		return mapper.getAddrPostings(p_addr);
+	}
+	
+	public void reposting(String p_num) {
+		mapper.reposting(p_num);
+	}
+	
+	public int getMaxNumOfPosting() {
+		return mapper.getMaxNumOfPosting();
 	}
 }

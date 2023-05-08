@@ -5,39 +5,69 @@
 <mapper namespace="spring.mvc.mapper.UFnMapperInter">
 	<!-- 정보 변경 -->
 	<update id="updateUser" parameterType="udto">
-	update USER set u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email}, u_addr=#{u_addr} where u_id=#{u_id}
+		update USER set
+		u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email}
+		, u_addr=#{u_addr}
+		where u_id=#{u_id}
 	</update>
 	
+	<!-- 주소 변경 -->
+	<update id="updateUserNoAddr" parameterType="Map">
+		update USER set
+		u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email} where u_id=#{u_id}
+	</update>
+
+	<!-- 비번수정 -->
+	<update id="updatePw" parameterType="Map">
+		update USER set u_pw=#{u_pw}
+		where u_id=#{u_id}
+	</update>
+
+	<!-- 사진등록 -->
 	<update id="updatePhoto" parameterType="Map">
-		update USER set u_photo=#{u_photo} where u_id=#{u_id}
+		update USER set
+		u_photo=#{u_photo} where u_id=#{u_id}
 	</update>
-	
-		<select id="getResume" resultType="rdto" parameterType="String">
-		select * from RESUME where u_num=#{u_num} and r_presume=1
-		</select>
-	
-	<select id="countLikeEnterprise" resultType="int" parameterType="String">
+
+	<!-- 대표이력서 검색 -->
+	<select id="getResume" resultType="rdto" parameterType="String">
+		select *
+		from RESUME where u_num=#{u_num} and r_presume=1
+	</select>
+
+	<!-- 탈퇴 -->
+	<delete id="deleteUser" parameterType="String">
+		delete from USER where
+		u_num=#{u_num}
+	</delete>
+
+	<select id="countLikeEnterprise" resultType="int"
+		parameterType="String">
 		select count(h_num) from HEART where u_num=#{u_num}
 	</select>
-	
-	<select id="getEnterPrise" resultType="edto" parameterType="string">
+
+	<select id="getEnterPrise" resultType="edto"
+		parameterType="string">
 		select * from ENTERPRISE where e_num=#{e_num}
 	</select>
-	
+
 	<!-- 좋아요버튼 누르면 데이터 저장됨 -->
 	<insert id="insertLikeEnter" parameterType="hdto">
-		insert into HEART (u_num, e_num) values (#{u_num},#{e_num})
+		insert into HEART
+		(u_num, e_num) values (#{u_num},#{e_num})
 	</insert>
-	
+
 	<!-- 좋아요버튼 다시 누르면 데이터 삭제됨 -->
 	<delete id="deleteLikeEnter" parameterType="String">
-		delete from HEART where h_num=#{h_num}
+		delete from HEART
+		where h_num=#{h_num}
 	</delete>
+
 	
 	<!-- 스크랩버튼 누르면 데이터 저장됨 -->
 	<insert id="insertScrapEnter" parameterType="sdto">
 		insert into SCRAP (u_num, p_num) values (#{u_num},#{p_num})
 	</insert>
 	
-	
+
 </mapper>

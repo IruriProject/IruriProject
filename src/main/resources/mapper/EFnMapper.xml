@@ -8,6 +8,16 @@
 	<select id="getPosting" parameterType="String" resultType="Map">
 		select POSTING.*, ENTERPRISE.* from POSTING inner join ENTERPRISE on POSTING.e_num = ENTERPRISE.e_num where POSTING.p_num = #{p_num}
 	</select>
+	
+	<!-- 공고별 스크랩 수 -->
+	<select id="scrapByPosting" parameterType="String" resultType="int">
+		select count(*) from SCRAP where p_num=#{p_num}
+	</select>
+	
+	<!-- 공고별 열람 수 -->
+	<select id="viewerByPosting" parameterType="String" resultType="int">
+		select count(*) from VIEWER where p_num=#{p_num}
+	</select>
 
 	<select id="getTotalCount" resultType="int">
 	select count(*) from POSTING
@@ -53,6 +63,17 @@
 	<update id="updatePosting" parameterType="pdto">
 		update POSTING set p_title=#{p_title},p_type=#{p_type},p_pay=#{p_pay},p_period=#{p_period},p_workday=#{p_workday},p_starttime=#{p_starttime},p_endtime=#{p_endtime},p_employtype=#{p_employtype},p_content=#{p_content},p_enddate=#{p_enddate},p_hirenum=#{p_hirenum} where p_num=#{p_num}
 	</update>
+	
+	<!-- 공고 끌어올리기 -->
+	<update id="reposting" parameterType="String">
+	UPDATE POSTING JOIN (SELECT MAX(p_num) AS max_num, DATE_ADD(NOW(), INTERVAL 7 DAY) AS new_p_enddate FROM POSTING) AS subquery
+	SET POSTING.p_num = subquery.max_num + 1, POSTING.p_enddate = subquery.new_p_enddate, POSTING.p_writeday=now()
+	WHERE POSTING.p_num = #{p_num}
+	</update>
+	
+	<select id="getMaxNumOfPosting" resultType="int">
+	select max(p_num) from POSTING
+	</select>
 	
 	<!-- 쪽지 -->
 	<select id="getAllMessages" parameterType="String" resultType="Map">

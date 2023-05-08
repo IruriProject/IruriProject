@@ -1,11 +1,15 @@
 package spring.mvc.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,12 +37,20 @@ public class EnterpriseController {
 		EnterpriseDto dto=service.findEnterdataById(loginId);
 
 		mview.addObject("dto", dto);
+		mview.addObject("heartCount", service.heartByEnter(dto.getE_num()));
 		mview.addObject("postings", efn_service.getPreviewPostings(dto.getE_num()));
 		mview.addObject("postingCount", efn_service.getAllPostings(dto.getE_num()).size());
 		mview.addObject("messages", efn_service.getPreviewMessages(dto.getE_num()));
 		
 		mview.setViewName("/enterprise/enterprisePage");
 
+		return mview;
+	}
+	
+	@GetMapping("/viewerlist")
+	public ModelAndView viewerList(@RequestParam String p_num) {
+		ModelAndView mview=new ModelAndView();
+		mview.setViewName("/posting/viewerList");
 		return mview;
 	}
 
@@ -73,4 +85,26 @@ public class EnterpriseController {
 		return "/enterprise/updateForm";
 	}
 
+	@GetMapping("/applyaccess")
+	public String getApplyAuth() {
+		return "/enterprise/applyAccess";
+	}
+	
+	@GetMapping("/applyform")
+	public String getApplyForm(HttpSession session, Model model) {
+		
+		String e_id=(String)session.getAttribute("loginId");
+		
+		EnterpriseDto dto=service.findEnterdataById(e_id);
+		model.addAttribute("dto", dto);
+		
+		return "/enterprise/applyForm";
+	}
+	
+	@GetMapping("/accessProcess")
+	public String accessApplyProcess(@RequestParam String e_name, String e_res_access) {
+		
+		service.updateResAccessStatus(e_name,e_res_access);
+		return "/enterprise/resAccessAlert";
+	}
 }

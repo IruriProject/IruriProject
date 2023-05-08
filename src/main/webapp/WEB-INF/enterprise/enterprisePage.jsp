@@ -36,6 +36,34 @@
 .hi div {
 	border: 1px solid gray;
 }
+
+.longsentence{
+	word-break: break-all;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.atag {
+	padding: 8px;
+}
+
+.atag, .atag:hover {
+	color: #416442;
+	text-decoration: none;
+}
+
+.atag:hover {
+	background-color: #e3f2c9;
+	border-radius: 10px;
+}
+
+.counting{
+	float:right;
+	cursor: pointer;
+	color: #416442;
+}
 </style>
 </head>
 
@@ -65,7 +93,7 @@
 					<br>
 					<div class="h-100 bg-light rounded p-4">위치 : ${dto.e_addr }</div>
 					<br>
-					<div class="h-100 bg-light rounded p-4">관심기업수</div>
+					<div class="h-100 bg-light rounded p-4">관심기업으로 선정한 인재수 : ${heartCount } 명</div>
 				</div>
 			</div>
 		</div>
@@ -78,24 +106,27 @@
 					<div class="h-100 bg-light rounded p-4">
 						<div
 							class="d-flex align-items-center justify-content-between mb-2">
-							<h6 class="mb-0">쪽지관리</h6>
-							<a href="/posting/writemessage">쪽지보내기</a><a href="">Show All</a>
+							<h4 class="mb-5"><b>쪽지관리</b></h4>
+							<a href="/posting/writemessage">쪽지보내기</a><a class="atag" href="/posting/messagelist">Show All</a>
 						</div>
 						
 						<c:forEach var="msg" items="${messages }">
-						<a href="/posting/messagedetail?m_num=${msg.m_num }">
-							<div class="d-flex align-items-center border-bottom py-3">
-								<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
+						
+							<div class="d-flex align-items-center border-bottom py-3 atag mt-3">
+							
+								<img class="rounded-circle flex-shrink-0" src="/photo/${msg.u_photo }"
 									alt="" style="width: 40px; height: 40px;">
+									<a class="atag" href="/posting/messagelist">
 								<div class="w-100 ms-3">
 									<div class="d-flex w-100 justify-content-between">
-										<h6 class="mb-0">${msg.u_name }</h6>
+										<h5><b>${msg.u_name }</b>&nbsp;님</h5>
 										<small><fmt:formatDate value="${msg.m_day}" pattern="yy-MM-dd"/></small>
 									</div>
-									<span>${msg.m_content }</span>
+									<span class="longsentence">${msg.m_content }</span>
 								</div>
+								</a>
 							</div>
-						</a>
+						
 						</c:forEach>
 					
 					</div>
@@ -104,8 +135,7 @@
 					<div class="h-100 bg-light rounded p-4">
 						<div
 							class="d-flex align-items-center justify-content-between mb-4">
-							<h6 class="mb-0">Calender</h6>
-							<a href="">Show All</a>
+							<h4 class="mb-5"><b>Calendar</b></h4>
 						</div>
 						<div id="calender"></div>
 					</div>
@@ -119,17 +149,17 @@
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h6 class="mb-0">공고현황</h6>
-					<a href="">Show All</a>
+					<h4 class="mb-5"><b>공고현황</b></h4>
+					<a class="atag" href="/posting/postinglist">Show All</a>
 				</div>
 				<div class="table-responsive">
 					<table
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center">공고제목</th>
-								<th scope="col" style="text-align: center">공고일</th>
+								<th scope="col" style="text-align: center" width="30%">공고제목</th>
 								<th scope="col" style="text-align: center">직종</th>
+								<th scope="col" style="text-align: center">공고일</th>
 								<th scope="col" style="text-align: center">공고마감일</th>
 								<th scope="col" style="text-align: center">공고상태</th>
 							</tr>
@@ -140,14 +170,22 @@
 						</c:if>
 							<c:forEach var="post" items="${postings }">
 								<tr>
-									<td style="text-align: left"><a
-										href="posting/detailpage?p_num=${post.p_num }">&nbsp;&nbsp;${post.p_title }</a></td>
+									<td style="text-align: left"><a class="atag"
+										href="posting/detailpage?p_num=${post.p_num }">&nbsp;&nbsp;<b>${post.p_title }</b></a>&nbsp;&nbsp;
+										<span class="counting viewer" title="열람한 인재목록 보기" onclick="location.href='/enterprise/viewerlist?p_num=${post.p_num}'">열람 : 0명</span>
+										<span class="counting">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+										<span class="counting scrap" title="스크랩한 인재목록 보기" onclick="location.href='/enterprise/scraplist?p_num=${post.p_num}'">스크랩 : 0명</span>
+									</td>
+									<td>${post.p_type }</td>
 									<td><fmt:formatDate value="${post.p_writeday }"
 											pattern="yyyy-MM-dd" /></td>
-									<td>${post.p_type }</td>
 									<td>${post.p_enddate }</td>
-									<td><select class="pStatus" pnum=${post.p_num }><option value="지원가능" ${post.p_status=="지원가능"?'selected':'' }>지원가능</option>
-											<option value="지원마감" ${post.p_status=="지원마감"?'selected':'' }>지원마감</option></select></td>
+									<td>
+										<select class="pStatus" pnum=${post.p_num }>
+											<option value="지원가능" ${post.p_status=="지원가능"?'selected':'' }>지원가능</option>
+											<option value="지원마감" ${post.p_status=="지원마감"?'selected':'' }>지원마감</option>
+										</select>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -159,20 +197,20 @@
 		
 		<script>
 		
-		$(".pStatus").change(function(){
-			var pStatus=$(this).val();
-			var pNum=$(this).attr("pnum");
-			//alert(pNum+","+pStatus);
-			$.ajax({
-				type:"get",
-				data:{"p_num":pNum,"p_status":pStatus},
-				dataType:"html",
-				url:"/posting/updateStatus",
-				success:function(){
-					alert("모집상태 변경 완료");
-				}
+			$(".pStatus").change(function(){
+				var pStatus=$(this).val();
+				var pNum=$(this).attr("pnum");
+				//alert(pNum+","+pStatus);
+				$.ajax({
+					type:"get",
+					data:{"p_num":pNum,"p_status":pStatus},
+					dataType:"html",
+					url:"/posting/updateStatus",
+					success:function(){
+						alert("모집상태 변경 완료");
+					}
+				})
 			})
-		})
 		
 		</script>
 
@@ -180,8 +218,8 @@
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h6 class="mb-0">지원자현황</h6>
-					<a href="">Show All</a>
+					<h4 class="mb-5"><b>지원자현황</b></h4>
+					<a href="" class="atag">Show All</a>
 				</div>
 				<div class="table-responsive">
 					<table
@@ -233,7 +271,7 @@
 		</div>
 		<!-- Recent Sales End -->
 		<br>
-		<button type="button" style="width: 100%; height: 50px;">열람권신청</button>
+		<button type="button" style="width: 100%; height: 50px;" onclick="location.href='/enterprise/applyaccess'">열람권신청</button>
 		<br>
 		<br>
 		<button type="button" style="width: 100%; height: 50px;">기업인증</button>
