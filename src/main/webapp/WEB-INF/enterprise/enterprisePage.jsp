@@ -219,18 +219,22 @@ border-radius: 10px;
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach var="adto" items="${adto }" varStatus="i">
 							<tr>
-								<td>최보현</td>
-								<td>안녕</td>
-								<td>이력서 입니다...</td>
-								<td>2023/02/03</td>
+								<td>${i.count }</td>
+								<td><a href="/posting/detailpage?p_num=${adto.p_num }">${adto.posting.p_title}</a></td>
+								<td><a href="/resume/detail?r_num=${adto.r_num }" onclick="window.open(this.href, '_blank', 'menubar=no, toolbar=no'); return false;">${adto.r_num }번째 이력서보기</a></td>
+								<td><fmt:formatDate value="${adto.a_writeday }" pattern="yyyy.MM.dd"/></td>
+								
 							</tr>
-						
+							</c:forEach>
+							
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
+		
 		<!-- Recent Sales End -->
 		<br>
 		<button type="button" style="width: 100%; height: 50px;" onclick="location.href='/enterprise/applyaccess'">열람권신청</button>

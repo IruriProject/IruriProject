@@ -75,4 +75,7 @@ public class UFnService {
 		return mapper.getMyResume(u_num);
 	}
 
+	public ResumeDto getResumeOfRNum(String r_num) {
+		return mapper.getResumeOfRNum(r_num);
+	}
 }

@@ -37,4 +37,22 @@
 	 where e_name=#{e_name}
 	</update>
 	
+	<!-- 기업에서 이력서 열람하기 -->
+	<select id="getApplicantsByEnterprise" parameterType="String" resultMap="adto">
+	  SELECT a.a_num, a.p_num, a.r_num, a.a_writeday, p.p_title
+	  FROM APPLICANT a
+	  INNER JOIN POSTING p ON a.p_num = p.p_num
+	  WHERE p.e_num = #{e_num}
+	</select>
+
+	<resultMap id="applicantResultMap" type="spring.mvc.dto.ApplicantDto">
+	  <result column="a_num" property="a_num" />
+	  <result column="p_num" property="p_num" />
+	  <result column="r_num" property="r_num" />
+	  <result column="a_writeday" property="a_writeday" />
+	  <association property="resume" javaType="spring.mvc.dto.ResumeDto">
+	    <result column="r_title" property="r_title" />
+	  </association>
+	</resultMap>
+	
 </mapper>

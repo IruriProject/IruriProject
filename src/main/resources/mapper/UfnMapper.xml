@@ -50,5 +50,10 @@
 	<select id="getMyResume" resultType="rdto" parameterType="String">
 	select * from RESUME where u_num=#{u_num}
 	</select>
+	
+	<!-- 이력서 detailpage -->
+	<select id="getResumeOfRNum" resultType="rdto" parameterType="String">
+	select * from RESUME where r_num=#{r_num}
+	</select>
 
 </mapper>

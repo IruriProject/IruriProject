@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.service.EFnService;
 import spring.mvc.service.EnterpriseService;
+import spring.mvc.service.UFnService;
 
 @Controller
 @RequestMapping("/enterprise")
@@ -35,11 +36,13 @@ public class EnterpriseController {
 
 		String loginId = (String) session.getAttribute("loginId");
 		EnterpriseDto dto=service.findEnterdataById(loginId);
+		String e_num=service.findEnterdataById(loginId).getE_num();
 
 		mview.addObject("dto", dto);
 		mview.addObject("postings", efn_service.getPreviewPostings(dto.getE_num()));
 		mview.addObject("postingCount", efn_service.getAllPostings(dto.getE_num()).size());
 		mview.addObject("messages", efn_service.getPreviewMessages(dto.getE_num()));
+		mview.addObject("adto", service.getAllResumeOfEnter(e_num));
 		
 		mview.setViewName("/enterprise/enterprisePage");
 
@@ -99,4 +102,5 @@ public class EnterpriseController {
 		service.updateResAccessStatus(e_name,e_res_access);
 		return "/enterprise/resAccessAlert";
 	}
+	
 }

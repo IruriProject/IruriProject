@@ -14,4 +14,14 @@ public class ApplicantDto {
 	private String p_num;
 	private String r_num;
 	private Timestamp a_writeday;
+	private PostingDto posting;
+	
+	public PostingDto getPosting() {
+	    return posting;
+	}
+	
+	public void setPosting(PostingDto posting) {
+	    this.posting = posting;
+	}
 }
+

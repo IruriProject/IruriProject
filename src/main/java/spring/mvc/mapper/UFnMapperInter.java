@@ -22,4 +22,5 @@ public interface UFnMapperInter {
 	public void insertLikeEnter(HeartDto dto);
 	public void deleteLikeEnter(String num);
 	public List<ResumeDto> getMyResume(String u_num);
+	public ResumeDto getResumeOfRNum(String r_num);
 }

@@ -134,7 +134,7 @@ public class EFnController {
 		String myId=(String)session.getAttribute("loginId");
 		String loginStatus=(String)session.getAttribute("loginStatus");
 		
-		if(loginStatus.equals("user")) {
+		if(loginStatus != null && loginStatus.equals("user")) {
 			String u_num=user_service.findUserdataById(myId).getU_num();
 			mview.addObject("rlist", ufn_service.getMyResume(u_num));
 		}
