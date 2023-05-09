@@ -1,5 +1,6 @@
 package spring.mvc.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -21,7 +22,8 @@ public interface UFnMapperInter {
 	public ResumeDto getResume(String u_num);
 	public void insertLikeEnter(HeartDto dto);
 	public void deleteLikeEnter(String num);
-	
+	public List<ResumeDto> getMyResume(String u_num);
+	public ResumeDto getResumeOfRNum(String r_num);
 	//열람
 	public void insertViewer(ViewerDto dto);
 	public int getSearchUnum(Map<String, String> map);

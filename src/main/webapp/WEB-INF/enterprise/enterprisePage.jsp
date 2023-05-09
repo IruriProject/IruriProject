@@ -107,7 +107,8 @@
 						<div
 							class="d-flex align-items-center justify-content-between mb-2">
 							<h4 class="mb-5"><b>쪽지관리</b></h4>
-							<a class="atag" href="/posting/messagelist">Show All</a>
+							<a href="/posting/writemessage">쪽지보내기</a><a class="atag" href="/posting/allMessages">더보기</a>
+
 						</div>
 						<c:if test="${messages.size()==0 }">
 							<div class="w-100" align="center">
@@ -155,7 +156,7 @@
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h4 class="mb-5"><b>공고현황</b></h4>
-					<a class="atag" href="/posting/postinglist">Show All</a>
+					<a class="atag" href="/posting/postinglist">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table
@@ -241,56 +242,36 @@
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h4 class="mb-5"><b>지원자현황</b></h4>
-					<a href="" class="atag">Show All</a>
+					<a href="" class="atag">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col"><input class="form-check-input"
-									type="checkbox"></th>
-								<th scope="col">Date</th>
-								<th scope="col">Invoice</th>
-								<th scope="col">Customer</th>
-								<th scope="col">Amount</th>
-								<th scope="col">Status</th>
-								<th scope="col">Action</th>
+								<th scope="col" style="text-align: center">지원자명</th>
+								<th scope="col" style="text-align: center">지원공고</th>
+								<th scope="col" style="text-align: center">이력서보기</th>
+								<th scope="col" style="text-align: center">지원날짜</th>
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach var="adto" items="${adto }" varStatus="i">
 							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+								<td>${i.count }</td>
+								<td><a href="/posting/detailpage?p_num=${adto.p_num }">${adto.posting.p_title}</a></td>
+								<td><a href="/resume/detail?r_num=${adto.r_num }" onclick="window.open(this.href, '_blank', 'menubar=no, toolbar=no'); return false;">${adto.r_num }번째 이력서보기</a></td>
+								<td><fmt:formatDate value="${adto.a_writeday }" pattern="yyyy.MM.dd"/></td>
+								
 							</tr>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-							</tr>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-							</tr>
+							</c:forEach>
+							
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
+		
 		<!-- Recent Sales End -->
 		<br>
 		<button type="button" style="width: 100%; height: 50px;" onclick="location.href='/enterprise/applyaccess'">열람권신청</button>

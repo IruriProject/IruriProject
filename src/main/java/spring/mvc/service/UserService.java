@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import spring.mvc.dto.ApplicantDto;
 import spring.mvc.dto.UserDto;
 import spring.mvc.mapper.UserMapperInter;
 
@@ -41,5 +42,12 @@ public class UserService {
 		return mapper.getSearchId(u_id);
 	}
 	
+	public void insertResume(ApplicantDto dto) {
+		mapper.insertResume(dto);
+	}
+	
+	public UserDto findUserByNum(String u_num) {
+		return mapper.findUserByNum(u_num);
+	}
 
 }

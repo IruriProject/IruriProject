@@ -14,6 +14,11 @@
 	select * from USER where u_id=#{u_id}
 	</select>
 	
+	<!-- u_num으로 user 정보찾기 -->
+	<select id="findUserByNum" resultType="udto" parameterType="String">
+	select * from USER where u_num=#{u_num}
+	</select>
+	
 	<!-- 회원가입 -->
 	<insert id="joinUser" parameterType="udto">
 	insert into USER values(null,#{u_id},#{u_pw},#{u_name},#{u_gender},#{u_birth},#{u_hp},#{u_email},#{u_addr},null,#{u_email_agree})
@@ -23,5 +28,10 @@
 	<select id="getSearchId" parameterType="String" resultType="int">
 	select count(*) from USER where u_id=#{u_id}
 	</select>
+	
+	<!-- 이력서 등록 -->
+	<insert id="insertResume" parameterType="adto">
+	insert into APPLICANT values(null,#{p_num},#{r_num},now())
+	</insert>
 	
 </mapper>

@@ -3,6 +3,7 @@ package spring.mvc.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,4 +152,5 @@ public class JoinController {
 		map.put("count", service.getSearchId(u_id));
 		return map;
 	}
+	
 }
