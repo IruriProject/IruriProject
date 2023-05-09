@@ -4,4 +4,44 @@
 
 <mapper namespace="spring.mvc.mapper.QnaMapperInter">
 
+	<select id="getTotalCount" resultType="int">
+		select count(*) from QNA	
+	</select>
+	
+	<select id="getQnaUserTotalCount" resultType="int" parameterType="String">
+		select count(*) from QNA where q_loginid=#{q_loginid} 	 
+	</select>
+	
+	<select id="getData" parameterType="String" resultType="qdto">
+		select * from QNA where q_num=#{q_num}
+	</select>
+	
+	<select id="getMaxNum" resultType="int">
+		select ifnull(max(b_num),0) from BOARD
+	</select>
+	
+	<select id="getList" parameterType="HashMap" resultType="qdto">
+		select * from QNA order by q_num desc limit #{start},#{perpage}
+	</select>
+		
+	<select id="getAllfiles"  parameterType="String" resultType="qdto">	
+	select q_file from QNA  where q_num=#{q_num} order by q_num
+	</select>
+		
+	<insert id="insertQna" parameterType="qdto">
+	insert into QNA (q_loginid ,q_title, q_content, q_email, q_file, q_writeday) values(#{q_loginid},#{q_title},#{q_content},#{q_email},#{q_file},now())
+	</insert>
+	
+	<update id="updateQna" parameterType="qdto">
+		update QNA set q_title=#{q_title}, q_content=#{q_content}
+		<if test="q_file!='no'">
+		,q_file=#{q_file} 
+		</if>
+		where q_num=#{q_num}
+	</update>
+	
+	<delete id="deleteQna" parameterType="String">
+		delete from QNA where q_num=#{q_num}
+	</delete>
+	
 </mapper>

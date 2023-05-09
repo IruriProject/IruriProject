@@ -96,6 +96,18 @@ public class EFnService {
 		return mapper.getTotalCount();
 	}
 
+	public List<PostingDto> getSearchList(String sort,String allkeyword, int start, int perpage){
+		
+		Map<String, Object> map= new HashMap<>();
+		
+		map.put("sort", sort);
+		map.put("allkeyword", allkeyword);
+		map.put("start", start);
+		map.put("perpage", perpage);
+		
+		return mapper.getSearchList(map);
+	}
+	
 	public List<PostingDto> getPagingList(String searchcolumn, String searchword, int start, int perpage){
 
 		Map<String, Object> map=new HashMap<>();

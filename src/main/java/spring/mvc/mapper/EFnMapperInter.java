@@ -32,7 +32,9 @@ public interface EFnMapperInter {
 	//열람
 	public int viewerByPosting(String p_num);
 	public List<Map<String, Object>> viewerUserByPosting(String p_num);
-	
+
+	public List<PostingDto> getSearchList(Map<String, Object> map);
+
 	
 	//쪽지
 	public List<Map<String, Object>> getAllMessages(String e_num);

@@ -29,4 +29,16 @@ public interface BoardMapperInter {
 	public BCommentDto getComment(String b_num);
 	public void updateComment(BCommentDto bc_dto);
 	public void deleteComment(String bc_num);
+	
+	
+	/*
+	 * 	public void insertComment(BCommentDto bc_dto);
+	 public void updateRestep(Map<String, Integer> map); //추가
+	public List<BCommentDto> getAllComments(int bc_num);//기존
+
+	public BCommentDto getComment(int bc_num); //기존과동일
+	public void updateComment(BCommentDto bc_dto); //기존과 동일
+	public void deleteComment(int bc_num);  //기존과 동일
+	*/
+	
 }

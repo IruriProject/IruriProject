@@ -13,20 +13,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 
-	<style>
+<style>
 @import
-	url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
-	;
-
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-body {
-	font-family: fontAwesome;
-}
+	url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 .formbold-mb-3 {
 	margin-bottom: 15px;
@@ -253,14 +242,14 @@ body {
 
 					<div>
 						<input type="text" name="b_title" id="b_title"
-							placeholder="제목을 입력해주세요." value="${bdto.b_title }" class="formbold-form-input"  required="required"/>
+							placeholder="제목을 입력해주세요.(50자 이하)" value="${bdto.b_title }" class="formbold-form-input"  required="required" maxlength="50"/>
 					</div>
 				</div>
 
 				<div class="formbold-mb-3">
 					<label for="p_content" class="formbold-form-label"> 내용 </label>
-						<textarea name="b_content" id="b_content" placeholder="내용을 입력해주세요." 
-						class="bcontent-input" required="required" >${bdto.b_content }</textarea>
+						<textarea name="b_content" id="b_content" placeholder="내용을 입력해주세요.(500자 이하)" 
+						class="bcontent-input" required="required" maxlength="500" >${bdto.b_content }</textarea>
 				</div>
 
 				<div class="formbold-mb-3">
