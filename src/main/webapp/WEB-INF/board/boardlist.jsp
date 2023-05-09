@@ -101,13 +101,13 @@ $(function(){
 	</div>
 
 	<table class="table table-info"  style="width:1000px;  margin: 0 auto;">
-	<tr>
-		<!-- <th style="text-align:center;  height:40px; line-height:40px; font-size:15px;" width="60">번호</th> -->
+<!-- 	<tr>
+		<th style="text-align:center;  height:40px; line-height:40px; font-size:15px;" width="60">번호</th>
 		<th style="text-align:center; height:40px; line-height:40px; font-size:15px;" width="160">작성자</th>
 		<th style="text-align:center; height:40px; line-height:40px; font-size:15px;" width="460">제목</th>
 		<th style="text-align:center; height:40px; line-height:40px; font-size:15px;" width="80">조회</th>
 		<th style="text-align:center; height:40px; line-height:40px; font-size:15px;" width="160">등록일</th>
-	</tr>
+	</tr> -->
 	
 	<c:if test="${totalCount==0 }">
 		<tr>
@@ -124,7 +124,7 @@ $(function(){
 					
 					<c:set var="no" value="${no-1 }"/>
 					
-					<td align="center" style="height:70px; line-height:70px; ">${dto.b_loginid }</td>
+				<%-- 	<td align="center" style="height:70px; line-height:70px; ">${dto.b_loginid }</td> --%>
 					
 					<td style="height:70px; line-height:70px; "> 
 					
@@ -137,17 +137,35 @@ $(function(){
 				  	<c:if test="${dto.newFlag}">
                         <img src="${root }/image/newicon.png" alt="newpng" style="width:21px; margin-bottom:4px; padding:1px;" />
                     </c:if>
+                    <c:if test="${dto.b_acount>0 }">
+					<span><a href="content?b_num=${dto.b_num }&currentPage=${currentPage}"  style="color:red;">[${dto.b_acount}]</a></span>
+					</c:if>
+					
                     <br>
 					<div style="width:20%; height:30px; float:left; line-height:30px; color:gray; overflow: hidden;">${dto.b_content } </div>
 					</a>	
+					
+					<br>
+					<div style="width:20%; height:30px; float:left; line-height:30px; color:gray;">
+					${dto.b_loginid }  <span style="color:#bebebe;"> <span style=" padding:1px;font-size:0.8em;">|</span> ${dto.b_time }</span>
+					</div>
 					</td>
 					
 					<td style=" height:70px; line-height:70px; "align="center">
-					<span style="color: gray; float: right; font-size: 13px; padding: 10px;">
-					<i class="	glyphicon glyphicon-eye-open"></i>&nbsp;${dto.b_readcount }</span></td>
-					<td  style=" height:70px; line-height:70px;"align="center">${dto.b_writeday }</td>
+					<span style="color:#bebebe; float: right; font-size: 13px; padding: 10px;">
+					<i class="	glyphicon glyphicon-eye-open"></i>&nbsp;${dto.b_readcount }</span>
+				
+					
+					<c:if test="${dto.b_acount>0 }">
+					<span style="color:#bebebe; float: right; font-size: 13px; padding: 10px;">
+					<i class="glyphicon glyphicon-comment"></i>&nbsp;${dto.b_acount}</span>
+					</c:if>
+					</td>
+					<%-- <td  style=" height:70px; line-height:70px;"align="center">${dto.b_writeday }</td> --%>
 				</tr>
 
+				<tr>
+				</tr>
 			</c:forEach>
 			</c:if>
 			

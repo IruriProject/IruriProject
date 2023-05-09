@@ -13,20 +13,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 
-	<style>
+<style>
 @import
 	url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
 	;
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-body {
-	font-family: fontAwesome;
-}
 
 .formbold-mb-3 {
 	margin-bottom: 15px;

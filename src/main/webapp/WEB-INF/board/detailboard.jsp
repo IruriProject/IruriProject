@@ -232,7 +232,7 @@ function list() {
 			     s += "<div class='answer'>";
 				 s += "<b class='name'>" + dto.bc_loginid + "</b>"; 
 				 s += "<span class='day'>" + dto.bc_writeday + "</span>";
-				 
+
 
 					if (loginok != 'null' && myid == dto.bc_loginid) {
 						s+="<div class='dropdown' style='float:right;'>";
