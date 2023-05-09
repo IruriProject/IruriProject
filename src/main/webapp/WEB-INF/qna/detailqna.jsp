@@ -284,15 +284,15 @@ function list() {
 <table style="width: 80%; margin:0 auto;">
 		<tr>
 		<td style="display: flex; height: 90px; justify-content: space-between; align-items: center;">
-    <h2 style="margin: 0; font-weight: bold;">${bdto.b_title}</h2>
+    <h2 style="margin: 0; font-weight: bold;">${qdto.q_title}</h2>
     <c:if test="${sessionScope.loginStatus!=null}">
         <div class="dropdown">
             <span class="glyphicon glyphicon-option-vertical" style="color: gray; font-size: 17px;"></span>
             <div class="dropdown-content">
                 <button type="button" style="text-align:center;" onclick="location.href='form'">글쓰기</button>
-                <c:if test="${sessionScope.loginId==bdto.b_loginid}">
-                    <button type="button" style="text-align:center;" onclick="location.href='updateform?b_num=${bdto.b_num}&currentPage=${currentPage }'">수정</button>
-                    <button type="button" style="text-align:center;" onclick="location.href='delete?b_num=${bdto.b_num}&currentPage=${currentPage }'">삭제</button>
+                <c:if test="${sessionScope.loginId==qdto.q_loginid}">
+                    <button type="button" style="text-align:center;" onclick="location.href='updateform?q_num=${qdto.q_num}&currentPage=${currentPage }'">수정</button>
+                    <button type="button" style="text-align:center;" onclick="location.href='delete?q_num=${qdto.q_num}&currentPage=${currentPage }'">삭제</button>
                 </c:if>
             </div>
         </div>
@@ -303,18 +303,12 @@ function list() {
 		<tr>
 			<td>
 			<span
-				style="color: #4E9F3D; float: left; font-size: 14px; padding: 10px;">${bdto.b_loginid }
+				style="color: #4E9F3D; float: left; font-size: 14px; padding: 10px;">${qdto.q_loginid }
 			</span> <span
 				style="color: gray; float: left; font-size: 14px; padding: 10px;">
-					<fmt:formatDate value="${bdto.b_writeday }"
+					<fmt:formatDate value="${qdto.q_writeday }"
 						pattern="yyyy-MM-dd HH:mm" />
-			</span> <span
-				style="color: gray; float: right; font-size: 14px; padding: 10px;">
-					<i class="glyphicon glyphicon-comment"></i> <span class="acount"></span>
-			</span> <span
-				style="color: gray; float: right; font-size: 14px; padding: 10px;">
-					<i class="	glyphicon glyphicon-eye-open"></i> ${bdto.b_readcount }
-			</span> <br>
+			</span><br>
 				<hr>
 				</td>
 
@@ -322,9 +316,9 @@ function list() {
 
 		<tr>
 			<td style="padding:10px;">
-				<c:if test="${b_photo==true}">
-				<c:forEach var="photoUrl" items="${photoUrls}">
-				    <img  alt="이미지" src="/photo/${photoUrl}" style="max-width:100%; margin:10px;"><br>
+				<c:if test="${q_file==true}">
+				<c:forEach var="fileUrl" items="${fileUrls}">
+				    <img  alt="이미지" src="/photo/${fileUrl}" style="max-width:100%; margin:10px;"><br>
 				</c:forEach>
 				 
 				</c:if>
@@ -332,7 +326,7 @@ function list() {
 				
 				<br><br>
 				<div style="padding:20px;">
-				 ${bdto.b_content }
+				 ${qdto.q_content }
 				</div>
 				<br><br>
 				
@@ -348,7 +342,7 @@ function list() {
 			<td>
 			
 			
-					<input type="hidden" name="b_num" id="b_num" value="${bdto.b_num }"> 
+					<input type="hidden" name="b_num" id="b_num" value="${qdto.q_num }"> 
 					<c:if test="${sessionScope.loginStatus!=null }">
 					
 					<div class="aform" style="margin-bottom:130px;">
@@ -374,22 +368,12 @@ function list() {
 		<tr>
 			<td style="margin: 10%; width:80%; display:flex; justify-content:space-between; text-align:center;">
 				<button type="button" class="btn btn-default"
-					onclick="location.href='boardlist?currentPage=${currentPage}'"
+					onclick="location.href='qnawriteform?currentPage=${currentPage}'"
 					style="margin: 0 auto; width: 30%;">목록</button>
 			</td>
 		</tr>
-		
-		<tr>
-			<td style="margin: 10%; width:80%; display:flex; justify-content:space-between; text-align:center;">
-				<button type="button" class="formbold-before-btn">이전게시물</button>
-				<button type="button" class="formbold-next-btn" >다음게시물</button>
-			</td>
-		</tr>
-
 	
 	</table>
 				
-				
-	
 </body>
 </html>

@@ -388,4 +388,64 @@ public class BoardController {
 	{
 		return bservice.getAllComments(b_num);
 	}
+	
+	/*
+ 	@ResponseBody
+@PostMapping("/board/commentinsert")
+public void commentinsert(@ModelAttribute BCommentDto bc_dto,
+		@RequestParam String b_num,
+		HttpSession session)
+{
+	//세션에 로그인한 아이디 얻기 
+	String myid=(String)session.getAttribute("loginId");
+
+	//dto에 넣기
+	bc_dto.setB_num(b_num);
+	bc_dto.setBc_loginid(myid);
+
+	//insert
+	bservice.insertComment(bc_dto);
+}
+
+@ResponseBody
+@GetMapping("/board/form")
+public String form(
+		@RequestParam(defaultValue = "0") int bc_num,
+		@RequestParam(defaultValue = "0") int bc_regroup,
+		@RequestParam(defaultValue = "0") int bc_restep,
+		@RequestParam(defaultValue = "0") int bc_relevel,
+		Model model)
+{
+	
+	//답글일때 넘어오는 값
+	//새글일 경우는 모두 null이므로 default값으로 전달
+	model.addAttribute("bc_num",bc_num);
+	model.addAttribute("bc_regroup",bc_regroup);
+	model.addAttribute("bc_restep",bc_restep);
+	model.addAttribute("bc_relevel",bc_relevel);
+	
+	//제목에 새글일 경우 "", 답글일 경우 해당 제목 넣어보자
+	String subject="";
+	
+	if(bc_num>0) {
+		subject= bservice.getComment(bc_num).getBc_content();
+		// subject=service.getData(num).getSubject();
+	}
+	
+	model.addAttribute("subject",subject);
+	
+	return "/board/writeform";
+}
+
+
+
+//list
+@ResponseBody
+@GetMapping("/board/commentlist")
+public List<BCommentDto> commentlist(int bc_num)
+{
+	return bservice.getAllComments(bc_num);
+}
+*/
+	
 }
