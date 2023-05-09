@@ -114,19 +114,6 @@ $(function(){
 			<form method="POST" flag="new" id="frm">
 				<input type="hidden" name="e_num" id="e_num" value=${enterNum }
 					class="formbold-form-input" />
-					
-					<script>
-
-						  // attr 값이 변경될 때 이벤트 핸들러 등록하기
-						  $('#frm').on('DOMAttrModified', function(event) {
-						    if (event.attrName === 'flag' && event.newValue !== attrValue) {
-						      attrValue = event.newValue;
-						      // attr 값이 변경될 때 실행할 코드 작성하기
-						      alert('attr 값이 변경되었습니다.');
-						    }
-						  });
-					
-					</script>
 				
 				<div align="center">
 					<h2
