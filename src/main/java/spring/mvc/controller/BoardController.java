@@ -2,10 +2,13 @@ package spring.mvc.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpSession;
 
@@ -61,8 +64,8 @@ public class BoardController {
         int start;    //각 페이지의 시작번호
         int perPage=5; //한 페이지에 보여질 글의 갯수
         int perBlock=5; //한 블럭당 보여지는 페이지 갯수
-    
-             
+       
+        
         //총 페이지 갯수     
               totalPage=totalCount/perPage+(totalCount%perPage==0?0:1);
         //각 블럭의 시작페이지
@@ -88,14 +91,72 @@ public class BoardController {
         }
         
        //댓글갯수
-		/*
-		 * for(BoardDto d:list) {
-		 * d.setAcount(aservice.getAllAnswers(d.getNum()).size());
-		 * System.out.println(aservice.getAllAnswers(d.getNum()).size()); }
-		 */
+	
+		 for(BoardDto d:list) {
+			 
+			 d.setB_acount(bservice.getAllComments(d.getB_num()).size());
+			// System.out.println(bservice.getAllComments(d.getB_num()).size());
+			 
+			 
+			 //시간변환 몇분전...등
+		        Date boardnow = new  Date(); //현재시간
+		        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+		        
+		        Date writeday= new Date();
+		        
+		        try {
+					writeday= sdf.parse(d.getB_writeday().toString());
+				
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		        
+		        //초차이
+		        long diffSec= boardnow.getTime()-writeday.getTime(); //밀리세컨
+		        
+		        diffSec-=32400000L; //LONG타입 명시 32400000 -> 9시간을 msec으로 바꿈
+
+		        long day=(diffSec/(60*60*24*1000L))%365; //일
+		        long hour=(diffSec/(60*60*1000L))%24; //시
+		        long minute=(diffSec/(60*1000L))%60; //분
+		        long second=(diffSec/(1000L))%60; //초
+		        
+		        String resultTime="";
+		        
+		        if(day!=0) {
+
+		        	resultTime=""+day+"일 전";
+
+
+		        }else {
+
+		        	if(hour!=0) {
+
+		        		resultTime=""+hour+"시간 전";
+		        	}else {
+
+		        		if(minute!=0) {
+		        			resultTime=""+minute+"분 전";
+
+		        		}else {
+
+		        			resultTime = ""+second+"초 전";
+		        		}
+		        	}
+
+
+		        }
+		        
+		        d.setB_time(resultTime);
+		 }
+		 
         
         //각 페이지에 출력할 시작번호
         int no=totalCount-(currentPage-1)*perPage;
+        
+
         
         //출력에 필요한 변수들을 model에 저장
         model.addObject("totalCount", totalCount);
@@ -131,7 +192,7 @@ public class BoardController {
 
 		String path= session.getServletContext().getRealPath("/photo");
 
-		System.out.println(path);
+		//System.out.println(path);
 
 		String uploadName="";
 
@@ -197,7 +258,7 @@ public class BoardController {
 
 		String path= session.getServletContext().getRealPath("/photo");
 
-		System.out.println(path);
+		//System.out.println(path);
 
 		String uploadName="";
 
@@ -284,7 +345,7 @@ public class BoardController {
 		int dotLoc =bdto.getB_photo().lastIndexOf('.'); //마지막 .의 위치
 		String ext= bdto.getB_photo().substring(dotLoc+1); //현재위치 다음부터 끝까지 // . 의 다음글자부터 끝까지 추출 (.은 포함되면 안되기때문)
 		
-		System.out.println(dotLoc+","+ext);
+		//System.out.println(dotLoc+","+ext);
 		
 		if(ext.equalsIgnoreCase("jpg") || ext.equalsIgnoreCase("gif") || ext.equalsIgnoreCase("png") || ext.equalsIgnoreCase("jpeg"))
 			mview.addObject("b_photo", true);
@@ -327,4 +388,64 @@ public class BoardController {
 	{
 		return bservice.getAllComments(b_num);
 	}
+	
+	/*
+ 	@ResponseBody
+@PostMapping("/board/commentinsert")
+public void commentinsert(@ModelAttribute BCommentDto bc_dto,
+		@RequestParam String b_num,
+		HttpSession session)
+{
+	//세션에 로그인한 아이디 얻기 
+	String myid=(String)session.getAttribute("loginId");
+
+	//dto에 넣기
+	bc_dto.setB_num(b_num);
+	bc_dto.setBc_loginid(myid);
+
+	//insert
+	bservice.insertComment(bc_dto);
+}
+
+@ResponseBody
+@GetMapping("/board/form")
+public String form(
+		@RequestParam(defaultValue = "0") int bc_num,
+		@RequestParam(defaultValue = "0") int bc_regroup,
+		@RequestParam(defaultValue = "0") int bc_restep,
+		@RequestParam(defaultValue = "0") int bc_relevel,
+		Model model)
+{
+	
+	//답글일때 넘어오는 값
+	//새글일 경우는 모두 null이므로 default값으로 전달
+	model.addAttribute("bc_num",bc_num);
+	model.addAttribute("bc_regroup",bc_regroup);
+	model.addAttribute("bc_restep",bc_restep);
+	model.addAttribute("bc_relevel",bc_relevel);
+	
+	//제목에 새글일 경우 "", 답글일 경우 해당 제목 넣어보자
+	String subject="";
+	
+	if(bc_num>0) {
+		subject= bservice.getComment(bc_num).getBc_content();
+		// subject=service.getData(num).getSubject();
+	}
+	
+	model.addAttribute("subject",subject);
+	
+	return "/board/writeform";
+}
+
+
+
+//list
+@ResponseBody
+@GetMapping("/board/commentlist")
+public List<BCommentDto> commentlist(int bc_num)
+{
+	return bservice.getAllComments(bc_num);
+}
+*/
+	
 }

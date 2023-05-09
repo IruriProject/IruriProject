@@ -12,6 +12,7 @@ import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.HeartDto;
 import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.UserDto;
+import spring.mvc.dto.ViewerDto;
 import spring.mvc.mapper.UFnMapperInter;
 
 @Service
@@ -73,6 +74,20 @@ public class UFnService {
 
 	public List<ResumeDto> getMyResume(String u_num){
 		return mapper.getMyResume(u_num);
+  }	
+  
+	//열람
+	public void insertViewer(ViewerDto dto) {
+		mapper.insertViewer(dto);
+	}
+  
+	public int getSearchUnum(String u_num, String p_num) {
+		Map<String, String> map=new HashMap<>();
+		
+		map.put("u_num", u_num);
+		map.put("p_num", p_num);
+		
+		return mapper.getSearchUnum(map);
 	}
 
 	public ResumeDto getResumeOfRNum(String r_num) {

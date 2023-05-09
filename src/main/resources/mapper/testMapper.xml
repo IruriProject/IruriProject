@@ -7,5 +7,6 @@
 	<select id="selectData" resultType="testdto">
 	select * from test
 	</select>
+	
 
 </mapper>

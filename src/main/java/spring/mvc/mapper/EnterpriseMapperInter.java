@@ -32,4 +32,5 @@ public interface EnterpriseMapperInter {
 		            + "INNER JOIN POSTING p ON a.p_num = p.p_num "
 		            + "WHERE p.e_num = #{e_num}")
 	public List<ApplicantDto> getApplicantsByEnterprise(String e_num);
+	public int heartByEnter(String e_num);
 }

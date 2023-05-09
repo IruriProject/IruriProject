@@ -54,5 +54,10 @@
 	    <result column="r_title" property="r_title" />
 	  </association>
 	</resultMap>
+  
+	<!-- 기업별 관심기업 수 -->
+	<select id="heartByEnter" parameterType="String" resultType="int">
+		select count(*) from HEART where e_num=#{e_num}
+	</select>
 	
 </mapper>
