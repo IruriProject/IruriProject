@@ -1283,7 +1283,6 @@ td {
 				<div class="formbold-mb-3">
 					<label for="r_content" class="formbold-form-label"> 자기소개서</label>
 
-
 					<ul class="introduceTab__list">
 						<li><button type="button" id="direct" class="first on">직접입력</button></li>
 						<li><button type="button" id="auto" class="">1분 자동완성</button></li>
@@ -1293,8 +1292,6 @@ td {
 					$(document).ready(function() {
 						  // 직접입력 버튼 클릭 시
 						  $("#direct").click(function() {
-						    // Freedoc div 보여주기
-						    $("#FreeDoc").css("display", "block");
 						    // OneMinDoc div 숨기기
 						    $("#OneMinDoc").css("display", "none");
 						    $(".rcontent-autoInput").val('');
@@ -1308,9 +1305,7 @@ td {
 						  $("#auto").click(function() {
 						    // OneMinDoc div 보여주기
 						    $("#OneMinDoc").css("display", "block");
-						    // FreeDoc div 숨기기
-						    $("#FreeDoc").css("display", "none");
-						    $(".rcontent-directInput").val('');
+						    $(".rcontent-autoInput").val('');
 						    // 1분 자동완성 버튼에 on 클래스 추가
 						    $("#autoBtn").addClass("on");
 						    // 직접입력 버튼에서 on 클래스 제거
@@ -1322,16 +1317,6 @@ td {
 					//웹 브라우저 내부에서만 적용되는 변경, 실제로 서버로 전송되는 데이터는 바뀌지않음
 					//배열 - split으로 되는지 확인할것
 					</script>
-
-					<div id="FreeDoc" class="introduceWrap" style="display: block;">
-
-						<div class="resizable-textarea">
-							<textarea name="r_content" id="r_content" style="height: 100px;"
-								placeholder="나의 강점과 특징에 대해 소개하고 어떤 사람인지 설명해 보세요.
-직접 작성이 어려울 땐 간편입력을 활용하세요!"
-								class="rcontent-directInput"></textarea>
-						</div>
-					</div>
 
 					<div id="OneMinDoc" class="introduceWrap" style="display: none;">
 
@@ -1453,13 +1438,7 @@ td {
 
 								</table>
 							</div>
-							<textarea name="r_content" id="r_content" style="height: 100px;"
-								placeholder="나의 강점과 특징을 간편하게 등록해 보세요!"
-								class="rcontent-autoInput"></textarea>
-							<!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
-
-
-
+							
 							<script type="text/javascript">
 							var selectedPersonality = "";
 							var selectedCareer = "";
@@ -1509,9 +1488,33 @@ td {
 
 						</div>
 					</div>
-
-					<br> <input type="checkbox" name="r_presume">대표이력서 설정
-					<br> <input type="checkbox" name="r_private">이력서 비공개
+				</div>
+								<textarea name="r_content" id="r_content" style="height: 100px;"
+								placeholder="나의 강점과 특징을 등록해 보세요!"
+								class="rcontent-autoInput"></textarea>
+							<!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
+					<br> <input type="checkbox" name="r_presume" class="checkbox">대표이력서 설정
+					<br> <input type="checkbox" name="r_private" class="checkbox">이력서 비공개
+					<script type="text/javascript">
+					var r_presume_checkbox = document.querySelector('input[name="r_presume"]');
+					  var r_private_checkbox = document.querySelector('input[name="r_private"]');
+					  
+					  r_presume_checkbox.addEventListener('change', function() {
+					    if (this.checked) {
+					      this.value = 1;
+					    } else {
+					      this.value = 0;
+					    }
+					  });
+					  
+					  r_private_checkbox.addEventListener('change', function() {
+					    if (this.checked) {
+					      this.value = 0;
+					    } else {
+					      this.value = 1;
+					    }
+					  });
+					</script>
 					<!-- 대표이력서 체크되면 1(대표이력서), 비공개 체크되면 1(비공개)되게 해야함 -->
 
 					<button id="submitBtn" type="submit" class="formbold-btn">공고등록</button>

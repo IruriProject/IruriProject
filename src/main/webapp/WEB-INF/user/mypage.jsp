@@ -97,12 +97,12 @@ div {
 								<h3>${rdto.r_title}</h3>
 								<br>
 							최종수정일 : ${rdto.r_writeday }<br>
-								<c:if test="${rdto.r_private==0}">
+								<c:if test="${rdto.r_private==1}">
 							공개중
 							<button type="button">이력서 비공개</button>
 								</c:if>
 
-								<c:if test="${rdto.r_private==1}">
+								<c:if test="${rdto.r_private==0}">
 							비공개중
 							<button type="button">이력서 공개</button>
 								</c:if>
