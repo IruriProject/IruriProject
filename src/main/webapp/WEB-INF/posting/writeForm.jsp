@@ -354,9 +354,9 @@ body {
 	width: 150px;
 	padding: 5px 15px;
 	border-radius: 5px;
-	border: none;
-	background-color: #4E9F3D;
-	color: white;
+	border: 1px solid #4E9F3D;
+	background-color: white;
+	color: #4E9F3D;
 	cursor: pointer;
 }
 
