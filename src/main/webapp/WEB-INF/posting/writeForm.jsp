@@ -143,8 +143,10 @@ $(function(){
 						</div>근로 기준에 준수하여 공고 작성하였습니다.
 					</label>
 				</div>
-
-				<button class="formbold-btn">공고등록</button>
+				
+				<button class="formbold-btn" type="submit">공고등록</button>
+				<button class="formbold-btn2" type="button" onclick="location.href='#'">임시저장</button>
+			
 			</form>
 		</div>
 	</div>
@@ -350,6 +352,20 @@ body {
 	float: right;
 }
 
+.formbold-btn2 {
+	font-size: 16px;
+	border-radius: 5px;
+	padding: 14px 25px;
+	border: 1px solid #4E9F3D;
+	font-weight: 500;
+	background-color: white;
+	color: #4E9F3D;
+	cursor: pointer;
+	margin-top: 25px;
+	float: right;
+	margin-right: 10px;
+}
+
 .small-btn{
 	width: 150px;
 	padding: 5px 15px;
@@ -360,7 +376,7 @@ body {
 	cursor: pointer;
 }
 
-.formbold-btn:hover, .small-btn:hover {
+.formbold-btn:hover, .formbold-btn2:hover, .small-btn:hover {
 	box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
 }
 
