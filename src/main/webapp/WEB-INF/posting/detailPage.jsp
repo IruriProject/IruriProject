@@ -18,8 +18,6 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <link href="${root }/css/postingDetailStyles.css" rel="stylesheet" />
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e307bbbc3f0eb499cc6f855a21cc9478&libraries=services"></script>
 <style>
 body {
 	position: relative;
@@ -84,14 +82,14 @@ body {
 
 .cInfo {
 	width: 47%;
-	height: 480px;
+	height: 200px;
 	border: 1px solid #e3f2c9;
 	margin: 10px;
 }
 
 .graphs {
 	text-align: center;
-	line-height: 400px;
+	line-height: 200px;
 }
 
 .withbtn {
@@ -109,131 +107,6 @@ body {
 	justify-content: flex-end;
 }
 </style>
-<script type="text/javascript">
-	/* 성별 분포도 */
-	google.charts.load('current', {	
-	  packages:['corechart']
-	}).then(function () {
-				
-	  $.ajax({
-	    url: "/posting/gendergraph",
-	    data:{"p_num":${dto.p_num}},
-	    dataType: "JSON",
-	    success: function(result){
-	    	if(result[0].count==0&&result[1].count==0){
-	    		$("#genderChart").html("<span style='font-size:1.5em;'>해당 공고의 지원자가 없습니다.</span>");
-	    	} else
-	    		drawGenderChart(result);
-	    }
-	  });
-
-	  function drawGenderChart(result) {
-	    var data = new google.visualization.DataTable();
-	    data.addColumn('string', 'gender');
-	    data.addColumn('number', 'count');
-
-	    var dataArray = [];
-
-	    $.each(result, function(i, obj) {
-	      dataArray.push([obj.gender, parseInt(obj.count)]);
-	    });
-
-	    data.addRows(dataArray);
-
-	    var piechart_options = {
-	      colors: ['#4E9F3D', '#cce891']
-	    };
-	    var piechart = new google.visualization.PieChart(document.getElementById('genderChart'));
-	    piechart.draw(data, piechart_options);
-	  }
-	});
-	
-	
-	/* 나이 분포도 */
-	google.charts.load('current', {	
-		  packages:['line']
-		}).then(function () {
-					
-		  $.ajax({
-		    url: "/posting/agegraph",
-		    data:{"p_num":${dto.p_num}},
-		    dataType: "JSON",
-		    success: function(result){
-		    	if(result[0].count==0&&result[1].count==0){
-		    		$("#ageChart").html("<span style='font-size:1.5em;'>해당 공고의 지원자가 없습니다.</span>");
-		    	} else
-		    		drawGenderChart(result);
-		    }
-		  });
-
-		  function drawGenderChart(result) {
-		    var data = new google.visualization.DataTable();
-		    data.addColumn('string', 'age');
-		    data.addColumn('number', 'count');
-
-		    var dataArray = [];
-
-		    $.each(result, function(i, obj) {
-		      dataArray.push([obj.age, parseInt(obj.count)]);
-		    });
-
-		    data.addRows(dataArray);
-
-		    var linechart_options = {
-    		  series: {
-    		        0: {color: '#4E9F3D'}
-    		  },
-    		  legend: 'none',
-    		  vAxis:{
-    			  format:'0 명'
-    		  }
-		    };
-		    var linechart = new google.visualization.LineChart(document.getElementById('ageChart'));
-		    linechart.draw(data, linechart_options);
-		  }
-		});
-	
-	
-	/* 지도 */
-	$(function(){
-		var mapContainer = document.getElementById('enterMap'), // 지도를 표시할 div 
-	    mapOption = {
-	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	        level: 5 // 지도의 확대 레벨
-	    };  
-	
-		// 지도를 생성합니다    
-		var map = new kakao.maps.Map(mapContainer, mapOption); 
-	
-		// 주소-좌표 변환 객체를 생성합니다
-		var geocoder = new kakao.maps.services.Geocoder();
-	
-		// 주소로 좌표를 검색합니다
-		geocoder.addressSearch('${dto.e_addr}', function(result, status) {
-	
-		    // 정상적으로 검색이 완료됐으면 
-		     if (status === kakao.maps.services.Status.OK) {
-	
-		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-	
-		        // 결과값으로 받은 위치를 마커로 표시합니다
-		        var marker = new kakao.maps.Marker({
-		            map: map,
-		            position: coords
-		        });
-	
-		        // 인포윈도우로 장소에 대한 설명을 표시합니다
-		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.e_name}</div>'
-		        });
-		        infowindow.open(map, marker);
-	
-		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-		        map.setCenter(coords);
-		    } 
-		});    
-	});
-</script>
 </head>
 <body>
 	<!-- Page content-->
@@ -252,59 +125,14 @@ body {
 							<div>
 								<c:if
 									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
+
+									<%-- <button type="button" class="btn btn-info mt-2">지원하기</button>
+									<button type="button" id="btnscrap" u_id=${sessionScope.loginId} e_num=${dto.e_num }
+									 class="btn btn-info mt-2">공고 스크랩</button> --%>
+
 									<button type="button" class="btn btn-info mt-2" data-toggle="modal" data-target="#myModal">지원하기</button>
 									<button type="button" id="btnscrap" class="btn btn-info mt-2">공고 스크랩</button>
-									
-					<!-- 지원하기 모달 -->
-						
-					  <!-- Modal -->
-					  <div class="modal fade" id="myModal" role="dialog">
-					    <div class="modal-dialog modal-lg">
-					      <div class="modal-content">
-					        <div class="modal-header">
-					          <h4 class="modal-title"> ${dto.p_title } - ${dto.e_name } 회사에 지원하기 &nbsp;</h4>
-					          <button type="button" class="close" data-dismiss="modal">&times;</button>
-					        </div>
-					        <div class="modal-body">
-					        
-					        <form action="/apply" method="post">
-					        <table class="table table-bordered" style="width: 700px;">
-					            <tr>
-					            <td>선택</td>
-					            <td>제목</td>
-					            <td>공개여부</td>
-					            <td>작성일</td>
-					            </tr>
-					          <input type="hidden" name="p_num" value="${dto.p_num }">
-					          <c:forEach var="udto" items="${rlist }">
-					        	<tr>
-						        <td width="50">
-					            <input type="radio" name="r_num" value="${udto.r_num }">
-						        </td>
-						        <td>
-						        <c:if test="${udto.r_presume==1 }">[대표]</c:if>
-					            ${udto.r_title } <br>
-						        </td>
-						        <td>
-						        <c:if test="${udto.r_private==0 }">X</c:if>
-						        <c:if test="${udto.r_private==1 }">O</c:if>
-						        </td>
-						        <td><fmt:formatDate value="${udto.r_writeday}" pattern="yyyy.MM.dd"/></td>
-					        	</tr>
-					          </c:forEach>
-					            <tr>
-					            <td colspan="4" align="center"><button type="submit" class="">제출</button></td>
-					            </tr>
-					        </table>
-					        </form>
-					        </div>
-					        <div class="modal-footer">
-					          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					        </div>
-					      </div>
-					    </div>
-					  </div>
-									
+
 								</c:if>
 								<c:if
 									test="${sessionScope.loginStatus=='enterprise'&&sessionScope.loginId==dto.e_id }">
@@ -316,6 +144,26 @@ body {
 							</div>
 						</div>
 						
+					  <!-- 지원하기 모달 -->
+						
+					  <!-- Modal -->
+					  <div class="modal fade" id="myModal" role="dialog">
+					    <div class="modal-dialog modal-lg">
+					      <div class="modal-content">
+					        <div class="modal-header">
+					          <h4 class="modal-title"> ${dto.p_title } - ${dto.e_name } 회사에 지원하기 &nbsp;</h4>
+					          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					        </div>
+					        <div class="modal-body">
+					          <p>지원하기</p>
+					        </div>
+					        <div class="modal-footer">
+					          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					        </div>
+					      </div>
+					    </div>
+					  </div>
+											
 						<script type="text/javascript">
 						
 						function reloadAlert(){
@@ -409,7 +257,9 @@ body {
 								<c:if
 									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
 									<button type="button" u_id=${sessionScope.loginId} e_num=${dto.e_num }
-									id="btnLikeEnter" class="btn btn-info glyphicon glyphicon-heart-empty ">기업 찜하기</button>
+									id="btnLikeEnter" class="btn btn-info glyphicon glyphicon-heart-empty ">기업찜하기</button>
+									<button type="button" u_id=${sessionScope.loginId} e_num=${dto.e_num }
+									id="prebtnLikeEnter" class="btn btn-info glyphicon glyphicon-heart-empty ">시험찜하기</button>
 								</c:if>
 								</div>
 							</div>
@@ -426,23 +276,27 @@ body {
 					<section class="mb-4 mt-5">
 						<div class="cInfos">
 							<div class="cInfo graphs">
-							<h3>지원자 성별 분포도</h3>
-								<div id="genderChart" style="width: 100%; height: 380px"></div>
+								<div>지원자 남녀 비율</div>
 							</div>
 							<div class="cInfo graphs">
-								<h3>지원자 연령 분포도</h3>
-								<div id="ageChart" style="width: 100%; height: 380px"></div>
+								<div>지원자 연령별 그래프</div>
 							</div>
 						</div>
 					</section>
 					<br>
 					<!-- 근무지정보-->
-					<section class="mb-4 mt-5" style="border: 1px solid #e3f2c9">
+					<section class="mb-4 mt-5">
 						<h3>근무지정보</h3>
-						<div style="width: 100%; height: 500px;">
-								<span>기업명 : ${dto.e_name }</span><br> 
-								<span>회사주소 : ${dto.e_addr }</span><br><br>
-								<div style="width: 100%; height: 85%" id="enterMap"></div>
+						<div class="cInfos">
+							<div class="cInfo">
+								<span>기업명: ${dto.e_name }</span><br> <span>회사주소:
+									${dto.e_addr }</span><br>
+								<div>지도</div>
+							</div>
+							<div class="cInfo">
+								<span>근처역1</span><br> <span>근처역2</span><br>
+								<div>근처역3</div>
+							</div>
 						</div>
 					</section>
 				</article>
@@ -473,7 +327,7 @@ body {
 					},
 					url:"/hinsert",
 					success:function(res){
-						alert("좋아요 성공");
+						alert("❤️💔좋아요❤️💔");
 						
 					}
 				})

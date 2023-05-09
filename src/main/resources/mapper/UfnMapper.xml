@@ -85,4 +85,11 @@
 	select * from RESUME where u_num=#{u_num}
 	</select>
 
+	
+	<!-- 스크랩버튼 누르면 데이터 저장됨 -->
+	<insert id="insertScrapEnter" parameterType="sdto">
+		insert into SCRAP (u_num, p_num) values (#{u_num},#{p_num})
+	</insert>
+	
+
 </mapper>
