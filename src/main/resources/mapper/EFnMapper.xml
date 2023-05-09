@@ -9,16 +9,43 @@
 		select POSTING.*, ENTERPRISE.* from POSTING inner join ENTERPRISE on POSTING.e_num = ENTERPRISE.e_num where POSTING.p_num = #{p_num}
 	</select>
 	
+	<!-- 분포도 -->
+	<select id="applicantByPosting" parameterType="String" resultType="Map">
+		SELECT a.*,u.* FROM APPLICANT AS a JOIN RESUME AS r ON a.r_num = r.r_num JOIN USER AS u ON r.u_num = u.u_num WHERE a.p_num=#{p_num};
+	</select>
+	
 	<!-- 공고별 스크랩 수 -->
 	<select id="scrapByPosting" parameterType="String" resultType="int">
 		select count(*) from SCRAP where p_num=#{p_num}
+	</select>
+	
+	<!-- 공고별 스크랩한 유저 -->
+	<select id="scrapUserByPosting" parameterType="String" resultType="Map">
+		SELECT POSTING.*, SCRAP.*, USER.* FROM SCRAP
+		JOIN USER ON SCRAP.u_num = USER.u_num
+		JOIN POSTING ON SCRAP.p_num = POSTING.p_num
+		WHERE SCRAP.p_num = #{p_num}
 	</select>
 	
 	<!-- 공고별 열람 수 -->
 	<select id="viewerByPosting" parameterType="String" resultType="int">
 		select count(*) from VIEWER where p_num=#{p_num}
 	</select>
+	
+	<!-- 공고별 열람한 유저 -->
+	<select id="viewerUserByPosting" parameterType="String" resultType="Map">
+		SELECT POSTING.*, VIEWER.*, USER.* FROM VIEWER
+		JOIN USER ON VIEWER.u_num = USER.u_num
+		JOIN POSTING ON VIEWER.p_num = POSTING.p_num
+		WHERE VIEWER.p_num = #{p_num}
+	</select>
+	
+	<!-- 최근 공고 불러오기 -->
+	<select id="loadingRecentPosting" parameterType="String" resultType="pdto">
+		SELECT * FROM POSTING WHERE e_num = #{e_num} AND p_num = (SELECT MAX(p_num) FROM POSTING WHERE e_num = #{e_num})
+	</select>
 
+	<!-- 공고 -->
 	<select id="getTotalCount" resultType="int">
 	select count(*) from POSTING
 	</select>

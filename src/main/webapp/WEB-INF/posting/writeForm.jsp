@@ -12,7 +12,33 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <link
 	href="https://fonts.googleapis.com/css2?family=Anton&family=Edu+VIC+WA+NT+Beginner:wght@600&family=Gamja+Flower&family=Single+Day&family=Jua&family=Nanum+Pen+Script&display=swap"
-	rel="stylesheet">
+	rel="stylesheet"/>
+<script>
+$(function(){
+	$("#reloading").click(function(){
+		$.ajax({
+			type:"get",
+			data:{"e_num":"1"},
+			dataType:"json",
+			url:"/posting/loadingRecentPosting",
+			success:function(res){
+				$("#p_title").val(res.p_title);
+				$("#p_type").val(res.p_type);
+				$("#p_pay").val(res.p_pay);
+				$("#p_period").val(res.p_period);
+				$("#p_workday").val(res.p_workday);
+				$("#p_hirenum").val(res.p_hirenum);
+				$("#p_starttime").val(res.p_starttime);
+				$("#p_endtime").val(res.p_endtime);
+				$("#p_employtype").val(res.p_employtype);
+				$("#p_content").val(res.p_content);
+				$("#p_enddate").val(res.p_enddate);
+			}
+		})
+	})
+})
+
+</script>
 </head>
 <body>
 	<div class="formbold-main-wrapper">
@@ -24,6 +50,8 @@
 					<h2
 						style="font-weight: 600; color: #416442; background-color: #e3f2c9; width: 300px; height: 50px; font-size: 1.8em; padding: 10px 0px; border-radius: 10px; text-align: center;">공고등록</h2>
 				</div>
+				<br>
+				<div align="right"><button type="button" class="small-btn" id="reloading">이전공고 불러오기</button></div>
 				<br>
 				<div class="formbold-input-wrapp formbold-mb-3">
 					<label for="p_title" class="formbold-form-label"> 공고제목 </label>
@@ -322,7 +350,17 @@ body {
 	float: right;
 }
 
-.formbold-btn:hover {
+.small-btn{
+	width: 150px;
+	padding: 5px 15px;
+	border-radius: 5px;
+	border: none;
+	background-color: #4E9F3D;
+	color: white;
+	cursor: pointer;
+}
+
+.formbold-btn:hover, .small-btn:hover {
 	box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
 }
 

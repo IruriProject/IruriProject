@@ -107,9 +107,14 @@
 						<div
 							class="d-flex align-items-center justify-content-between mb-2">
 							<h4 class="mb-5"><b>쪽지관리</b></h4>
-							<a href="/posting/writemessage">쪽지보내기</a><a class="atag" href="/posting/messagelist">Show All</a>
+							<a class="atag" href="/posting/messagelist">Show All</a>
 						</div>
-						
+						<c:if test="${messages.size()==0 }">
+							<div class="w-100" align="center">
+								<br>
+								<span style="color: gray">인재에게 발송한 쪽지가 없습니다.</span>
+							</div>
+						</c:if>
 						<c:forEach var="msg" items="${messages }">
 						
 							<div class="d-flex align-items-center border-bottom py-3 atag mt-3">
@@ -157,7 +162,7 @@
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center" width="30%">공고제목</th>
+								<th scope="col" style="text-align: center" width="40%">공고제목</th>
 								<th scope="col" style="text-align: center">직종</th>
 								<th scope="col" style="text-align: center">공고일</th>
 								<th scope="col" style="text-align: center">공고마감일</th>
@@ -172,9 +177,9 @@
 								<tr>
 									<td style="text-align: left"><a class="atag"
 										href="posting/detailpage?p_num=${post.p_num }">&nbsp;&nbsp;<b>${post.p_title }</b></a>&nbsp;&nbsp;
-										<span class="counting viewer" title="열람한 인재목록 보기" onclick="location.href='/enterprise/viewerlist?p_num=${post.p_num}'">열람 : 0명</span>
+										<span class="counting viewer" p_num=${post.p_num } title="열람한 인재목록 보기" onclick="location.href='/enterprise/viewerlist?p_num=${post.p_num}'"></span>
 										<span class="counting">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-										<span class="counting scrap" title="스크랩한 인재목록 보기" onclick="location.href='/enterprise/scraplist?p_num=${post.p_num}'">스크랩 : 0명</span>
+										<span class="counting scrap" p_num=${post.p_num } title="스크랩한 인재목록 보기" onclick="location.href='/enterprise/scraplist?p_num=${post.p_num}'"></span>
 									</td>
 									<td>${post.p_type }</td>
 									<td><fmt:formatDate value="${post.p_writeday }"
@@ -187,6 +192,23 @@
 										</select>
 									</td>
 								</tr>
+								
+								 <script type="text/javascript">
+							        $(function(){
+							            var p_num = "${post.p_num}";
+							            $.ajax({
+							                type:"get",
+							                data:{"p_num":p_num},
+							                dataType:"json",
+							                url:"/enterprise/counting",
+							                success:function(res){
+							                    $(".viewer[p_num='"+p_num+"']").text("열람 : "+res.viewercounting+"명");
+							                    $(".scrap[p_num='"+p_num+"']").text("스크랩 : "+res.scrapcounting+"명");
+							                }
+							            });
+							        });
+							    </script>`
+								
 							</c:forEach>
 						</tbody>
 					</table>
