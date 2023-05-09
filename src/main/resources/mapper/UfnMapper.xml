@@ -86,6 +86,7 @@
 	<select id="getMyResume" resultType="rdto" parameterType="String">
 	select * from RESUME where u_num=#{u_num}
 	</select>
+	
 	<!-- 대표이력서 설정 -->
 	<update id="updateMain" parameterType="int">
 	  update RESUME set r_presume=1 where r_num = #{r_num}

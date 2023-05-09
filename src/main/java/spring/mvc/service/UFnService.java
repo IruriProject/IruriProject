@@ -67,6 +67,9 @@ public class UFnService {
 	public ResumeDto getResume(String u_num) {
 		return mapper.getResume(u_num);
 	}
+	public void updateMain(int r_num) {
+		mapper.updateMain(r_num);
+	}
 
 	// num으로 유저정보 찾기
 	public UserDto findUserdataByNum(String u_num) {
