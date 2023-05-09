@@ -1,6 +1,7 @@
 package spring.mvc.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,10 @@ public class UFnService {
 		mapper.updateUser(dto);
 	}
 
+	public void updateUserNoAddr(UserDto dto) {
+		mapper.updateUserNoAddr(dto);
+	}
+
 	public void updatePw(String u_id, String u_pw) {
 		// TODO Auto-generated method stub
 		Map<String, String> map = new HashMap<>();
@@ -43,6 +48,10 @@ public class UFnService {
 
 		mapper.updatePhoto(map);
 	}
+	
+	public void insertResume(ResumeDto dto) {
+		mapper.insertResume(dto);
+	}
 
 	public int countLikeEnterprise(String num) {
 
@@ -54,9 +63,20 @@ public class UFnService {
 		return mapper.getEnterPrise(num);
 	}
 
-	// id로 유저정보 찾기
+	// num으로 이력서 찾기
 	public ResumeDto getResume(String u_num) {
 		return mapper.getResume(u_num);
+	}
+	
+
+	// num으로 유저정보 찾기
+	public UserDto findUserdataByNum(String u_num) {
+		return mapper.findUserByNum(u_num);
+	}
+
+	// 회원삭제
+	public void deleteUser(String u_num) {
+		mapper.deleteUser(u_num);
 	}
 
 	// 좋아요 한 회원과 기업 데이터 추가
@@ -70,7 +90,6 @@ public class UFnService {
 
 		mapper.deleteLikeEnter(num);
 	}
-
 	
 	//열람
 	public void insertViewer(ViewerDto dto) {
@@ -84,6 +103,11 @@ public class UFnService {
 		
 		return mapper.getSearchUnum(map);
 	}
+	public List<ResumeDto> getMyResume(String u_num){
+		return mapper.getMyResume(u_num);
+	}
 
-
+	public ResumeDto getResumeOfRNum(String r_num) {
+		return mapper.getResumeOfRNum(r_num);
+	}
 }
