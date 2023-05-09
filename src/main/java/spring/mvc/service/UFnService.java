@@ -38,6 +38,14 @@ public class UFnService {
 
 		mapper.updatePw(map);
 	}
+	
+	public void updatePrivate(int r_num) {
+		mapper.updatePrivate(r_num);
+	}
+	
+	public void updatePublic(int r_num) {
+		mapper.updatePublic(r_num);
+	}
 
 	public void updatePhoto(String u_id, String u_photo) {
 		// TODO Auto-generated method stub

@@ -87,12 +87,16 @@ div {
 					
 						<div
 							class="d-flex align-items-center justify-content-between mb-4">
-							<c:if test="${rdto.r_title==null}">
+							<c:if test="${rdto.r_title==0 }">
+								<h3>이력서가 없습니다.</h3>
+								<button type="button" onclick="location.href='insertresume'">이력서 등록</button>
+							</c:if>
+							<c:if test="${rdto.r_presume==0}">
 								<h3>대표이력서가 없습니다.</h3>
 								<button type="button" onclick="location.href='resumelist'">대표이력서 설정하기</button>
 								<!-- 이력서 목록 페이지로 -->
 							</c:if>
-							<c:if test="${rdto.r_title!=null}">
+							<c:if test="${rdto.r_presume==1}">
 								<h3>${rdto.r_title}</h3>
 								<br>
 								최종수정일 : ${rdto.r_writeday }<br>

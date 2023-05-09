@@ -28,6 +28,8 @@ public interface UFnMapperInter {
 	public UserDto findUserByNum(String u_num);
 	public void deleteUser(String u_num);
 	public void insertResume(ResumeDto dto);
+	public void updatePrivate(int r_num);
+	public void updatePublic(int r_num);
 	//열람
 	public void insertViewer(ViewerDto dto);
 	public int getSearchUnum(Map<String, String> map);

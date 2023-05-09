@@ -90,6 +90,9 @@ public class UFnController {
 		 String u_id = (String) session.getAttribute("loginId");
 		 UserDto dto = service.findUserdataById(u_id);
 		 List<ResumeDto> list=uservice.getMyResume(dto.getU_num());
+		 ResumeDto rdto = uservice.getResume(dto.getU_num());
+		 
+		 model.addObject("rdto", rdto);
 		 model.addObject("dto", dto);
 		 model.addObject("list", list);
 		 model.setViewName("/user/resumelist");
@@ -150,6 +153,12 @@ public class UFnController {
 	public String uPw(String u_id, String u_pw) {
 		uservice.updatePw(u_id, u_pw);
 		return "redirect:mypage";
+	}
+	
+	@PostMapping("/updatePrivate")
+	public String updatePrivate(int r_num) {
+		uservice.updatePrivate(r_num);
+		return "redirect:resumelist";
 	}
 
 	// 사진등록

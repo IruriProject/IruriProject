@@ -69,15 +69,24 @@ div {
 								<td>수정페이지로 이동버튼</td>
 								<td>
 								<!-- if문 -->
-								<c:if test="${dto.r_presume==0}">
-								<button type="button">공개 전환</button>
+								<c:if test="${dto.r_private==0}">
+									<button type="button" id="setPublic">공개 전환</button>
 								</c:if>
-								<c:if test="${dto.r_presume==1}">
-								<button type="button">비공개 전환</button>
+								<c:if test="${dto.r_private==1}">
+									<button type="button" id="setPrivate">비공개 전환</button>
 								</c:if>
 								</td>
+								
 								<td><input type="checkbox"></td>
-								<td><button type="button" onclick="location.href='updateMain'">대표</button></td>
+								
+								<td>
+								<c:if test="${dto.r_presume==0}">
+								<button type="button">대표 설정</button>							
+								</c:if>
+								<c:if test="${dto.r_presume==1}">
+								<button type="button">대표 해제</button>	
+								</c:if>
+								</td>	
 							</tr>
 						</c:forEach>
 					</table>
@@ -85,7 +94,33 @@ div {
 				</div>
 			</div>
 		</div>
+	<script type="text/javascript">
+	$("#setPrivate").click(function(){
+		var r_num="${rdto.r_num}";
+		$.ajax({
+			type:"post",
+			dataType:"html",
+			data:{"r_num":r_num},
+			url:"/updatePrivate",
+			success:function(){
+				alert("성공");
+			}
+		})
+	})
 	
+	$("#setPublic").click(function(){
+		var r_num="${rdto.r_num}";
+		$.ajax({
+			type:"post",
+			dataType:"html",
+			data:{"r_num":r_num},
+			url:"/updatePublic",
+			success:function(){
+				alert("성공");
+			}
+		})
+	})
+	</script>
 	
 	
 </body>
