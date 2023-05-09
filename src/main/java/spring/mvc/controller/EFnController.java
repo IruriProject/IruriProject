@@ -116,6 +116,7 @@ public class EFnController {
 		String loginId = (String) session.getAttribute("loginId");
 		EnterpriseDto e_dto = e_service.findEnterdataById(loginId);
 
+		model.addAttribute("draftCount", service.draftList(e_dto.getE_num()).size());
 		model.addAttribute("enterNum", e_dto.getE_num());
 		model.addAttribute("draftList", service.draftList(e_dto.getE_num()));
 		
@@ -150,6 +151,13 @@ public class EFnController {
 		
 		return "/posting/draftPosting";
 
+	}
+	
+	@PostMapping("/draftdelete")
+	public String draftdelete(@RequestParam String p_num) {
+		service.deletePosting(p_num);
+		
+		return "redirect:/posting/write";
 	}
 	
 

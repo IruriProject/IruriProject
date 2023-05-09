@@ -16,11 +16,13 @@
 	rel="stylesheet"/>
 <script>
 $(function(){
-	var attrValue = $('#frm').attr('flag');
+	if(${draftCount}!=0){
+		var a=confirm("임시저장된 글이 있습니다. 임시 저장된 글을 불러올까요?");
 	
-	var a=confirm("임시저장된 글이 있습니다. 임시 저장된 글을 불러올까요?");
-	if(a){
-		$("#draftbtn").trigger('click');
+		if(a){
+			$("#draftbtn").trigger('click');
+		}
+	
 	}
 	
 	$("#recentPosting").click(function(){
@@ -74,7 +76,22 @@ $(function(){
 			}
 			
 		})
-		//alert($("#p_num").val());
+		
+	})
+	
+	$(".draftdel").click(function(){
+		var p_num=$(this).attr("p_num");
+		$.ajax({
+			type:"post",
+			data:{"p_num":p_num},
+			dataType:"html",
+			url:"/posting/draftdelete",
+			success:function(res){
+				alert("임시저장 공고가 삭제되었습니다.");
+				location.reload();
+			}
+			
+		})
 	})
 	
 })
@@ -98,7 +115,7 @@ $(function(){
 	         	<c:forEach var="draftDto" items="${draftList }">
 	         		<tr>
 	                	<td>
-	                    	<input type="radio" name="draft" value="${draftDto.p_num }" checked> ${draftDto.p_title } (${draftDto.p_type })
+	                    	<input type="radio" name="draft" value="${draftDto.p_num }"> ${draftDto.p_title } (${draftDto.p_type }) <button style="float: right" type="button" p_num="${draftDto.p_num }" class="btn btn-info btn-xs draftdel">임시저장 삭제</button>
 	                    </td>
 	                </tr>
 	         	</c:forEach>
@@ -124,7 +141,12 @@ $(function(){
 						style="font-weight: 600; color: #416442; background-color: #e3f2c9; width: 300px; height: 50px; font-size: 1.8em; padding: 10px 0px; border-radius: 10px; text-align: center;">공고등록</h2>
 				</div>
 				<br>
-				<div align="right"><button type="button" id="draftbtn" class="small-btn" data-toggle="modal" style="margin-right: 10px;" data-target="#draftPostModal">임시저장 불러오기</button><button type="button" class="small-btn" id="recentPosting">이전공고 불러오기</button></div>
+				
+				<div align="right">
+					<c:if test="${draftCount!=0 }">
+						<button type="button" id="draftbtn" class="small-btn" data-toggle="modal" style="margin-right: 10px;" data-target="#draftPostModal">임시저장 불러오기</button>
+					</c:if>
+				<button type="button" class="small-btn" id="recentPosting">이전공고 불러오기</button></div>
 				<br>
 				<div class="formbold-input-wrapp formbold-mb-3">
 					<label for="p_title" class="formbold-form-label"> 공고제목 </label>
