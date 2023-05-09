@@ -40,7 +40,6 @@ div {
 
 <body>
 	<div>
-
 		<!-- Content Start -->
 		<div class="container-fluid pt-4 px-4">
 			<div class="row g-4" style="border: 1px solid gray">
@@ -90,23 +89,22 @@ div {
 							class="d-flex align-items-center justify-content-between mb-4">
 							<c:if test="${rdto.r_title==null}">
 								<h3>대표이력서가 없습니다.</h3>
-								<button onclick="location.href='#'">대표이력서 설정하기</button>
+								<button type="button" onclick="location.href='resumelist'">대표이력서 설정하기</button>
 								<!-- 이력서 목록 페이지로 -->
 							</c:if>
 							<c:if test="${rdto.r_title!=null}">
 								<h3>${rdto.r_title}</h3>
 								<br>
-							최종수정일 : ${rdto.r_writeday }<br>
+								최종수정일 : ${rdto.r_writeday }<br>
+								
 								<c:if test="${rdto.r_private==1}">
-							공개중
-							<button type="button">이력서 비공개</button>
+								공개중
+								<button type="button">이력서 비공개</button>
 								</c:if>
-
 								<c:if test="${rdto.r_private==0}">
-							비공개중
-							<button type="button">이력서 공개</button>
+								비공개중
+								<button type="button">이력서 공개</button>
 								</c:if>
-
 							</c:if>
 						</div>
 					</div>
@@ -207,7 +205,7 @@ div {
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h6 class="mb-0">이력서 목록</h6>
-					<a href="">더보기</a>
+					<a href="resumelist">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table

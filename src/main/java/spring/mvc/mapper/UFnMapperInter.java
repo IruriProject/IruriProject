@@ -1,11 +1,13 @@
 package spring.mvc.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.ObjectProvider;
 
+import spring.mvc.dto.BoardDto;
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.HeartDto;

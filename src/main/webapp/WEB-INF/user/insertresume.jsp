@@ -1493,19 +1493,9 @@ td {
 								placeholder="나의 강점과 특징을 등록해 보세요!"
 								class="rcontent-autoInput"></textarea>
 							<!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
-					<br> <input type="checkbox" name="r_presume" class="checkbox">대표이력서 설정
 					<br> <input type="checkbox" name="r_private" class="checkbox">이력서 비공개
 					<script type="text/javascript">
-					var r_presume_checkbox = document.querySelector('input[name="r_presume"]');
 					  var r_private_checkbox = document.querySelector('input[name="r_private"]');
-					  
-					  r_presume_checkbox.addEventListener('change', function() {
-					    if (this.checked) {
-					      this.value = 1;
-					    } else {
-					      this.value = 0;
-					    }
-					  });
 					  
 					  r_private_checkbox.addEventListener('change', function() {
 					    if (this.checked) {
@@ -1515,7 +1505,7 @@ td {
 					    }
 					  });
 					</script>
-					<!-- 대표이력서 체크되면 1(대표이력서), 비공개 체크되면 1(비공개)되게 해야함 -->
+					<!-- 대표이력서 체크되면 1(대표이력서), 비공개 체크되면 0(비공개)되게 해야함 -->
 
 					<button id="submitBtn" type="submit" class="formbold-btn">공고등록</button>
 					<script type="text/javascript">

@@ -34,7 +34,9 @@
 		select *
 		from RESUME where u_num=#{u_num} and r_presume=1
 	</select>
+	
 
+	
 	<!-- 탈퇴 -->
 	<delete id="deleteUser" parameterType="String">
 		delete from USER where
@@ -84,7 +86,10 @@
 	<select id="getMyResume" resultType="rdto" parameterType="String">
 	select * from RESUME where u_num=#{u_num}
 	</select>
-
+	<!-- 대표이력서 설정 -->
+	<update id="updateMain" parameterType="int">
+	  update RESUME set r_presume=1 where r_num = #{r_num}
+	</update>
 	
 	<!-- 스크랩버튼 누르면 데이터 저장됨 -->
 	<insert id="insertScrapEnter" parameterType="sdto">

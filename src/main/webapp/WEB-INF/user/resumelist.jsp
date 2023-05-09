@@ -31,21 +31,14 @@
 <link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style type="text/css">
 div {
-	border: 0px solid gray;
+	border: 1px solid gray;
 }
 </style>
 </head>
 <body>
 	
-	
 	이력서 목록.
-	
-	
-	<h3 class="alert alert-info">총 개의 이력서</h3>
-	<!-- ${listCount} 설정해야함 -->
 
-	<!-- Recent Sales Start -->
-	<!-- <form action="getEnter" method="get" ></form> -->
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
@@ -58,50 +51,37 @@ div {
 						style="width: 1000px;" >
 						<thead>
 							<tr class="text-dark">
-								<th scope="col"><input class="form-check-input"
-									type="checkbox"></th>
-								<th scope="col">No.</th>
-								<th scope="col">기업명</th>
-								<th scope="col">주소</th>
-								<th scope="col">전화번호</th>
-								<th scope="col">이메일</th>
-								<th scope="col">Action</th>
+								<th scope="col">번호</th>
+								<th scope="col">제목</th>
+								<th scope="col">내용</th>
+								<th scope="col">이력서 관리</th>
+								<th scope="col">설정관리</th>
+								<th scope="col">삭제</th>
 							</tr>
 						</thead>
-						<tbody>
+						<c:forEach var="dto" items="${list }" varStatus="i">
 							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary glyphicon glyphicon-search" href="">상세페이지</a></td>
+								<td>${i.count}</td>
+								<td>${dto.r_title}</td>
+								<td>${dto.r_content}</td>
+								<td>수정페이지로 이동버튼</td>
+								<td>
+								<!-- if문 -->
+								<c:if test="${dto.r_presume==0}">
+								<button type="button">공개 전환</button>
+								</c:if>
+								<c:if test="${dto.r_presume==1}">
+								<button type="button">비공개 전환</button>
+								</c:if>
+								</td>
+								<td><input type="checkbox"></td>
 							</tr>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">상세페이지</a></td>
-							</tr>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">상세페이지</a></td>
-							</tr>
-						</tbody>
+						</c:forEach>
 					</table>
+						<button type="button">삭제</button>
 				</div>
 			</div>
 		</div>
-		<!-- Recent Sales End -->
 	
 	
 	
