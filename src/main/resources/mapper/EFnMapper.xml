@@ -42,7 +42,10 @@
 	
 	<!-- 최근 공고 불러오기 -->
 	<select id="loadingRecentPosting" parameterType="String" resultType="pdto">
-		SELECT * FROM POSTING WHERE e_num = #{e_num} AND p_num = (SELECT MAX(p_num) FROM POSTING WHERE e_num = #{e_num})
+		SELECT * FROM POSTING 
+		WHERE e_num = #{e_num} AND p_published = true 
+		ORDER BY p_num DESC 
+		LIMIT 1
 	</select>
 
 	<!-- 공고 -->
@@ -76,17 +79,34 @@
 	</select>
 
 	
+	<!-- 공고 insert -->
 	<insert id="insertPosting" parameterType="pdto">
 		insert into POSTING(e_num,p_title,p_type,p_pay,p_period,p_workday,p_starttime,p_endtime,p_employtype,p_content,p_writeday,p_startdate,p_enddate,p_status,p_hirenum)
 		 values(#{e_num},#{p_title},#{p_type},#{p_pay},#{p_period},#{p_workday},#{p_starttime},#{p_endtime},#{p_employtype},#{p_content},now(),now(),#{p_enddate},'지원가능',#{p_hirenum})
 	</insert>
 	
+	<!-- 공고 임시저장 -->
+	<insert id="draftPosting" parameterType="pdto">
+		insert into POSTING(e_num,p_title,p_type,p_pay,p_period,p_workday,p_starttime,p_endtime,p_employtype,p_content,p_writeday,p_startdate,p_enddate,p_status,p_hirenum,p_published)
+		 values(#{e_num},#{p_title},#{p_type},#{p_pay},#{p_period},#{p_workday},#{p_starttime},#{p_endtime},#{p_employtype},#{p_content},now(),now(),#{p_enddate},'지원가능',#{p_hirenum},false)
+	</insert>
+	
+	<!-- 임시저장글 불러오기 -->
+	<select id="draftList" parameterType="String" resultType="pdto">
+		select * from POSTING where e_num=#{e_num} and p_published=false
+	</select>
+	
+	<!-- 이미 있는 공고인지 확인용(임시저장 글 저장 시) -->
+	<select id="findPostingNum" parameterType="String" resultType="int">
+		select count(*) from POSTING where p_num=#{p_num}
+	</select>
+	
 	<select id="getAllPostings" parameterType="String" resultType="pdto">
-		select * from POSTING where e_num=#{e_num}
+		select * from POSTING where e_num=#{e_num} and p_published=true
 	</select>
 	
 	<select id="getPreviewPostings" parameterType="String" resultType="pdto">
-		select * from POSTING where e_num=#{e_num} limit 0,3
+		select * from POSTING where e_num=#{e_num} and p_published=true limit 0,3
 	</select>
 	
 	

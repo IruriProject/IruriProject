@@ -207,7 +207,7 @@
 							                }
 							            });
 							        });
-							    </script>`
+							    </script>
 								
 							</c:forEach>
 						</tbody>
