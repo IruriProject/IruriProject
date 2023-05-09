@@ -117,7 +117,8 @@ public class EFnController {
 		EnterpriseDto e_dto = e_service.findEnterdataById(loginId);
 
 		model.addAttribute("enterNum", e_dto.getE_num());
-
+		model.addAttribute("draftList", service.draftList(e_dto.getE_num()));
+		
 		return "/posting/writeForm";
 	}
 	
@@ -126,13 +127,31 @@ public class EFnController {
 	public PostingDto loadingRecentPosting(@RequestParam String e_num) {
 		return service.loadingRecentPosting(e_num);
 	}
+	
+	@GetMapping("/loadingDraftPosting")
+	@ResponseBody
+	public Object loadingDraftPosting(@RequestParam String p_num) {
+		return service.getPosting(p_num);
+	}
 
 	@PostMapping("/writeposting")
 	public String writeposting(@ModelAttribute PostingDto dto) {
+		if(service.findPostingNum(dto.getP_num())!=0) {
+			service.deletePosting(dto.getP_num());
+		}
 		service.insertPosting(dto);
 
 		return "redirect:/";
 	}
+	
+	@PostMapping("/draftposting")
+	public String draftposting(@ModelAttribute PostingDto dto) {
+		service.draftPosting(dto);
+		
+		return "/posting/draftPosting";
+
+	}
+	
 
 	@GetMapping("/detailpage")
 	public ModelAndView detailPage(String p_num, HttpSession session) {

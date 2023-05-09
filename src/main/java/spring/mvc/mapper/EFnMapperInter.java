@@ -16,6 +16,9 @@ public interface EFnMapperInter {
 	public int getTotalCount();
 	public List<PostingDto> getPagingList(Map<String, Object> map);
 	public void insertPosting(PostingDto dto);
+	public void draftPosting(PostingDto dto);
+	public List<PostingDto> draftList(String e_num);
+	public int findPostingNum(String p_num);
 	public List<PostingDto> getAllPostings(String e_num);
 	public void updatePostingStatus(Map<String, String> map);
 	public List<PostingDto> getAddrPostings(String p_addr);
