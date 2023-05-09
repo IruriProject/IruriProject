@@ -55,8 +55,8 @@ $(function(){
 			success:function(res){
 				//alert(res.p_num);
 				$("#frm").attr("flag","old");
-				$("#p_num").val(res.p_num);
-				//alert($("#p_num").val());
+				//$("#p_num").val(res.p_num);
+				$("#pNum").html("<input type='hidden' value='"+res.p_num+"' name='p_num'>");
 				$("#p_title").val(res.p_title);
 				//alert($("#p_title").val());
 				$("#p_type").val(res.p_type);
@@ -69,8 +69,12 @@ $(function(){
 				$("#p_employtype").val(res.p_employtype);
 				$("#p_content").val(res.p_content);
 				$("#p_enddate").val(res.p_enddate);
+				
+				
 			}
+			
 		})
+		//alert($("#p_num").val());
 	})
 	
 })
@@ -114,20 +118,7 @@ $(function(){
 			<form method="POST" flag="new" id="frm">
 				<input type="hidden" name="e_num" id="e_num" value=${enterNum }
 					class="formbold-form-input" />
-					
-					<script>
-
-						  // attr 값이 변경될 때 이벤트 핸들러 등록하기
-						  $('#frm').on('DOMAttrModified', function(event) {
-						    if (event.attrName === 'flag' && event.newValue !== attrValue) {
-						      attrValue = event.newValue;
-						      // attr 값이 변경될 때 실행할 코드 작성하기
-						      alert('attr 값이 변경되었습니다.');
-						    }
-						  });
-					
-					</script>
-				
+				<div id="pNum"></div>
 				<div align="center">
 					<h2
 						style="font-weight: 600; color: #416442; background-color: #e3f2c9; width: 300px; height: 50px; font-size: 1.8em; padding: 10px 0px; border-radius: 10px; text-align: center;">공고등록</h2>
