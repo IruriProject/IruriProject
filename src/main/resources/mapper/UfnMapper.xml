@@ -79,5 +79,10 @@
 	<select id="getSearchUnum" parameterType="Map" resultType="int">
 		select count(*) from VIEWER where u_num=${u_num} and p_num=#{p_num}
 	</select>
+	
+	<!-- 작성한 이력서 목록 가져오기 -->
+	<select id="getMyResume" resultType="rdto" parameterType="String">
+	select * from RESUME where u_num=#{u_num}
+	</select>
 
 </mapper>

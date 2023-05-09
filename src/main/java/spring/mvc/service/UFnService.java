@@ -1,6 +1,7 @@
 package spring.mvc.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,6 +101,9 @@ public class UFnService {
 		map.put("p_num", p_num);
 		
 		return mapper.getSearchUnum(map);
+	}
+	public List<ResumeDto> getMyResume(String u_num){
+		return mapper.getMyResume(u_num);
 	}
 
 }
