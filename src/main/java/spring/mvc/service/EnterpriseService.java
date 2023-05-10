@@ -1,11 +1,13 @@
 package spring.mvc.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import spring.mvc.dto.ApplicantDto;
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.mapper.EnterpriseMapperInter;
 
@@ -50,6 +52,9 @@ public class EnterpriseService {
 		mapper.updateResAccessStatus(map);
 	}
 	
+	public List<ApplicantDto> getAllResumeOfEnter(String e_num){
+		return mapper.getApplicantsByEnterprise(e_num);
+  }  
 	public int heartByEnter(String e_num) {
 		return mapper.heartByEnter(e_num);
 	}

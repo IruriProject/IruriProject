@@ -1,6 +1,7 @@
 package spring.mvc.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,11 +72,15 @@ public class UFnService {
 		mapper.deleteLikeEnter(num);
 	}
 
-	
+	public List<ResumeDto> getMyResume(String u_num){
+		return mapper.getMyResume(u_num);
+  }	
+  
 	//열람
 	public void insertViewer(ViewerDto dto) {
 		mapper.insertViewer(dto);
 	}
+  
 	public int getSearchUnum(String u_num, String p_num) {
 		Map<String, String> map=new HashMap<>();
 		
@@ -85,5 +90,7 @@ public class UFnService {
 		return mapper.getSearchUnum(map);
 	}
 
-
+	public ResumeDto getResumeOfRNum(String r_num) {
+		return mapper.getResumeOfRNum(r_num);
+	}
 }

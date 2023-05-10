@@ -8,9 +8,12 @@
 <meta charset="utf-8">
 <title>이루리_ 공고상세페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <c:set var="root" value="<%=request.getContextPath()%>" />
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -100,6 +103,10 @@ body {
 
 .withbtnTitle {
 	font-size: 2.2em;
+}
+
+.modal-header{
+	justify-content: flex-end;
 }
 </style>
 <script type="text/javascript">
@@ -245,8 +252,59 @@ body {
 							<div>
 								<c:if
 									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
-									<button type="button" class="btn btn-info mt-2">지원하기</button>
+									<button type="button" class="btn btn-info mt-2" data-toggle="modal" data-target="#myModal">지원하기</button>
 									<button type="button" id="btnscrap" class="btn btn-info mt-2">공고 스크랩</button>
+									
+					<!-- 지원하기 모달 -->
+						
+					  <!-- Modal -->
+					  <div class="modal fade" id="myModal" role="dialog">
+					    <div class="modal-dialog modal-lg">
+					      <div class="modal-content">
+					        <div class="modal-header">
+					          <h4 class="modal-title"> ${dto.p_title } - ${dto.e_name } 회사에 지원하기 &nbsp;</h4>
+					          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					        </div>
+					        <div class="modal-body">
+					        
+					        <form action="/apply" method="post">
+					        <table class="table table-bordered" style="width: 700px;">
+					            <tr>
+					            <td>선택</td>
+					            <td>제목</td>
+					            <td>공개여부</td>
+					            <td>작성일</td>
+					            </tr>
+					          <input type="hidden" name="p_num" value="${dto.p_num }">
+					          <c:forEach var="udto" items="${rlist }">
+					        	<tr>
+						        <td width="50">
+					            <input type="radio" name="r_num" value="${udto.r_num }">
+						        </td>
+						        <td>
+						        <c:if test="${udto.r_presume==1 }">[대표]</c:if>
+					            ${udto.r_title } <br>
+						        </td>
+						        <td>
+						        <c:if test="${udto.r_private==0 }">X</c:if>
+						        <c:if test="${udto.r_private==1 }">O</c:if>
+						        </td>
+						        <td><fmt:formatDate value="${udto.r_writeday}" pattern="yyyy.MM.dd"/></td>
+					        	</tr>
+					          </c:forEach>
+					            <tr>
+					            <td colspan="4" align="center"><button type="submit" class="">제출</button></td>
+					            </tr>
+					        </table>
+					        </form>
+					        </div>
+					        <div class="modal-footer">
+					          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					        </div>
+					      </div>
+					    </div>
+					  </div>
+									
 								</c:if>
 								<c:if
 									test="${sessionScope.loginStatus=='enterprise'&&sessionScope.loginId==dto.e_id }">
