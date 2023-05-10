@@ -166,6 +166,16 @@ public class UFnController {
 		uservice.updatePublic(r_num);
 		return "redirect:resumelist";
 	}
+	@PostMapping("/updateMainOff")
+	public String updateMainOff(int r_num) {
+		uservice.updateMainOff(r_num);
+		return "redirect:resumelist";
+	}
+	@PostMapping("/updateMainOn")
+	public String updateMainOn(int r_num) {
+		uservice.updateMainOn(r_num);
+		return "redirect:resumelist";
+	}
 
 	// 사진등록
 	@PostMapping("/updatePhoto")

@@ -120,7 +120,7 @@ div {
 								},
 								url : "/updatePrivate",
 								success : function() {
-									alert("성공");
+									location.reload();
 								}
 							})
 						})
@@ -135,7 +135,7 @@ div {
 								},
 								url : "/updatePublic",
 								success : function() {
-									alert("성공");
+									location.reload();
 								}
 							})
 						})

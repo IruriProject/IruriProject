@@ -38,13 +38,18 @@ public class UFnService {
 
 		mapper.updatePw(map);
 	}
-	
+	//주소, 대표 변경
 	public void updatePrivate(int r_num) {
 		mapper.updatePrivate(r_num);
 	}
-	
 	public void updatePublic(int r_num) {
 		mapper.updatePublic(r_num);
+	}
+	public void updateMainOn(int r_num) {
+		mapper.updateMainOn(r_num);
+	}
+	public void updateMainOff(int r_num) {
+		mapper.updateMainOff(r_num);
 	}
 
 	public void updatePhoto(String u_id, String u_photo) {

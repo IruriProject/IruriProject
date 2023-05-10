@@ -75,16 +75,16 @@ div {
 									<button type="button" class="setPrivate">비공개 전환</button>
 								</c:if>
 								</td>
-								
 								<td><input type="checkbox"></td>
 								
 								<td>
 								<c:if test="${dto.r_presume==0}">
-								<button type="button">대표 설정</button>							
+								<button type="button" class="setMainOn">대표 설정</button>							
 								</c:if>
 								<c:if test="${dto.r_presume==1}">
-								<button type="button">대표 해제</button>	
+								<button type="button" class="setMainOff">대표 해제</button>	
 								</c:if>
+								
 								</td>	
 							</tr>
 						</c:forEach>
@@ -94,6 +94,31 @@ div {
 			</div>
 		</div>
 	<script type="text/javascript">
+	$(".setMainOff").click(function(){
+		 var r_num = $(this).closest("tr").data("rnum");
+		 $.ajax({
+			type:"post",
+			dataType:"html",
+			data:{"r_num":r_num},
+			url:"/updateMainOff",
+			success:function(){
+			location.reload();
+			}
+		 })
+	})
+	$(".setMainOn").click(function(){
+		var r_num = $(this).closest("tr").data("rnum");
+		$.ajax({
+			type:"post",
+			dataType:"html",
+			data:{"r_num":r_num},
+			url:"/updateMainOn",
+			success:function(){
+				location.reload();
+			}
+		})
+	})
+	
 	$(".setPrivate").click(function(){
 		 var r_num = $(this).closest("tr").data("rnum");
 		$.ajax({
@@ -102,7 +127,7 @@ div {
 			data:{"r_num":r_num},
 			url:"/updatePrivate",
 			success:function(){
-				alert("성공");
+				location.reload();
 			}
 		})
 	})
@@ -115,7 +140,7 @@ div {
 			data:{"r_num":r_num},
 			url:"/updatePublic",
 			success:function(){
-				alert("성공");
+				location.reload();
 			}
 		})
 	})
