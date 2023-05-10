@@ -5,36 +5,74 @@
 <mapper namespace="spring.mvc.mapper.UFnMapperInter">
 	<!-- 정보 변경 -->
 	<update id="updateUser" parameterType="udto">
-		update USER set
-		u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email},
-		u_addr=#{u_addr}
-		where u_id=#{u_id}
+		update USER set u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email},
+		u_addr=#{u_addr} where u_id=#{u_id}
 	</update>
 
-	<!-- 주소 변경 -->
-	<update id="updateUserNoAddr" parameterType="Map">
-		update USER set
-		u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email} where
-		u_id=#{u_id}
-	</update>
-
-	<!-- 비밀번호 변경 -->
 	<update id="updatePw" parameterType="Map">
 		update USER set u_pw=#{u_pw}
 		where u_id=#{u_id}
 	</update>
 
-	<!-- 사진변경 -->
 	<update id="updatePhoto" parameterType="Map">
 		update USER set
 		u_photo=#{u_photo} where u_id=#{u_id}
 	</update>
 
-	<!-- 대표이력서 가져오기 -->
 	<select id="getResume" resultType="rdto" parameterType="String">
 		select *
 		from RESUME where u_num=#{u_num} and r_presume=1
 	</select>
+
+	<select id="countLikeEnterprise" resultType="int"
+		parameterType="String">
+		select count(h_num) from HEART where u_num=#{u_num}
+	</select>
+
+	<select id="getEnterPrise" resultType="edto"
+		parameterType="string">
+		select * from ENTERPRISE where e_num=#{e_num}
+	</select>
+
+	<!-- 좋아요버튼 누르면 데이터 저장됨 -->
+	<insert id="insertLikeEnter" parameterType="hdto">
+		insert into HEART
+		(u_num, e_num) values (#{u_num},#{e_num})
+	</insert>
+
+	<!-- 좋아요버튼 다시 누르면 데이터 삭제됨 -->
+	<delete id="deleteLikeEnter" parameterType="String">
+		delete from HEART
+		where h_num=#{h_num}
+	</delete>
+
+	<!-- 작성한 이력서 목록 가져오기 -->
+	<select id="getMyResume" resultType="rdto"
+		parameterType="String">
+		select * from RESUME where u_num=#{u_num}
+	</select>
+
+	<!-- 이력서 detailpage -->
+	<select id="getResumeOfRNum" resultType="rdto"
+		parameterType="String">
+		select * from RESUME where r_num=#{r_num}
+	</select>
+
+	<!-- 열람 -->
+	<insert id="insertViewer" parameterType="vdto">
+		insert into VIEWER(u_num,p_num) values(#{u_num},#{p_num})
+	</insert>
+
+	<!-- u_num 중복체크 -->
+	<select id="getSearchUnum" parameterType="Map" resultType="int">
+		select count(*) from VIEWER where u_num=${u_num} and p_num=#{p_num}
+	</select>
+
+	<!-- 탈퇴 -->
+	<delete id="deleteUser" parameterType="String">
+		delete from USER where
+		u_num=#{u_num}
+	</delete>
 
 	<!-- 비공개로 설정 -->
 	<update id="updatePrivate" parameterType="int">
@@ -48,11 +86,12 @@
 		r_private=1 where r_num=#{r_num}
 	</update>
 
-	<!-- 탈퇴 -->
-	<delete id="deleteUser" parameterType="String">
-		delete from USER where
-		u_num=#{u_num}
-	</delete>
+	<!-- 주소 변경 -->
+	<update id="updateUserNoAddr" parameterType="Map">
+		update USER set
+		u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email} where
+		u_id=#{u_id}
+	</update>
 
 	<!-- 이력서 등록 -->
 	<insert id="insertResume" parameterType="rdto">
@@ -63,64 +102,11 @@
 		now())
 	</insert>
 
-	<select id="countLikeEnterprise" resultType="int"
-		parameterType="String">
-		select count(h_num) from HEART where u_num=#{u_num}
-	</select>
-
-	<select id="getEnterPrise" resultType="edto"
-		parameterType="string">
-		select * from ENTERPRISE where e_num=#{e_num}
-	</select>
-
-	<!-- 열람 -->
-	<insert id="insertViewer" parameterType="vdto">
-		insert into
-		VIEWER(u_num,p_num) values(#{u_num},#{p_num})
-	</insert>
-
-	<!-- u_num 중복체크 -->
-	<select id="getSearchUnum" parameterType="Map" resultType="int">
-		select count(*) from VIEWER where u_num=${u_num} and p_num=#{p_num}
-	</select>
-
-	<!-- 좋아요버튼 누르면 데이터 저장됨 -->
-	<insert id="insertLikeEnter" parameterType="hdto">
-		insert into HEART
-		(u_num, e_num) values (#{u_num},#{e_num})
-	</insert>
-
-
 	<!-- 스크랩버튼 누르면 데이터 저장됨 -->
 	<insert id="insertScrapEnter" parameterType="sdto">
 		insert into SCRAP
 		(u_num, p_num) values (#{u_num},#{p_num})
 	</insert>
 
-	<!-- 좋아요버튼 다시 누르면 데이터 삭제됨 -->
-	<delete id="deleteLikeEnter" parameterType="String">
-		delete from HEART
-		where h_num=#{h_num}
-	</delete>
-	
-	<!-- 작성한 이력서 목록 가져오기 -->
-	<select id="getMyResume" resultType="rdto" parameterType="String">
-	select * from RESUME where u_num=#{u_num}
-	</select>
-	
-	<!-- 이력서 detailpage -->
-	<select id="getResumeOfRNum" resultType="rdto" parameterType="String">
-	select * from RESUME where r_num=#{r_num}
-  </select>
-    
-	<!-- 열람 -->
-	<insert id="insertViewer" parameterType="vdto">
-		insert into VIEWER(u_num,p_num) values(#{u_num},#{p_num})
-	</insert>
-	
-	<!-- u_num 중복체크 -->
-	<select id="getSearchUnum" parameterType="Map" resultType="int">
-		select count(*) from VIEWER where u_num=${u_num} and p_num=#{p_num}
-	</select>
 
 </mapper>
