@@ -76,13 +76,19 @@ public class UFnController {
 	// 이력서등록 페이지로 이동
 	@GetMapping("/insertresume")
 	public ModelAndView insertResume(HttpServletRequest request) {
-		ModelAndView model = new ModelAndView();
-		HttpSession session = request.getSession();
-		String u_id = (String) session.getAttribute("loginId");
-		UserDto dto = service.findUserdataById(u_id);
-		model.addObject("dto", dto);
-		model.setViewName("/user/insertresume");
-		return model;
+	    ModelAndView model = new ModelAndView();
+	    HttpSession session = request.getSession();
+	    String u_id = (String) session.getAttribute("loginId");
+	    List<ResumeDto> list=uservice.getResumeByUserId(u_id);
+	    if (list.size()> 4) {
+	        String message = "이력서는 최대 5개까지만 저장됩니다. \\n이력서 관리페이지로 이동합니다.";
+	        model.addObject("message", message);
+	    } else {
+	        UserDto dto = service.findUserdataById(u_id);
+	        model.addObject("dto", dto);
+	    }
+	    model.setViewName("/user/insertresume");
+	    return model;
 	}
 	@GetMapping("/resumelist")
 	public ModelAndView resumeList(HttpSession session) {

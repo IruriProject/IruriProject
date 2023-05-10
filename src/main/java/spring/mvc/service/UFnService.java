@@ -123,6 +123,9 @@ public class UFnService {
 	public List<ResumeDto> getMyResume(String u_num){
 		return mapper.getMyResume(u_num);
 	}
+	public List<ResumeDto> getResumeByUserId(String u_id){
+		return mapper.getResumeByUserId(u_id);
+	}
 
 	public ResumeDto getResumeOfRNum(String r_num) {
 		return mapper.getResumeOfRNum(r_num);

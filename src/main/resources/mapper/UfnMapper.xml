@@ -55,6 +55,10 @@
 		select * from RESUME where u_num=#{u_num}
 	</select>
 
+	<!-- UserId에 해당하는 RESUME 찾기 -->
+	<select id="getResumeByUserId" resultType="rdto" parameterType="String">
+    	SELECT * FROM RESUME WHERE u_num = (SELECT u_num FROM USER WHERE u_id = #{u_id})
+  	</select>
 
 	<!-- 이력서 detailpage -->
 	<select id="getResumeOfRNum" resultType="rdto"

@@ -34,6 +34,9 @@ public interface UFnMapperInter {
 	public void updateMainOn(int r_num);
 	public void updateMainOff(int r_num);
 	public void updateAllOff();
+	//아이디에 해당하는 이력서 찾기
+	public List<ResumeDto> getResumeByUserId(String u_id);
+	
 	//열람
 	public void insertViewer(ViewerDto dto);
 	public int getSearchUnum(Map<String, String> map);

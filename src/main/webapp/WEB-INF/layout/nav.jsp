@@ -178,8 +178,15 @@ $(document).ready(function(){
 	<nav class="othermenu">
 		<ul class="o_menu">
 			<li><a href="insertresume">이력서등록</a></li>
+			<c:if test="${not empty message}">
+   			 <script type="text/javascript">
+   			 	alert("${message}");
+   			 	location.href="resumelist";
+   			 </script>
+			</c:if>
 			<li><a href="${root }/posting/write">공고등록</a></li>
 		</ul>
 	</nav>
 </body>
+
 </html>
