@@ -56,9 +56,6 @@ public class EFnController {
 	@Autowired
 	UserService u_service;
 
-	@Autowired
-	UFnService ufn_service;
-
 	@GetMapping("/insertForm")
 	public String insertForm() {
 		return "/posting/InsertForm";
