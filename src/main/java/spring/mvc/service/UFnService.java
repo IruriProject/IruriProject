@@ -51,6 +51,9 @@ public class UFnService {
 	public void updateMainOff(int r_num) {
 		mapper.updateMainOff(r_num);
 	}
+	public void updateAllOff() {
+		mapper.updateAllOff();
+	}
 
 	public void updatePhoto(String u_id, String u_photo) {
 		// TODO Auto-generated method stub

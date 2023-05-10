@@ -95,6 +95,11 @@
 	<update id="updateMainOn" parameterType="int">
 		update RESUME set r_presume=1 where r_num=#{r_num}
 	</update>
+	
+	<!-- 대표 전체해제 -->
+	<update id="updateAllOff">
+		update RESUME set r_presume=0
+	</update>
 
 	<!-- 대표 해제 -->
 	<update id="updateMainOff" parameterType="int">

@@ -173,6 +173,7 @@ public class UFnController {
 	}
 	@PostMapping("/updateMainOn")
 	public String updateMainOn(int r_num) {
+		uservice.updateAllOff();
 		uservice.updateMainOn(r_num);
 		return "redirect:resumelist";
 	}

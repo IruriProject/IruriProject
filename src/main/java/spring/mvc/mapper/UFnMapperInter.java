@@ -33,6 +33,7 @@ public interface UFnMapperInter {
 	public void updatePublic(int r_num);
 	public void updateMainOn(int r_num);
 	public void updateMainOff(int r_num);
+	public void updateAllOff();
 	//열람
 	public void insertViewer(ViewerDto dto);
 	public int getSearchUnum(Map<String, String> map);
