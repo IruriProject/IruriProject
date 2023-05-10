@@ -61,6 +61,13 @@
 		
 			order by p_num desc limit #{start},#{perpage}
 	</select>
+	
+	<select id="getTotalCountOfSearch" parameterType="Map" resultType="int">
+	select count(*) from POSTING 
+		<if test="searchcolumn!=null and searchword!=null">
+		where ${searchcolumn} like concat('%',#{searchword},'%')
+		</if>
+	</select>
 
 	<!-- 헤더 검색 -->
 	<select id="getSearchList" parameterType="Map" resultType="pdto">

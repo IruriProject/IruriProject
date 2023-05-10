@@ -25,6 +25,10 @@ public class UFnService {
 		mapper.updateUser(dto);
 	}
 
+	public void updateUserNoAddr(UserDto dto) {
+		mapper.updateUserNoAddr(dto);
+	}
+
 	public void updatePw(String u_id, String u_pw) {
 		// TODO Auto-generated method stub
 		Map<String, String> map = new HashMap<>();
@@ -33,6 +37,14 @@ public class UFnService {
 		map.put("u_pw", u_pw);
 
 		mapper.updatePw(map);
+	}
+	
+	public void updatePrivate(int r_num) {
+		mapper.updatePrivate(r_num);
+	}
+	
+	public void updatePublic(int r_num) {
+		mapper.updatePublic(r_num);
 	}
 
 	public void updatePhoto(String u_id, String u_photo) {
@@ -43,6 +55,10 @@ public class UFnService {
 		map.put("u_photo", u_photo);
 
 		mapper.updatePhoto(map);
+	}
+	
+	public void insertResume(ResumeDto dto) {
+		mapper.insertResume(dto);
 	}
 
 	public int countLikeEnterprise(String num) {
@@ -55,9 +71,20 @@ public class UFnService {
 		return mapper.getEnterPrise(num);
 	}
 
-	// id로 유저정보 찾기
+	// num으로 이력서 찾기
 	public ResumeDto getResume(String u_num) {
 		return mapper.getResume(u_num);
+	}
+	
+
+	// num으로 유저정보 찾기
+	public UserDto findUserdataByNum(String u_num) {
+		return mapper.findUserByNum(u_num);
+	}
+
+	// 회원삭제
+	public void deleteUser(String u_num) {
+		mapper.deleteUser(u_num);
 	}
 
 	// 좋아요 한 회원과 기업 데이터 추가
@@ -71,11 +98,7 @@ public class UFnService {
 
 		mapper.deleteLikeEnter(num);
 	}
-
-	public List<ResumeDto> getMyResume(String u_num){
-		return mapper.getMyResume(u_num);
-  }	
-  
+	
 	//열람
 	public void insertViewer(ViewerDto dto) {
 		mapper.insertViewer(dto);
@@ -88,6 +111,9 @@ public class UFnService {
 		map.put("p_num", p_num);
 		
 		return mapper.getSearchUnum(map);
+	}
+	public List<ResumeDto> getMyResume(String u_num){
+		return mapper.getMyResume(u_num);
 	}
 
 	public ResumeDto getResumeOfRNum(String r_num) {

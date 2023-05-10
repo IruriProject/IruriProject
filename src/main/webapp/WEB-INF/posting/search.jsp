@@ -57,6 +57,12 @@
 	    background: #e3f2c9;
 	    cursor: pointer;
 	}
+	
+	#nosearch{
+		font-size: 1.1em;
+		display: block;
+		padding: 20px;
+	}
 
 </style>
 
@@ -156,7 +162,7 @@ $(".gu").click(function(){
 		success:function(res){
 			let s="";
 			s+="<table class='table'>";
-			s+="<caption>"+res.length+"개의 검색 결과가 있습니다.</caption>";
+			s+="<caption>"+gu_name+"에 해당하는 "+res.length+"개의 검색 결과가 있습니다.</caption>";
 			s+="<tr align='center'><td width='60'>지역</td><td width='400'>모집내용/기업명</td><td width='120'>급여</td>";
 	   		s+="<td width='50'>근무시간</td><td width='100'>등록일</td></tr>";
 
@@ -183,6 +189,7 @@ $(".gu").click(function(){
 			s+="</table>";
 			
 			$("#addr-box").html(s);
+			$("#nosearch").hide();
 		}
 	}) // ajax끝
 	
@@ -210,15 +217,14 @@ $(".gu").click(function(){
 </div>
 
  <div style="margin: 30px 30px;">
+ 
+ 
+     	<!-- 지역별 필터링 후 테이블 나오는 부분 -->
+     	<div id="addr-box"></div>
    	
    	<table class="table" id="basic-list">
    		<caption>
-   		<c:if test="${totalCount==0 }">
-   		<tr>
-   		  <td colspan="5" align="center"><b>등록된 게시글이 없습니다.</b></td>
-   		</tr>
-   		</c:if>
-   		<c:if test="${totalCount>0 }">총 ${totalCount }개의 글이 있습니다.</c:if>
+   		<c:if test="${searchCount>0}">총 ${searchCount }개의 글이 있습니다.</c:if>
    		<c:if test="${sessionScope.loginStatus=='enterprise' }">
    		<span style="float: right;"><button type="button"
    		onclick="location.href='insertForm'">글쓰기</button></span>
@@ -233,14 +239,19 @@ $(".gu").click(function(){
    		  <td width="100">등록일</td>
    		</tr>
    		
-   		<c:if test="${totalCount>0 }">
+   		<c:if test="${searchCount==0 }">
+   		<tr><td colspan="5" align="center">
+   		<span id="nosearch">검색된 게시글이 없습니다.</span>
+   		</td></tr>
+   		</c:if>
+   		
+   		<c:if test="${searchCount>0}">
    		<c:forEach var="dto" items="${list }">
-		
    		<tr>
    		<td width="60">${dto.p_addr }</td>
 		<td width="400">
 		<span id="posting-title">
-		<a href="detailpage?p_num=${dto.p_num}">${dto.p_title }</a>
+		<a href="detailpage?p_num=${dto.p_num}&currentPage=${currentPage}">${dto.p_title }</a>
 		</span>
 		<br>
 		<span id="enterprise-name">[${dto.p_type }] 일단회사번호 ${dto.e_num }</span>
@@ -258,33 +269,46 @@ $(".gu").click(function(){
 		<td width="100"><fmt:formatDate value="${dto.p_writeday }" pattern="yyyy-MM-dd"/></td>
    		</tr>
    		</c:forEach>
-   		</c:if>
+   		
 
      	</table>
-     	
-     	<!-- 지역별 필터링 후 테이블 나오는 부분 -->
-     	<div id="addr-box"></div>
    		
    		<!-- 페이징 처리 -->
-   		<c:if test="${totalCount>0 }">
+   		
 		<div style="width: 800px; text-align: center;" class="container">
 		<ul class="pagination">
 			<!-- 이전 -->
 			<c:if test="${startPage>1}">
 			<li>
-				<a href="list?currentPage=${startPage-1 }">이전</a>
+				<c:if test="${keyword!=null }">
+					<a href="search?currentPage=${startPage-1 }&searchcolumn=${column}&searchword=${keyword}">이전</a>
+				</c:if>
+				<c:if test="${keyword==null }">
+					<a href="search?currentPage=${startPage-1 }">이전</a>
+				</c:if>
 			</li>
 			</c:if>
 			
 			<c:forEach var="pp" begin="${startPage}" end="${endPage}">
 			  <c:if test="${pp==currentPage }">
 				<li class="active">
-				 <a href="list?currentPage=${pp}">${pp}</a>
+				 <c:if test="${keyword!=null }">
+			    <a href="search?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
+				</c:if>
+				<c:if test="${keyword==null }">
+					<a href="search?currentPage=${pp}">${pp}</a>
+				</c:if>
 				</li>  
 			  </c:if>
 			  <c:if test="${pp!=currentPage }">
 			    <li>
-				 <a href="list?currentPage=${pp}">${pp}</a>
+			    <c:if test="${keyword!=null }">
+			    <a href="search?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
+				</c:if>
+				<c:if test="${keyword==null }">
+					<a href="search?currentPage=${pp}">${pp}</a>
+				</c:if>
+				 
 				</li>
 			  </c:if>
 			</c:forEach>
@@ -292,13 +316,17 @@ $(".gu").click(function(){
 			<!-- 다음 -->
 			<c:if test="${endPage<totalPage }">
 				<li>
-					<a href="list?currentPage=${endPage+1}">다음</a>
+				<c:if test="${keyword!=null }">
+					<a href="search?currentPage=${endPage+1}&searchcolumn=${column}&searchword=${keyword}">다음</a>
+				</c:if>
+				<c:if test="${keyword==null }">
+					<a href="search?currentPage=${endPage+1}">다음</a>
+				</c:if>
 				</li>
 			</c:if>
 		</ul>
 		</div>
-   		</c:if>
-
+		</c:if>
    	
    </div>
 </body>

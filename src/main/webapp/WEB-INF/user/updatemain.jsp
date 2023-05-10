@@ -125,10 +125,9 @@ body {
 	</div>
 
 	<!-- 버튼 눌렀을 때 현재 로그인된 아이디의 비밀번호와 input에 친 비밀번호가 같을 시 edituser로 넘어가게 됨. -->
-	<c:if test="${sessionScope.loginPw!=null }">
 		<script>
 			function checkPw() {
-				var loginPw = "${sessionScope.loginPw}";
+				var loginPw = "${dto.u_pw}";
 				var inputPw = document.getElementById("inputPw").value;
 				if (loginPw === inputPw) {
 					location.href = "updateuser";
@@ -137,7 +136,6 @@ body {
 				}
 			}
 		</script>
-	</c:if>
 	<script type="text/javascript">
 	$(document).ready(function(){
 	    $('#i').on('click',function(){

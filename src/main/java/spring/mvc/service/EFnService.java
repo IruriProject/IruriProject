@@ -132,6 +132,16 @@ public class EFnService {
 		return mapper.getPagingList(map);
 	}
 	
+	public int getTotalCountOfSearch(String searchcolumn, String searchword) {
+		
+		Map<String, Object> map=new HashMap<>();
+		
+		map.put("searchcolumn", searchcolumn);
+		map.put("searchword", searchword);
+		
+		return mapper.getTotalCountOfSearch(map);
+	}
+	
 	public List<PostingDto> getAddrSearch(String p_addr){
 		return mapper.getAddrPostings(p_addr);
 	}
