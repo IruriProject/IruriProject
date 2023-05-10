@@ -1,11 +1,13 @@
 package spring.mvc.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.ObjectProvider;
 
+import spring.mvc.dto.BoardDto;
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.HeartDto;
@@ -26,8 +28,14 @@ public interface UFnMapperInter {
 	public UserDto findUserByNum(String u_num);
 	public void deleteUser(String u_num);
 	public void insertResume(ResumeDto dto);
+	public void updatePrivate(int r_num);
+	public void updatePublic(int r_num);
+
 	//열람
 	public void insertViewer(ViewerDto dto);
 	public int getSearchUnum(Map<String, String> map);
 	public List<ResumeDto> getMyResume(String u_num);
+
+	public ResumeDto getResumeOfRNum(String r_num);
+
 }

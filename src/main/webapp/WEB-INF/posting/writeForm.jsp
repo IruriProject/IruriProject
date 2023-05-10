@@ -10,15 +10,25 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link
 	href="https://fonts.googleapis.com/css2?family=Anton&family=Edu+VIC+WA+NT+Beginner:wght@600&family=Gamja+Flower&family=Single+Day&family=Jua&family=Nanum+Pen+Script&display=swap"
 	rel="stylesheet"/>
 <script>
 $(function(){
-	$("#reloading").click(function(){
+	if(${draftCount}!=0){
+		var a=confirm("임시저장된 글이 있습니다. 임시 저장된 글을 불러올까요?");
+	
+		if(a){
+			$("#draftbtn").trigger('click');
+		}
+	
+	}
+	
+	$("#recentPosting").click(function(){
 		$.ajax({
 			type:"get",
-			data:{"e_num":"1"},
+			data:{"e_num":${enterNum}},
 			dataType:"json",
 			url:"/posting/loadingRecentPosting",
 			success:function(res){
@@ -36,22 +46,107 @@ $(function(){
 			}
 		})
 	})
+	
+	$("#modalbtn").click(function(){
+		var draftchk = $('input[name=draft]:checked').val();
+		$.ajax({
+			type:"get",
+			data:{"p_num":draftchk},
+			dataType:"json",
+			url:"/posting/loadingDraftPosting",
+			success:function(res){
+				//alert(res.p_num);
+				$("#frm").attr("flag","old");
+				//$("#p_num").val(res.p_num);
+				$("#pNum").html("<input type='hidden' value='"+res.p_num+"' name='p_num'>");
+				$("#p_title").val(res.p_title);
+				//alert($("#p_title").val());
+				$("#p_type").val(res.p_type);
+				$("#p_pay").val(res.p_pay);
+				$("#p_period").val(res.p_period);
+				$("#p_workday").val(res.p_workday);
+				$("#p_hirenum").val(res.p_hirenum);
+				$("#p_starttime").val(res.p_starttime);
+				$("#p_endtime").val(res.p_endtime);
+				$("#p_employtype").val(res.p_employtype);
+				$("#p_content").val(res.p_content);
+				$("#p_enddate").val(res.p_enddate);
+				
+				
+			}
+			
+		})
+		
+	})
+	
+	$(".draftdel").click(function(){
+		var p_num=$(this).attr("p_num");
+		$.ajax({
+			type:"post",
+			data:{"p_num":p_num},
+			dataType:"html",
+			url:"/posting/draftdelete",
+			success:function(res){
+				alert("임시저장 공고가 삭제되었습니다.");
+				location.reload();
+			}
+			
+		})
+	})
+	
 })
 
 </script>
 </head>
 <body>
+	
+	  <!-- Modal -->
+	  <div class="modal fade" id="draftPostModal" role="dialog">
+	    <div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">임시저장 공고 목록 (${draftList.size() }개)</h4>
+	        </div>
+	        <div class="modal-body">
+	         	<table class="table table-hover">
+	         	<c:forEach var="draftDto" items="${draftList }">
+	         		<tr>
+	                	<td>
+	                    	<input type="radio" name="draft" value="${draftDto.p_num }"> ${draftDto.p_title } (${draftDto.p_type }) <button style="float: right" type="button" p_num="${draftDto.p_num }" class="btn btn-info btn-xs draftdel">임시저장 삭제</button>
+	                    </td>
+	                </tr>
+	         	</c:forEach>
+	            </table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal" id="modalbtn">선택</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	  </div>
+	  
+
 	<div class="formbold-main-wrapper">
 		<div class="formbold-form-wrapper">
-			<form action="writeposting" method="POST">
+			<form method="POST" flag="new" id="frm">
 				<input type="hidden" name="e_num" id="e_num" value=${enterNum }
 					class="formbold-form-input" />
+				<div id="pNum"></div>
 				<div align="center">
 					<h2
 						style="font-weight: 600; color: #416442; background-color: #e3f2c9; width: 300px; height: 50px; font-size: 1.8em; padding: 10px 0px; border-radius: 10px; text-align: center;">공고등록</h2>
 				</div>
 				<br>
-				<div align="right"><button type="button" class="small-btn" id="reloading">이전공고 불러오기</button></div>
+				
+				<div align="right">
+					<c:if test="${draftCount!=0 }">
+						<button type="button" id="draftbtn" class="small-btn" data-toggle="modal" style="margin-right: 10px;" data-target="#draftPostModal">임시저장 불러오기</button>
+					</c:if>
+				<button type="button" class="small-btn" id="recentPosting">이전공고 불러오기</button></div>
 				<br>
 				<div class="formbold-input-wrapp formbold-mb-3">
 					<label for="p_title" class="formbold-form-label"> 공고제목 </label>
@@ -143,8 +238,10 @@ $(function(){
 						</div>근로 기준에 준수하여 공고 작성하였습니다.
 					</label>
 				</div>
-
-				<button class="formbold-btn">공고등록</button>
+				
+				<button class="formbold-btn" type="submit" onclick="javascript: form.action='/posting/writeposting';">공고등록</button>
+				<button class="formbold-btn2" type="submit" onclick="javascript: form.action='/posting/draftposting';">임시저장</button>
+			
 			</form>
 		</div>
 	</div>
@@ -350,17 +447,31 @@ body {
 	float: right;
 }
 
+.formbold-btn2 {
+	font-size: 16px;
+	border-radius: 5px;
+	padding: 14px 25px;
+	border: 1px solid #4E9F3D;
+	font-weight: 500;
+	background-color: white;
+	color: #4E9F3D;
+	cursor: pointer;
+	margin-top: 25px;
+	float: right;
+	margin-right: 10px;
+}
+
 .small-btn{
 	width: 150px;
 	padding: 5px 15px;
 	border-radius: 5px;
-	border: none;
-	background-color: #4E9F3D;
-	color: white;
+	border: 1px solid #4E9F3D;
+	background-color: white;
+	color: #4E9F3D;
 	cursor: pointer;
 }
 
-.formbold-btn:hover, .small-btn:hover {
+.formbold-btn:hover, .formbold-btn2:hover, .small-btn:hover {
 	box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
 }
 

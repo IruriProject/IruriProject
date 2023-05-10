@@ -242,14 +242,14 @@
 
 					<div>
 						<input type="text" name="b_title" id="b_title"
-							placeholder="제목을 입력해주세요." value="${bdto.b_title }" class="formbold-form-input"  required="required"/>
+							placeholder="제목을 입력해주세요.(50자 이하)" value="${bdto.b_title }" class="formbold-form-input"  required="required" maxlength="50"/>
 					</div>
 				</div>
 
 				<div class="formbold-mb-3">
 					<label for="p_content" class="formbold-form-label"> 내용 </label>
-						<textarea name="b_content" id="b_content" placeholder="내용을 입력해주세요." 
-						class="bcontent-input" required="required" >${bdto.b_content }</textarea>
+						<textarea name="b_content" id="b_content" placeholder="내용을 입력해주세요.(500자 이하)" 
+						class="bcontent-input" required="required" maxlength="500" >${bdto.b_content }</textarea>
 				</div>
 
 				<div class="formbold-mb-3">

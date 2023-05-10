@@ -142,7 +142,7 @@ $(function(){
 					</c:if>
 					
                     <br>
-					<div style="width:20%; height:30px; float:left; line-height:30px; color:gray; overflow: hidden;">${dto.b_content } </div>
+					<div style="width:100%; height:30px; float:left; line-height:30px; color:gray; overflow: hidden;">${dto.b_content } </div>
 					</a>	
 					
 					<br>

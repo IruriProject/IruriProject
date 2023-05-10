@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.PostingDto;
+import spring.mvc.dto.ViewerDto;
 import spring.mvc.service.EFnService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,54 +49,63 @@ public class EFnController {
 	@Autowired
 	UFnService ufn_service;
 
+	@Autowired
+	UserService u_service;
+
+
 	@GetMapping("/insertForm")
 	public String insertForm() {
 		return "/posting/InsertForm";
 	}
 
 	@GetMapping("/search")
-	public ModelAndView l(@RequestParam(value = "currentPage",defaultValue = "1") int currentPage,
-			@RequestParam(value = "searchcolumn",required = false) String sc, 
-			@RequestParam(value = "searchword",required = false) String sw) {
-		
-		ModelAndView model=new ModelAndView();
-		
-		int totalCount=service.getTotalCount();
+	public ModelAndView searchPage(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value = "searchcolumn", required = false) String sc,
+			@RequestParam(value = "searchword", required = false) String sw) {
 
-		  int totalPage; 
-	      int startPage; 
-	      int endPage; 
-	      int start; 
-	      int perPage=10; 
-	      int perBlock=5; 
-	           
-	      //총 페이지 갯수
-	      totalPage=totalCount/perPage+(totalCount%perPage==0?0:1);
-	      
-	      //각 블럭의 시작 페이지 
-	      startPage=(currentPage-1)/perBlock*perBlock+1;
-	      endPage=startPage+perBlock-1;
-	          
-	      if(endPage>totalPage)
-	         endPage=totalPage;
-	       
-	       //각 페이지에서 불러 올 시작번호
-	       start=(currentPage-1)*perPage; 
-	       
-	       List<PostingDto> list=service.getPagingList(sc, sw, start, perPage);
-	       
-	       int no=totalCount-(currentPage-1)*perPage;
-	       
-	       //출력에 필요한 변수를 model에 저장
-	       model.addObject("totalCount", totalCount);
-	       model.addObject("list", list);
-	       model.addObject("totalPage", totalPage);
-	       model.addObject("startPage", startPage);
-	       model.addObject("endPage", endPage);
-	       model.addObject("perBlock", perBlock);
-	       model.addObject("currentPage", currentPage);
-	       model.addObject("no", no);
-	       
+		ModelAndView model = new ModelAndView();
+
+		int totalCount=service.getTotalCount();
+		int searchCount=service.getTotalCountOfSearch(sc, sw); // 검색 결과에 따른 총 게시글 수
+
+		int totalPage;
+		int startPage;
+		int endPage;
+		int start;
+		int perPage = 10;
+		int perBlock = 5;
+
+		// 총 페이지 갯수
+		totalPage = searchCount / perPage + (searchCount % perPage == 0 ? 0 : 1);
+
+		// 각 블럭의 시작 페이지
+		startPage = (currentPage - 1) / perBlock * perBlock + 1;
+		endPage = startPage + perBlock - 1;
+
+		if (endPage > totalPage)
+			endPage = totalPage;
+
+		// 각 페이지에서 불러 올 시작번호
+		start = (currentPage - 1) * perPage;
+
+		List<PostingDto> list = service.getPagingList(sc, sw, start, perPage);
+
+		int no = searchCount - (currentPage - 1) * perPage;
+
+		// 출력에 필요한 변수를 model에 저장
+		model.addObject("totalCount", totalCount);
+		model.addObject("list", list);
+		model.addObject("totalPage", totalPage);
+		model.addObject("startPage", startPage);
+		model.addObject("endPage", endPage);
+		model.addObject("perBlock", perBlock);
+		model.addObject("currentPage", currentPage);
+		model.addObject("no", no);
+		model.addObject("searchCount", searchCount);
+		model.addObject("column", sc);
+		model.addObject("keyword", sw);
+		
+
 		model.setViewName("/posting/search");
 		return model;
 
@@ -111,17 +121,52 @@ public class EFnController {
 		String loginId = (String) session.getAttribute("loginId");
 		EnterpriseDto e_dto = e_service.findEnterdataById(loginId);
 
+		model.addAttribute("draftCount", service.draftList(e_dto.getE_num()).size());
 		model.addAttribute("enterNum", e_dto.getE_num());
-
+		model.addAttribute("draftList", service.draftList(e_dto.getE_num()));
+		
 		return "/posting/writeForm";
 	}
 
+	
+	@GetMapping("/loadingRecentPosting")
+	@ResponseBody
+	public PostingDto loadingRecentPosting(@RequestParam String e_num) {
+		return service.loadingRecentPosting(e_num);
+	}
+	
+	@GetMapping("/loadingDraftPosting")
+	@ResponseBody
+	public Object loadingDraftPosting(@RequestParam String p_num) {
+		return service.getPosting(p_num);
+	}
+
+
 	@PostMapping("/writeposting")
 	public String writeposting(@ModelAttribute PostingDto dto) {
+		if(service.findPostingNum(dto.getP_num())!=0) {
+			service.deletePosting(dto.getP_num());
+		}
 		service.insertPosting(dto);
 
 		return "redirect:/";
 	}
+	
+	@PostMapping("/draftposting")
+	public String draftposting(@ModelAttribute PostingDto dto) {
+		service.draftPosting(dto);
+		
+		return "/posting/draftPosting";
+
+	}
+	
+	@PostMapping("/draftdelete")
+	public String draftdelete(@RequestParam String p_num) {
+		service.deletePosting(p_num);
+		
+		return "redirect:/posting/write";
+	}
+	
 
 	@GetMapping("/detailpage")
 	public ModelAndView detailPage(String p_num,HttpSession session) {
@@ -134,10 +179,36 @@ public class EFnController {
 		String myId=(String)session.getAttribute("loginId");
 		String loginStatus=(String)session.getAttribute("loginStatus");
 		
+
 		if(loginStatus.equals("user")) {
 			String u_num=user_service.findUserdataById(myId).getU_num();
 			mview.addObject("rlist", ufn_service.getMyResume(u_num));
 		}
+
+		if(loginStatus != null && loginStatus.equals("user")) {
+			String u_num=user_service.findUserdataById(myId).getU_num();
+			mview.addObject("rlist", ufn_service.getMyResume(u_num));
+		}
+
+		if (session.getAttribute("loginStatus") == "user") {
+			ViewerDto vdto = new ViewerDto();
+
+			vdto.setP_num(p_num);
+
+			String u_num = u_service.findUserdataById((String) session.getAttribute("loginId")).getU_num();
+			vdto.setU_num(u_num);
+
+			if (ufn_service.getSearchUnum(u_num, p_num) == 0) {
+				ufn_service.insertViewer(vdto);
+			}
+
+		}
+
+		mview.addObject("dto", service.getPosting(p_num));
+		mview.addObject("scrapCount", service.scrapByPosting(p_num));
+		mview.addObject("viewerCount", service.viewerByPosting(p_num));
+
+
 		mview.setViewName("/posting/detailPage");
 		return mview;
 	}

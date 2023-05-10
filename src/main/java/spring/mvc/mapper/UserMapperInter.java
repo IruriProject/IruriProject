@@ -15,4 +15,5 @@ public interface UserMapperInter {
 	public void joinUser(UserDto dto);
 	public int getSearchId(String u_id);
 	public void insertResume(ApplicantDto dto);
+	public UserDto findUserByNum(String u_num);
 }

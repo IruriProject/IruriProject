@@ -38,6 +38,14 @@ public class UFnService {
 
 		mapper.updatePw(map);
 	}
+	
+	public void updatePrivate(int r_num) {
+		mapper.updatePrivate(r_num);
+	}
+	
+	public void updatePublic(int r_num) {
+		mapper.updatePublic(r_num);
+	}
 
 	public void updatePhoto(String u_id, String u_photo) {
 		// TODO Auto-generated method stub
@@ -67,6 +75,7 @@ public class UFnService {
 	public ResumeDto getResume(String u_num) {
 		return mapper.getResume(u_num);
 	}
+	
 
 	// num으로 유저정보 찾기
 	public UserDto findUserdataByNum(String u_num) {
@@ -77,6 +86,7 @@ public class UFnService {
 	public void deleteUser(String u_num) {
 		mapper.deleteUser(u_num);
 	}
+
 
 	// 좋아요 한 회원과 기업 데이터 추가
 	public void insertlikeEnter(HeartDto dto) {
@@ -94,6 +104,7 @@ public class UFnService {
 	public void insertViewer(ViewerDto dto) {
 		mapper.insertViewer(dto);
 	}
+  
 	public int getSearchUnum(String u_num, String p_num) {
 		Map<String, String> map=new HashMap<>();
 		
@@ -105,10 +116,9 @@ public class UFnService {
 	public List<ResumeDto> getMyResume(String u_num){
 		return mapper.getMyResume(u_num);
 	}
-	
-	
-	
-	
-	
 
+
+	public ResumeDto getResumeOfRNum(String r_num) {
+		return mapper.getResumeOfRNum(r_num);
+	}
 }

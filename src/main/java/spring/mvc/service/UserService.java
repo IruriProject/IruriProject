@@ -45,5 +45,9 @@ public class UserService {
 	public void insertResume(ApplicantDto dto) {
 		mapper.insertResume(dto);
 	}
+	
+	public UserDto findUserByNum(String u_num) {
+		return mapper.findUserByNum(u_num);
+	}
 
 }

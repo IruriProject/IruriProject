@@ -43,7 +43,7 @@
 	</select>
 		
 	<select id="getAllphotos"  parameterType="String" resultType="bdto">	
-	select b_photo from BOARD  where b_num=#{b_bum} order by b_num
+	select b_photo from BOARD  where b_num=#{b_num} order by b_num
 	</select>
 		
 	<insert id="insertBoard" parameterType="bdto">

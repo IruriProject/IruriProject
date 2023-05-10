@@ -29,6 +29,18 @@ public class EFnService {
 		mapper.insertPosting(dto);
 	}
 	
+	public void draftPosting(PostingDto dto) {
+		mapper.draftPosting(dto);
+	}
+	
+	public List<PostingDto> draftList(String e_num){
+		return mapper.draftList(e_num);
+	}
+	
+	public int findPostingNum(String p_num) {
+		return mapper.findPostingNum(p_num);
+	}
+	
 	public List<PostingDto> getAllPostings(String e_num){
 		return mapper.getAllPostings(e_num);
 	}	
@@ -118,6 +130,16 @@ public class EFnService {
 		map.put("perpage", perpage);
 		
 		return mapper.getPagingList(map);
+	}
+	
+	public int getTotalCountOfSearch(String searchcolumn, String searchword) {
+		
+		Map<String, Object> map=new HashMap<>();
+		
+		map.put("searchcolumn", searchcolumn);
+		map.put("searchword", searchword);
+		
+		return mapper.getTotalCountOfSearch(map);
 	}
 	
 	public List<PostingDto> getAddrSearch(String p_addr){

@@ -165,7 +165,7 @@ $(document).ready(function(){
             </ul>
         </li>
         <li>
-            <a href="#" class="mainMenu">문의하기</a>
+            <a href="/qna/qnawriteform" class="mainMenu">문의하기</a>
             <ul class="subMenu">
                 <li><a href="hi">sub메뉴</a></li>
                 <li><a href="hi">sub메뉴</a></li>
