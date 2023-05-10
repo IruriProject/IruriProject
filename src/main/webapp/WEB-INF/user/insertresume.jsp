@@ -1292,7 +1292,7 @@ td {
             </div>
 
             <div class="formbold-mb-3">
-                 <label for="r_content" class="formbold-form-label"> 자기소개서</label>
+                  <label for="r_content" class="formbold-form-label"> 자기소개서</label>
 
                <ul class="introduceTab__list">
                   <li><button type="button" id="direct" class="first on">직접입력</button></li>
