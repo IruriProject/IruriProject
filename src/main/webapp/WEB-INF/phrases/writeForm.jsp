@@ -15,6 +15,25 @@
 	href="https://fonts.googleapis.com/css2?family=Anton&family=Edu+VIC+WA+NT+Beginner:wght@600&family=Gamja+Flower&family=Single+Day&family=Jua&family=Nanum+Pen+Script&display=swap"
 	rel="stylesheet"/>
 </head>
+<script>
+$(function(){
+	$("#auto").change(function(){
+		
+		var phrase=$(this).val();
+		$("#f_phrase").val(phrase);
+		var text=$("#f_phrase").text();
+		
+	})
+	
+	$("#directbtn").click(function(){
+	
+		var phrase=$("#direct").val();
+		$("#f_phrase").val(phrase);
+		var text=$("#f_phrase").text();
+		
+	})
+})
+</script>
 <body>
 
 	<div class="formbold-main-wrapper">
@@ -42,7 +61,7 @@
 					<div class="form-inline" style="height: 100px; position: relative;">
 						<textarea id="direct" style="width: 90%"
 						placeholder="직접 문구를 입력해주세요." class="pcontent-input"></textarea>
-						<button class="small-btn" type="button" style="position: absolute; top: 40%; vertical-align: middle; text-align: center;">+</button>
+						<button class="small-btn" id="directbtn" type="button" style="position: absolute; top: 40%; vertical-align: middle; text-align: center;">+</button>
 					</div>
 				</div>
 				
