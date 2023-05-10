@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -75,11 +76,16 @@ public class UFnController {
 
 	// 이력서등록 페이지로 이동
 	@GetMapping("/insertresume")
-	public ModelAndView insertResume(HttpServletRequest request) {
+	public ModelAndView insertResume(HttpServletRequest request, HttpSession session) {
 	    ModelAndView model = new ModelAndView();
-	    HttpSession session = request.getSession();
 	    String u_id = (String) session.getAttribute("loginId");
+	    String loginStatus = (String) session.getAttribute("loginStatus");
 	    List<ResumeDto> list=uservice.getResumeByUserId(u_id);
+	    
+	    if(loginStatus==null) {
+	    	String loginmessage = "로그인 후 사용 가능합니다.";
+	    	model.addObject("loginmessage", loginmessage);
+	    }
 	    if (list.size()> 4) {
 	        String message = "이력서는 최대 5개까지만 저장됩니다. \\n이력서 관리페이지로 이동합니다.";
 	        model.addObject("message", message);
