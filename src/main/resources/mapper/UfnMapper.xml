@@ -18,12 +18,13 @@
 		update USER set
 		u_photo=#{u_photo} where u_id=#{u_id}
 	</update>
-
+	
+	<!-- 대표이력서 가져오기 -->
 	<select id="getResume" resultType="rdto" parameterType="String">
 		select *
 		from RESUME where u_num=#{u_num} and r_presume=1
 	</select>
-
+	
 	<select id="countLikeEnterprise" resultType="int"
 		parameterType="String">
 		select count(h_num) from HEART where u_num=#{u_num}
@@ -46,11 +47,12 @@
 		where h_num=#{h_num}
 	</delete>
 
-	<!-- 작성한 이력서 목록 가져오기 -->
+	<!-- 작성한 이력서 목록 가져오기(list형식) -->
 	<select id="getMyResume" resultType="rdto"
 		parameterType="String">
 		select * from RESUME where u_num=#{u_num}
 	</select>
+	
 
 	<!-- 이력서 detailpage -->
 	<select id="getResumeOfRNum" resultType="rdto"
@@ -77,13 +79,13 @@
 	<!-- 비공개로 설정 -->
 	<update id="updatePrivate" parameterType="int">
 		update RESUME set
-		r_private=0 where r_num=#{r_num}
+		r_private=1 where r_num=#{r_num}
 	</update>
 
 	<!-- 공개로 설정 -->
 	<update id="updatePublic" parameterType="int">
 		update RESUME set
-		r_private=1 where r_num=#{r_num}
+		r_private=0 where r_num=#{r_num}
 	</update>
 
 	<!-- 주소 변경 -->

@@ -84,30 +84,62 @@ div {
 				</div>
 				<div class="col-sm-12 col-md-6 col-xl-7 w-75">
 					<div class="h-100 bg-light rounded p-4">
-					
-						<div
+
+						<div data-rnum="${rdto.r_num}"
 							class="d-flex align-items-center justify-content-between mb-4">
 							<c:if test="${rdto.r_title==null}">
 								<h3>대표이력서가 없습니다.</h3>
-								<button type="button" onclick="location.href='resumelist'">대표이력서 설정하기</button>
+								<button type="button" onclick="location.href='resumelist'">대표이력서
+									설정하기</button>
 								<!-- 이력서 목록 페이지로 -->
 							</c:if>
 							<c:if test="${rdto.r_title!=null}">
 								<h3>${rdto.r_title}</h3>
 								<br>
 								최종수정일 : ${rdto.r_writeday }<br>
-								
-								<c:if test="${rdto.r_private==1}">
-								공개중
-								<button type="button">이력서 비공개</button>
-								</c:if>
+
 								<c:if test="${rdto.r_private==0}">
+								공개중
+								<button type="button" class="setPrivate">비공개 전환</button>
+								</c:if>
+								<c:if test="${rdto.r_private==1}">
 								비공개중
-								<button type="button">이력서 공개</button>
+								<button type="button" class="setPublic">공개 전환</button>
 								</c:if>
 							</c:if>
 						</div>
 					</div>
+					<script type="text/javascript">
+						$(".setPrivate").click(function() {
+							var r_num = $(this).closest("div").data("rnum");
+							$.ajax({
+								type : "post",
+								dataType : "html",
+								data : {
+									"r_num" : r_num
+								},
+								url : "/updatePrivate",
+								success : function() {
+									alert("성공");
+								}
+							})
+						})
+
+						$(".setPublic").click(function() {
+							var r_num = $(this).closest("div").data("rnum");
+							$.ajax({
+								type : "post",
+								dataType : "html",
+								data : {
+									"r_num" : r_num
+								},
+								url : "/updatePublic",
+								success : function() {
+									alert("성공");
+								}
+							})
+						})
+					</script>
 					<br>
 					<div class="h-100 bg-light rounded p-4">
 						<button type="button" onclick="location.href='insertresume'">이력서

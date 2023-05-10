@@ -61,19 +61,18 @@ div {
 							</tr>
 						</thead>
 						<c:forEach var="dto" items="${list }" varStatus="i">
-						<input type="hidden" name="r_num" value="${dto.r_num }">
-							<tr>
+							<tr data-rnum="${dto.r_num}">
 								<td>${i.count}</td>
 								<td>${dto.r_title}</td>
 								<td>${dto.r_content}</td>
 								<td>수정페이지로 이동버튼</td>
 								<td>
 								<!-- if문 -->
-								<c:if test="${dto.r_private==0}">
-									<button type="button" id="setPublic">공개 전환</button>
-								</c:if>
 								<c:if test="${dto.r_private==1}">
-									<button type="button" id="setPrivate">비공개 전환</button>
+									<button type="button" class="setPublic">공개 전환</button>
+								</c:if>
+								<c:if test="${dto.r_private==0}">
+									<button type="button" class="setPrivate">비공개 전환</button>
 								</c:if>
 								</td>
 								
@@ -95,8 +94,8 @@ div {
 			</div>
 		</div>
 	<script type="text/javascript">
-	$("#setPrivate").click(function(){
-		var r_num="${rdto.r_num}";
+	$(".setPrivate").click(function(){
+		 var r_num = $(this).closest("tr").data("rnum");
 		$.ajax({
 			type:"post",
 			dataType:"html",
@@ -108,8 +107,8 @@ div {
 		})
 	})
 	
-	$("#setPublic").click(function(){
-		var r_num="${rdto.r_num}";
+	$(".setPublic").click(function(){
+		 var r_num = $(this).closest("tr").data("rnum");
 		$.ajax({
 			type:"post",
 			dataType:"html",

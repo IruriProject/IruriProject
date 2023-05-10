@@ -1232,6 +1232,12 @@ td {
 						areaInput.value = selectedLocations.join(', ');
 					}
 					function setSido(sidoId) {
+						// 기존에 선택되어 있던 체크박스들의 값을 보존
+					    var selectedCheckboxes = document.querySelectorAll('#ulGugun input[type="checkbox"]:checked');
+					    var selectedValues = [];
+					    for (var i = 0; i < selectedCheckboxes.length; i++) {
+					        selectedValues.push(selectedCheckboxes[i].value);
+					    }
 						// 모든 구/군 체크박스를 숨김
 						var checkboxes = document
 								.querySelectorAll('input[name="selGugun"]');
@@ -1248,9 +1254,14 @@ td {
 							guguns[j].parentNode.style.display = '';
 						}
 
-						//시/도 옮길때마다 span비우기
-						var areaInput = document.getElementById('areainput');
-						areaInput.value = '';
+
+						// 기존에 선택되어 있던 체크박스들의 값을 다시 설정
+					    for (var k = 0; k < selectedValues.length; k++) {
+					        var checkbox = document.querySelector('#ulGugun input[type="checkbox"][value="' + selectedValues[k] + '"]');
+					        if (checkbox) {
+					            checkbox.checked = true;
+					        }
+					    }
 					}
 				</script>
 				<div class="formbold-mb-3">
@@ -1499,13 +1510,13 @@ td {
 					  
 					  r_private_checkbox.addEventListener('change', function() {
 					    if (this.checked) {
-					      this.value = 0;
-					    } else {
 					      this.value = 1;
+					    } else {
+					      this.value = 0;
 					    }
 					  });
 					</script>
-					<!-- 대표이력서 체크되면 1(대표이력서), 비공개 체크되면 0(비공개)되게 해야함 -->
+					<!-- 대표이력서 체크되면 1(대표이력서), 비공개 체크되면 0(공개)되게 해야함 -->
 
 					<button id="submitBtn" type="submit" class="formbold-btn">공고등록</button>
 					<script type="text/javascript">
