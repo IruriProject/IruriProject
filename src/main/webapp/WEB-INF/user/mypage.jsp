@@ -32,12 +32,14 @@
 <!-- Template Stylesheet -->
 <link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style type="text/css">
+div {
+	border: 1px solid gray;
+}
 </style>
 </head>
 
 <body>
 	<div>
-
 		<!-- Content Start -->
 		<div class="container-fluid pt-4 px-4">
 			<div class="row g-4" style="border: 1px solid gray">
@@ -46,7 +48,12 @@
 						<img alt="" src="/photo/${dto.u_photo}"
 							style="width: 150px; height: 200px;">
 					</div>
-
+					${sessionScope.loginName }<br> ${dto.u_gender } / 나이 들어가야함
+					<button type="button" data-toggle="modal" data-target="#myPhoto">사진
+						등록 및 변경</button>
+					<br>
+					<button type="button" onclick="location.href='update'">개인정보
+						수정</button>
 					<div>
 						<!-- Modal -->
 						<div class="modal fade" id="myPhoto" role="dialog">
@@ -73,35 +80,31 @@
 						</div>
 					</div>
 
-					<button type="button" data-toggle="modal" data-target="#myPhoto">사진
-						등록 및 변경</button>
-					<br>
-					<button type="button" onclick="location.href='update'">개인정보
-						수정</button>
+
 				</div>
 				<div class="col-sm-12 col-md-6 col-xl-7 w-75">
 					<div class="h-100 bg-light rounded p-4">
+					
 						<div
 							class="d-flex align-items-center justify-content-between mb-4">
 							<c:if test="${rdto.r_title==null}">
 								<h3>대표이력서가 없습니다.</h3>
-								<button onclick="location.href='#'">대표이력서 설정하기</button>
+								<button type="button" onclick="location.href='resumelist'">대표이력서 설정하기</button>
 								<!-- 이력서 목록 페이지로 -->
 							</c:if>
 							<c:if test="${rdto.r_title!=null}">
 								<h3>${rdto.r_title}</h3>
 								<br>
-							최종수정일 : ${rdto.r_writeday }<br>
-								<c:if test="${rdto.r_private==0}">
-							공개중
-							<button type="button">이력서 비공개</button>
-							</c:if>
-							
+								최종수정일 : ${rdto.r_writeday }<br>
+								
 								<c:if test="${rdto.r_private==1}">
-							비공개중
-							<button type="button">이력서 공개</button>
+								공개중
+								<button type="button">이력서 비공개</button>
 								</c:if>
-
+								<c:if test="${rdto.r_private==0}">
+								비공개중
+								<button type="button">이력서 공개</button>
+								</c:if>
 							</c:if>
 						</div>
 					</div>
@@ -110,7 +113,8 @@
 						<button type="button" onclick="location.href='insertresume'">이력서
 							등록</button>
 						<button type="button">지원현황</button>
-						<button type="button" onclick="location.href='resumelist'">내 이력서 목록</button>
+						<button type="button" onclick="location.href='resumelist'">내
+							이력서 목록</button>
 						<br>
 					</div>
 					<br>
@@ -201,15 +205,15 @@
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h6 class="mb-0">이력서 목록</h6>
-					<a href="">더보기</a>
+					<a href="resumelist">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center;"><input class="form-check-input"
-									type="checkbox"></th>
+								<th scope="col" style="text-align: center;"><input
+									class="form-check-input" type="checkbox"></th>
 								<th scope="col" style="text-align: center;">Date</th>
 								<th scope="col" style="text-align: center;">Invoice</th>
 								<th scope="col" style="text-align: center;">Customer</th>
@@ -266,8 +270,8 @@
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center;"><input class="form-check-input"
-									type="checkbox"></th>
+								<th scope="col" style="text-align: center;"><input
+									class="form-check-input" type="checkbox"></th>
 								<th scope="col" style="text-align: center;">Date</th>
 								<th scope="col" style="text-align: center;">Invoice</th>
 								<th scope="col" style="text-align: center;">Customer</th>
@@ -324,8 +328,8 @@
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center;"><input class="form-check-input"
-									type="checkbox"></th>
+								<th scope="col" style="text-align: center;"><input
+									class="form-check-input" type="checkbox"></th>
 								<th scope="col" style="text-align: center;">Date</th>
 								<th scope="col" style="text-align: center;">Invoice</th>
 								<th scope="col" style="text-align: center;">Customer</th>
@@ -382,8 +386,8 @@
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center;"><input class="form-check-input"
-									type="checkbox"></th>
+								<th scope="col" style="text-align: center;"><input
+									class="form-check-input" type="checkbox"></th>
 								<th scope="col" style="text-align: center;">Date</th>
 								<th scope="col" style="text-align: center;">Invoice</th>
 								<th scope="col" style="text-align: center;">Customer</th>
@@ -439,8 +443,8 @@
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center;"><input class="form-check-input"
-									type="checkbox"></th>
+								<th scope="col" style="text-align: center;"><input
+									class="form-check-input" type="checkbox"></th>
 								<th scope="col" style="text-align: center;">Date</th>
 								<th scope="col" style="text-align: center;">Invoice</th>
 								<th scope="col" style="text-align: center;">Customer</th>
