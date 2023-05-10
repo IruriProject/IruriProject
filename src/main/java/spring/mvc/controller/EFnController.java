@@ -143,10 +143,16 @@ public class EFnController {
 	}
 
 	@PostMapping("/writeposting")
-	public String writeposting(@ModelAttribute PostingDto dto) {
+	public String writeposting(@ModelAttribute PostingDto dto,HttpSession session) {
 		if(service.findPostingNum(dto.getP_num())!=0) {
 			service.deletePosting(dto.getP_num());
 		}
+		
+		EnterpriseDto edto=e_service.findEnterdataById((String)session.getAttribute("loginId")); 
+
+		String [] enterAddr=edto.getE_addr().split("구");
+		String saveAddr=enterAddr[0]+" "+enterAddr[1];
+		dto.setP_addr(saveAddr);
 		service.insertPosting(dto);
 
 		return "redirect:/";
