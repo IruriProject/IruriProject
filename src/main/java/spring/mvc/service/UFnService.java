@@ -105,5 +105,10 @@ public class UFnService {
 	public List<ResumeDto> getMyResume(String u_num){
 		return mapper.getMyResume(u_num);
 	}
+	
+	
+	
+	
+	
 
 }
