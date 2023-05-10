@@ -100,6 +100,7 @@ public class UFnService {
 		mapper.deleteLikeEnter(num);
 	}
 	
+
 	//열람
 	public void insertViewer(ViewerDto dto) {
 		mapper.insertViewer(dto);
@@ -116,7 +117,6 @@ public class UFnService {
 	public List<ResumeDto> getMyResume(String u_num){
 		return mapper.getMyResume(u_num);
 	}
-
 
 	public ResumeDto getResumeOfRNum(String r_num) {
 		return mapper.getResumeOfRNum(r_num);

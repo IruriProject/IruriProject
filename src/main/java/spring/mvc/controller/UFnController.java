@@ -223,12 +223,7 @@ public class UFnController {
       System.out.println(u_id);
    }
 
-   // 버튼 누르면 좋아요 테이블에 데이터 delete
-   @GetMapping("/likeEnter")
-   @ResponseBody
-   public void deleteLikeEnter(String num) {
 
-      uservice.deleteLikeEnter(num);
-   }
-
+	
 }
+
