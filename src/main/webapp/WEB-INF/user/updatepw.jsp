@@ -193,25 +193,25 @@ div {
 </head>
 <body>
 	<form action="updatePw" method="post">
-	<input type="hidden" name="u_id" value="${sessionScope.loginId}">
+		<input type="hidden" name="u_id" value="${sessionScope.loginId}">
 		<div>
-			<a href="updateuser">내 정보 수정</a><br> <br> <a
-				href="updatepw"><b>비밀번호변경</b></a><br> <br>
-				<a href="deleteform">회원탈퇴</a>
+			<a href="updateuser">내 정보 수정</a><br> <br>
+			<b>비밀번호변경</b><br> <br>
+			<a href="deleteform">회원탈퇴</a>
 		</div>
 
 		<div>
 			<div class="pwcheck">
 
-				<input id="presentPw" type="text" placeholder="기존 비밀번호"
+				<input id="presentPw" type="password" placeholder="기존 비밀번호"
 					style="margin-bottom: 10px; width: 380px; height: 45px; margin-bottom: 20px;"
 					class="formbold-form-input"> <span id="pwError1"></span><br>
 
-				<input id="newPw" type="text" placeholder="새 비밀번호"
+				<input id="newPw" type="password" placeholder="새 비밀번호"
 					style="margin-bottom: 10px; width: 380px; height: 45px; margin-bottom: 20px;"
 					class="formbold-form-input"> <span id="pwError2"></span><br>
 
-				<input id="pwCheck" type="text" placeholder="비밀번호 확인"
+				<input id="pwCheck" type="password" placeholder="비밀번호 확인"
 					style="margin-bottom: 10px; width: 380px; height: 45px; margin-bottom: 20px;"
 					class="formbold-form-input" name="u_pw"> <span
 					id="pwError3"></span><br>
@@ -228,13 +228,13 @@ div {
 				//기존 비밀번호 입력 오류 시
 				if ($("#presentPw").val() == "") {
 					$("#pwError1").text("비밀번호를 입력해주세요");
-				} else if ($("#presentPw").val() != "${sessionScope.loginPw}") {
+				} else if ($("#presentPw").val() != "${dto.u_pw}") {
 					$("#pwError1").text("비밀번호가 올바르지 않습니다.");
 				} else {
 					$("#pwError1").text("");
 				}
 				//새 비밀번호가 현재 로그인된 세션의 비밀번호와 같을때
-				if ($("#newPw").val() == "${sessionScope.loginPw}") {
+				if ($("#newPw").val() == "${dto.u_pw}") {
 					$("#pwError2").text("새 비밀번호는 기존 비밀번호와 일치할 수 없습니다.");
 				} else {
 					$("#pwError2").text("");
