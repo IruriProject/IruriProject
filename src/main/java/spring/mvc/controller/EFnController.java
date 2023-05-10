@@ -62,13 +62,14 @@ public class EFnController {
 	}
 
 	@GetMapping("/search")
-	public ModelAndView l(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+	public ModelAndView searchPage(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "searchcolumn", required = false) String sc,
 			@RequestParam(value = "searchword", required = false) String sw) {
 
 		ModelAndView model = new ModelAndView();
 
-		int totalCount = service.getTotalCount();
+		int totalCount=service.getTotalCount();
+		int searchCount=service.getTotalCountOfSearch(sc, sw); // 검색 결과에 따른 총 게시글 수
 
 		int totalPage;
 		int startPage;
@@ -78,7 +79,7 @@ public class EFnController {
 		int perBlock = 5;
 
 		// 총 페이지 갯수
-		totalPage = totalCount / perPage + (totalCount % perPage == 0 ? 0 : 1);
+		totalPage = searchCount / perPage + (searchCount % perPage == 0 ? 0 : 1);
 
 		// 각 블럭의 시작 페이지
 		startPage = (currentPage - 1) / perBlock * perBlock + 1;
@@ -92,7 +93,7 @@ public class EFnController {
 
 		List<PostingDto> list = service.getPagingList(sc, sw, start, perPage);
 
-		int no = totalCount - (currentPage - 1) * perPage;
+		int no = searchCount - (currentPage - 1) * perPage;
 
 		// 출력에 필요한 변수를 model에 저장
 		model.addObject("totalCount", totalCount);
@@ -103,7 +104,10 @@ public class EFnController {
 		model.addObject("perBlock", perBlock);
 		model.addObject("currentPage", currentPage);
 		model.addObject("no", no);
-
+		model.addObject("searchCount", searchCount);
+		model.addObject("column", sc);
+		model.addObject("keyword", sw);
+		
 		model.setViewName("/posting/search");
 		return model;
 
