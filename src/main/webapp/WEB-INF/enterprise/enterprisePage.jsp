@@ -107,7 +107,7 @@
 						<div
 							class="d-flex align-items-center justify-content-between mb-2">
 							<h4 class="mb-5"><b>쪽지관리</b></h4>
-							<a href="/posting/writemessage">쪽지보내기</a><a class="atag" href="/posting/allMessages">더보기</a>
+							<a class="atag" href="/posting/messagelist">더보기</a>
 
 						</div>
 						<c:if test="${messages.size()==0 }">
