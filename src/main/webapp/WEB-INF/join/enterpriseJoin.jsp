@@ -183,12 +183,70 @@
           <input
             type="text"
             name="e_id"
-            placeholder="가입할 아이디를 입력해주세요"
+            placeholder="영문, 숫자로 구성된 6-12자의 아이디를 입력해주세요"
+            minlength="6" maxlength="12" required
+            onkeyup="characterCheck(this);idcheckClean();" onkeydown="characterCheck(this);idcheckClean();"
             class="formbold-form-input"
           />
-          <button type="button" class="formbold-btn btn-s">중복확인</button>
+          <button type="button" class="formbold-btn btn-s" id="btn-idcheck">중복확인</button>
         </div>
+        <div>
+          <div id="idcheck"></div>
+          <input type="hidden" value="idUnchecked" name="isDuplication" id="isDuplication">
+          </div>
       </div>
+      
+      <script type="text/javascript">
+      //아이디
+      
+        function idcheckClean(){
+        	$("#idcheck").html("");
+        	$("#isDuplication").val("isUnchecked");
+        	$("#isDuplication").removeAttr("disabled");
+        	$("#btn-idcheck").css("background-color","#cce891");
+        }
+      
+	    //중복체크 버튼 클릭시
+      	$("#btn-idcheck").click(function(){
+      		
+      		const u_id=$("#u_id").val();
+      		
+      		if(u_id.length<6 || u_id.length>12){
+      			$("#idcheck").text("아이디는 6자 이상 12자 이하만 가능합니다.");
+      			return false;
+      		}
+      		
+	  		$.ajax({
+	  			type:"get",
+	  			url:"/user/idcheck",
+	  			dataType:"json",
+	  			data:{"u_id":u_id},
+	  			success:function(res){
+	  				if(res.count==0){
+	  					$("#idcheck").text("가입이 가능한 아이디입니다.");
+	  					$("#isDuplication").val("isChecked");
+	  					$("#isDuplication").attr("disabled","true");
+	  					$("#btn-idcheck").css("background-color","lightgray");
+	  				}else{
+	  					$("#idcheck").text("중복된 아이디입니다.");
+	  					
+	  				}
+	  			}
+	  		})
+	  		
+      	})
+      	
+      	// id, 번호 특수문자감지
+      	function characterCheck(obj){
+      		
+		var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
+
+		if( regExp.test(obj.value) ){
+			obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지우기
+			}
+		}
+      
+      </script>
 
       <div class="formbold-mb-3">
         <label class="formbold-form-label"> 비밀번호 </label>
@@ -196,7 +254,8 @@
           type="password"
           id="pw1"
           name="e_pw"
-          placeholder="비밀번호를 입력해주세요"
+          placeholder="영문, 숫자가 포함된 6-12자의 비밀번호를 입력해주세요(특수문자 가능)"
+          onkeyup="checkPw();" onkeydown="checkPw();"
           class="formbold-form-input"
         />
       </div>
@@ -206,10 +265,36 @@
         <input
           type="password"
           id="pw2"
+          minlength="6" maxlength="12" required
           placeholder="비밀번호를 동일하게 입력해주세요"
           class="formbold-form-input"
         />
       </div>
+      
+      <script type="text/javascript">
+	
+        $("#pw1").onkeyup(function(){
+
+	    	$('#pwcheck').html('');
+	    	$("#pwChecked").val("no");
+        })
+      
+	    $("#pw2").onkeyup(function(){
+	    	
+		      pw1=$("#pw1").val();
+		      pw2=$("#pw2").val();
+		      
+		      if(pw1!=pw2){
+	    		  $("#pwcheck").html("비밀번호가 일치하지 않습니다.");
+	    	  }else{
+	    		  $("#pwcheck").html("유효한 비밀번호입니다.");
+	    		  $("#pwcheck").css("color","green");
+	    		  $("#pwChecked").val("no");
+	    	  }
+	      })
+            
+      </script>
+      
 
       <div class="formbold-mb-3">
         <label class="formbold-form-label"> 회사/점포명 </label>
@@ -217,7 +302,7 @@
           type="text"
           id="e_name"
           name="e_name"
-          placeholder="이름을 입력해주세요"
+          placeholder="이름을 입력해주세요" required
           class="formbold-form-input"
         />
       </div>
@@ -228,7 +313,7 @@
           type="text"
           name="e_registnum"
           id="e_registnum"
-          placeholder="사업자등록번호를 입력해주세요"
+          placeholder="사업자등록번호를 입력해주세요" required
           class="formbold-form-input"
         />
       </div>
@@ -241,10 +326,10 @@
             type="text"
             name="e_tel"
             id="e_tel"
-            placeholder="- 없이 전화번호를 입력해주세요"
+            placeholder="번호를 - 없이 입력해주세요" required
+			onkeyup="characterCheck(this);" onkeydown="characterCheck(this);"
             class="formbold-form-input"
           />
-          
         </div>
       </div>
 
@@ -254,7 +339,7 @@
           type="email"
           name="e_email"
           id="e_email"
-          placeholder="example@email.com 형태로 입력해주세요"
+          placeholder="example@email.com 형태로 입력해주세요" required
           class="formbold-form-input"
         />
       </div>
@@ -262,7 +347,7 @@
       <div class="formbold-mb-3">
         <label for="address" class="formbold-form-label"> 회사 주소 </label>
         <div style="align-content: flex-end;">
-        <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input" style="width: 300px;">
+        <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input" style="width: 300px;" required>
 		<input type="button" class="formbold-btn btn-s" onclick="sample6_execDaumPostcode()" value="검색"><br>
         </div>
 		<input type="text" id="sample6_address" name="addr1" placeholder="주소" class="formbold-form-input" readonly="readonly"><br><br>
@@ -272,7 +357,7 @@
 
 	<br><br>
 
-      <button class="formbold-btn btn-m">가입하기</button>
+      <button class="formbold-btn btn-m" id="btnjoin">가입하기</button>
     </form>
   </div>
 </div>
@@ -282,6 +367,28 @@
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+	
+	$("#btnjoin").click(function(){
+		//아이디 중복확인 버튼 클릭 여부 확인
+		if(document.joinform.isDuplication.value!='isChecked'){
+			alert("아이디 중복확인을 해주세요");
+			return false;
+		};
+	
+		//비밀번호 일치 여부 확인
+		if($("#pwChecked").val()=='no' || $("#pw1").val()!=$("#pw2").val()){
+			alert("비밀번호를 확인해주세요");
+			return false;
+		}
+		
+		//핸드폰 번호 유효성 확인
+		if($("#phone").val().toString().length!=11){
+			alert("핸드폰 번호를 확인해주세요.");
+			return false;
+		}
+	})
+
+	//주소 api
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {

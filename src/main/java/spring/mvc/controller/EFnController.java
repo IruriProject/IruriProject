@@ -46,6 +46,12 @@ public class EFnController {
 
 	@Autowired
 	EnterpriseService e_service;
+	
+	@Autowired
+	UserService user_service;
+	
+	@Autowired
+	UFnService ufn_service;
 
 	@Autowired
 	UserService u_service;
@@ -162,8 +168,20 @@ public class EFnController {
 	
 
 	@GetMapping("/detailpage")
-	public ModelAndView detailPage(String p_num, HttpSession session) {
+	public ModelAndView detailPage(String p_num,HttpSession session) {
 		ModelAndView mview = new ModelAndView();
+
+		//p_num에 해당하는 posting 정보
+		mview.addObject("dto", service.getPosting(p_num));
+		
+		//유저 로그인 상태인 경우, u_num에 해당하는 이력서 목록
+		String myId=(String)session.getAttribute("loginId");
+		String loginStatus=(String)session.getAttribute("loginStatus");
+		
+		if(loginStatus != null && loginStatus.equals("user")) {
+			String u_num=user_service.findUserdataById(myId).getU_num();
+			mview.addObject("rlist", ufn_service.getMyResume(u_num));
+		}
 
 		if (session.getAttribute("loginStatus") == "user") {
 			ViewerDto vdto = new ViewerDto();
@@ -184,7 +202,6 @@ public class EFnController {
 		mview.addObject("viewerCount", service.viewerByPosting(p_num));
 
 		mview.setViewName("/posting/detailPage");
-
 		return mview;
 	}
 

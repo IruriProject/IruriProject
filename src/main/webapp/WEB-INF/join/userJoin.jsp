@@ -189,7 +189,7 @@
             name="u_id"
             id="u_id"
             placeholder="영문, 숫자로 구성된 6-12자의 아이디를 입력해주세요"
-            min="6" max="12" required
+            minlength="6" maxlength="12" required
             onkeyup="characterCheck(this);idcheckClean();" onkeydown="characterCheck(this);idcheckClean();"
             class="formbold-form-input"
           />
@@ -241,13 +241,12 @@
 	  		
       	})
       	
-      	//특수문자감지
+      	// id, 번호 특수문자감지
       	function characterCheck(obj){
       		
 		var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
 
 		if( regExp.test(obj.value) ){
-			$("#idcheck").html("특수문자는 입력하실수 없습니다.");
 			obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지우기
 			}
 		}
@@ -260,8 +259,9 @@
           type="password"
           id="pw1"
           name="u_pw" 
-          min="6" max="12" required
-          placeholder="비밀번호를 입력해주세요"
+          minlength="6" maxlength="12" required
+          placeholder="영문, 숫자가 포함된 6-12자의 비밀번호를 입력해주세요(특수문자 가능)"
+          onkeyup="checkPw();" onkeydown="checkPw();"
           class="formbold-form-input"
         />
       </div>
@@ -271,7 +271,7 @@
         <input
           type="password"
           id="pw2"
-          min="6" max="12" required
+          minlength="6" maxlength="12" required
           placeholder="비밀번호를 다시 입력해주세요"
           class="formbold-form-input"
         />
@@ -280,20 +280,26 @@
       </div>
       
       <script type="text/javascript">
-      //비밀번호
+	
+        $("#pw1").onkeyup(function(){
+
+	    	$('#pwcheck').html('');
+	    	$("#pwChecked").val("no");
+        })
       
-      $("#pw2").change(function(){
-	      pw1=$("#pw1").val();
-	      pw2=$("#pw2").val();
-	      
-	      if(pw1!=pw2){
-    		  $("#pwcheck").html("비밀번호가 일치하지 않습니다.");
-    	  }else{
-    		  $("#pwcheck").html("유효한 비밀번호입니다.");
-    		  $("#pwcheck").css("color","green");
-    		  $("#pwChecked").val("no");
-    	  }
-      })
+	    $("#pw2").onkeyup(function(){
+	    	
+		      pw1=$("#pw1").val();
+		      pw2=$("#pw2").val();
+		      
+		      if(pw1!=pw2){
+	    		  $("#pwcheck").html("비밀번호가 일치하지 않습니다.");
+	    	  }else{
+	    		  $("#pwcheck").html("유효한 비밀번호입니다.");
+	    		  $("#pwcheck").css("color","green");
+	    		  $("#pwChecked").val("no");
+	    	  }
+	      })
             
       </script>
 
@@ -316,22 +322,13 @@
             type="text"
             name="u_hp"
             id="phone"
-            placeholder="- 없이 입력해주세요" required
+            placeholder="번호를 - 없이 입력해주세요" required
+			onkeyup="characterCheck(this);" onkeydown="characterCheck(this);"
             class="formbold-form-input"
           />
-          <button type="button" id="sms-btn" class="formbold-btn btn-s">인증번호발송</button>
-          
-          <input
-            type="text"
-            id="sms-id"
-            placeholder="인증번호입력" required
-            class="formbold-form-input"
-          />
-          <button type="button" class="formbold-btn btn-s">확인</button>
-          
         </div>
       </div>
-
+      
       <div class="formbold-mb-3">
         <label class="formbold-form-label">성별</label>
 
@@ -408,16 +405,27 @@
 
 </body>
 
-
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 
-	//가입시 중복확인 버튼 클릭 여부 확인
 	$("#btnjoin").click(function(){
+		//아이디 중복확인 버튼 클릭 여부 확인
 		if(document.joinform.isDuplication.value!='isChecked'){
 			alert("아이디 중복확인을 해주세요");
 			return false;
 		};
+
+		//비밀번호 일치 여부 확인
+		if($("#pwChecked").val()=='no' || $("#pw1").val()!=$("#pw2").val()){
+			alert("비밀번호를 확인해주세요");
+			return false;
+		}
+		
+		//핸드폰 번호 유효성 확인
+		if($("#phone").val().toString().length!=11){
+			alert("핸드폰 번호를 확인해주세요.");
+			return false;
+		}
 	})
 
 
@@ -469,27 +477,6 @@
             }
         }).open();
     }
-    
-  
-    
-    //문자발송
-     $("#sms-btn").click(function(){
-    	
-	    const msgModule = require('coolsms-node-sdk').default
-	
-		// 인증을 위해 발급받은 본인의 API Key를 사용합니다.
-		const apiKey = 'NCSXNDMDJQXS14ZS'
-		const apiSecret = 'PB0HDL4TIDTSIA3NG8ZWH5DGC9DNASSY'
-		const messageService = new msgModule(apiKey, apiSecret);
-		
-		const params = {
-		  text: '[쿨에스엠에스 테스트] hello world!', // 문자 내용
-		  to: $("#phone").val(), // 수신번호 (받는이)
-		  from: '01023953374' // 발신번호 (보내는이)
-		}
-		messageService.sendMany([params]).then(console.log).catch(console.error)
-		
-    })
     
 </script>
 

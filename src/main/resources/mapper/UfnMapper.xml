@@ -102,17 +102,25 @@
 		delete from HEART
 		where h_num=#{h_num}
 	</delete>
-
+	
 	<!-- 작성한 이력서 목록 가져오기 -->
-	<select id="getMyResume" resultType="rdto"
-		parameterType="String">
-		select * from RESUME where u_num=#{u_num}
+	<select id="getMyResume" resultType="rdto" parameterType="String">
+	select * from RESUME where u_num=#{u_num}
 	</select>
-
+	
 	<!-- 이력서 detailpage -->
-	<select id="getResumeOfRNum" resultType="rdto"
-		parameterType="String">
-		select * from RESUME where r_num=#{r_num}
+	<select id="getResumeOfRNum" resultType="rdto" parameterType="String">
+	select * from RESUME where r_num=#{r_num}
+  </select>
+    
+	<!-- 열람 -->
+	<insert id="insertViewer" parameterType="vdto">
+		insert into VIEWER(u_num,p_num) values(#{u_num},#{p_num})
+	</insert>
+	
+	<!-- u_num 중복체크 -->
+	<select id="getSearchUnum" parameterType="Map" resultType="int">
+		select count(*) from VIEWER where u_num=${u_num} and p_num=#{p_num}
 	</select>
 
 </mapper>

@@ -103,6 +103,7 @@ public class UFnService {
 	public void insertViewer(ViewerDto dto) {
 		mapper.insertViewer(dto);
 	}
+  
 	public int getSearchUnum(String u_num, String p_num) {
 		Map<String, String> map=new HashMap<>();
 		

@@ -1,5 +1,7 @@
 package spring.mvc.dto;
 
+import java.sql.Date;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -13,7 +15,7 @@ public class UserDto {
 	private String u_pw;
 	private String u_name;
 	private String u_gender;
-	private String u_birth;
+	private Date u_birth;
 	private String u_hp;
 	private String u_email;
 	private String u_addr;
