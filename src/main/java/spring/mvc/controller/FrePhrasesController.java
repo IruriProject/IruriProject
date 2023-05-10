@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,7 +39,7 @@ public class FrePhrasesController {
 		String loginId=(String)session.getAttribute("loginId");
 		EnterpriseDto e_dto= e_service.findEnterdataById(loginId);
 		
-		mview.addObject("list", service.prasesList(e_dto.getE_num()));
+		mview.addObject("list", service.phrasesList(e_dto.getE_num()));
 		mview.setViewName("/phrases/phrasesList");
 		
 		
@@ -58,9 +59,23 @@ public class FrePhrasesController {
 	@PostMapping("/writephrases")
 	public String writephrases(@ModelAttribute FrePhrasesDto dto) {
 		
-		service.insertPrases(dto);
+		service.insertPhrases(dto);
 		
-		return "redirect:/enterprise";
+		return "redirect:/phrases/list";
+	}
+	
+	@PostMapping("/deletephrase")
+	public String deletephrase(@RequestParam String f_num) {
+		service.deletePhrase(f_num);
+		
+		return "redirect:/phrases/list";
+	}
+	
+	@PostMapping("/updatephrase")
+	public String updatephrase(@RequestParam String f_num, @RequestParam String f_phrase) {
+		service.updatePhrase(f_num, f_phrase);
+		
+		return "redirect:/phrases/list";
 	}
 	
 

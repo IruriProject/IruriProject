@@ -19,7 +19,7 @@
 	cursor: pointer;
 }
 
-.edit {
+.edit, .editSuccess {
 	color: green;
 }
 
@@ -27,6 +27,63 @@
 	color: red;
 }
 </style>
+<script type="text/javascript">
+$(function(){
+	$(".editSuccess").hide();
+	
+	$(".edit").click(function(){
+		var f_num=$(this).attr("f_num");
+		
+		var value = $(this).siblings(".editform").val();
+		
+		$(this).siblings(".editform").removeAttr("readonly");
+		$(this).siblings(".editform").focus();
+		$(this).siblings(".editform").val('');
+		$(this).siblings(".editform").val(value);
+		
+		$(".edit").hide();
+		$(".del").hide();
+		$(this).siblings(".editSuccess").show();
+		
+		$(this).siblings(".editform").change(function(){
+			newvalue=$(this).val();
+			//alert(newvalue);
+		})
+		
+		
+		$(this).siblings(".editSuccess").click(function(){
+			$.ajax({
+				type:"post",
+				data:{"f_num":f_num,"f_phrase":newvalue},
+				dataType:"html",
+				url:"/phrases/updatephrase",
+				success:function(){
+					alert("문구 수정 성공");
+					location.reload();
+				}
+			})
+		})
+		
+	})
+	
+	$(".del").click(function(){
+		var f_num=$(this).attr("f_num");
+		
+		alert(f_num);
+		
+		$.ajax({
+			type:"post",
+			data:{"f_num":f_num},
+			dataType:"html",
+			url:"/phrases/deletephrase",
+			success:function(){
+				alert("문구 삭제 성공");
+				location.reload();
+			}
+		})		
+	})
+})
+</script>
 </head>
 <body>
 	<div>
@@ -46,11 +103,12 @@
 		<c:forEach var="dto" items="${list }" varStatus="i">
 			<tr align="center">
 				<td>${i.count }</td>
-				<td class="form-inline"><input type="text" class="form-control"
-					value="${dto.f_phrase }" style="text-align: center; width: 500px;"
-					readonly="readonly"><span class="func edit"><i title="문구 수정"
-						class="far fa-edit"></i></span><span class="func del"><i title="문구 삭제"
-						class="far fa-trash-alt"></i></span></td>
+				<td class="form-inline">
+					<input type="text" class="form-control editform" value="${dto.f_phrase }" style="text-align: center; width: 500px;" readonly="readonly">
+					<span class="func edit" f_num="${dto.f_num }"><i title="문구 수정" class="far fa-edit"></i></span>
+					<span class="func del" f_num="${dto.f_num }"><i title="문구 삭제" class="far fa-trash-alt"></i></span>
+					<span class="func editSuccess" f_num="${dto.f_num }"><i class="fas fa-check"></i></span>
+				</td>
 		</c:forEach>
 	</table>
 </body>

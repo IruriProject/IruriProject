@@ -4,12 +4,20 @@
 
 <mapper namespace="spring.mvc.mapper.FrePhrasesMapperInter">
 
-	<insert id="insertPrases" parameterType="fdto">
+	<insert id="insertPhrases" parameterType="fdto">
 		insert into FRE_PHRASES(e_num,f_phrase) values(#{e_num},#{f_phrase})
 	</insert>
 	
-	<select id="prasesList" resultType="fdto" parameterType="String">
+	<select id="phrasesList" resultType="fdto" parameterType="String">
 		select * from FRE_PHRASES where e_num=#{e_num} order by f_num
 	</select>
+	
+	<delete id="deletePhrase" parameterType="String">
+		delete from FRE_PHRASES where f_num=#{f_num}
+	</delete>
+	
+	<update id="updatePhrase" parameterType="Map">
+		update FRE_PHRASES set f_phrase=#{f_phrase} where f_num=#{f_num}
+	</update>
 	
 </mapper>
