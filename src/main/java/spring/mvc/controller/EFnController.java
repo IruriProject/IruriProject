@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.EnterpriseDto;
+import spring.mvc.dto.HeartDto;
 import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.PostingDto;
 import spring.mvc.service.EFnService;
@@ -180,10 +181,18 @@ public class EFnController {
 		String loginStatus=(String)session.getAttribute("loginStatus");
 		
 
-		if(loginStatus.equals("user")) {
-			String u_num=user_service.findUserdataById(myId).getU_num();
-			mview.addObject("rlist", ufn_service.getMyResume(u_num));
+		//좋아요 여부 확인 및 insert
+		String unum=u_service.findUserdataById(myId).getU_num();
+		String e_num=service.getEnumOfPosting(p_num);
+		HeartDto hdto=ufn_service.checkLikeEnter(unum, e_num);
+
+		if(hdto!=null) {
+			mview.addObject("h_num", hdto.getH_num());
 		}
+		
+		mview.addObject("hdto", hdto);
+		mview.addObject("u_num",unum);
+		
 
 		if(loginStatus != null && loginStatus.equals("user")) {
 			String u_num=user_service.findUserdataById(myId).getU_num();

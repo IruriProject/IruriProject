@@ -29,6 +29,7 @@ public interface EFnMapperInter {
 	public List<PostingDto> getSearchList(Map<String, Object> map);
 	public List<Map<String, Object>> applicantByPosting(String p_num);
 	public PostingDto loadingRecentPosting(String e_num);
+	public String getEnumOfPosting(String p_num);
 	
 	//스크랩
 	public int scrapByPosting(String p_num);

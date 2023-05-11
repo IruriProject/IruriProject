@@ -106,6 +106,16 @@ body {
 .modal-header{
 	justify-content: flex-end;
 }
+
+.heart{
+	cursor: pointer;
+	font-weight: 500px;
+	
+}
+
+.fa-heart{
+	color: red;
+}
 </style>
 </head>
 <body>
@@ -254,15 +264,82 @@ body {
 							<div class="withbtn">
 								<div class="withbtnTitle">기업정보</div>
 								<div class="likeEnter">
+								<input type="hidden" id="u_num" value="${u_num }">
+								<input type="hidden" id="e_num" value="${dto.e_num }">
 								<c:if
 									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
-									<button type="button" u_id=${sessionScope.loginId} e_num=${dto.e_num }
-									id="btnLikeEnter" class="btn btn-info glyphicon glyphicon-heart-empty ">기업찜하기</button>
-									<button type="button" u_id=${sessionScope.loginId} e_num=${dto.e_num }
-									id="prebtnLikeEnter" class="btn btn-info glyphicon glyphicon-heart-empty ">시험찜하기</button>
+
+									<!-- 기좋아요 시 좋아요 해제 -->
+									<c:if test="${hdto.h_num!=null }">
+									<input type="hidden" id="h_num" value="${h_num }">
+									<span class="heart" id="btnUnLikeEnter">좋아요 <i class="fa-solid fa-heart"></i></span>
+									</c:if>
+									
+									
+									<!-- 비좋아요 시 좋아요 가능 -->
+									<c:if test="${hdto.h_num==null }">
+										<span class="heart" id="btnLikeEnter">좋아요 <i class="fa-regular fa-heart" ></i></span>
+									</c:if>
+									
 								</c:if>
 								</div>
 							</div>
+							
+			<script type="text/javascript">
+			
+			$("#btnLikeEnter").click(function(){
+			
+			var e_num=$("#e_num").val();
+			var u_num=$("#u_num").val();
+
+			$.ajax({
+				
+				type:"post",
+				dataType:"html",
+				data:{
+					"e_num":e_num,
+					"u_num":u_num
+				},
+				url:"/hinsert",
+				success:function(res){
+					alert("좋아요성공");
+					location.reload();
+					//$(this).addClass("fa-solid");
+					//$(this).removeClass("fa-regular");
+				}
+			})
+			
+			});
+			
+			
+			$("#btnUnLikeEnter").click(function(){
+				
+				var h_num=$("#h_num").val();
+				
+				$.ajax({
+					
+					type:"get",
+					dataType:"html",
+					data:{
+						"h_num":h_num
+					},
+					url:"/hdelete",
+					success:function(res){
+						alert("좋아요 해제");
+						location.reload();
+					}
+					
+				})
+			});
+			
+			
+			//스크랩
+			$("#btnscrap").click(function(){
+				
+				alert("스크랩할거임?");
+			});
+	
+	</script>
 
 							<p>기업명: ${dto.e_name }</p>
 							<p>사업자등록번호: ${dto.e_registnum }</p>
@@ -304,57 +381,7 @@ body {
 		</div>
 	</div>
 	
-	<script type="text/javascript">
-			
-			//로그인 안했을 때 기업 찜 버튼 누르면 로그인 해주세요
-			$("#btnLikeEnter").click(function(){
-				
-				//alert("로그인 해줘잉");
-				
-				var e_num=$(this).attr("e_num");
-				var u_id=$(this).attr("u_id");
-				//alert(e_num);
-				//alert(u_id);
-				
-				$.ajax({
-					
-					type:"post",
-					dataType:"json",
-					data:{
-						
-						"e_num":e_num,
-						"u_id":u_id
-					},
-					url:"/hinsert",
-					success:function(res){
-						alert("❤️💔좋아요❤️💔");
-						
-					}
-				})
-			});
-			
-			
-			//스크랩
-			$("#btnscrap").click(function(){
-				
-				alert("스크랩할거임?");
-			});
-			
-			
-			
-			
-			
-			
-		
-	
-	
-	</script>
-	
-	
-	
-	
-	
-	
+	<script src="https://kit.fontawesome.com/2663817d27.js" crossorigin="anonymous"></script>
 	
 </body>
 </html>
