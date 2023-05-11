@@ -187,17 +187,20 @@ public class EFnController {
 		String loginStatus=(String)session.getAttribute("loginStatus");
 		
 
-		//좋아요 여부 확인 및 insert
-		String unum=u_service.findUserdataById(myId).getU_num();
-		String e_num=service.getEnumOfPosting(p_num);
-		HeartDto hdto=ufn_service.checkLikeEnter(unum, e_num);
-
-		if(hdto!=null) {
-			mview.addObject("h_num", hdto.getH_num());
+		//좋아요 관련
+		if(myId!=null && loginStatus.equals("user")) {
+			
+			String unum=u_service.findUserdataById(myId).getU_num();
+			String e_num=service.getEnumOfPosting(p_num);
+			HeartDto hdto=ufn_service.checkLikeEnter(unum, e_num);
+			
+			if(hdto!=null) {
+				mview.addObject("h_num", hdto.getH_num());
+			}
+			
+			mview.addObject("hdto", hdto);
+			mview.addObject("u_num",unum);
 		}
-		
-		mview.addObject("hdto", hdto);
-		mview.addObject("u_num",unum);
 		
 
 		if(loginStatus != null && loginStatus.equals("user")) {
