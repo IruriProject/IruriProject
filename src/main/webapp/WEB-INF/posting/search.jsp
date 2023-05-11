@@ -392,10 +392,14 @@
 <li role="button" value="횡성군" class="gu">횡성군</li>
 </div>
 
-</div> <!-- 스크롤부분 닫음 -->
+</div> 
+<!-- 스크롤부분 닫음 -->
 
-</div> <!-- 지역필터링 닫음 -->
+</div> 
+<!-- 지역필터링 닫음 -->
 
+<!--  -->
+</div>
 <script type="text/javascript">
 
 //지역별 검색
@@ -528,7 +532,6 @@ $(".gu").click(function(){
 	</div>
 </form>
 
-</div>
 
  <div style="margin: 30px 30px;">
  
