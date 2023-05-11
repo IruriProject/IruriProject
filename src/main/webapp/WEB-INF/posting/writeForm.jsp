@@ -93,6 +93,7 @@ $(function(){
 		})
 	})
 	
+	
 })
 
 </script>
@@ -115,6 +116,35 @@ $(function(){
 	         		<tr>
 	                	<td>
 	                    	<input type="radio" name="draft" value="${draftDto.p_num }"> ${draftDto.p_title } (${draftDto.p_type }) <button style="float: right" type="button" p_num="${draftDto.p_num }" class="btn btn-info btn-xs draftdel">임시저장 삭제</button>
+	                    </td>
+	                </tr>
+	         	</c:forEach>
+	            </table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal" id="modalbtn">선택</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	  </div>
+	  
+	   <!-- Modal -->
+	  <div class="modal fade" id="phrasesModal" role="dialog">
+	    <div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">자주쓰는 문구 목록</h4>
+	        </div>
+	        <div class="modal-body">
+	         	<table class="table table-hover">
+	         	<c:forEach var="flist" items="${phraseList }">
+	         		<tr>
+	                	<td>
+	                    	<input type="radio" name="phrase" value="${flist.f_num }"> ${flist.f_phrase }
 	                    </td>
 	                </tr>
 	         	</c:forEach>
@@ -208,7 +238,7 @@ $(function(){
 				</div>
 
 				<div class="formbold-mb-3">
-					<label for="p_content" class="formbold-form-label"> 상세내용 </label>
+					<label for="p_content" class="formbold-form-label"> 상세내용<button type="button" id="phrases" class="btn-sm small-btn" style="width: 100px; margin-left: 410px;" data-toggle="modal" data-target="#phrasesModal">자주쓰는 문구</button></label>
 					<textarea name="p_content" id="p_content"
 						placeholder="상세내용을 입력해주세요." class="pcontent-input"></textarea>
 				</div>

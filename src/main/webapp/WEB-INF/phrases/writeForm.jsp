@@ -25,23 +25,34 @@
 
 			var s = "";
 			s += "<div class='formbold-mb-3'>";
-			s += "<label for='f_phrase_" + index + "' class='formbold-form-label'>등록할 문구_ "+ (index+1) +"</label>";
+			s += "<label for='f_phrase_" + index + "' class='formbold-form-label'>등록할 문구_ "
+					+ (index + 1) + "</label>";
 			s += "<input type='text' name='fPhraseList' id='f_phrase_"+index+"' class='formbold-form-input'/>";
 			s += "</div><br>";
 
 			$(".insertPhrases").append(s);
 
-			$("#f_phrase_"+index).val(phrase);
+			$("#f_phrase_" + index).val(phrase);
 
 		})
 
-		/* 	$("#directbtn").click(function(){
-		
-		 var phrase=$("#direct").val();
-		 $("#f_phrase2").val(phrase);
-		 var text=$("#f_phrase2").text();
-		
-		 }) */
+		$("#directbtn").click(function() {
+
+			var phrase = $("#direct").val();
+			var index = $(".insertPhrases > div").length;
+
+			var s = "";
+			s += "<div class='formbold-mb-3'>";
+			s += "<label for='f_phrase_" + index + "' class='formbold-form-label'>등록할 문구_ "
+					+ (index + 1) + "</label>";
+			s += "<input type='text' name='fPhraseList' id='f_phrase_"+index+"' class='formbold-form-input'/>";
+			s += "</div><br>";
+
+			$(".insertPhrases").append(s);
+
+			$("#f_phrase_" + index).val(phrase);
+
+		})
 
 	})
 </script>
