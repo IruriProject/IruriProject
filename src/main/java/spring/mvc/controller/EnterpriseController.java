@@ -137,4 +137,17 @@ public class EnterpriseController {
 		return "/enterprise/resAccessAlert";
 	}
 	
+	@GetMapping("/applicant")
+	public ModelAndView getApplicants(HttpSession session) {
+		
+		ModelAndView model=new ModelAndView();
+		
+		String loginId=(String)session.getAttribute("loginId");
+		String e_num=service.findEnterdataById(loginId).getE_num();
+		
+		model.addObject("adto", service.getAllResumeOfEnter(e_num));
+		
+		model.setViewName("/enterprise/applicants");
+		return model;
+	}
 }

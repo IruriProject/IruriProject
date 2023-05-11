@@ -37,5 +37,9 @@ public class FrePhrasesService {
 		mapper.updatePhrase(map);
 	}
 	
+	public FrePhrasesDto getPhrase(String f_num) {
+		return mapper.getPhrase(f_num);
+	}
+	
 	
 }

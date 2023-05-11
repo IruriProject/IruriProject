@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.HeartDto;
 import spring.mvc.dto.ResumeDto;
+import spring.mvc.dto.ScrapDto;
 import spring.mvc.dto.UserDto;
 import spring.mvc.dto.ViewerDto;
 import spring.mvc.mapper.UFnMapperInter;
@@ -69,16 +70,6 @@ public class UFnService {
       mapper.insertResume(dto);
    }
 
-   public int countLikeEnterprise(String num) {
-
-      return mapper.countLikeEnterprise(num);
-   }
-
-   public EnterpriseDto getEnterPrise(String num) {
-
-      return mapper.getEnterPrise(num);
-   }
-
    // num으로 이력서 찾기
    public ResumeDto getResume(String u_num) {
       return mapper.getResume(u_num);
@@ -94,7 +85,25 @@ public class UFnService {
    public void deleteUser(String u_num) {
       mapper.deleteUser(u_num);
    }
+   
+   //좋아요 한 기업 수
+   public int countLikeEnterprise(String num) {
 
+      return mapper.countLikeEnterprise(num);
+   }
+   
+   //...?
+   public EnterpriseDto getEnterPrise(String num) {
+
+      return mapper.getEnterPrise(num);
+   }
+   
+   //유저 별 좋아요 한 기업 가져오기
+   public HeartDto getLikeEnterPrise(String u_num) {
+	   
+	   return mapper.getLikeEnterPrise(u_num);
+   }
+   
    // 좋아요 한 회원과 기업 데이터 추가
    public void insertlikeEnter(HeartDto dto) {
 
@@ -117,6 +126,27 @@ public class UFnService {
 
 	mapper.deleteLikeEnter(h_num);
    }
+   
+   //관심 공고(스크랩)
+   //관심 공고 insert
+   public void insertScrapPosting(ScrapDto dto) {
+	   
+	   mapper.insertScrapPosting(dto);
+   }
+   
+   //스크랩했는지 확인
+   public void checkScrapPosting(String u_num, String p_num) {
+	   Map<String, String>  map=new HashMap<>();
+	   map.put("u_num", u_num);
+	   map.put("p_num", p_num);
+	   mapper.checkScrapPosting(map);
+   }
+   
+   public void deleteScrapPosting(String s_num) {
+	   mapper.deleteScrapPosting(s_num);
+   }
+   
+   
    
    //열람
    public void insertViewer(ViewerDto dto) {

@@ -242,7 +242,7 @@
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h4 class="mb-5"><b>지원자현황</b></h4>
-					<a href="" class="atag">더보기</a>
+					<a href="/enterprise/applicant" class="atag">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table

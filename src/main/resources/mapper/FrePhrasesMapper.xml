@@ -20,4 +20,8 @@
 		update FRE_PHRASES set f_phrase=#{f_phrase} where f_num=#{f_num}
 	</update>
 	
+	<select id="getPhrase" parameterType="String" resultType="fdto">
+		select * from FRE_PHRASES where f_num=#{f_num}
+	</select>
+	
 </mapper>
