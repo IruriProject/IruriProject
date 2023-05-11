@@ -180,6 +180,7 @@
 				</ul></li>
 		</ul>
 	</nav>
+    
 	<nav class="othermenu">
 		<ul class="o_menu">
 		<c:if test="${sessionScope.loginStatus!='enterprise' }">

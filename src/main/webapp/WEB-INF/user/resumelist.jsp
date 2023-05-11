@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+   pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -9,12 +9,12 @@
 <c:set var="root" value="<%=request.getContextPath()%>" />
 <!-- Icon Font Stylesheet -->
 <link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-	rel="stylesheet">
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+   rel="stylesheet">
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-	rel="stylesheet">
-	
+   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+   rel="stylesheet">
+   
 
 <!-- Libraries Stylesheet -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -22,7 +22,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link href="${root }/css/usercss/owl.carousel.min.css" rel="stylesheet">
 <link href="${root }/css/usercss/tempusdominus-bootstrap-4.min.css"
-	rel="stylesheet" />
+   rel="stylesheet" />
 
 <!-- Customized Bootstrap Stylesheet -->
 <link href="${root }/css/usercss/bootstrap.min.css" rel="stylesheet">
@@ -31,10 +31,11 @@
 <link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style type="text/css">
 div {
-	border: 0px solid gray;
+	border: 1px solid gray;
 }
 .text-dark th{
 text-align: center;
+   border: 1px solid gray;
 }
 </style>
 </head>
@@ -147,7 +148,5 @@ text-align: center;
 		})
 	})
 	</script>
-	
-	
 </body>
 </html>

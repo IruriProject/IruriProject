@@ -18,116 +18,124 @@ import spring.mvc.mapper.UFnMapperInter;
 @Service
 public class UFnService {
 
-	@Autowired
-	UFnMapperInter mapper;
+   @Autowired
+   UFnMapperInter mapper;
 
-	public void updateUser(UserDto dto) {
-		mapper.updateUser(dto);
-	}
+   public void updateUser(UserDto dto) {
+      mapper.updateUser(dto);
+   }
 
-	public void updateUserNoAddr(UserDto dto) {
-		mapper.updateUserNoAddr(dto);
-	}
+   public void updateUserNoAddr(UserDto dto) {
+      mapper.updateUserNoAddr(dto);
+   }
 
-	public void updatePw(String u_id, String u_pw) {
-		// TODO Auto-generated method stub
-		Map<String, String> map = new HashMap<>();
+   public void updatePw(String u_id, String u_pw) {
+      // TODO Auto-generated method stub
+      Map<String, String> map = new HashMap<>();
 
-		map.put("u_id", u_id);
-		map.put("u_pw", u_pw);
+      map.put("u_id", u_id);
+      map.put("u_pw", u_pw);
 
-		mapper.updatePw(map);
-	}
-	//주소, 대표 변경
-	public void updatePrivate(int r_num) {
-		mapper.updatePrivate(r_num);
-	}
-	public void updatePublic(int r_num) {
-		mapper.updatePublic(r_num);
-	}
-	public void updateMainOn(int r_num) {
-		mapper.updateMainOn(r_num);
-	}
-	public void updateMainOff(int r_num) {
-		mapper.updateMainOff(r_num);
-	}
-	public void updateAllOff() {
-		mapper.updateAllOff();
-	}
+      mapper.updatePw(map);
+   }
+   //주소, 대표 변경
+   public void updatePrivate(int r_num) {
+      mapper.updatePrivate(r_num);
+   }
+   public void updatePublic(int r_num) {
+      mapper.updatePublic(r_num);
+   }
+   public void updateMainOn(int r_num) {
+      mapper.updateMainOn(r_num);
+   }
+   public void updateMainOff(int r_num) {
+      mapper.updateMainOff(r_num);
+   }
+   public void updateAllOff() {
+      mapper.updateAllOff();
+   }
 
-	public void updatePhoto(String u_id, String u_photo) {
-		// TODO Auto-generated method stub
-		Map<String, String> map = new HashMap<>();
+   public void updatePhoto(String u_id, String u_photo) {
+      // TODO Auto-generated method stub
+      Map<String, String> map = new HashMap<>();
 
-		map.put("u_id", u_id);
-		map.put("u_photo", u_photo);
+      map.put("u_id", u_id);
+      map.put("u_photo", u_photo);
 
-		mapper.updatePhoto(map);
-	}
-	
-	public void insertResume(ResumeDto dto) {
-		mapper.insertResume(dto);
-	}
+      mapper.updatePhoto(map);
+   }
+   
+   public void insertResume(ResumeDto dto) {
+      mapper.insertResume(dto);
+   }
 
-	public int countLikeEnterprise(String num) {
+   public int countLikeEnterprise(String num) {
 
-		return mapper.countLikeEnterprise(num);
-	}
+      return mapper.countLikeEnterprise(num);
+   }
 
-	public EnterpriseDto getEnterPrise(String num) {
+   public EnterpriseDto getEnterPrise(String num) {
 
-		return mapper.getEnterPrise(num);
-	}
+      return mapper.getEnterPrise(num);
+   }
 
-	// num으로 이력서 찾기
-	public ResumeDto getResume(String u_num) {
-		return mapper.getResume(u_num);
-	}
-	
+   // num으로 이력서 찾기
+   public ResumeDto getResume(String u_num) {
+      return mapper.getResume(u_num);
+   }
+   
 
-	// num으로 유저정보 찾기
-	public UserDto findUserdataByNum(String u_num) {
-		return mapper.findUserByNum(u_num);
-	}
+   // num으로 유저정보 찾기
+   public UserDto findUserdataByNum(String u_num) {
+      return mapper.findUserByNum(u_num);
+   }
 
-	// 회원삭제
-	public void deleteUser(String u_num) {
-		mapper.deleteUser(u_num);
-	}
+   // 회원삭제
+   public void deleteUser(String u_num) {
+      mapper.deleteUser(u_num);
+   }
 
-	// 좋아요 한 회원과 기업 데이터 추가
-	public void insertlikeEnter(HeartDto dto) {
+   // 좋아요 한 회원과 기업 데이터 추가
+   public void insertlikeEnter(HeartDto dto) {
 
-		mapper.insertLikeEnter(dto);
-	}
+      mapper.insertLikeEnter(dto);
+   }
 
-	// 좋아요 한 회원과 기업 데이터 삭제
-	public void deleteLikeEnter(String num) {
-
-		mapper.deleteLikeEnter(num);
-	}
-	
-	//열람
-	public void insertViewer(ViewerDto dto) {
-		mapper.insertViewer(dto);
-	}
-  
-	public int getSearchUnum(String u_num, String p_num) {
+	//좋아요 했는지 확인
+	public HeartDto checkLikeEnter (String u_num, String e_num) {//service는 map을 풀어서 써준다음에 다시 put으로 u_num, e_num 정해줌
 		Map<String, String> map=new HashMap<>();
-		
 		map.put("u_num", u_num);
-		map.put("p_num", p_num);
-		
-		return mapper.getSearchUnum(map);
-	}
-	public List<ResumeDto> getMyResume(String u_num){
-		return mapper.getMyResume(u_num);
+		map.put("e_num", e_num);
+		return mapper.checkLikeEnter(map);
 	}
 	public List<ResumeDto> getResumeByUserId(String u_id){
 		return mapper.getResumeByUserId(u_id);
 	}
 
-	public ResumeDto getResumeOfRNum(String r_num) {
-		return mapper.getResumeOfRNum(r_num);
-	}
+   // 좋아요 한 회원과 기업 데이터 삭제
+   public void deleteLikeEnter(String h_num) {
+
+	mapper.deleteLikeEnter(h_num);
+   }
+   
+   //열람
+   public void insertViewer(ViewerDto dto) {
+      mapper.insertViewer(dto);
+   }
+  
+   public int getSearchUnum(String u_num, String p_num) {
+      Map<String, String> map=new HashMap<>();
+      
+      map.put("u_num", u_num);
+      map.put("p_num", p_num);
+      
+      return mapper.getSearchUnum(map);
+   }
+   public List<ResumeDto> getMyResume(String u_num){
+      return mapper.getMyResume(u_num);
+   }
+
+   public ResumeDto getResumeOfRNum(String r_num) {
+      return mapper.getResumeOfRNum(r_num);
+   }
 }
