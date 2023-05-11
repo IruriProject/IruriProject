@@ -26,10 +26,14 @@ public interface UFnMapperInter {
 	public UserDto findUserByNum(String u_num);
 	public void deleteUser(String u_num);
 	public void insertResume(ResumeDto dto);
+	//주소, 대표 변경
 	public void updatePrivate(int r_num);
 	public void updatePublic(int r_num);
-	public void updateMain(int r_num);
-
+	public void updateMainOn(int r_num);
+	public void updateMainOff(int r_num);
+	public void updateAllOff();
+	//아이디에 해당하는 이력서 찾기
+	public List<ResumeDto> getResumeByUserId(String u_id);
 	
 	//관심 기업
 	public int countLikeEnterprise(String h_num);//관심기업 수

@@ -1228,23 +1228,22 @@ td {
                            .push(checkedBoxes[i].nextSibling.textContent
                                  .trim());
                   }
-
-                  areaInput.value = selectedLocations.join(', ');
-               }
-               function setSido(sidoId) {
-                  // 기존에 선택되어 있던 체크박스들의 값을 보존
-                   var selectedCheckboxes = document.querySelectorAll('#ulGugun input[type="checkbox"]:checked');
-                   var selectedValues = [];
-                   for (var i = 0; i < selectedCheckboxes.length; i++) {
-                       selectedValues.push(selectedCheckboxes[i].value);
-                   }
-                  // 모든 구/군 체크박스를 숨김
-                  var checkboxes = document
-                        .querySelectorAll('input[name="selGugun"]');
-                  for (var i = 0; i < checkboxes.length; i++) {
-                     checkboxes[i].checked = false;
-                     checkboxes[i].parentNode.style.display = 'none';
-                  }
+						areaInput.value = selectedLocations.join(', ');
+					}
+					function setSido(sidoId) {
+						// 기존에 선택되어 있던 체크박스들의 값을 보존
+					    var selectedCheckboxes = document.querySelectorAll('#ulGugun input[type="checkbox"]:checked');
+					    var selectedValues = [];
+					    for (var i = 0; i < selectedCheckboxes.length; i++) {
+					        selectedValues.push(selectedCheckboxes[i].value);
+					    }
+						// 모든 구/군 체크박스를 숨김
+						var checkboxes = document
+								.querySelectorAll('input[name="selGugun"]');
+						for (var i = 0; i < checkboxes.length; i++) {
+							checkboxes[i].checked = false;
+							checkboxes[i].parentNode.style.display = 'none';
+						}
 
                   // 선택한 시/도에 해당하는 구/군 체크박스만 보여줌
                   var guguns = document
@@ -1253,7 +1252,6 @@ td {
                   for (var j = 0; j < guguns.length; j++) {
                      guguns[j].parentNode.style.display = '';
                   }
-
 
                   // 기존에 선택되어 있던 체크박스들의 값을 다시 설정
                    for (var k = 0; k < selectedValues.length; k++) {
@@ -1497,27 +1495,27 @@ td {
                               })
                      </script>
 
-                  </div>
-               </div>
-            </div>
-                        <textarea name="r_content" id="r_content" style="height: 100px;"
-                        placeholder="나의 강점과 특징을 등록해 보세요!"
-                        class="rcontent-autoInput"></textarea>
-                     <!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
-               <br> <input type="checkbox" name="r_private" class="checkbox">이력서 비공개
-               <script type="text/javascript">
-                 var r_private_checkbox = document.querySelector('input[name="r_private"]');
-                 
-                 r_private_checkbox.addEventListener('change', function() {
-                   if (this.checked) {
-                     this.value = 1;
-                   } else {
-                     this.value = 0;
-                   }
-                 });
-               </script>
-               <!-- 대표이력서 체크되면 1(대표이력서), 비공개 체크되면 0(공개)되게 해야함 -->
-
+						</div>
+					</div>
+				</div>
+								<textarea name="r_content" id="r_content" style="height: 100px;"
+								placeholder="나의 강점과 특징을 등록해 보세요!"
+								class="rcontent-autoInput"></textarea>
+							<!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
+					<br> <input type="checkbox" name="r_private" class="checkbox">이력서 비공개
+					<script type="text/javascript">
+					  var r_private_checkbox = document.querySelector('input[name="r_private"]');
+					  
+					  r_private_checkbox.addEventListener('change', function() {
+					    if (this.checked) {
+					      this.value = 1;
+					    } else {
+					      this.value = 0;
+					    }
+					  });
+					</script>
+					<!-- 대표이력서 체크되면 1(대표이력서), 비공개 체크되면 0(공개)되게 해야함 -->
+					
                <button id="submitBtn" type="submit" class="formbold-btn">공고등록</button>
                <script type="text/javascript">
                </script>

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -74,31 +75,42 @@ public class UFnController {
       return model;
    }
 
-   // 이력서등록 페이지로 이동
-   @GetMapping("/insertresume")
-   public ModelAndView insertResume(HttpServletRequest request) {
-      ModelAndView model = new ModelAndView();
-      HttpSession session = request.getSession();
-      String u_id = (String) session.getAttribute("loginId");
-      UserDto dto = service.findUserdataById(u_id);
-      model.addObject("dto", dto);
-      model.setViewName("/user/insertresume");
-      return model;
-   }
-   @GetMapping("/resumelist")
-   public ModelAndView resumeList(HttpSession session) {
-       ModelAndView model=new ModelAndView();
-       String u_id = (String) session.getAttribute("loginId");
-       UserDto dto = service.findUserdataById(u_id);
-       List<ResumeDto> list=uservice.getMyResume(dto.getU_num());
-       ResumeDto rdto = uservice.getResume(dto.getU_num());
-       
-       model.addObject("rdto", rdto);
-       model.addObject("dto", dto);
-       model.addObject("list", list);
-       model.setViewName("/user/resumelist");
-       return model;
-   }
+	// 이력서등록 페이지로 이동
+	@GetMapping("/insertresume")
+	public ModelAndView insertResume(HttpServletRequest request, HttpSession session) {
+	    ModelAndView model = new ModelAndView();
+	    String u_id = (String) session.getAttribute("loginId");
+	    String loginStatus = (String) session.getAttribute("loginStatus");
+	    List<ResumeDto> list=uservice.getResumeByUserId(u_id);
+	    
+	    if(loginStatus==null) {
+	    	String loginmessage = "로그인 후 사용 가능합니다.";
+	    	model.addObject("loginmessage", loginmessage);
+	    }
+	    if (list.size()> 4) {
+	        String message = "이력서는 최대 5개까지만 저장됩니다. \\n이력서 관리페이지로 이동합니다.";
+	        model.addObject("message", message);
+	    } else {
+	        UserDto dto = service.findUserdataById(u_id);
+	        model.addObject("dto", dto);
+	    }
+	    model.setViewName("/user/insertresume");
+	    return model;
+	}
+	@GetMapping("/resumelist")
+	public ModelAndView resumeList(HttpSession session) {
+		 ModelAndView model=new ModelAndView();
+		 String u_id = (String) session.getAttribute("loginId");
+		 UserDto dto = service.findUserdataById(u_id);
+		 List<ResumeDto> list=uservice.getMyResume(dto.getU_num());
+		 ResumeDto rdto = uservice.getResume(dto.getU_num());
+		 
+		 model.addObject("rdto", rdto);
+		 model.addObject("dto", dto);
+		 model.addObject("list", list);
+		 model.setViewName("/user/resumelist");
+		 return model;
+	}
 
    // 개인정보수정페이지로 이동
    @GetMapping("/updateuser")
@@ -149,24 +161,35 @@ public class UFnController {
       }
    }
 
-   // 비밀번호 변경
-   @PostMapping("/updatePw")
-   public String uPw(String u_id, String u_pw) {
-      uservice.updatePw(u_id, u_pw);
-      return "redirect:mypage";
-   }
-   
-   @PostMapping("/updatePrivate")
-   public String updatePrivate(int r_num) {
-      uservice.updatePrivate(r_num);
-      return "redirect:resumelist";
-   }
-   
-   @PostMapping("/updatePublic")
-   public String updatePublic(int r_num) {
-      uservice.updatePublic(r_num);
-      return "redirect:resumelist";
-   }
+	// 비밀번호 변경
+	@PostMapping("/updatePw")
+	public String uPw(String u_id, String u_pw) {
+		uservice.updatePw(u_id, u_pw);
+		return "redirect:mypage";
+	}
+	
+	@PostMapping("/updatePrivate")
+	public String updatePrivate(int r_num) {
+		uservice.updatePrivate(r_num);
+		return "redirect:resumelist";
+	}
+	
+	@PostMapping("/updatePublic")
+	public String updatePublic(int r_num) {
+		uservice.updatePublic(r_num);
+		return "redirect:resumelist";
+	}
+	@PostMapping("/updateMainOff")
+	public String updateMainOff(int r_num) {
+		uservice.updateMainOff(r_num);
+		return "redirect:resumelist";
+	}
+	@PostMapping("/updateMainOn")
+	public String updateMainOn(int r_num) {
+		uservice.updateAllOff();
+		uservice.updateMainOn(r_num);
+		return "redirect:resumelist";
+	}
 
    // 사진등록
    @PostMapping("/updatePhoto")

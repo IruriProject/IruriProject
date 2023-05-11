@@ -79,12 +79,10 @@ div {
                      </div>
                   </div>
                </div>
-
-
             </div>
+            
             <div class="col-sm-12 col-md-6 col-xl-7 w-75">
                <div class="h-100 bg-light rounded p-4">
-
                   <div data-rnum="${rdto.r_num}"
                      class="d-flex align-items-center justify-content-between mb-4">
                      <c:if test="${rdto.r_title==null}">

@@ -101,14 +101,15 @@ public class UFnService {
       mapper.insertLikeEnter(dto);
    }
 
-	
 	//좋아요 했는지 확인
 	public HeartDto checkLikeEnter (String u_num, String e_num) {//service는 map을 풀어서 써준다음에 다시 put으로 u_num, e_num 정해줌
-		
 		Map<String, String> map=new HashMap<>();
 		map.put("u_num", u_num);
 		map.put("e_num", e_num);
 		return mapper.checkLikeEnter(map);
+	}
+	public List<ResumeDto> getResumeByUserId(String u_id){
+		return mapper.getResumeByUserId(u_id);
 	}
 
    // 좋아요 한 회원과 기업 데이터 삭제

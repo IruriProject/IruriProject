@@ -31,121 +31,122 @@
 <link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style type="text/css">
 div {
+	border: 1px solid gray;
+}
+.text-dark th{
+text-align: center;
    border: 1px solid gray;
 }
 </style>
 </head>
 <body>
-   
-   이력서 목록.
+	
+	<h3>내 이력서 목록</h3>
 
-      <div class="container-fluid pt-4 px-4">
-         <div class="bg-light text-center rounded p-4">
-            <div class="d-flex align-items-center justify-content-between mb-4">
-               <h6 class="mb-0">나의 이력서 목록</h6>
-               <a href="">Show All</a>
-            </div>
-            <div class="table-responsive">
-               <table
-                  class="table text-start align-middle table-bordered table-hover mb-0"
-                  style="width: 1000px;" >
-                  <thead>
-                     <tr class="text-dark">
-                        <th scope="col">번호</th>
-                        <th scope="col">제목</th>
-                        <th scope="col">내용</th>
-                        <th scope="col">이력서 관리</th>
-                        <th scope="col">설정관리</th>
-                        <th scope="col">삭제</th>
-                        <th scope="col">대표</th>
-                     </tr>
-                  </thead>
-                  <c:forEach var="dto" items="${list }" varStatus="i">
-                     <tr data-rnum="${dto.r_num}">
-                        <td>${i.count}</td>
-                        <td>${dto.r_title}</td>
-                        <td>${dto.r_content}</td>
-                        <td>수정페이지로 이동버튼</td>
-                        <td>
-                        <!-- if문 -->
-                        <c:if test="${dto.r_private==1}">
-                           <button type="button" class="setPublic">공개 전환</button>
-                        </c:if>
-                        <c:if test="${dto.r_private==0}">
-                           <button type="button" class="setPrivate">비공개 전환</button>
-                        </c:if>
-                        </td>
-                        <td><input type="checkbox"></td>
-                        
-                        <td>
-                        <c:if test="${dto.r_presume==0}">
-                        <button type="button" class="setMainOn">대표 설정</button>                     
-                        </c:if>
-                        <c:if test="${dto.r_presume==1}">
-                        <button type="button" class="setMainOff">대표 해제</button>   
-                        </c:if>
-                        
-                        </td>   
-                     </tr>
-                  </c:forEach>
-               </table>
-                  <button type="button">삭제</button>
-            </div>
-         </div>
-      </div>
-   <script type="text/javascript">
-   $(".setMainOff").click(function(){
-       var r_num = $(this).closest("tr").data("rnum");
-       $.ajax({
-         type:"post",
-         dataType:"html",
-         data:{"r_num":r_num},
-         url:"/updateMainOff",
-         success:function(){
-         location.reload();
-         }
-       })
-   })
-   $(".setMainOn").click(function(){
-      var r_num = $(this).closest("tr").data("rnum");
-      $.ajax({
-         type:"post",
-         dataType:"html",
-         data:{"r_num":r_num},
-         url:"/updateMainOn",
-         success:function(){
-            location.reload();
-         }
-      })
-   })
-   
-   $(".setPrivate").click(function(){
-       var r_num = $(this).closest("tr").data("rnum");
-      $.ajax({
-         type:"post",
-         dataType:"html",
-         data:{"r_num":r_num},
-         url:"/updatePrivate",
-         success:function(){
-            location.reload();
-         }
-      })
-   })
-   
-   $(".setPublic").click(function(){
-       var r_num = $(this).closest("tr").data("rnum");
-      $.ajax({
-         type:"post",
-         dataType:"html",
-         data:{"r_num":r_num},
-         url:"/updatePublic",
-         success:function(){
-            location.reload();
-         }
-      })
-   })
-   </script>
-   
-   
+		<div class="container-fluid pt-4 px-4">
+			<div class="bg-light text-center rounded p-4">
+				<div class="table-responsive">
+					<table 
+						class="table text-start align-middle table-bordered table-hover mb-0"
+						style="width: 800px; table-layout: fixed" >
+						<thead>
+							<tr class="text-dark">
+								<th scope="col" style="width:50px;">번호</th>
+								<th scope="col" style="width:200px;">제목</th>
+								<th scope="col" style="width:110px;">설정관리</th>
+								<th scope="col" style="width:90px;">대표 설정</th>
+								<th scope="col" style="width:50px;">인쇄</th>
+								<th scope="col" style="width:110px;">이메일 전송</th>
+								<th scope="col" style="width:110px;">이력서 관리</th>
+							</tr>
+						</thead>
+						<c:forEach var="dto" items="${list }" varStatus="i">
+							<tr data-rnum="${dto.r_num}">
+								<td>${i.count}</td>
+								<td style="white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">${dto.r_title}</td>
+								
+								<td>
+								<!-- if문 -->
+								<c:if test="${dto.r_private==1}">
+									<button type="button" class="setPublic">공개 전환</button>
+								</c:if>
+								<c:if test="${dto.r_private==0}">
+									<button type="button" class="setPrivate">비공개 전환</button>
+								</c:if>
+								</td>
+								
+								<td>
+								<c:if test="${dto.r_presume==0}">
+								<button type="button" class="setMainOn">대표 설정</button>							
+								</c:if>
+								<c:if test="${dto.r_presume==1}">
+								<button type="button" class="setMainOff">대표 해제</button>	
+								</c:if>								
+								</td>	
+								
+								<td>인쇄</td>
+								<td>이메일</td>
+								
+								<td><button type="button" onclick="location.href='#'">수정</button>
+									<button type="button" onclick="location.href='#'">삭제</button></td>
+									
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+			</div>
+		</div>
+	<script type="text/javascript">
+	$(".setMainOff").click(function(){
+		 var r_num = $(this).closest("tr").data("rnum");
+		 $.ajax({
+			type:"post",
+			dataType:"html",
+			data:{"r_num":r_num},
+			url:"/updateMainOff",
+			success:function(){
+			location.reload();
+			}
+		 })
+	})
+	$(".setMainOn").click(function(){
+		var r_num = $(this).closest("tr").data("rnum");
+		$.ajax({
+			type:"post",
+			dataType:"html",
+			data:{"r_num":r_num},
+			url:"/updateMainOn",
+			success:function(){
+				location.reload();
+			}
+		})
+	})
+	
+	$(".setPrivate").click(function(){
+		 var r_num = $(this).closest("tr").data("rnum");
+		$.ajax({
+			type:"post",
+			dataType:"html",
+			data:{"r_num":r_num},
+			url:"/updatePrivate",
+			success:function(){
+				location.reload();
+			}
+		})
+	})
+	
+	$(".setPublic").click(function(){
+		 var r_num = $(this).closest("tr").data("rnum");
+		$.ajax({
+			type:"post",
+			dataType:"html",
+			data:{"r_num":r_num},
+			url:"/updatePublic",
+			success:function(){
+				location.reload();
+			}
+		})
+	})
+	</script>
 </body>
 </html>
