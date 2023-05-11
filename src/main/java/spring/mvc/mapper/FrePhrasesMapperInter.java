@@ -17,5 +17,7 @@ public interface FrePhrasesMapperInter {
 	public void deletePhrase(String f_num);
 	
 	public void updatePhrase(Map<String, String> map);
+	
+	public FrePhrasesDto getPhrase(String f_num);
 
 }

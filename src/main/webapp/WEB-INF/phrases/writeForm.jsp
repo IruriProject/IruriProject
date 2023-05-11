@@ -10,47 +10,73 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link
 	href="https://fonts.googleapis.com/css2?family=Anton&family=Edu+VIC+WA+NT+Beginner:wght@600&family=Gamja+Flower&family=Single+Day&family=Jua&family=Nanum+Pen+Script&display=swap"
-	rel="stylesheet"/>
+	rel="stylesheet" />
 </head>
 <script>
-$(function(){
-	$("#auto").change(function(){
-		
-		var phrase=$(this).val();
-		$("#f_phrase").val(phrase);
-		var text=$("#f_phrase").text();
-		
+	$(function() {
+		$("#auto").change(function() {
+
+			var phrase = $(this).val();
+			var index = $(".insertPhrases > div").length;
+
+			var s = "";
+			s += "<div class='formbold-mb-3'>";
+			s += "<label for='f_phrase_" + index + "' class='formbold-form-label'>등록할 문구_ "
+					+ (index + 1) + "</label>";
+			s += "<input type='text' name='fPhraseList' id='f_phrase_"+index+"' class='formbold-form-input'/>";
+			s += "</div><br>";
+
+			$(".insertPhrases").append(s);
+
+			$("#f_phrase_" + index).val(phrase);
+
+		})
+
+		$("#directbtn").click(function() {
+
+			var phrase = $("#direct").val();
+			var index = $(".insertPhrases > div").length;
+
+			var s = "";
+			s += "<div class='formbold-mb-3'>";
+			s += "<label for='f_phrase_" + index + "' class='formbold-form-label'>등록할 문구_ "
+					+ (index + 1) + "</label>";
+			s += "<input type='text' name='fPhraseList' id='f_phrase_"+index+"' class='formbold-form-input'/>";
+			s += "</div><br>";
+
+			$(".insertPhrases").append(s);
+
+			$("#f_phrase_" + index).val(phrase);
+
+		})
+
 	})
-	
-	$("#directbtn").click(function(){
-	
-		var phrase=$("#direct").val();
-		$("#f_phrase").val(phrase);
-		var text=$("#f_phrase").text();
-		
-	})
-})
 </script>
 <body>
 
 	<div class="formbold-main-wrapper">
 		<div class="formbold-form-wrapper">
 			<form action="writephrases" method="POST">
-				<input type="hidden" name="e_num" id="e_num" value=${e_num } class="formbold-form-input" />
+				<input type="hidden" name="e_num" id="e_num" value=${e_num }
+					class="formbold-form-input" />
 				<div align="center">
 					<h2
-						style="font-weight: 600; color: #416442; background-color: #e3f2c9; width: 300px; height: 50px; font-size: 1.8em; padding: 10px 0px; border-radius: 10px; text-align: center;">자주쓰는문구 등록</h2>
+						style="font-weight: 600; color: #416442; background-color: #e3f2c9; width: 300px; height: 50px; font-size: 1.8em; padding: 10px 0px; border-radius: 10px; text-align: center;">자주쓰는문구
+						등록</h2>
 				</div>
 				<br>
-				
+
 				<div class="formbold-mb-3">
 					<label class="formbold-form-label">추천문구</label> <select
 						class="formbold-form-input" id="auto" style="width: 90%">
+						<option value="선택">-- 선택 --</option>
 						<option value="안녕하세요">안녕하세요</option>
-						<option value="설립 20년차 이상의 안정된 회사입니다.">설립 20년차 이상의 안정된 회사입니다.</option>
+						<option value="설립 20년차 이상의 안정된 회사입니다.">설립 20년차 이상의 안정된
+							회사입니다.</option>
 						<option value="복지가 보장되어있는 기업입니다.">복지가 보장되어있는 기업입니다.</option>
 						<option value="많은 지원 바랍니다.">많은 지원 바랍니다.</option>
 					</select>
@@ -60,27 +86,25 @@ $(function(){
 					<label for="f_phrase" class="formbold-form-label">직접입력</label>
 					<div class="form-inline" style="height: 100px; position: relative;">
 						<textarea id="direct" style="width: 90%"
-						placeholder="직접 문구를 입력해주세요." class="pcontent-input"></textarea>
-						<button class="small-btn" id="directbtn" type="button" style="position: absolute; top: 40%; vertical-align: middle; text-align: center;">+</button>
+							placeholder="직접 문구를 입력해주세요." class="pcontent-input"></textarea>
+						<button class="small-btn" id="directbtn" type="button"
+							style="position: absolute; top: 40%; vertical-align: middle; text-align: center;">+</button>
 					</div>
 				</div>
-				
-				<br>
-				<br>
-				
-				<div class="formbold-mb-3">
-					<label for="f_phrase" class="formbold-form-label"> 등록할 문구 </label> <input
-						type="text" name="f_phrase" id="f_phrase"
-						placeholder="자동으로 입력됩니다." class="formbold-form-input" />
-				</div>
-				
-				
 
+				<br> <br>
+
+				<div class="insertPhrases"></div>
+				<!-- 				<div class="formbold-mb-3">
+					<label for="f_phrase1" class="formbold-form-label"> 등록할 문구1 </label> <input
+						type="text" name="f_phrase1" id="f_phrase1"
+						placeholder="자동으로 입력됩니다." class="formbold-form-input" />
+				</div> -->
 				<br>
-				
+
 				<button class="formbold-btn" type="submit">문구등록</button>
-				
-			
+
+
 			</form>
 		</div>
 	</div>
@@ -299,8 +323,8 @@ body {
 	margin-right: 10px;
 }
 
-.small-btn{
-	margin-left:10px;
+.small-btn {
+	margin-left: 10px;
 	width: 50px;
 	padding: 5px 15px;
 	border-radius: 5px;

@@ -34,6 +34,7 @@ import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.PostingDto;
 import spring.mvc.service.EFnService;
 import spring.mvc.service.EnterpriseService;
+import spring.mvc.service.FrePhrasesService;
 import spring.mvc.service.UFnService;
 import spring.mvc.service.UserService;
 
@@ -55,6 +56,9 @@ public class EFnController {
 
 	@Autowired
 	UserService u_service;
+	
+	@Autowired
+	FrePhrasesService f_service;
 
 	@GetMapping("/insertForm")
 	public String insertForm() {
@@ -126,7 +130,9 @@ public class EFnController {
 		model.addAttribute("draftCount", service.draftList(e_dto.getE_num()).size());
 		model.addAttribute("enterNum", e_dto.getE_num());
 		model.addAttribute("draftList", service.draftList(e_dto.getE_num()));
-
+		
+		model.addAttribute("phraseList", f_service.phrasesList(e_dto.getE_num()));
+		
 		return "/posting/writeForm";
 	}
 
