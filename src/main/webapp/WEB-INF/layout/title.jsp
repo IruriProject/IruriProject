@@ -160,79 +160,92 @@
 #menu-list.show {
 	display: block; /* 메뉴를 보이게 함 */
 }
-</style>    
+</style>   
 <script>
 $(document).ready(function(){
-	
-	
-	// 버튼 클릭 시 메뉴 보이기/숨기기
-	document.getElementById('menu-button').addEventListener('click', function() {
-	  var menuList = document.getElementById('menu-list');
-	  if (menuList.classList.contains('show')) {
-	    menuList.classList.remove('show');
-	  } else {
-	    menuList.classList.add('show');
-	  }
-	});
-	
-	
-	//switch
-	const toggleList = document.querySelectorAll(".toggleSwitch");
-
-	toggleList.forEach(($toggle) => {
-	  $toggle.onclick = () => {
-	    $toggle.classList.toggle('active');
-	  }
-	});
-	
-	
-	 $("#displayList").hide();
-    // 검색창의 입력값이 변경될 때마다 자동완성 목록 업데이트
-    $("#allkeyword").on("input", function(){
-    	
-    	var allkeyword= $("#allkeyword").val();
-    		
-    	if(allkeyword!=""){
-    		$.ajax({
-        		type: "get",
-        		dataType: "json",
-        		url:"../search/wordSearchShow",
-        		data:{"allkeyword":allkeyword},
-        		success:function(res){
-        			var s= "";
-        			
-        			$.each(res, function(i, ele) {
-        			    var regex = new RegExp(allkeyword, "ig"); // 대소문자 구분 없이 일치하는 문자열 찾기 위해 "ig" 플래그 사용
-        			    var matches = ele.p_title.match(regex); // 일치하는 문자열 찾기
-        			    var title = ele.p_title;
-        			    if (matches) {
-        			        // 일치하는 문자열이 있을 경우 해당 부분에 스타일 적용
-        			        for (var j = 0; j < matches.length; j++) {
-        			            title = title.replace(matches[j], '<span style="font-weight:bold; color:green;">' 
-        			            + matches[j] + '</span>');
-        			        }
-        			    }
-        			    s += "<a href='../search/allsearchlist?allkeyword=" + ele.p_title + "'>" + title + "</a><br>";
-        			});
-        			
-        			if(s!=""){
-        				$("#displayList").show();
-        				
-
-        			}else{
-        				$("#displayList").hide();
-        			}
-        			
-        			$("#displayList").html(s);
-        		}
-        		
-        	});	
-    	}else{
-    		$("#displayList").hide();
-    	}  
-    }); 
+    // 버튼 클릭 시 메뉴 보이기/숨기기
+    document.getElementById('menu-button').addEventListener('click', function() {
+      var menuList = document.getElementById('menu-list');
+      if (menuList.classList.contains('show')) {
+        menuList.classList.remove('show');
+      } else {
+        menuList.classList.add('show');
+      }
+    });
+    
+    // 스위치 버튼 초기 상태 설정
+    var toggleSwitch = document.querySelector('.toggleSwitch');
+    if (toggleSwitch.classList.contains('active')) {
+      toggleSwitch.nextSibling.textContent = "ON";
+    } else {
+      toggleSwitch.nextSibling.textContent = "OFF";
+    }
+    
+    // 스위치 버튼 클릭 이벤트 처리
+    toggleSwitch.onclick = function() {
+      toggleSwitch.classList.toggle('active');
+      
+      // 스위치 버튼이 클릭될 때마다 자동완성 기능 활성화/비활성화
+      if (toggleSwitch.classList.contains('active')) {
+        $("#allkeyword").on("input", function(){
+          var allkeyword= $("#allkeyword").val();
+            
+          if(allkeyword!=""){
+            $.ajax({
+              type: "get",
+              dataType: "json",
+              url: "../search/wordSearchShow",
+              data:{"allkeyword":allkeyword},
+              success:function(res){
+                var s= "";
+                
+                $.each(res, function(i, ele) {
+                  var regex = new RegExp(allkeyword, "ig"); // 대소문자 구분 없이 일치하는 문자열 찾기 위해 "ig" 플래그 사용
+                  var matches = ele.p_title.match(regex); // 일치하는 문자열 찾기
+                  var title = ele.p_title;
+                  if (matches) {
+                    // 일치하는 문자열이 있을 경우 해당 부분에 스타일 적용
+                    for (var j = 0; j < matches.length; j++) {
+                      title = title.replace(matches[j], '<span style="font-weight:bold; color:green;">' 
+                      + matches[j] + '</span>');
+                    }
+                  }
+                  s += "<a href='../search/allsearchlist?allkeyword=" + ele.p_title + "'>" + title + "</a><br>";
+                });
+                
+                if(s!=""){
+                  $("#displayList").show();
+                } else {
+                  $("#displayList").hide();
+                }
+                
+                $("#displayList").html(s);
+              }
+              
+            }); 
+          } else {
+            $("#displayList").hide();
+          }  
+        });
+        
+        // 스위치 버튼이 on일 때
+        toggleSwitch.nextSibling.textContent = "ON";
+  
+      } else {
+        $("#allkeyword").off("input");
+        $("#displayList").hide();
+        
+        // 스위치 버튼이 off일 때
+        toggleSwitch.nextSibling.textContent = "OFF";
+      }
+    };
+    
+    // 페이지가 로드될 때 displayList를 숨깁니다.
+    $("#displayList").hide();
 });
 </script>
+
+
 
 </head>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
@@ -247,21 +260,22 @@ $(document).ready(function(){
 				style="color: #41644a;"></i> <input type="text" name="allkeyword"
 				id="allkeyword" class="searchipput" placeholder="공고 검색해주세요.">
 		</form>
-
+	
 		<button type="button" id="menu-button" style="float:right; position: relative; margin-right:3%; margin-top:-44px; border:none;  background-color:#fff; color:green;">
 		<span class="caret"></span>
 		</button>
+		<div id="displayList"></div>
 		<ul id="menu-list">
 			<li>
-			<div style="width:100%; height: 30px; padding:4px; border-radius: 10px;">
-			<span style="float:left; margin-left: 50%; width:40%;">자동검색 끄기/켜기</span>
+			<div style="float:left;  margin-top:-6px; margin-left: -100px; width:100%; height: 30px; padding:4px; border-radius: 10px; position: absolute;">
+			<span style="float:left; margin-left:-42px; width:80%;">자동검색 끄기/켜기</span>
 			<label for="toggle" class="toggleSwitch" style=" width:10%; float: right;  margin: 0 auto;"> 
 				<span class="toggleButton" style="font-size:larger;"></span>
 			</label>
 			</div>
 			</li>
 		</ul>
-		<div id="displayList"></div>
+	
 	</div>
 
 
