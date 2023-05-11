@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+   pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -9,12 +9,12 @@
 <c:set var="root" value="<%=request.getContextPath()%>" />
 <!-- Icon Font Stylesheet -->
 <link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-	rel="stylesheet">
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+   rel="stylesheet">
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-	rel="stylesheet">
-	
+   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+   rel="stylesheet">
+   
 
 <!-- Libraries Stylesheet -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -22,7 +22,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link href="${root }/css/usercss/owl.carousel.min.css" rel="stylesheet">
 <link href="${root }/css/usercss/tempusdominus-bootstrap-4.min.css"
-	rel="stylesheet" />
+   rel="stylesheet" />
 
 <!-- Customized Bootstrap Stylesheet -->
 <link href="${root }/css/usercss/bootstrap.min.css" rel="stylesheet">
@@ -33,95 +33,120 @@
 div {
 	border: 1px solid gray;
 }
+.text-dark th{
+text-align: center;
+   border: 1px solid gray;
+}
 </style>
 </head>
 <body>
 	
-	이력서 목록.
+	<h3>내 이력서 목록</h3>
 
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
-				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h6 class="mb-0">나의 이력서 목록</h6>
-					<a href="">Show All</a>
-				</div>
 				<div class="table-responsive">
-					<table
+					<table 
 						class="table text-start align-middle table-bordered table-hover mb-0"
-						style="width: 1000px;" >
+						style="width: 800px; table-layout: fixed" >
 						<thead>
 							<tr class="text-dark">
-								<th scope="col">번호</th>
-								<th scope="col">제목</th>
-								<th scope="col">내용</th>
-								<th scope="col">이력서 관리</th>
-								<th scope="col">설정관리</th>
-								<th scope="col">삭제</th>
-								<th scope="col">대표</th>
+								<th scope="col" style="width:50px;">번호</th>
+								<th scope="col" style="width:200px;">제목</th>
+								<th scope="col" style="width:110px;">설정관리</th>
+								<th scope="col" style="width:90px;">대표 설정</th>
+								<th scope="col" style="width:50px;">인쇄</th>
+								<th scope="col" style="width:110px;">이메일 전송</th>
+								<th scope="col" style="width:110px;">이력서 관리</th>
 							</tr>
 						</thead>
 						<c:forEach var="dto" items="${list }" varStatus="i">
-						<input type="hidden" name="r_num" value="${dto.r_num }">
-							<tr>
+							<tr data-rnum="${dto.r_num}">
 								<td>${i.count}</td>
-								<td>${dto.r_title}</td>
-								<td>${dto.r_content}</td>
-								<td>수정페이지로 이동버튼</td>
+								<td style="white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">${dto.r_title}</td>
+								
 								<td>
 								<!-- if문 -->
-								<c:if test="${dto.r_private==0}">
-									<button type="button" id="setPublic">공개 전환</button>
-								</c:if>
 								<c:if test="${dto.r_private==1}">
-									<button type="button" id="setPrivate">비공개 전환</button>
+									<button type="button" class="setPublic">공개 전환</button>
+								</c:if>
+								<c:if test="${dto.r_private==0}">
+									<button type="button" class="setPrivate">비공개 전환</button>
 								</c:if>
 								</td>
 								
-								<td><input type="checkbox"></td>
-								
 								<td>
 								<c:if test="${dto.r_presume==0}">
-								<button type="button">대표 설정</button>							
+								<button type="button" class="setMainOn">대표 설정</button>							
 								</c:if>
 								<c:if test="${dto.r_presume==1}">
-								<button type="button">대표 해제</button>	
-								</c:if>
+								<button type="button" class="setMainOff">대표 해제</button>	
+								</c:if>								
 								</td>	
+								
+								<td>인쇄</td>
+								<td>이메일</td>
+								
+								<td><button type="button" onclick="location.href='#'">수정</button>
+									<button type="button" onclick="location.href='#'">삭제</button></td>
+									
 							</tr>
 						</c:forEach>
 					</table>
-						<button type="button">삭제</button>
 				</div>
 			</div>
 		</div>
 	<script type="text/javascript">
-	$("#setPrivate").click(function(){
-		var r_num="${rdto.r_num}";
+	$(".setMainOff").click(function(){
+		 var r_num = $(this).closest("tr").data("rnum");
+		 $.ajax({
+			type:"post",
+			dataType:"html",
+			data:{"r_num":r_num},
+			url:"/updateMainOff",
+			success:function(){
+			location.reload();
+			}
+		 })
+	})
+	$(".setMainOn").click(function(){
+		var r_num = $(this).closest("tr").data("rnum");
+		$.ajax({
+			type:"post",
+			dataType:"html",
+			data:{"r_num":r_num},
+			url:"/updateMainOn",
+			success:function(){
+				location.reload();
+			}
+		})
+	})
+	
+	$(".setPrivate").click(function(){
+		 var r_num = $(this).closest("tr").data("rnum");
 		$.ajax({
 			type:"post",
 			dataType:"html",
 			data:{"r_num":r_num},
 			url:"/updatePrivate",
 			success:function(){
-				alert("성공");
+				location.reload();
 			}
 		})
 	})
 	
-	$("#setPublic").click(function(){
-		var r_num="${rdto.r_num}";
+	$(".setPublic").click(function(){
+		 var r_num = $(this).closest("tr").data("rnum");
 		$.ajax({
 			type:"post",
 			dataType:"html",
 			data:{"r_num":r_num},
 			url:"/updatePublic",
 			success:function(){
-				alert("성공");
+				location.reload();
 			}
 		})
 	})
 	</script>
-	
-	
 </body>
 </html>

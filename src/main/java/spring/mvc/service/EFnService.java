@@ -153,4 +153,8 @@ public class EFnService {
 	public int getMaxNumOfPosting() {
 		return mapper.getMaxNumOfPosting();
 	}
+	
+	public String getEnumOfPosting(String p_num) {
+		return mapper.getEnumOfPosting(p_num);
+	}
 }

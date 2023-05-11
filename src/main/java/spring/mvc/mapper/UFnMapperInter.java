@@ -10,6 +10,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import spring.mvc.dto.BoardDto;
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.ResumeDto;
+import spring.mvc.dto.ScrapDto;
 import spring.mvc.dto.HeartDto;
 import spring.mvc.dto.UserDto;
 import spring.mvc.dto.ViewerDto;
@@ -20,19 +21,36 @@ public interface UFnMapperInter {
 	public void updateUserNoAddr(UserDto dto);
 	public void updatePw(Map<String, String> map);
 	public void updatePhoto(Map<String, String> map);
-	public int countLikeEnterprise(String num);
 	public EnterpriseDto getEnterPrise(String num);
 	public ResumeDto getResume(String u_num);
-	public void insertLikeEnter(HeartDto dto);
-	public void deleteLikeEnter(String num);
 	public UserDto findUserByNum(String u_num);
 	public void deleteUser(String u_num);
 	public void insertResume(ResumeDto dto);
+	//주소, 대표 변경
 	public void updatePrivate(int r_num);
 	public void updatePublic(int r_num);
+	public void updateMainOn(int r_num);
+	public void updateMainOff(int r_num);
+	public void updateAllOff();
+	//아이디에 해당하는 이력서 찾기
+	public List<ResumeDto> getResumeByUserId(String u_id);
+	
+	//관심 기업
+	public int countLikeEnterprise(String h_num);//관심기업 수
+	public EnterpriseDto getLikeEnterPrise(String h_num);//관심기업 ...?
+	public void insertLikeEnter(HeartDto dto);//관심기업 인서트
+	public void deleteLikeEnter(String h_num);//관심기업 딜리트
+	public HeartDto checkLikeEnter (Map<String, String> map);
+	
+	//관심 공고(스크랩)
+	public void insertScrapPosting(ScrapDto dto);//관심공고 인서트
+	public void deleteScrapPosting(String s_num);//관심공고 딜리트
+	
 	//열람
 	public void insertViewer(ViewerDto dto);
 	public int getSearchUnum(Map<String, String> map);
 	public List<ResumeDto> getMyResume(String u_num);
 	public ResumeDto getResumeOfRNum(String r_num);
+
+
 }

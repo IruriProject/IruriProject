@@ -20,6 +20,7 @@
 		<input type="text"
 			placeholder="검색어 입력" class="form-control">
 		<button type="button" class="btn btn-info">검색</button>
+		<button style="float: right" type="button" class="btn btn-info" onclick="location.href='/phrases/list'">자주쓰는문구 목록</button>
 	</form>
 	<br>
 	<table class="table" style="width: 100%; margin: 0 auto;">
