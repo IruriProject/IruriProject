@@ -187,7 +187,7 @@ public class EFnController {
 		String loginStatus=(String)session.getAttribute("loginStatus");
 		
 
-		//좋아요 관련
+		//좋아요 관련, 스크랩 관련
 		if(myId!=null && loginStatus.equals("user")) {
 			
 			String unum=u_service.findUserdataById(myId).getU_num();
@@ -200,13 +200,18 @@ public class EFnController {
 			
 			mview.addObject("hdto", hdto);
 			mview.addObject("u_num",unum);
+			
 		}
+		
+		
+		
 		
 
 		if(loginStatus != null && loginStatus.equals("user")) {
 			String u_num=user_service.findUserdataById(myId).getU_num();
 			mview.addObject("rlist", ufn_service.getMyResume(u_num));
 		}
+		
 
 		if (session.getAttribute("loginStatus") == "user") {
 			ViewerDto vdto = new ViewerDto();

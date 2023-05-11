@@ -35,6 +35,11 @@
 div {
    border: 1px solid gray;
 }
+
+.gwansim{
+	cursor: pointer;
+		
+}
 </style>
 </head>
 
@@ -149,10 +154,10 @@ div {
                </div>
                <br>
                <div class="h-100 bg-light rounded p-4">
-                  <button type="button" onclick="location.href='enterLike'">관심기업</button>
-                  <button type="button" onclick="location.href=''">관심직종</button>
-                  <button type="button" onclick="location.href=''">관심채용</button>
-                  <button type="button" onclick="location.href=''">관심근무지</button>
+               	  <span class="gwansim" onclick="location.href='enterLike'">관심기업 ${countLikeEnter }</span>
+               	  <span class="gwansim" onclick="location.href=''">관심직종</span>
+               	  <span class="gwansim" onclick="location.href=''">관심공고</span>
+               	  <span class="gwansim" onclick="location.href=''">관심근무지</span>
                   <br>
                </div>
             </div>
@@ -293,7 +298,7 @@ div {
          <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
                <h6 class="mb-0">관심 기업</h6>
-               <a href="enterLike">더보기</a>
+               <a href="/enterLike">더보기</a>
             </div>
             <div class="table-responsive">
                <table
@@ -351,7 +356,7 @@ div {
          <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
                <h6 class="mb-0">관심 직종</h6>
-               <a href="occupation">더보기</a>
+               <a href="/occupation">더보기</a>
             </div>
             <div class="table-responsive">
                <table
@@ -408,8 +413,8 @@ div {
       <div class="container-fluid pt-4 px-4">
          <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-               <h6 class="mb-0">관심 채용</h6>
-               <a href="scrap">더보기</a>
+               <h6 class="mb-0">관심 공고</h6>
+               <a href="/scrap">더보기</a>
             </div>
             <div class="table-responsive">
                <table
@@ -466,7 +471,7 @@ div {
          <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
                <h6 class="mb-0">관심 근무지</h6>
-               <a href="place">더보기</a>
+               <a href="/place">더보기</a>
             </div>
             <div class="table-responsive">
                <table

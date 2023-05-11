@@ -116,6 +116,10 @@ body {
 .fa-heart{
 	color: red;
 }
+
+.fa-star{
+	color: yellow;
+}
 </style>
 </head>
 <body>
@@ -136,14 +140,21 @@ body {
 								<c:if
 									test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
 
-									<%-- <button type="button" class="btn btn-info mt-2">지원하기</button>
-									<button type="button" id="btnscrap" u_id=${sessionScope.loginId} e_num=${dto.e_num }
-									 class="btn btn-info mt-2">공고 스크랩</button> --%>
-
 									<button type="button" class="btn btn-info mt-2" data-toggle="modal" data-target="#myModal">지원하기</button>
-									<button type="button" id="btnscrap" class="btn btn-info mt-2">공고 스크랩</button>
 
+									<!-- 기스크랩 시 스크랩 해제 -->
+									<c:if test="${sdto.s_num!=null }">
+									<input type="hidden" id="s_num" value="${s_num }">
+										<span id="btnUnScrap">공고 스크랩 해제<i class="fa-solid fa-star"></i></span>
+									</c:if>
+									
+									<!-- 비스크랩 시 스크랩 가능 -->
+									<c:if test="${sdto.s_num==null }">
+										<span id="btnScrap">공고 스크랩<i class="fa-regular fa-star"></i></span>
+									</c:if>
+									
 								</c:if>
+
 								<c:if
 									test="${sessionScope.loginStatus=='enterprise'&&sessionScope.loginId==dto.e_id }">
 									<button type="button" class="btn btn-info mt-2" onclick="location.href='/posting/update?p_num=${dto.p_num}'">수정</button>
@@ -151,8 +162,56 @@ body {
 									<button type="button" class="btn btn-info mt-2" onclick="reloadAlert()">끌어올리기</button>
 								</c:if>
 								<button type="button" class="btn btn-info mt-2" onclick="copyUrl()">링크 복사</button>
+								<span onclick="copyUrl()">링크 복사</span>
 							</div>
 						</div>
+						
+						<script type="text/javascript">
+				
+							//스크랩
+							$("#btnScrap").click(function(){
+								
+								const p_num=$("#p_num").val();	
+								const u_num=$("#u_num").val();	
+								
+								$.ajax({
+									type:"post",
+									dataType:"html",
+									url:"/sinsert",
+									data:{
+										"p_num":p_num,
+										"u_num":u_num
+									},
+									success:function(res){
+										alert("스크랩 성공");
+										location.reload();
+									}
+								})
+								
+								
+							});
+							
+							$("#btnUnScrap").click(function(){
+								
+								var s_num=$("#s_num").val();
+								
+								$.ajax({
+									type:"post",
+									dataType:"html",
+									url:"/sdelete",
+									data:{
+										"s_num":s_num
+									},
+									success:function(res){
+										alert("스크랩 해제");
+										location.reload();
+									}
+								})
+								
+								
+							});
+						
+						</script>
 						
 					  <!-- 지원하기 모달 -->
 						
@@ -272,9 +331,8 @@ body {
 									<!-- 기좋아요 시 좋아요 해제 -->
 									<c:if test="${hdto.h_num!=null }">
 									<input type="hidden" id="h_num" value="${h_num }">
-									<span class="heart" id="btnUnLikeEnter">좋아요 <i class="fa-solid fa-heart"></i></span>
+										<span class="heart" id="btnUnLikeEnter">좋아요 <i class="fa-solid fa-heart"></i></span>
 									</c:if>
-									
 									
 									<!-- 비좋아요 시 좋아요 가능 -->
 									<c:if test="${hdto.h_num==null }">
@@ -302,7 +360,7 @@ body {
 				},
 				url:"/hinsert",
 				success:function(res){
-					alert("좋아요성공");
+					alert("❤️기업 좋아요❤️");
 					location.reload();
 					//$(this).addClass("fa-solid");
 					//$(this).removeClass("fa-regular");
@@ -325,18 +383,11 @@ body {
 					},
 					url:"/hdelete",
 					success:function(res){
-						alert("좋아요 해제");
+						alert("💔기업 좋아요 해제💔");
 						location.reload();
 					}
 					
 				})
-			});
-			
-			
-			//스크랩
-			$("#btnscrap").click(function(){
-				
-				alert("스크랩할거임?");
 			});
 	
 	</script>
