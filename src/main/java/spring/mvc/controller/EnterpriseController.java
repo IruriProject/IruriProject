@@ -44,7 +44,7 @@ public class EnterpriseController {
 		mview.addObject("postings", efn_service.getPreviewPostings(dto.getE_num()));
 		mview.addObject("postingCount", efn_service.getAllPostings(dto.getE_num()).size());
 		mview.addObject("messages", efn_service.getPreviewMessages(dto.getE_num()));
-		mview.addObject("adto", service.getAllResumeOfEnter(e_num));
+		mview.addObject("applicant_size", service.getAllResumeOfEnter(e_num).size());
 		
 		mview.setViewName("/enterprise/enterprisePage");
 

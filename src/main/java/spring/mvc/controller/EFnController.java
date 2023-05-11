@@ -151,7 +151,7 @@ public class EFnController {
 		
 		EnterpriseDto edto=e_service.findEnterdataById((String)session.getAttribute("loginId")); 
 
-		String [] enterAddr=edto.getE_addr().split("구");
+		String [] enterAddr=edto.getE_addr().split(" ");
 		String saveAddr=enterAddr[0]+" "+enterAddr[1];
 		dto.setP_addr(saveAddr);
 		service.insertPosting(dto);
@@ -257,10 +257,10 @@ public class EFnController {
 	
 	@ResponseBody
 	@GetMapping("/addrsearch")
-	public List<PostingDto> addrSearch(String p_addr) {
-		
-		return service.getAddrSearch(p_addr);
-	}
+	public List<PostingDto> addrSearch(@RequestParam(name="p_addr") String p_addr,
+            @RequestParam(name="employtype", required=false, defaultValue="") String employtype) {
+		return service.getAddrSearch(p_addr, employtype);
+		}
 
 
 	@GetMapping("/confirmpw")

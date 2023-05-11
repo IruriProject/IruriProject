@@ -22,7 +22,7 @@ public interface EFnMapperInter {
 	public int findPostingNum(String p_num);
 	public List<PostingDto> getAllPostings(String e_num);
 	public void updatePostingStatus(Map<String, String> map);
-	public List<PostingDto> getAddrPostings(String p_addr);
+	public List<PostingDto> getAddrPostings(Map<String, String> map);
 	public List<PostingDto> getPreviewPostings(String e_num);
 	public void deletePosting(String p_num);
 	public void updatePosting(PostingDto dto);
