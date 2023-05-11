@@ -13,7 +13,8 @@ public interface EFnMapperInter {
 	
 	//공고
 	public Map<String, Object> getPosting(String p_num);
-	public int getTotalCount();
+
+	public int getTotalCount(); 
 	public List<PostingDto> getPagingList(Map<String, Object> map);
 	public void insertPosting(PostingDto dto);
 	public void draftPosting(PostingDto dto);
@@ -37,7 +38,8 @@ public interface EFnMapperInter {
 	public List<Map<String, Object>> viewerUserByPosting(String p_num);
 
 	public List<PostingDto> getSearchList(Map<String, Object> map);
-
+	public int getsearchTotalCount(Map<String, String>map);
+	public List<PostingDto> autoSearchTitle(String allkeyword);
 	
 	//쪽지
 	public List<Map<String, Object>> getAllMessages(String e_num);

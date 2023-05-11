@@ -13,6 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <title>이루리</title>
 <style type="text/css">
 .logo {
@@ -26,10 +27,12 @@
 	font-weight: bold;
 	text-align: center;
 }
+
 .a:hover {
 	color: #000;
 	text-decoration: none;
 }
+
 .search {
 	float: left;
 	width: 480px;
@@ -39,106 +42,228 @@
 	position: relative;
 	text-align: center;
 }
+
 .searchipput {
 	width: 100%;
 	border-radius: 20px;
 	border: 1px solid #4E9F3D;
 	margin: 10px 0;
-	padding: 10px 15px 10px 40px;
+	padding: 10px 40px;
 	font-family: fontAwesome;
 }
+
 #searchcon {
 	position: absolute;
 	top: 44px;
 	left: 36px;
 	margin: 0;
 }
-.searchipput:focus {outline: 1.5px solid #4E9F3D;}
+
+#displayList {
+	background-color: #fff;
+	color: #gray;
+	border: solid 1px #4E9F3D;
+	width: 98%;
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	float: left;
+	overflow: auto;
+	margin-left: 5px;
+	margin-top: -10px;
+	border-radius: 10px;
+}
+
+#displayList a {
+	font-size: 16px;
+	color: gray;
+}
+
+.searchipput:focus {
+	outline: 1.5px solid #4E9F3D;
+}
+
 .usernav {
 	float: right;
 	width: 270px;
 	height: 100%;
 	padding: 50px 30px 30px 0px;
-	margin-top:-10px;
+	margin-top: -10px;
 }
-.usernav a{
-	text-align:center;
-	color:gray;
-	font-size:15px;
-}
-.usernav a:hover{
-	text-align:center;
-	text-decoration:none;
-	color:#000;
-}
-</style>
 
-<!--     
+.usernav a {
+	text-align: center;
+	color: gray;
+	font-size: 15px;
+}
+
+.usernav a:hover {
+	text-align: center;
+	text-decoration: none;
+	color: #000;
+}
+
+/* 스위치버튼 */
+.toggleSwitch {
+	width: 40px;
+	margin: 10px;
+	height: 20px;
+	display: block;
+	position: relative;
+	border-radius: 30px;
+	background-color: #fff;
+	border: 1px solid green;
+	cursor: pointer;
+}
+
+.toggleSwitch .toggleButton {
+	width: 12px;
+	height: 12px;
+	position: absolute;
+	top: 50%;
+	left: 4px;
+	transform: translateY(-50%);
+	border-radius: 50%;
+	background: #f03d3d;
+}
+
+.toggleSwitch.active {
+	background: #f03d3d;
+}
+
+.toggleSwitch.active .toggleButton {
+	left: calc(100% - 14px);
+	background: #fff !important;
+}
+
+.toggleSwitch, .toggleButton {
+	transition: all 0.2s ease-in;
+}
+
+.toggleSwitch.active {
+	background: green;
+}
+
+.toggleSwitch .toggleButton {
+	background: green;
+}
+
+#menu-button .caret {
+	font-size: larger;
+}
+
+#menu-list {
+	display: none; /* 처음에는 메뉴를 보이지 않게 함 */
+}
+
+#menu-list.show {
+	display: block; /* 메뉴를 보이게 함 */
+}
+</style>    
 <script>
-$("#displayList").hide();
-// 검색어의 길이가 바뀔 때마다 호출
-var wordLength = $(this).val().trim().length;
-if(wordLength == 0){
-			$("#displayList").hide();
-		} else {
-			$.ajax({
-				url:"wordSearchShow",
-				type:"get",
-				data:{
-					  "allkeyword": $("#allkeyword").val() },
-				dataType:"json",
-				success:function(json){
-					if(json.length > 0){
-						// 검색된 데이터가 있는 경우
-						var html = "";
-						$.each(json, function(index, item){
-							var word = item.word;
-                            // 검색목록들과 검색단어를 모두 소문자로 바꾼 후 검색단어가 나타난 곳의 index를 표시.
-							var index = word.toLowerCase().indexOf( $("#allkeyword").val().toLowerCase() );
-							// jaVa -> java
-							var len = $("#allkeyword").val().length;
-							// 검색한 단어를 파랑색으로 표현
-							var result = word.substr(0, index) + "<span style='color:blue;'>"+word.substr(index, len)+"</span>" + word.substr(index+len);
-							html += "<span class='result' style='cursor:pointer;'>" + result + "</span><br>";
-						});
-						
-						var input_width = $("#allkeyword").css("width"); // 검색어 input 태그 width 알아오기
-						$("#displayList").css({"width":input_width}); // 검색 결과의 width와 일치시키기
-						$("#displayList").html(html);
-						$("#displayList").show();
-					}
-					
-				},
-				error: function(request, status, error){
-	                alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-	            }
-				
-			});
-
-		}
-        
-        // 자동완성 목록을 클릭하면 검색하기
-	$(document).on('click', ".result", function(){
-		var word = $(this).text();
-		$("#searchWord").val(word);
-		goSearch(); // 검색기능
+$(document).ready(function(){
+	
+	
+	// 버튼 클릭 시 메뉴 보이기/숨기기
+	document.getElementById('menu-button').addEventListener('click', function() {
+	  var menuList = document.getElementById('menu-list');
+	  if (menuList.classList.contains('show')) {
+	    menuList.classList.remove('show');
+	  } else {
+	    menuList.classList.add('show');
+	  }
 	});
+	
+	
+	//switch
+	const toggleList = document.querySelectorAll(".toggleSwitch");
+
+	toggleList.forEach(($toggle) => {
+	  $toggle.onclick = () => {
+	    $toggle.classList.toggle('active');
+	  }
+	});
+	
+	
+	 $("#displayList").hide();
+    // 검색창의 입력값이 변경될 때마다 자동완성 목록 업데이트
+    $("#allkeyword").on("input", function(){
+    	
+    	var allkeyword= $("#allkeyword").val();
+    		
+    	if(allkeyword!=""){
+    		$.ajax({
+        		type: "get",
+        		dataType: "json",
+        		url:"../search/wordSearchShow",
+        		data:{"allkeyword":allkeyword},
+        		success:function(res){
+        			var s= "";
+        			
+        			$.each(res, function(i, ele) {
+        			    var regex = new RegExp(allkeyword, "ig"); // 대소문자 구분 없이 일치하는 문자열 찾기 위해 "ig" 플래그 사용
+        			    var matches = ele.p_title.match(regex); // 일치하는 문자열 찾기
+        			    var title = ele.p_title;
+        			    if (matches) {
+        			        // 일치하는 문자열이 있을 경우 해당 부분에 스타일 적용
+        			        for (var j = 0; j < matches.length; j++) {
+        			            title = title.replace(matches[j], '<span style="font-weight:bold; color:green;">' 
+        			            + matches[j] + '</span>');
+        			        }
+        			    }
+        			    s += "<a href='../search/allsearchlist?allkeyword=" + ele.p_title + "'>" + title + "</a><br>";
+        			});
+        			
+        			if(s!=""){
+        				$("#displayList").show();
+        				
+
+        			}else{
+        				$("#displayList").hide();
+        			}
+        			
+        			$("#displayList").html(s);
+        		}
+        		
+        	});	
+    	}else{
+    		$("#displayList").hide();
+    	}  
+    }); 
+});
 </script>
- -->
+
 </head>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
 <body>
 <div class="logo">
-<!-- <a href="main"><h1 style="color:#4E9F3D; font-size:36px;">이루리</h1></a> -->
 <a href="${root }/"><img alt="logo" src="${root }/image/logo.jpg" style="width:170px;"></a>
 </div>
-	<div class="search">
+	<div class="search" style="z-index: 999;">
 		<form action="/search/allsearchlist" method="get" class="form-inline">
-			<i class="glyphicon glyphicon-search" id="searchcon" style="color: #41644a;"></i>
-			<input type="text"name="allkeyword" id="allkeyword" class="searchipput" placeholder="공고 검색해주세요.">
+	
+			<i class="glyphicon glyphicon-search" id="searchcon"
+				style="color: #41644a;"></i> <input type="text" name="allkeyword"
+				id="allkeyword" class="searchipput" placeholder="공고 검색해주세요.">
 		</form>
-		<!-- <div id="displayList" style="z-index:888; background-color:#fff;border: solid 1px gray; height: 100px; overflow: auto; margin-left: 77px; margin-top; -1px; border-top: 0px;"> -->
+
+		<button type="button" id="menu-button" style="float:right; position: relative; margin-right:3%; margin-top:-44px; border:none;  background-color:#fff; color:green;">
+		<span class="caret"></span>
+		</button>
+		<ul id="menu-list">
+			<li>
+			<div style="width:100%; height: 30px; padding:4px; border-radius: 10px;">
+			<span style="float:left; margin-left: 50%; width:40%;">자동검색 끄기/켜기</span>
+			<label for="toggle" class="toggleSwitch" style=" width:10%; float: right;  margin: 0 auto;"> 
+				<span class="toggleButton" style="font-size:larger;"></span>
+			</label>
+			</div>
+			</li>
+		</ul>
+		<div id="displayList"></div>
 	</div>
+
 
 	<div class="usernav">
 

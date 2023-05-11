@@ -52,19 +52,35 @@
   }
 
 </style>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(function(){
 	
 	$("#sort").change(function(){
 		var sort = $(this).val();
-		//alert(sort);
-		
-		location.href="boardlist?sort="+sort;
+		var keyword = $("#keyword").val();
+	    var url = "boardlist?sort=" + sort + "&keyword=" + keyword;
+	    location.href = url;
 		
 	});
 });
+</script>  -->
+<script>
+function updateUrl() {
+  var sort = document.getElementById("sort").value;
+  var keyword = document.getElementById("keyword").value.trim();
+  var url = "boardlist?";
+  
+  if (keyword != "") {
+    url += "keyword=" + encodeURIComponent(keyword) + "&";
+  }
+   
+  if (sort != "") {
+    url += "sort=" + encodeURIComponent(sort);
+  }
+  
+  location.href = url;
+}
 </script>
-
 </head>
 <body>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
@@ -80,34 +96,23 @@ $(function(){
 			</div>
 		</c:if>
 	</div>
-
+	
 	<div style="width: 100%; height: 50px; padding: 0 6%;">
 		<b class="countst">총<b style="color: #4E9F3D;">&nbsp;${totalCount }</b> 건</b>
 
-		<div style="width: 25%; float: right;">
-			<form action="boardlist" method ="get" class="form-inline">
-				<input type="text" name="keyword" id="keyword" placeholder="제목+본문검색"
-					class="formbold-b_search-input" />
-			</form>
-		</div>
-
-		<div style="width: 12%; float: right; margin-right:5px;">
-			<select class="formbold-form-select" name="sort" id="sort">
-				<option value="b_writeday" ${sort=="b_writeday"?"selected":""}>최신순</option>
-				<option value="b_num" ${sort=="b_num"?"selected":""}>오래된순</option>
-				<option value="b_readcount" ${sort=="b_readcount"?"selected":""}>조회순</option>
-			</select>
+		<div style="width: 30%; float: right;">
+	<form action="boardlist" method="get" class="form-inline">
+	  <input type="text" name="keyword" id="keyword" placeholder="제목+본문검색" class="formbold-b_search-input" style="width:60%;" value="${param.keyword}" />
+	  <select class="formbold-form-select" name="sort" id="sort" style="width:40%;" onchange="updateUrl()">
+	    <option value="b_writeday" ${param.sort == "b_writeday" ? "selected" : ""}>최신순</option>
+	    <option value="b_num" ${param.sort == "b_num" ? "selected" : ""}>오래된순</option>
+	    <option value="b_readcount" ${param.sort == "b_readcount" ? "selected" : ""}>조회순</option>
+	  </select>
+	</form>
 		</div>
 	</div>
 
 	<table class="table table-info"  style="width:1000px;  margin: 0 auto;">
-<!-- 	<tr>
-		<th style="text-align:center;  height:40px; line-height:40px; font-size:15px;" width="60">번호</th>
-		<th style="text-align:center; height:40px; line-height:40px; font-size:15px;" width="160">작성자</th>
-		<th style="text-align:center; height:40px; line-height:40px; font-size:15px;" width="460">제목</th>
-		<th style="text-align:center; height:40px; line-height:40px; font-size:15px;" width="80">조회</th>
-		<th style="text-align:center; height:40px; line-height:40px; font-size:15px;" width="160">등록일</th>
-	</tr> -->
 	
 	<c:if test="${totalCount==0 }">
 		<tr>
@@ -120,11 +125,8 @@ $(function(){
 	<c:if test="${totalCount>0 }">
 				<c:forEach var="dto" items="${list }">
 				<tr style=" vertical-align:middle;  height:70px; line-height:70px; font-size:14px;">
-					<%-- <td align="center" style="  height:70px; line-height:70px; ">${no }</td> --%>
 					
 					<c:set var="no" value="${no-1 }"/>
-					
-				<%-- 	<td align="center" style="height:70px; line-height:70px; ">${dto.b_loginid }</td> --%>
 					
 					<td style="height:70px; line-height:70px; "> 
 					
@@ -161,7 +163,6 @@ $(function(){
 					<i class="glyphicon glyphicon-comment"></i>&nbsp;${dto.b_acount}</span>
 					</c:if>
 					</td>
-					<%-- <td  style=" height:70px; line-height:70px;"align="center">${dto.b_writeday }</td> --%>
 				</tr>
 
 				<tr>
@@ -169,38 +170,41 @@ $(function(){
 			</c:forEach>
 			</c:if>
 			
-</table>
+	</table>
 
-		<!-- 페이징 -->
-		<c:if test="${totalCount>0}">
-			<div style="width: 800px; text-align: center;">
-				<ul class="pagination">
-					<!-- 이전 -->
-					<c:if test="${startPage>1 }">
-						<li>
-						<a href="boardlist?currentPage=${startPage-1}">이전</a>
-						</li>
-					</c:if>
+  <c:if test="${totalCount>0}">
+  <div style="width: 800px; text-align: center;">
+    <ul class="pagination">
+      <!-- 이전 -->
+      <c:if test="${startPage>1 }">
+        <li>
+          <a href="boardlist?currentPage=${startPage-1}&amp;keyword=${param.keyword}&amp;sort=${param.sort}">이전</a>
+        </li>
+      </c:if>
 
-					<c:forEach var="pp" begin="${startPage }" end="${endPage }">
-						<c:if test="${currentPage==pp }">
-							<li class="active"><a href="boardlist?currentPage=${pp}">${pp}</a>
-							</li>
-						</c:if>
+      <c:forEach var="pp" begin="${startPage }" end="${endPage }">
+        <c:if test="${currentPage==pp }">
+          <li class="active">
+            <a href="boardlist?currentPage=${pp}&amp;keyword=${param.keyword}&amp;sort=${param.sort}">${pp}</a>
+          </li>
+        </c:if>
 
-						<c:if test="${currentPage!=pp }">
-							<li><a href="boardlist?currentPage=${pp}">${pp}</a></li>
-						</c:if>
-					</c:forEach>
-					
-					<!--다음 -->
-					<c:if test="${endPage<totalPage }">
-						<li>
-						<a href="boardlist?currentPage=${endPage+1}">다음</a>
-						</li>
-					</c:if>
-				</ul>
-			</div>
-		</c:if>
+        <c:if test="${currentPage!=pp }">
+          <li>
+            <a href="boardlist?currentPage=${pp}&amp;keyword=${param.keyword}&amp;sort=${param.sort}">${pp}</a>
+          </li>
+        </c:if>
+      </c:forEach>
+
+      <!--다음 -->
+      <c:if test="${endPage<totalPage }">
+        <li>
+          <a href="boardlist?currentPage=${endPage+1}&amp;keyword=${param.keyword}&amp;sort=${param.sort}">다음</a>
+        </li>
+      </c:if>
+    </ul>
+  </div>
+</c:if>
+		
 </body>
 </html>
