@@ -179,18 +179,17 @@ body {
 		  });
 
 		  function drawGenderChart(result) {
-			    var data = new google.visualization.DataTable();
-			    data.addColumn('string', 'age');
-			    data.addColumn('number', 'count');
-	
-			    var dataArray = [];
-	
-			    $.each(result, function(i, obj) {
-			      dataArray.push([obj.age, parseInt(obj.count)]);
-			    });
-	
-			    data.addRows(dataArray);
-			}
+		    var data = new google.visualization.DataTable();
+		    data.addColumn('string', 'age');
+		    data.addColumn('number', 'count');
+
+		    var dataArray = [];
+
+		    $.each(result, function(i, obj) {
+		      dataArray.push([obj.age, parseInt(obj.count)]);
+		    });
+
+		    data.addRows(dataArray);
 
 		    var linechart_options = {
     		  series: {
@@ -203,7 +202,8 @@ body {
 		    };
 		    var linechart = new google.visualization.LineChart(document.getElementById('ageChart'));
 		    linechart.draw(data, linechart_options);
-		  })
+		  }
+		});
 		
 	
 	
