@@ -1,6 +1,7 @@
 package spring.mvc.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -56,15 +57,16 @@ public class FrePhrasesController {
 	}
 
 	@PostMapping("/writephrases")
-	public String writephrases(@ModelAttribute FrePhrasesDto dto, @RequestParam String f_phrase1,
-			@RequestParam String f_phrase2, @RequestParam String f_phrase3) {
-		String[] f_phraseList = new String[3];
-		f_phraseList[0] = f_phrase1;
-		f_phraseList[1] = f_phrase2;
-		f_phraseList[2] = f_phrase3;
+	public String writephrases(@ModelAttribute FrePhrasesDto dto) {
 
-		for (int i = 0; i < f_phraseList.length; i++) {
-			dto.setF_phrase(f_phraseList[i]);
+		// String fPhrase = String.join(",", dto.getF_phrase());
+
+		// String[] f_phraseList = fPhrase.split(",");
+
+		List<String> fPhraseList = dto.getFPhraseList();
+
+		for (int i = 0; i < fPhraseList.size(); i++) {
+			dto.setF_phrase(fPhraseList.get(i));
 			service.insertPhrases(dto);
 		}
 

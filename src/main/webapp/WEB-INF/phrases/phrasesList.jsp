@@ -47,7 +47,6 @@ $(function(){
 		
 		$(this).siblings(".editform").change(function(){
 			newvalue=$(this).val();
-			//alert(newvalue);
 		})
 		
 		
@@ -68,8 +67,6 @@ $(function(){
 	
 	$(".del").click(function(){
 		var f_num=$(this).attr("f_num");
-		
-		alert(f_num);
 		
 		$.ajax({
 			type:"post",
