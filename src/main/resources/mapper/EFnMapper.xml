@@ -68,6 +68,13 @@
 		
 			order by p_num desc limit #{start},#{perpage}
 	</select>
+	
+	<select id="getTotalCountOfSearch" parameterType="Map" resultType="int">
+	select count(*) from POSTING 
+		<if test="searchcolumn!=null and searchword!=null">
+		where ${searchcolumn} like concat('%',#{searchword},'%')
+		</if>
+	</select>
 
 	<!-- 헤더 검색 -->
 	<select id="getSearchList" parameterType="Map" resultType="pdto">
@@ -94,8 +101,8 @@
 	
 	<!-- 공고 insert -->
 	<insert id="insertPosting" parameterType="pdto">
-		insert into POSTING(e_num,p_title,p_type,p_pay,p_period,p_workday,p_starttime,p_endtime,p_employtype,p_content,p_writeday,p_startdate,p_enddate,p_status,p_hirenum)
-		 values(#{e_num},#{p_title},#{p_type},#{p_pay},#{p_period},#{p_workday},#{p_starttime},#{p_endtime},#{p_employtype},#{p_content},now(),now(),#{p_enddate},'지원가능',#{p_hirenum})
+		insert into POSTING(e_num,p_title,p_type,p_pay,p_period,p_workday,p_starttime,p_endtime,p_employtype,p_content,p_writeday,p_startdate,p_enddate,p_status,p_hirenum,p_addr)
+		 values(#{e_num},#{p_title},#{p_type},#{p_pay},#{p_period},#{p_workday},#{p_starttime},#{p_endtime},#{p_employtype},#{p_content},now(),now(),#{p_enddate},'지원가능',#{p_hirenum},#{p_addr})
 	</insert>
 	
 	<!-- 공고 임시저장 -->
@@ -130,7 +137,7 @@
 	
 	<!-- 지역별 검색 -->
 	<select id="getAddrPostings" parameterType="String" resultType="pdto">
-	select * from POSTING where p_addr=#{p_addr} order by p_num desc
+	select * from POSTING where p_addr like CONCAT('%', #{p_addr}, '%') order by p_num desc
 	</select>
 	
 	
@@ -168,5 +175,9 @@
 	<insert id="insertMessage" parameterType="mdto">
 		insert into MESSAGE(e_num,u_num,m_content,m_day) values(#{e_num},#{u_num},#{m_content},now())
 	</insert>
+	
+	<select id="getEnumOfPosting" parameterType="String" resultType="String">
+	select e_num from POSTING where p_num=#{p_num}
+	</select>
 
 </mapper>

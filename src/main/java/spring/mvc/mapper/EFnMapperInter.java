@@ -16,6 +16,7 @@ public interface EFnMapperInter {
 
 	public int getTotalCount(); 
 	public List<PostingDto> getPagingList(Map<String, Object> map);
+	public int getTotalCountOfSearch(Map<String, Object> map);
 	public void insertPosting(PostingDto dto);
 	public void draftPosting(PostingDto dto);
 	public List<PostingDto> draftList(String e_num);
@@ -28,6 +29,7 @@ public interface EFnMapperInter {
 	public void updatePosting(PostingDto dto);
 	public List<Map<String, Object>> applicantByPosting(String p_num);
 	public PostingDto loadingRecentPosting(String e_num);
+	public String getEnumOfPosting(String p_num);
 	
 	//스크랩
 	public int scrapByPosting(String p_num);

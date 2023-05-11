@@ -43,11 +43,14 @@ $(function(){
 				$("#p_employtype").val(res.p_employtype);
 				$("#p_content").val(res.p_content);
 				$("#p_enddate").val(res.p_enddate);
+			}, error:function(){
+				alert("최근 등록된 공고가 없습니다.");
+				
 			}
 		})
 	})
 	
-	$("#modalbtn").click(function(){
+	$("#draftListbtn").click(function(){
 		var draftchk = $('input[name=draft]:checked').val();
 		$.ajax({
 			type:"get",
@@ -55,12 +58,9 @@ $(function(){
 			dataType:"json",
 			url:"/posting/loadingDraftPosting",
 			success:function(res){
-				//alert(res.p_num);
 				$("#frm").attr("flag","old");
-				//$("#p_num").val(res.p_num);
 				$("#pNum").html("<input type='hidden' value='"+res.p_num+"' name='p_num'>");
 				$("#p_title").val(res.p_title);
-				//alert($("#p_title").val());
 				$("#p_type").val(res.p_type);
 				$("#p_pay").val(res.p_pay);
 				$("#p_period").val(res.p_period);
@@ -71,7 +71,6 @@ $(function(){
 				$("#p_employtype").val(res.p_employtype);
 				$("#p_content").val(res.p_content);
 				$("#p_enddate").val(res.p_enddate);
-				
 				
 			}
 			
@@ -93,6 +92,24 @@ $(function(){
 			
 		})
 	})
+	
+	$("#phraseListbtn").click(function(){
+		var phrasechk = $('input[name=phrase]:checked').val();
+		var origintext= $("#p_content").val();
+		
+		$.ajax({
+			type:"get",
+			data:{"f_num":phrasechk},
+			dataType:"json",
+			url:"/phrases/getphrase",
+			success:function(res){
+				///$("#p_content").append(res.f_phrase);
+				$("#p_content").val(origintext + res.f_phrase);
+			}
+			
+		})
+	})
+	
 	
 })
 
@@ -122,7 +139,36 @@ $(function(){
 	            </table>
 	        </div>
 	        <div class="modal-footer">
-	          <button type="button" class="btn btn-default" data-dismiss="modal" id="modalbtn">선택</button>
+	          <button type="button" class="btn btn-default" data-dismiss="modal" id="draftListbtn">선택</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	  </div>
+	  
+	   <!-- Modal -->
+	  <div class="modal fade" id="phrasesModal" role="dialog">
+	    <div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">자주쓰는 문구 목록</h4>
+	        </div>
+	        <div class="modal-body">
+	         	<table class="table table-hover">
+	         	<c:forEach var="flist" items="${phraseList }">
+	         		<tr>
+	                	<td>
+	                    	<input type="radio" name="phrase" value="${flist.f_num }"> ${flist.f_phrase }
+	                    </td>
+	                </tr>
+	         	</c:forEach>
+	            </table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal" id="phraseListbtn">선택</button>
 	        </div>
 	      </div>
 	      
@@ -209,7 +255,7 @@ $(function(){
 				</div>
 
 				<div class="formbold-mb-3">
-					<label for="p_content" class="formbold-form-label"> 상세내용 </label>
+					<label for="p_content" class="formbold-form-label"> 상세내용<button type="button" id="phrases" class="btn-sm small-btn" style="width: 100px; margin-left: 410px;" data-toggle="modal" data-target="#phrasesModal">자주쓰는 문구</button></label>
 					<textarea name="p_content" id="p_content"
 						placeholder="상세내용을 입력해주세요." class="pcontent-input"></textarea>
 				</div>
