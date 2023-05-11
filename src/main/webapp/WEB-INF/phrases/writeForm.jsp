@@ -20,16 +20,16 @@ $(function(){
 	$("#auto").change(function(){
 		
 		var phrase=$(this).val();
-		$("#f_phrase").val(phrase);
-		var text=$("#f_phrase").text();
+		$("#f_phrase1").val(phrase);
+		var text=$("#f_phrase1").text();
 		
 	})
 	
 	$("#directbtn").click(function(){
 	
 		var phrase=$("#direct").val();
-		$("#f_phrase").val(phrase);
-		var text=$("#f_phrase").text();
+		$("#f_phrase2").val(phrase);
+		var text=$("#f_phrase2").text();
 		
 	})
 })
@@ -49,6 +49,7 @@ $(function(){
 				<div class="formbold-mb-3">
 					<label class="formbold-form-label">추천문구</label> <select
 						class="formbold-form-input" id="auto" style="width: 90%">
+						<option value="선택">-- 선택 --</option>
 						<option value="안녕하세요">안녕하세요</option>
 						<option value="설립 20년차 이상의 안정된 회사입니다.">설립 20년차 이상의 안정된 회사입니다.</option>
 						<option value="복지가 보장되어있는 기업입니다.">복지가 보장되어있는 기업입니다.</option>
@@ -69,8 +70,20 @@ $(function(){
 				<br>
 				
 				<div class="formbold-mb-3">
-					<label for="f_phrase" class="formbold-form-label"> 등록할 문구 </label> <input
-						type="text" name="f_phrase" id="f_phrase"
+					<label for="f_phrase1" class="formbold-form-label"> 등록할 문구1 </label> <input
+						type="text" name="f_phrase1" id="f_phrase1"
+						placeholder="자동으로 입력됩니다." class="formbold-form-input" />
+				</div>
+				
+				<div class="formbold-mb-3">
+					<label for="f_phrase2" class="formbold-form-label"> 등록할 문구2 </label> <input
+						type="text" name="f_phrase2" id="f_phrase2"
+						placeholder="자동으로 입력됩니다." class="formbold-form-input" />
+				</div>
+				
+				<div class="formbold-mb-3">
+					<label for="f_phrase3" class="formbold-form-label"> 등록할 문구3 </label> <input
+						type="text" name="f_phrase3" id="f_phrase3"
 						placeholder="자동으로 입력됩니다." class="formbold-form-input" />
 				</div>
 				
