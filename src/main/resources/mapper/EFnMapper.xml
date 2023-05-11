@@ -162,5 +162,9 @@
 	<insert id="insertMessage" parameterType="mdto">
 		insert into MESSAGE(e_num,u_num,m_content,m_day) values(#{e_num},#{u_num},#{m_content},now())
 	</insert>
+	
+	<select id="getEnumOfPosting" parameterType="String" resultType="String">
+	select e_num from POSTING where p_num=#{p_num}
+	</select>
 
 </mapper>

@@ -26,8 +26,10 @@ public interface EFnMapperInter {
 	public List<PostingDto> getPreviewPostings(String e_num);
 	public void deletePosting(String p_num);
 	public void updatePosting(PostingDto dto);
+	public List<PostingDto> getSearchList(Map<String, Object> map);
 	public List<Map<String, Object>> applicantByPosting(String p_num);
 	public PostingDto loadingRecentPosting(String e_num);
+	public String getEnumOfPosting(String p_num);
 	
 	//스크랩
 	public int scrapByPosting(String p_num);
@@ -36,8 +38,6 @@ public interface EFnMapperInter {
 	//열람
 	public int viewerByPosting(String p_num);
 	public List<Map<String, Object>> viewerUserByPosting(String p_num);
-
-	public List<PostingDto> getSearchList(Map<String, Object> map);
 
 	
 	//쪽지

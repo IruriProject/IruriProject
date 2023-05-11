@@ -1,8 +1,5 @@
 package spring.mvc.controller;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.PostingDto;
-import spring.mvc.dto.UserDto;
 import spring.mvc.dto.ViewerDto;
 import spring.mvc.service.EFnService;
 import org.springframework.ui.Model;
@@ -30,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.EnterpriseDto;
+import spring.mvc.dto.HeartDto;
 import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.PostingDto;
 import spring.mvc.service.EFnService;
@@ -43,7 +40,7 @@ public class EFnController {
 
 	@Autowired
 	EFnService service;
-
+	
 	@Autowired
 	EnterpriseService e_service;
 	
@@ -55,6 +52,7 @@ public class EFnController {
 
 	@Autowired
 	UserService u_service;
+
 
 	@GetMapping("/insertForm")
 	public String insertForm() {
@@ -108,6 +106,7 @@ public class EFnController {
 		model.addObject("column", sc);
 		model.addObject("keyword", sw);
 		
+
 		model.setViewName("/posting/search");
 		return model;
 
@@ -129,6 +128,7 @@ public class EFnController {
 		
 		return "/posting/writeForm";
 	}
+
 	
 	@GetMapping("/loadingRecentPosting")
 	@ResponseBody
@@ -141,6 +141,7 @@ public class EFnController {
 	public Object loadingDraftPosting(@RequestParam String p_num) {
 		return service.getPosting(p_num);
 	}
+
 
 	@PostMapping("/writeposting")
 	public String writeposting(@ModelAttribute PostingDto dto) {
@@ -179,6 +180,20 @@ public class EFnController {
 		String myId=(String)session.getAttribute("loginId");
 		String loginStatus=(String)session.getAttribute("loginStatus");
 		
+
+		//좋아요 여부 확인 및 insert
+		String unum=u_service.findUserdataById(myId).getU_num();
+		String e_num=service.getEnumOfPosting(p_num);
+		HeartDto hdto=ufn_service.checkLikeEnter(unum, e_num);
+
+		if(hdto!=null) {
+			mview.addObject("h_num", hdto.getH_num());
+		}
+		
+		mview.addObject("hdto", hdto);
+		mview.addObject("u_num",unum);
+		
+
 		if(loginStatus != null && loginStatus.equals("user")) {
 			String u_num=user_service.findUserdataById(myId).getU_num();
 			mview.addObject("rlist", ufn_service.getMyResume(u_num));
@@ -202,121 +217,9 @@ public class EFnController {
 		mview.addObject("scrapCount", service.scrapByPosting(p_num));
 		mview.addObject("viewerCount", service.viewerByPosting(p_num));
 
+
 		mview.setViewName("/posting/detailPage");
 		return mview;
-	}
-
-	@GetMapping("/gendergraph")
-	@ResponseBody
-	public List<Map<String, Object>> genderGraph(@RequestParam String p_num) {
-
-		List<Map<String, Object>> list = service.applicantByPosting(p_num);
-
-		int female = 0;
-		int male = 0;
-
-		for (Map<String, Object> a : list) {
-			Object b = a.get("u_gender");
-			if (b.equals("여"))
-				female++;
-			else
-				male++;
-		}
-
-		List<Map<String, Object>> result = new ArrayList<>();
-
-		Map<String, Object> map1 = new HashMap<>();
-		map1.put("gender", "여자");
-		map1.put("count", female);
-
-		Map<String, Object> map2 = new HashMap<>();
-		map2.put("gender", "남자");
-		map2.put("count", male);
-
-		result.add(map1);
-		result.add(map2);
-
-		return result;
-	}
-
-	@GetMapping("/agegraph")
-	@ResponseBody
-	public List<Map<String, Object>> ageGraph(@RequestParam String p_num) {
-
-		List<Map<String, Object>> list = service.applicantByPosting(p_num);
-
-		int underthirties = 0;
-		int thirties = 0;
-		int fourties = 0;
-		int fifties = 0;
-		int sixties = 0;
-		int others = 0;
-
-		for (Map<String, Object> a : list) {
-			String b = a.get("u_birth").toString();
-			String[] bb = b.split("-");
-
-			LocalDate now = LocalDate.now();
-
-			int age = now.getYear() - Integer.parseInt(bb[0]) + 1;
-
-			switch (age / 10) {
-			case 2:
-				underthirties++;
-				break;
-			case 3:
-				thirties++;
-				break;
-			case 4:
-				fourties++;
-				break;
-			case 5:
-				fifties++;
-				break;
-			case 6:
-				sixties++;
-				break;
-			default:
-				others++;
-				break;
-			}
-
-		}
-
-		List<Map<String, Object>> result = new ArrayList<>();
-
-		Map<String, Object> map1 = new HashMap<>();
-		map1.put("age", "30대 이하");
-		map1.put("count", underthirties);
-
-		Map<String, Object> map2 = new HashMap<>();
-		map2.put("age", "30대");
-		map2.put("count", thirties);
-
-		Map<String, Object> map3 = new HashMap<>();
-		map3.put("age", "40대");
-		map3.put("count", fourties);
-
-		Map<String, Object> map4 = new HashMap<>();
-		map4.put("age", "50대");
-		map4.put("count", fifties);
-
-		Map<String, Object> map5 = new HashMap<>();
-		map5.put("age", "60대");
-		map5.put("count", sixties);
-
-		Map<String, Object> map6 = new HashMap<>();
-		map6.put("age", "60대 이상");
-		map6.put("count", others);
-
-		result.add(map1);
-		result.add(map2);
-		result.add(map3);
-		result.add(map4);
-		result.add(map5);
-		result.add(map6);
-
-		return result;
 	}
 
 	@GetMapping("/updateStatus")
@@ -329,26 +232,27 @@ public class EFnController {
 
 		return "redirect:../enterprise";
 	}
-
+	
 	@GetMapping("/postinglist")
 	public ModelAndView getAllPostings(HttpSession session) {
-		ModelAndView mview = new ModelAndView();
-
-		String loginId = (String) session.getAttribute("loginId");
-		EnterpriseDto dto = e_service.findEnterdataById(loginId);
-
+		ModelAndView mview=new ModelAndView();
+		
+		String loginId=(String)session.getAttribute("loginId");
+		EnterpriseDto dto= e_service.findEnterdataById(loginId);
+		
 		mview.addObject("list", service.getAllPostings(dto.getE_num()));
 		mview.setViewName("/posting/postingList");
-
+		
 		return mview;
 	}
-
+	
 	@ResponseBody
 	@GetMapping("/addrsearch")
 	public List<PostingDto> addrSearch(String p_addr) {
-
+		
 		return service.getAddrSearch(p_addr);
 	}
+
 
 	@GetMapping("/confirmpw")
 	public String confirmpw(@RequestParam String p_num, Model model) {
@@ -391,46 +295,55 @@ public class EFnController {
 
 	}
 
+	
+	//쪽지
+	@GetMapping("/messagedetail")
+	public ModelAndView messagedetail(@RequestParam String m_num) {
+		ModelAndView mview=new ModelAndView();
+		
+		mview.addObject("dto", service.getMessage(m_num));
+		mview.setViewName("/message/detailPage");
+
+		return mview;
+	}
+	
 	@GetMapping("/reposting")
 	public String reloadPosting(String p_num) {
 		service.reposting(p_num);
-
-		int maxNum = service.getMaxNumOfPosting();
-		return "redirect:/posting/detailpage?p_num=" + maxNum;
+		
+		int maxNum=service.getMaxNumOfPosting();
+		return "redirect:/posting/detailpage?p_num="+maxNum;
 	}
-
-	// 쪽지
+	
 	@GetMapping("/writemessage")
-	public String writemessageForm(HttpSession session, Model model, @RequestParam String u_id) {
-
-		String loginId = (String) session.getAttribute("loginId");
-		EnterpriseDto edto = e_service.findEnterdataById(loginId);
-
-		UserDto udto = u_service.findUserdataById(u_id);
-
-		model.addAttribute("udto", udto);
+	public String writemessageForm(HttpSession session, Model model) {
+		
+		String loginId=(String)session.getAttribute("loginId");
+		EnterpriseDto edto= e_service.findEnterdataById(loginId);
+		
 		model.addAttribute("edto", edto);
-
+		
+		
 		return "/message/writeForm";
 	}
-
+	
 	@PostMapping("/writemessageAction")
 	public String writemessageAction(@ModelAttribute MessageDto dto) {
 		service.insertMessage(dto);
-
+		
 		return "redirect:/enterprise";
 	}
-
-	@GetMapping("/messagelist")
+	
+	@GetMapping("/allMessages")
 	public ModelAndView allMessages(HttpSession session) {
-		ModelAndView mview = new ModelAndView();
-
-		String loginId = (String) session.getAttribute("loginId");
-		EnterpriseDto dto = e_service.findEnterdataById(loginId);
-
+		ModelAndView mview=new ModelAndView();
+		
+		String loginId=(String)session.getAttribute("loginId");
+		EnterpriseDto dto= e_service.findEnterdataById(loginId);
+		
 		mview.addObject("list", service.getAllMessages(dto.getE_num()));
 		mview.setViewName("/message/messageList");
-
+		
 		return mview;
 	}
 }
