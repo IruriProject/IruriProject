@@ -59,10 +59,6 @@ public class FrePhrasesController {
 	@PostMapping("/writephrases")
 	public String writephrases(@ModelAttribute FrePhrasesDto dto) {
 
-		// String fPhrase = String.join(",", dto.getF_phrase());
-
-		// String[] f_phraseList = fPhrase.split(",");
-
 		List<String> fPhraseList = dto.getFPhraseList();
 
 		for (int i = 0; i < fPhraseList.size(); i++) {
@@ -85,6 +81,12 @@ public class FrePhrasesController {
 		service.updatePhrase(f_num, f_phrase);
 
 		return "redirect:/phrases/list";
+	}
+	
+	@GetMapping("/getphrase")
+	@ResponseBody
+	public FrePhrasesDto getphrase(@RequestParam String f_num){
+		return service.getPhrase(f_num);
 	}
 
 }

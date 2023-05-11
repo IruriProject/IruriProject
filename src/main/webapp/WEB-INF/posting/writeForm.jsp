@@ -50,7 +50,7 @@ $(function(){
 		})
 	})
 	
-	$("#modalbtn").click(function(){
+	$("#draftListbtn").click(function(){
 		var draftchk = $('input[name=draft]:checked').val();
 		$.ajax({
 			type:"get",
@@ -93,6 +93,23 @@ $(function(){
 		})
 	})
 	
+	$("#phraseListbtn").click(function(){
+		var phrasechk = $('input[name=phrase]:checked').val();
+		var origintext= $("#p_content").val();
+		
+		$.ajax({
+			type:"get",
+			data:{"f_num":phrasechk},
+			dataType:"json",
+			url:"/phrases/getphrase",
+			success:function(res){
+				///$("#p_content").append(res.f_phrase);
+				$("#p_content").val(origintext + res.f_phrase);
+			}
+			
+		})
+	})
+	
 	
 })
 
@@ -122,7 +139,7 @@ $(function(){
 	            </table>
 	        </div>
 	        <div class="modal-footer">
-	          <button type="button" class="btn btn-default" data-dismiss="modal" id="modalbtn">선택</button>
+	          <button type="button" class="btn btn-default" data-dismiss="modal" id="draftListbtn">선택</button>
 	        </div>
 	      </div>
 	      
@@ -151,7 +168,7 @@ $(function(){
 	            </table>
 	        </div>
 	        <div class="modal-footer">
-	          <button type="button" class="btn btn-default" data-dismiss="modal" id="modalbtn">선택</button>
+	          <button type="button" class="btn btn-default" data-dismiss="modal" id="phraseListbtn">선택</button>
 	        </div>
 	      </div>
 	      
