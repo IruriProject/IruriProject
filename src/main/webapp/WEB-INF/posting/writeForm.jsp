@@ -43,6 +43,9 @@ $(function(){
 				$("#p_employtype").val(res.p_employtype);
 				$("#p_content").val(res.p_content);
 				$("#p_enddate").val(res.p_enddate);
+			}, error:function(){
+				alert("최근 등록된 공고가 없습니다.");
+				
 			}
 		})
 	})
@@ -55,12 +58,9 @@ $(function(){
 			dataType:"json",
 			url:"/posting/loadingDraftPosting",
 			success:function(res){
-				//alert(res.p_num);
 				$("#frm").attr("flag","old");
-				//$("#p_num").val(res.p_num);
 				$("#pNum").html("<input type='hidden' value='"+res.p_num+"' name='p_num'>");
 				$("#p_title").val(res.p_title);
-				//alert($("#p_title").val());
 				$("#p_type").val(res.p_type);
 				$("#p_pay").val(res.p_pay);
 				$("#p_period").val(res.p_period);
@@ -71,7 +71,6 @@ $(function(){
 				$("#p_employtype").val(res.p_employtype);
 				$("#p_content").val(res.p_content);
 				$("#p_enddate").val(res.p_enddate);
-				
 				
 			}
 			
