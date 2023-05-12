@@ -150,4 +150,23 @@ public class EnterpriseController {
 		model.setViewName("/enterprise/applicants");
 		return model;
 	}
+	
+	@GetMapping("/certificate")
+	public String enterCertificate(HttpSession session, Model model) {
+		
+		String loginId=(String)session.getAttribute("loginId");
+		EnterpriseDto dto=service.findEnterdataById(loginId);
+		
+		model.addAttribute("dto", dto);
+		
+		return "/enterprise/certificate";
+	}
+	
+	@PostMapping("/certificateAction")
+	public String certificateAction(@RequestParam String e_num) {
+
+		service.authCertificate(e_num);
+		
+		return "redirect:/enterprise";
+	}
 }

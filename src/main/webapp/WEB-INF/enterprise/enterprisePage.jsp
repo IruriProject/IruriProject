@@ -84,7 +84,15 @@
 				</div>
 				<div class="col-sm-12 col-md-6 col-xl-7 w-75">
 					<div class="h-100 bg-light rounded p-4">
-						기업명 : ${dto.e_name } <br>
+						기업명 : ${dto.e_name }&nbsp;&nbsp;&nbsp;
+						<c:if test="${dto.e_auth==0 }">
+							<span style="color: red; font-weight: 600;">기업미인증</span>
+						</c:if>
+						<c:if test="${dto.e_auth==1 }">
+							<span style="color: green; font-weight: 600;">기업인증완료</span>
+						</c:if>
+						
+						<br>
 					</div>
 					<br>
 					<div class="h-100 bg-light rounded p-4">
@@ -255,7 +263,7 @@
 		<button type="button" style="width: 100%; height: 50px;" onclick="location.href='/enterprise/applyaccess'">열람권신청</button>
 		<br>
 		<br>
-		<button type="button" style="width: 100%; height: 50px;">기업인증</button>
+		<button type="button" style="width: 100%; height: 50px;" onclick="location.href='enterprise/certificate'">기업인증</button>
 		<br>
 		<br>
 		<button type="button" style="width: 100%; height: 50px;"

@@ -33,4 +33,7 @@ public interface EnterpriseMapperInter {
 		            + "WHERE p.e_num = #{e_num}")
 	public List<ApplicantDto> getApplicantsByEnterprise(String e_num);
 	public int heartByEnter(String e_num);
+	
+	public void authCertificate(String e_num);
 }
+

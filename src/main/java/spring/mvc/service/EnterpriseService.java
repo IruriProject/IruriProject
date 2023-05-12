@@ -58,4 +58,8 @@ public class EnterpriseService {
 	public int heartByEnter(String e_num) {
 		return mapper.heartByEnter(e_num);
 	}
+	
+	public void authCertificate(String e_num) {
+		mapper.authCertificate(e_num);
+	}
 }
