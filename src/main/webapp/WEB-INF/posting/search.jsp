@@ -71,6 +71,10 @@
 <body>
 	
 <div class="searcharea">
+<!-- test -->
+<li role="button" class="employtype" value="기간제">기간제</li>
+<li role="button" class="employtype" value="정규직">정규직</li>
+
 <!-- 지역 필터링 -->
 <h4>지역별로 검색하기</h4><br>
 <div style="display: flex;">
@@ -466,8 +470,15 @@ $("li").click(function(){
 	
 })
 
-$(".gu").click(function(){
-	
+	$(".employtype").click(function(){
+	  type=$(this).attr("value"); 
+	  if(!type) { // p_employtype이 선택되지 않은 경우
+	    type = ""; // 빈 문자열로 설정
+	  }
+	})
+
+$(".gu").click(function a(){
+
 	const gu_name=$(this).attr("value");
 	$("#basic-list").empty();
 	$(".pagination").empty();
@@ -476,7 +487,7 @@ $(".gu").click(function(){
 		type:"get",
 		url:"addrsearch",
 		dataType:"json",
-		data:{"p_addr":gu_name},
+		data:{"p_addr":gu_name,"employtype":type},
 		success:function(res){
 			let s="";
 			s+="<table class='table'>";
@@ -509,9 +520,10 @@ $(".gu").click(function(){
 			$("#addr-box").html(s);
 			$("#nosearch").hide();
 		}
-	}) // ajax끝
+	}) // ajax끝	
 	
 })
+
 
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>

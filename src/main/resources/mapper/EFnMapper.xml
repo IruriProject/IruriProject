@@ -49,9 +49,16 @@
 	</select>
 
 	<!-- 공고 -->
-	<select id="getTotalCount" resultType="int">
+ 	<select id="getTotalCount" resultType="int">
 	select count(*) from POSTING
-	</select>
+	</select> 
+	
+	<select id="getsearchTotalCount" resultType="int" parameterType="Map">
+	select count(*) from POSTING
+		<if test="allkeyword!=null">
+		where p_title like concat('%',#{allkeyword},'%')
+		</if>
+	</select> 
 	
 	<select id="getPagingList" parameterType="Map" resultType="pdto">
 	select * from POSTING 
@@ -75,6 +82,7 @@
 		<if test="allkeyword!=null">
 			where p_title like concat('%',#{allkeyword},'%')
 		</if>
+		
 		<if test="sort=='p_writeday'">
 			order by p_writeday desc
 		</if>
@@ -83,6 +91,11 @@
 		</if>
 
 		limit #{start},#{perpage}
+	</select>
+	
+	<select id="autoSearchTitle" parameterType="String" resultType="pdto">
+	select * from POSTING 
+	where p_title like concat('%',#{allkeyword},'%')
 	</select>
 
 	
@@ -123,8 +136,10 @@
 	</update>
 	
 	<!-- 지역별 검색 -->
-	<select id="getAddrPostings" parameterType="String" resultType="pdto">
-	select * from POSTING where p_addr like CONCAT('%', #{p_addr}, '%') order by p_num desc
+	<select id="getAddrPostings" parameterType="Map" resultType="pdto">
+	select * from POSTING where p_addr like CONCAT('%', #{p_addr}, '%')
+    	and p_employtype=#{employtype}
+	order by p_num desc
 	</select>
 	
 	

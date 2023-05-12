@@ -241,34 +241,12 @@
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h4 class="mb-5"><b>지원자현황</b></h4>
-					<a href="/enterprise/applicant" class="atag">더보기</a>
+					<h4 class="mb-5" onclick="location.href='/enterprise/applicant'"><b>${applicant_size }명의 지원자 보러가기</b></h4>
 				</div>
-				<div class="table-responsive">
-					<table
-						class="table text-start align-middle table-bordered table-hover mb-0">
-						<thead>
-							<tr class="text-dark">
-								<th scope="col" style="text-align: center">지원자명</th>
-								<th scope="col" style="text-align: center">지원공고</th>
-								<th scope="col" style="text-align: center">이력서보기</th>
-								<th scope="col" style="text-align: center">지원날짜</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="adto" items="${adto }" varStatus="i">
-							<tr>
-								<td>${i.count }</td>
-								<td><a href="/posting/detailpage?p_num=${adto.p_num }">${adto.posting.p_title}</a></td>
-								<td><a href="/resume/detail?r_num=${adto.r_num }" onclick="window.open(this.href, '_blank', 'menubar=no, toolbar=no'); return false;">${adto.r_num }번째 이력서보기</a></td>
-								<td><fmt:formatDate value="${adto.a_writeday }" pattern="yyyy.MM.dd"/></td>
-								
-							</tr>
-							</c:forEach>
-							
-						</tbody>
-					</table>
+				<div class="d-flex align-items-center justify-content-between mb-4">
+					<h4 class="mb-5" onclick="location.href='/enterprise/applicant'"><b>${applicant_size }명의 지원자 보러가기</b></h4>
 				</div>
+				
 			</div>
 		</div>
 		

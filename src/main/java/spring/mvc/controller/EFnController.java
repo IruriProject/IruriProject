@@ -61,6 +61,7 @@ public class EFnController {
 	@Autowired
 	FrePhrasesService f_service;
 
+
 	@GetMapping("/insertForm")
 	public String insertForm() {
 		return "/posting/InsertForm";
@@ -154,11 +155,10 @@ public class EFnController {
 		if (service.findPostingNum(dto.getP_num()) != 0) {
 			service.deletePosting(dto.getP_num());
 		}
-
 		EnterpriseDto edto = e_service.findEnterdataById((String) session.getAttribute("loginId"));
+		String [] enterAddr=edto.getE_addr().split(" ");
+		String saveAddr=enterAddr[0]+" "+enterAddr[1];
 
-		String[] enterAddr = edto.getE_addr().split("구");
-		String saveAddr = enterAddr[0] + " " + enterAddr[1];
 		dto.setP_addr(saveAddr);
 		service.insertPosting(dto);
 
@@ -380,10 +380,10 @@ public class EFnController {
 
 	@ResponseBody
 	@GetMapping("/addrsearch")
-	public List<PostingDto> addrSearch(String p_addr) {
-
-		return service.getAddrSearch(p_addr);
-	}
+	public List<PostingDto> addrSearch(@RequestParam(name="p_addr") String p_addr,
+            @RequestParam(name="employtype", required=false, defaultValue="") String employtype) {
+		return service.getAddrSearch(p_addr, employtype);
+		}
 
 	@GetMapping("/confirmpw")
 	public String confirmpw(@RequestParam String p_num, Model model) {

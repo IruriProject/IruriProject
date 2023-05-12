@@ -46,6 +46,9 @@ public class UFnController {
       String u_id = (String) session.getAttribute("loginId");
       UserDto dto = service.findUserdataById(u_id);
       ResumeDto rdto = uservice.getResume(dto.getU_num());
+      List<ResumeDto> list=uservice.getMyResume(dto.getU_num());
+      
+      model.addObject("list", list);
       model.addObject("dto", dto);
       model.addObject("rdto", rdto);
       model.setViewName("/user/mypage");

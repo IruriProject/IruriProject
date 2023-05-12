@@ -321,7 +321,7 @@
 					</tr>
 				
 
-					<c:if test="${totalCount==0 }">
+					<c:if test="${usertotalCount==0 }">
 						<tr>
 							<td colspan="5" align="center">
 								<h3>
@@ -331,7 +331,7 @@
 						</tr>
 					</c:if>
 
-					<c:if test="${totalCount>0 }">
+					<c:if test="${usertotalCount>0 }">
 						<c:forEach var="a" items="${list }">
 						 <c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId==a.q_loginid }">
 							<tr>
@@ -359,31 +359,31 @@
 				</table>
 				
 				<!-- 페이징 -->
-		<c:if test="${totalCount>0}">
+		<c:if test="${usertotalCount>0}">
 			<div style="width: 800px; text-align: center;">
 				<ul class="pagination">
 					<!-- 이전 -->
 					<c:if test="${startPage>1 }">
 						<li>
-						<a href="boardlist?currentPage=${startPage-1}">이전</a>
+						<a href="qnawriteform?currentPage=${startPage-1}">이전</a>
 						</li>
 					</c:if>
 
 					<c:forEach var="pp" begin="${startPage }" end="${endPage }">
 						<c:if test="${currentPage==pp }">
-							<li class="active"><a href="boardlist?currentPage=${pp}">${pp}</a>
+							<li class="active"><a href="qnawriteform?currentPage=${pp}">${pp}</a>
 							</li>
 						</c:if>
 
 						<c:if test="${currentPage!=pp }">
-							<li><a href="boardlist?currentPage=${pp}">${pp}</a></li>
+							<li><a href="qnawriteform?currentPage=${pp}">${pp}</a></li>
 						</c:if>
 					</c:forEach>
 					
 					<!--다음 -->
 					<c:if test="${endPage<totalPage }">
 						<li>
-						<a href="boardlist?currentPage=${endPage+1}">다음</a>
+						<a href="qnawriteform?currentPage=${endPage+1}">다음</a>
 						</li>
 					</c:if>
 				</ul>

@@ -104,10 +104,20 @@ public class EFnService {
 		mapper.insertMessage(dto);
 	}
 
+	
 	public int getTotalCount() {
 		return mapper.getTotalCount();
 	}
 
+
+	
+	public int getsearchTotalCount(String allkeyword) {
+		Map<String, String> map= new HashMap<>();
+		map.put("allkeyword", allkeyword);
+		return mapper.getsearchTotalCount(map);
+	}
+
+	
 	public List<PostingDto> getSearchList(String sort,String allkeyword, int start, int perpage){
 		
 		Map<String, Object> map= new HashMap<>();
@@ -118,6 +128,11 @@ public class EFnService {
 		map.put("perpage", perpage);
 		
 		return mapper.getSearchList(map);
+	}
+	
+	public List<PostingDto> autoSearchTitle(String allkeyword){
+		
+		return mapper.autoSearchTitle(allkeyword);
 	}
 	
 	public List<PostingDto> getPagingList(String searchcolumn, String searchword, int start, int perpage){
@@ -142,8 +157,13 @@ public class EFnService {
 		return mapper.getTotalCountOfSearch(map);
 	}
 	
-	public List<PostingDto> getAddrSearch(String p_addr){
-		return mapper.getAddrPostings(p_addr);
+	public List<PostingDto> getAddrSearch(String p_addr, String employtype) {
+	    Map<String, String> map = new HashMap<>();
+	    map.put("p_addr", p_addr);
+	    if (employtype != null && !employtype.isEmpty()) { // employtype에 대한 null 체크와 빈 문자열 체크를 모두 수행하도록 수정
+	        map.put("employtype", employtype);
+	    }
+	    return mapper.getAddrPostings(map);
 	}
 	
 	public void reposting(String p_num) {
