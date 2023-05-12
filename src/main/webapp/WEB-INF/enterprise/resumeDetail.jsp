@@ -8,8 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Edu+VIC+WA+NT+Beginner:wght@600&family=Gamja+Flower&family=Single+Day&family=Jua&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-<script src="/js/html2canvas.js"></script>
-<script src="/js/jspdf.min.js"></script>
 <style type="text/css">
 
 .box{
@@ -77,8 +75,12 @@ img{
 <!-- set -->
 <c:set var="birthYear"><fmt:formatDate value="${user.u_birth }" pattern="yyyy"/></c:set>
 <c:set var="age" value="${2023-birthYear }"/>
-<button type="button" class="btn btn-primary" id="savePdf" style="width:100px;">PDF 저장</button>
-
+<button type="button" id="printResume">인쇄</button>
+<script type="text/javascript">
+	$("#printResume").click(function(){
+		window.print();
+	})
+</script>
  <div id="pdfDiv" style="width:800px;"><!-- 출력div -->
 <h2 class="title">기본정보</h2>
 <div class="box">
@@ -132,7 +134,7 @@ ${resume.r_content }
 </div>
 </c:if>
 </div>
-
+</body>
 <script>
 $(document).ready(function() {
 	$('#savePdf').click(function() { // pdf저장 button id
