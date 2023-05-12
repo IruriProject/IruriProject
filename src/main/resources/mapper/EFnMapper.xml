@@ -122,11 +122,11 @@
 	</select>
 	
 	<select id="getAllPostings" parameterType="String" resultType="pdto">
-		select * from POSTING where e_num=#{e_num} and p_published=true
+		select * from POSTING where e_num=#{e_num} and p_published=true order by p_num desc
 	</select>
 	
 	<select id="getPreviewPostings" parameterType="String" resultType="pdto">
-		select * from POSTING where e_num=#{e_num} and p_published=true limit 0,3
+		select * from POSTING where e_num=#{e_num} and p_published=true order by p_num desc limit 0,3
 	</select>
 	
 	
@@ -163,11 +163,11 @@
 	
 	<!-- 쪽지 -->
 	<select id="getAllMessages" parameterType="String" resultType="Map">
-		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num}
+		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num} order by m_num desc
 	</select>
 	
 	<select id="getPreviewMessages" parameterType="String" resultType="Map">
-		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num} limit 0,3
+		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num} order by m_num desc limit 0,3
 	</select>
 	
 	<select id="getMessage" parameterType="String" resultType="Map">

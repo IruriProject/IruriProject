@@ -53,6 +53,11 @@ $(function(){
 			<th style="text-align: center; width: 40%">쪽지 내용</th>
 			<th style="text-align: center">보낸일시</th>
 		</tr>
+		<c:if test="${list.size()==0 }">
+			<tr align="center">
+				<td colspan="4">쪽지내역이 존재하지 않습니다.</td>
+			</tr>
+		</c:if>
 		<c:forEach var="dto" items="${list }" varStatus="i">
 		<tr align="center">
 			<td>${i.count }</td>

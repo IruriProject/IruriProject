@@ -86,10 +86,10 @@
 					<div class="h-100 bg-light rounded p-4">
 						기업명 : ${dto.e_name }&nbsp;&nbsp;&nbsp;
 						<c:if test="${dto.e_auth==0 }">
-							<span style="color: red; font-weight: 600;">기업미인증</span>
+							<span style="color: red; font-weight: 600; font-size: 0.8em;">기업미인증</span>
 						</c:if>
 						<c:if test="${dto.e_auth==1 }">
-							<span style="color: green; font-weight: 600;">기업인증완료</span>
+							<span style="color: green; font-weight: 600; font-size: 0.8em;">기업인증완료</span>
 						</c:if>
 						
 						<br>
