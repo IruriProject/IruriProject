@@ -40,6 +40,12 @@ div {
 	cursor: pointer;
 		
 }
+.fa-heart {
+   color: red;
+}
+.fa-star{
+   color: yellow;
+}
 </style>
 </head>
 
@@ -154,15 +160,17 @@ div {
                </div>
                <br>
                <div class="h-100 bg-light rounded p-4">
-               	  <span class="gwansim" onclick="location.href='enterLike'">관심기업 ${countLikeEnter }</span>
+               	  <span class="gwansim" onclick="location.href='enterLike'">관심기업<i class="fa-solid fa-heart"></i> ${countLikeEnter }</span>
                	  <span class="gwansim" onclick="location.href=''">관심직종</span>
-               	  <span class="gwansim" onclick="location.href=''">관심공고</span>
+               	  <span class="gwansim" onclick="location.href=''">관심공고<i class="fa-solid fa-star"></i></span>
                	  <span class="gwansim" onclick="location.href=''">관심근무지</span>
                   <br>
                </div>
             </div>
          </div>
       </div>
+      <script src="https://kit.fontawesome.com/2663817d27.js"
+      crossorigin="anonymous"></script><!-- 아이콘에 필요한거니 삭제말것 -->
       <!-- Profile End -->
 
       <!-- Widgets Start -->

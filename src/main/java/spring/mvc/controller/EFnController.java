@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.PostingDto;
+import spring.mvc.dto.ScrapDto;
 import spring.mvc.dto.UserDto;
 import spring.mvc.dto.ViewerDto;
 import spring.mvc.service.EFnService;
@@ -197,8 +198,14 @@ public class EFnController {
 			String e_num=service.getEnumOfPosting(p_num);
 			HeartDto hdto=ufn_service.checkLikeEnter(unum, e_num);
 			
+			ScrapDto sdto=ufn_service.checkScrapPosting(unum, p_num);
+			
 			if(hdto!=null) {
 				mview.addObject("h_num", hdto.getH_num());
+			}
+			
+			if (sdto!=null) {
+				mview.addObject("s_num", sdto.getS_num());
 			}
 			
 			mview.addObject("hdto", hdto);

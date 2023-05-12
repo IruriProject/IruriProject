@@ -135,11 +135,11 @@ public class UFnService {
    }
    
    //스크랩했는지 확인
-   public void checkScrapPosting(String u_num, String p_num) {
+   public ScrapDto checkScrapPosting(String u_num, String p_num) {
 	   Map<String, String>  map=new HashMap<>();
 	   map.put("u_num", u_num);
 	   map.put("p_num", p_num);
-	   mapper.checkScrapPosting(map);
+	   return mapper.checkScrapPosting(map);
    }
    
    public void deleteScrapPosting(String s_num) {

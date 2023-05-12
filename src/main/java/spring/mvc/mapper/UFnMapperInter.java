@@ -45,7 +45,7 @@ public interface UFnMapperInter {
 	//관심 공고(스크랩)
 	public void insertScrapPosting(ScrapDto dto);//관심공고 인서트
 	public void deleteScrapPosting(String s_num);//관심공고 딜리트
-	public void checkScrapPosting(Map<String, String> map);//스크랩했는지 체크
+	public ScrapDto checkScrapPosting(Map<String, String> map);//스크랩했는지 체크
 	
 	//열람
 	public void insertViewer(ViewerDto dto);

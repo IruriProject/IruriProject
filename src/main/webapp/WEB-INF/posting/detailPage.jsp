@@ -121,8 +121,18 @@ body {
    color: red;
 }
 
+.star{
+   cursor: pointer;
+}
+
 .fa-star{
    color: yellow;
+}
+.support{
+ 	cursor: pointer;
+}
+.link{
+ 	cursor: pointer;
 }
 
 </style>
@@ -271,17 +281,17 @@ body {
                         <c:if
                            test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
 
-                           <button type="button" class="btn btn-info mt-2" data-toggle="modal" data-target="#myModal">지원하기</button>
+                           <span class="support" data-toggle="modal" data-target="#myModal">지원하기 <i class="fa-solid fa-envelope-open-text"></i></span>&nbsp;&nbsp;
 
                            <!-- 기스크랩 시 스크랩 해제 -->
-                           <c:if test="${sdto.s_num!=null }">
+                           <c:if test="${s_num!=null }">
                            <input type="hidden" id="s_num" value="${s_num }">
-                              <span id="btnUnScrap">공고 스크랩 해제<i class="fa-solid fa-star"></i></span>
+                              <span class="star" id="btnUnScrap">공고 스크랩 해제 <i class="fa-solid fa-star"></i></span>&nbsp;&nbsp;
                            </c:if>
                            
                            <!-- 비스크랩 시 스크랩 가능 -->
-                           <c:if test="${sdto.s_num==null }">
-                              <span id="btnScrap">공고 스크랩<i class="fa-regular fa-star"></i></span>
+                           <c:if test="${s_num==null }">
+                              <span class="star" id="btnScrap">공고 스크랩 <i class="fa-regular fa-star"></i></span>&nbsp;&nbsp;
                            </c:if>
                            
                         </c:if>
@@ -292,8 +302,7 @@ body {
                            <button type="button" class="btn btn-info mt-2" onclick="location.href='confirmpw?p_num=${dto.p_num}'">삭제</button>
                            <button type="button" class="btn btn-info mt-2" onclick="reloadAlert()">끌어올리기</button>
                         </c:if>
-                        <button type="button" class="btn btn-info mt-2" onclick="copyUrl()">링크 복사</button>
-                        <span onclick="copyUrl()">링크 복사</span>
+                        <span class="link" onclick="copyUrl()">링크 복사 <i class="fa-solid fa-link"></i></span>&nbsp;&nbsp;
                      </div>
                   </div>
                   
@@ -327,7 +336,7 @@ body {
                         var s_num=$("#s_num").val();
                         
                         $.ajax({
-                           type:"post",
+                           type:"get",
                            dataType:"html",
                            url:"/sdelete",
                            data:{
