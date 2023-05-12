@@ -377,10 +377,6 @@ public class EFnController {
             @RequestParam(name="employtype", required=false, defaultValue="") String employtype) {
 		return service.getAddrSearch(p_addr, employtype);
 		}
-	public List<PostingDto> addrSearch(String p_addr) {
-
-		return service.getAddrSearch(p_addr);
-	}
 
 	@GetMapping("/confirmpw")
 	public String confirmpw(@RequestParam String p_num, Model model) {
