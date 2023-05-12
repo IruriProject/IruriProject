@@ -61,10 +61,29 @@ text-align: center;
 						<c:forEach var="dto" items="${list }" varStatus="i">
 							<tr data-rnum="${dto.r_num}">
 								<td>${i.count}</td>
-								<td style="white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">
-								<a href="resume/detail?r_num=${dto.r_num }">${dto.r_title}</a></td>
 								
+								
+								<td style="white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">
+								
+								<c:if test="${dto.r_presume==1 && dto.r_private==0}">
+								[대표] [공개]
+								</c:if>
+								
+								<c:if test="${dto.r_presume==1 && dto.r_private==1}">
+								[대표] [비공개]
+								</c:if>
+								
+								<c:if test="${dto.r_presume==0 && dto.r_private==1}">
+								[비공개]
+								</c:if>
+								
+								<c:if test="${dto.r_presume==0 && dto.r_private==0}">
+								[공개]
+								</c:if>
+								
+								<a href="resume/detail?r_num=${dto.r_num }">${dto.r_title}</a></td>
 								<td>
+								
 								<!-- if문 -->
 								<c:if test="${dto.r_private==1}">
 									<button type="button" class="setPublic">공개 전환</button>
