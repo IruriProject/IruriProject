@@ -36,8 +36,8 @@
 	    <if test="sort=='b_writeday'">
 	        order by b_writeday desc
 	    </if>
-	    <if test="sort=='p_pay'">
-	        order by p_pay desc
+	    <if test="sort=='b_readcount'">
+	        order by b_readcount desc
 	    </if>
 	    limit #{start},#{perpage}
 	</select>

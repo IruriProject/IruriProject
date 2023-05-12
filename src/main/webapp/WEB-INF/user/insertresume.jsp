@@ -1185,6 +1185,7 @@ td {
                </div>
             </div>
             <script type="text/javascript">
+            
                //디폴트값 서울
                window.onload = function() {
                   setSido(10);
@@ -1222,12 +1223,67 @@ td {
                      }
                      return;
                   }
-                  var selectedLocations = [];
-                  for (var i = 0; i < checkedBoxes.length; i++) {
-                     selectedLocations
-                           .push(checkedBoxes[i].nextSibling.textContent
-                                 .trim());
-                  }
+                  //입력
+					var selectedLocations = [];
+					for (var i = 0; i < checkedBoxes.length; i++) {
+					  var cb = checkedBoxes[i].value;
+					  var cnt = checkedBoxes[i].nextSibling.textContent.trim();
+					  var location = '';
+					  switch(true) {
+					    case (cb < 1100):
+					      location = "서울 ";
+					      break;
+					    case (cb < 1200):
+					      location = "인천 ";
+					      break;
+					    case (cb < 1300):
+					      location = "경기 ";
+					      break;
+					    case (cb < 1400):
+					      location = "부산 ";
+					      break;
+					    case (cb < 1500):
+					      location = "대구 ";
+					      break;
+					    case (cb < 1600):
+					      location = "대전 ";
+					      break;
+					    case (cb < 1700):
+					      location = "경남 ";
+					      break;
+					    case (cb < 1800):
+					      location = "충남 ";
+					      break;
+					    case (cb < 1900):
+					      location = "광주 ";
+					      break;
+					    case (cb < 2000):
+					      location = "울산 ";
+					      break;
+					    case (cb < 2100):
+					      location = "경북 ";
+					      break;
+					    case (cb < 2200):
+					      location = "전북 ";
+					      break;
+					    case (cb < 2300):
+					      location = "충북 ";
+					      break;
+					    case (cb < 2400):
+					      location = "강원 ";
+					      break;
+					    case (cb < 2500):
+					      location = "전남 ";
+					      break;
+					    case (cb < 2600):
+					      location = "제주 ";
+					      break;
+					    default:
+					      location = "세종 ";
+					      break;
+					  	}
+					  	selectedLocations.push(location + cnt);
+					}
 						areaInput.value = selectedLocations.join(', ');
 					}
 					function setSido(sidoId) {

@@ -41,14 +41,23 @@ public class UFnController {
 
    // 마이페이지 이동
    @GetMapping("/mypage")
-   public ModelAndView home(HttpSession session) {
+   public ModelAndView home(HttpSession session, String num) {
       ModelAndView model = new ModelAndView();
       String u_id = (String) session.getAttribute("loginId");
       UserDto dto = service.findUserdataById(u_id);
       ResumeDto rdto = uservice.getResume(dto.getU_num());
+      List<ResumeDto> list=uservice.getMyResume(dto.getU_num());
+      
+      model.addObject("list", list);
       model.addObject("dto", dto);
       model.addObject("rdto", rdto);
       model.setViewName("/user/mypage");
+      
+     // EnterpriseDto edto = uservice.getEnterPrise(num);
+      int countLikeEnter = uservice.countLikeEnterprise(num);
+      model.addObject("countLikeEnter", countLikeEnter);
+     // model.addObject("edto", edto);
+      
       return model;
    }
 
@@ -215,13 +224,13 @@ public class UFnController {
 
    // 관심기업페이지
    @GetMapping("/enterLike")
-   public ModelAndView likeEnterList(String num) {
+   public ModelAndView likeEnterList(String u_num) {
 
 
       ModelAndView model = new ModelAndView();
 
-      EnterpriseDto dto = uservice.getEnterPrise(num);
-      int countLikeEnter = uservice.countLikeEnterprise(num);
+      HeartDto dto = uservice.getLikeEnterPrise(u_num);
+      int countLikeEnter = uservice.countLikeEnterprise(u_num);
 
       model.addObject("countLikeEnter", countLikeEnter);
       model.addObject("dto", dto);
@@ -248,29 +257,22 @@ public class UFnController {
 	}
 	
 	
-	//관심 공고(스크랩)
-	// 관심공고페이지-아직
-	/*
-	 * @GetMapping("/enterScrap") public ModelAndView ScrapPostingList(String num) {
-	 * 
-	 * ModelAndView model = new ModelAndView();
-	 * 
-	 * EnterpriseDto dto = uservice.getEnterPrise(num); int countLikeEnter =
-	 * uservice.countLikeEnterprise(num);
-	 * 
-	 * model.addObject("countLikeEnter", countLikeEnter); model.addObject("dto",
-	 * dto); model.setViewName("/user/likeenterprise");
-	 * 
-	 * return model; }
-	 */
 	
-		// 버튼 누르면 SCRAP 테이블에 데이터 delete
-		@GetMapping("/ScrapPosting")
-		@ResponseBody
-		public void deleteScrapPosting(String s_num) {
+	//버튼 누르면 SCRAP 테이블에 데이터 insert
+	@PostMapping("/sinsert")
+	@ResponseBody
+	public void ScrapPosting(ScrapDto dto) {
+		
+		uservice.insertScrapPosting(dto);
+	}
+	
+	// 버튼 누르면 SCRAP 테이블에 데이터 delete
+	@GetMapping("/sdelete")
+	@ResponseBody
+	public void deleteScrapPosting(String s_num) {
 
-			//uservice.deleteScrapPosting(s_num);
-		}
+		uservice.deleteScrapPosting(s_num);
+	}
 		
 
 }

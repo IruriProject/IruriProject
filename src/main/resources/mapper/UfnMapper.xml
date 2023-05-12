@@ -24,20 +24,23 @@
       select *
       from RESUME where u_num=#{u_num} and r_presume=1
    </select>
-
+   
+ 	<!-- 관심 기업 -->
+	<!-- 관심 기업 수 -->
    <select id="countLikeEnterprise" resultType="int"
       parameterType="String">
       select count(h_num) from HEART where u_num=#{u_num}
    </select>
-
+   
+   <!-- 기업 리스트 -->
    <select id="getEnterPrise" resultType="edto"
       parameterType="string">
-      select * from ENTERPRISE where e_num=#{e_num}
+      select * from ENTERPRISE where e_num=#{e_num} 
    </select>
 
 	<!-- 관심 기업 데이터 갖고오기 -->
-	<select id="getLikeEnterPrise" resultType="edto" parameterType="string">
-		select * from HEART where e_num=#{e_num} 
+	<select id="getLikeEnterPrise" resultType="hdto" parameterType="string">
+		select * from HEART where u_num=#{u_num} 
 	</select>
 
    <!-- 좋아요버튼 누르면 데이터 저장됨 -->
@@ -50,8 +53,6 @@
 	<delete id="deleteLikeEnter" parameterType="String">
 		delete from HEART where h_num=#{h_num}
 	</delete>
-
-	<!-- 작성한 이력서 목록 가져오기(list형식) -->
 	
 	<!-- 좋아요 버튼 눌렀는지 확인하는 sql -->
 	<select id="checkLikeEnter" resultType="hdto" parameterType="Map">
@@ -136,24 +137,38 @@
 		now())
 	</insert>
 	
+	<!-- 관심 공고(스크랩) -->
 	<!-- 관심 공고 count -->
 	<select id="countScrapPosting" resultType="int" parameterType="String">
 		select count(s_num) from SCRAP where u_num=#{u_num}
 	</select>
 
+	<!-- 공고 리스트 -->
+	<select id="getPosting" resultType="sdto" parameterType="string">
+		select * from SCRAP where p_num=#{p_num} 
+	</select>
+
 	<!-- 관심 공고 데이터 갖고오기 -->
-	<select id="getScrapPosting" resultType="sdto" parameterType="string">
-		select * from SCRAP where p_num=#{p_num}
+	<select id="getUserScrap" resultType="sdto" parameterType="string">
+		select * from SCRAP where u_num=#{u_num}
 	</select>
 
 	<!-- 스크랩버튼 누르면 데이터 저장됨 -->
-	<insert id="insertScrapEnter" parameterType="sdto">
+	<insert id="insertScrapPosting" parameterType="sdto">
 		insert into SCRAP (u_num, p_num) values (#{u_num},#{p_num})
 	</insert>
 
 	<!-- 스크랩버튼 다시 누르면 데이터 삭제됨 -->
-	<delete id="deleteScrapEnter" parameterType="String">
+	<delete id="deleteScrapPosting" parameterType="String">
 		delete from SCRAP where s_num=#{s_num}
 	</delete>
+	
+	<!-- 스크랩 버튼 눌렀는지 확인하는 sql -->
+	<select id="checkScrapPosting" resultType="sdto" parameterType="Map">
+		select * from SCRAP where u_num=#{u_num} and p_num=#{p_num}
+	</select>
+	
+	
+	
 
 </mapper>

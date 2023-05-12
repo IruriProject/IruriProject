@@ -42,7 +42,6 @@ text-align: center;
 <body>
 	
 	<h3>내 이력서 목록</h3>
-
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="table-responsive">
@@ -55,7 +54,6 @@ text-align: center;
 								<th scope="col" style="width:200px;">제목</th>
 								<th scope="col" style="width:110px;">설정관리</th>
 								<th scope="col" style="width:90px;">대표 설정</th>
-								<th scope="col" style="width:50px;">인쇄</th>
 								<th scope="col" style="width:110px;">이메일 전송</th>
 								<th scope="col" style="width:110px;">이력서 관리</th>
 							</tr>
@@ -63,7 +61,8 @@ text-align: center;
 						<c:forEach var="dto" items="${list }" varStatus="i">
 							<tr data-rnum="${dto.r_num}">
 								<td>${i.count}</td>
-								<td style="white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">${dto.r_title}</td>
+								<td style="white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">
+								<a href="resume/detail?r_num=${dto.r_num }">${dto.r_title}</a></td>
 								
 								<td>
 								<!-- if문 -->
@@ -84,7 +83,6 @@ text-align: center;
 								</c:if>								
 								</td>	
 								
-								<td>인쇄</td>
 								<td>이메일</td>
 								
 								<td><button type="button" onclick="location.href='#'">수정</button>
