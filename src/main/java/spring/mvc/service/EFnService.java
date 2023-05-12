@@ -104,10 +104,20 @@ public class EFnService {
 		mapper.insertMessage(dto);
 	}
 
+	
 	public int getTotalCount() {
 		return mapper.getTotalCount();
 	}
 
+
+	
+	public int getsearchTotalCount(String allkeyword) {
+		Map<String, String> map= new HashMap<>();
+		map.put("allkeyword", allkeyword);
+		return mapper.getsearchTotalCount(map);
+	}
+
+	
 	public List<PostingDto> getSearchList(String sort,String allkeyword, int start, int perpage){
 		
 		Map<String, Object> map= new HashMap<>();
@@ -118,6 +128,11 @@ public class EFnService {
 		map.put("perpage", perpage);
 		
 		return mapper.getSearchList(map);
+	}
+	
+	public List<PostingDto> autoSearchTitle(String allkeyword){
+		
+		return mapper.autoSearchTitle(allkeyword);
 	}
 	
 	public List<PostingDto> getPagingList(String searchcolumn, String searchword, int start, int perpage){

@@ -41,14 +41,13 @@ public class HomeController {
 
 		ModelAndView model=new ModelAndView();
 
-		int totalCount =service.getTotalCount();//총 글의 개수 //keyword 갯수
+		int totalCount =service.getsearchTotalCount(allkeyword);  //keyword 갯수
 		int totalPage; //총 페이지수
 		int startPage; //각 블럭의 시작페이지
 		int endPage; //각 블럭의 끝페이지
 		int start;    //각 페이지의 시작번호
-		int perPage=5; //한 페이지에 보여질 글의 갯수
+		int perPage=10; //한 페이지에 보여질 글의 갯수
 		int perBlock=5; //한 블럭당 보여지는 페이지 갯수
-
 
 		//총 페이지 갯수     
 		totalPage=totalCount/perPage+(totalCount%perPage==0?0:1);
@@ -60,28 +59,28 @@ public class HomeController {
 		if(endPage>totalPage)
 			endPage=totalPage;
 
-		//각 페이지에서 불러올 시작번호
-		start=(currentPage-1)*perPage;
+        //각 페이지에서 불러올 시작번호
+        start=(currentPage-1)*perPage;
 
 		//각 페이지에서 필요한 게시글 가져오기
 		List<PostingDto> list=service.getSearchList(sort,allkeyword, start, perPage);
 
-		totalCount=list.size();
-		
-		//각 페이지에 출력할 시작번호
-		int no=totalCount-(currentPage-1)*perPage;
-
+		//int searchtotalCount=list.size();
+	     //각 페이지에 출력할 시작번호
+        int no=totalCount-(currentPage-1)*perPage;
+        
 		//출력에 필요한 변수들을 model에 저장
-		model.addObject("totalCount", totalCount);
-		model.addObject("list", list);
-		model.addObject("totalPage", totalPage);
-		model.addObject("startPage", startPage);
-		model.addObject("endPage", endPage);
-		model.addObject("perBlock", perBlock);
-		model.addObject("currentPage", currentPage);
-		model.addObject("sort",sort);        
-		model.addObject("no", no);   
-
+		/* model.addObject("searchtotalCount", searchtotalCount); */
+		
+        model.addObject("totalCount", totalCount);
+        model.addObject("list", list);
+        model.addObject("totalPage", totalPage);
+        model.addObject("startPage", startPage);
+        model.addObject("endPage", endPage);
+        model.addObject("perBlock", perBlock);
+        model.addObject("currentPage", currentPage);
+        model.addObject("no", no);
+        model.addObject("sort",sort);  
 
 		model.setViewName("/search/allsearchlist");
 
@@ -89,23 +88,17 @@ public class HomeController {
 
 	}
 	
-	/*
-	 * @ResponseBody
-	 * 
-	 * @GetMapping("/search/wordSearchShow") public String
-	 * wordSearchShow(HttpServletRequest request) {
-	 * 
-	 * String allkeyword = request.getParameter("allkeyword");
-	 * 
-	 * Map<String, String> paraMap = new HashMap<>(); paraMap.put("allkeyword",
-	 * allkeyword);
-	 * 
-	 * List<String> wordList = service.wordSearchSHow(paraMap); JSONArray jsonArr =
-	 * new JSONArray(); if(wordList != null) { for(String word : wordList) {
-	 * JSONObject jsonObj = new JSONObject(); jsonObj.put("word", word);
-	 * jsonArr.put(jsonObj); } } return jsonArr.toString(); }
-	 * 
-	 */
+	
+	 @ResponseBody
+	 @GetMapping("/search/wordSearchShow") 
+	 public List<PostingDto> wordSearchShow(String allkeyword) {
+		
+		 List<PostingDto> list= service.autoSearchTitle(allkeyword);
+		 
+	 	return list;
+	 }
+	 
+	
 		
 		
 }

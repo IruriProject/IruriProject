@@ -90,59 +90,59 @@ public class QnaController {
 	}
 	
 	@GetMapping("/qna/qnawriteform")
-    public ModelAndView qnalist(@RequestParam (value="currentPage", defaultValue = "1")int currentPage,
-    		HttpSession session) {
-		
-        ModelAndView model=new ModelAndView();
-        
-    	//세션에 로그인한 아이디 얻기 
+	public ModelAndView qnalist(@RequestParam (value="currentPage", defaultValue = "1")int currentPage,
+			HttpSession session) {
+
+		ModelAndView model=new ModelAndView();
+
+		//세션에 로그인한 아이디 얻기 
 		String myid=(String)session.getAttribute("loginId");
-		
-        int usertotalCount=qservice.getQnaUserTotalCount(myid);
-        int totalCount =qservice.getTotalCount();
-        int totalPage; //총 페이지수
-        int startPage; //각 블럭의 시작페이지
-        int endPage; //각 블럭의 끝페이지
-        int start;    //각 페이지의 시작번호
-        int perPage=10; //한 페이지에 보여질 글의 갯수
-        int perBlock=5; //한 블럭당 보여지는 페이지 갯수
-    
-             
-        //총 페이지 갯수     
-              totalPage=totalCount/perPage+(totalCount%perPage==0?0:1);
-        //각 블럭의 시작페이지
-              startPage=(currentPage-1)/perBlock*perBlock+1;
-              endPage=startPage+perBlock-1;
-            
-        //총페이지=8일 경우 endpage를 8로 수정한다.     
-              if(endPage>totalPage)
-                    endPage=totalPage;
 
-        //각 페이지에서 불러올 시작번호
-        start=(currentPage-1)*perPage;
+		int usertotalCount=qservice.getQnaUserTotalCount(myid);
+		/* int totalCount =qservice.getTotalCount(); */
+		int totalPage; //총 페이지수
+		int startPage; //각 블럭의 시작페이지
+		int endPage; //각 블럭의 끝페이지
+		int start;    //각 페이지의 시작번호
+		int perPage=10; //한 페이지에 보여질 글의 갯수
+		int perBlock=5; //한 블럭당 보여지는 페이지 갯수
 
-        //각 페이지에서 필요한 게시글 가져오기
-        List<QnaDto> list=qservice.getList(start, perPage);
 
-        //각 페이지에 출력할 시작번호
-        int no=totalCount-(currentPage-1)*perPage;
-        
-        //출력에 필요한 변수들을 model에 저장
-        model.addObject("usertotalCount", usertotalCount);
-        model.addObject("totalCount", totalCount);
-        model.addObject("list", list);
-        model.addObject("totalPage", totalPage);
-        model.addObject("startPage", startPage);
-        model.addObject("endPage", endPage);
-        model.addObject("perBlock", perBlock);
-        model.addObject("currentPage", currentPage);
-        model.addObject("no", no);
-        
-        model.setViewName("/qna/qnawriteform");
-        return model;
-        
+		//총 페이지 갯수     
+		totalPage=usertotalCount/perPage+(usertotalCount%perPage==0?0:1);
+		//각 블럭의 시작페이지
+		startPage=(currentPage-1)/perBlock*perBlock+1;
+		endPage=startPage+perBlock-1;
+
+		//총페이지=8일 경우 endpage를 8로 수정한다.     
+		if(endPage>totalPage)
+			endPage=totalPage;
+
+		//각 페이지에서 불러올 시작번호
+		start=(currentPage-1)*perPage;
+
+		//각 페이지에서 필요한 게시글 가져오기
+		List<QnaDto> list=qservice.getList(start, perPage);
+
+		//각 페이지에 출력할 시작번호
+		int no=usertotalCount-(currentPage-1)*perPage;
+
+		//출력에 필요한 변수들을 model에 저장
+		model.addObject("usertotalCount", usertotalCount);
+		/* model.addObject("totalCount", totalCount); */
+		model.addObject("list", list);
+		model.addObject("totalPage", totalPage);
+		model.addObject("startPage", startPage);
+		model.addObject("endPage", endPage);
+		model.addObject("perBlock", perBlock);
+		model.addObject("currentPage", currentPage);
+		model.addObject("no", no);
+
+		model.setViewName("/qna/qnawriteform");
+		return model;
+
 	}
-	
+
 	@GetMapping("/qna/detailqna")
 	public ModelAndView detailqna(@RequestParam String q_num,
 			@RequestParam(defaultValue = "1") int currentPage)
@@ -184,6 +184,19 @@ public class QnaController {
 		return mview;
 	}
 	
+	@GetMapping("/qna/delete")
+	public String delete(String q_num, HttpSession session)
+	{
+		String path=session.getServletContext().getRealPath("/photo");
+		String uploadfile= mapper.getData(q_num).getQ_file();
+		
+		
+		File file= new File(path+"\\"+uploadfile);
+		file.delete();
+		
+		mapper.deleteQna(q_num);
+		return "redirect:qnawriteform";
+	}
 
 	
 	

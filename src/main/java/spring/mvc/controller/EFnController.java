@@ -60,6 +60,7 @@ public class EFnController {
 	@Autowired
 	FrePhrasesService f_service;
 
+
 	@GetMapping("/insertForm")
 	public String insertForm() {
 		return "/posting/InsertForm";

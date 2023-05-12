@@ -65,16 +65,16 @@ public class BoardController {
         int perPage=5; //한 페이지에 보여질 글의 갯수
         int perBlock=5; //한 블럭당 보여지는 페이지 갯수
        
-        
+
         //총 페이지 갯수     
-              totalPage=totalCount/perPage+(totalCount%perPage==0?0:1);
+        totalPage=totalCount/perPage+(totalCount%perPage==0?0:1);
         //각 블럭의 시작페이지
-              startPage=(currentPage-1)/perBlock*perBlock+1;
-              endPage=startPage+perBlock-1;
-            
+        startPage=(currentPage-1)/perBlock*perBlock+1;
+        endPage=startPage+perBlock-1;
+
         //총페이지=8일 경우 endpage를 8로 수정한다.     
-              if(endPage>totalPage)
-                    endPage=totalPage;
+        if(endPage>totalPage)
+        	endPage=totalPage;
 
         //각 페이지에서 불러올 시작번호
         start=(currentPage-1)*perPage;
@@ -95,8 +95,7 @@ public class BoardController {
 		 for(BoardDto d:list) {
 			 
 			 d.setB_acount(bservice.getAllComments(d.getB_num()).size());
-			// System.out.println(bservice.getAllComments(d.getB_num()).size());
-			 
+			// System.out.println(bservice.getAllComments(d.getB_num()).size());		 
 			 
 			 //시간변환 몇분전...등
 		        Date boardnow = new  Date(); //현재시간
@@ -129,7 +128,6 @@ public class BoardController {
 
 		        	resultTime=""+day+"일 전";
 
-
 		        }else {
 
 		        	if(hour!=0) {
@@ -146,17 +144,16 @@ public class BoardController {
 		        		}
 		        	}
 
-
 		        }
 		        
 		        d.setB_time(resultTime);
 		 }
 		 
-        
         //각 페이지에 출력할 시작번호
         int no=totalCount-(currentPage-1)*perPage;
         
-
+        String queryString= String.format("currentPage=%d&keyword=%s&sort=%s", currentPage, keyword, sort);
+        String url=queryString;
         
         //출력에 필요한 변수들을 model에 저장
         model.addObject("totalCount", totalCount);
@@ -167,7 +164,9 @@ public class BoardController {
         model.addObject("perBlock", perBlock);
         model.addObject("currentPage", currentPage);
         model.addObject("no", no);
-        model.addObject("sort",sort);        
+        model.addObject("sort",sort);
+        model.addObject("url",url);  
+        
         model.setViewName("/board/boardlist");
         
         return model;
@@ -238,8 +237,7 @@ public class BoardController {
 		model.setViewName("/board/updateboardform");
 		return model;
 	}
-	
-	
+
 
 	@PostMapping("/board/updateBoard")
 	public String updateBoard(@ModelAttribute BoardDto bdto, 
@@ -360,9 +358,7 @@ public class BoardController {
 		
 		return mview;
 	}
-	
-	
-	
+
 	//boardComment
 	@ResponseBody
 	@PostMapping("/board/commentinsert")
