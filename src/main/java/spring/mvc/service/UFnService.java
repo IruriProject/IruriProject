@@ -66,11 +66,19 @@ public class UFnService {
       mapper.updatePhoto(map);
    }
    
+   //이력서 등록
    public void insertResume(ResumeDto dto) {
       mapper.insertResume(dto);
    }
+   
+   //이력서 수정
    public void updateResume(ResumeDto dto) {
 	   mapper.updateResume(dto);
+   }
+   
+   //이력서 삭제
+   public void deleteResume(String r_num) {
+	   mapper.deleteResume(r_num);
    }
 
    // num으로 이력서 찾기

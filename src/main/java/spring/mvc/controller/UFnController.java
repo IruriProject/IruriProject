@@ -107,6 +107,7 @@ public class UFnController {
 	    
 	    return model;
 	}
+	//수정페이지이동
 	@GetMapping("/updateresume")
 	public ModelAndView updateResume(HttpSession session, String r_num) {
 	    ModelAndView model = new ModelAndView();
@@ -165,6 +166,13 @@ public class UFnController {
       session.removeAttribute("loginName");
       return "redirect:/";
    }
+   //이력서 삭제
+   @GetMapping("/deleteResume")
+   public String deleteResume(String r_num) {
+	   uservice.deleteResume(r_num);
+	   return "redirect:resumelist";
+   }
+   
    @PostMapping("/insertResume")
    public String insert(ResumeDto dto) {
       uservice.insertResume(dto);

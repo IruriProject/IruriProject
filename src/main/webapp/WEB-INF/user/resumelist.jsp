@@ -86,8 +86,7 @@ text-align: center;
 								<td>이메일</td>
 								
 								<td><button type="button" onclick="location.href='updateresume?r_num=${dto.r_num}'">수정</button>
-									<button type="button" onclick="location.href='#'">삭제</button></td>
-									
+									<button type="button" class="deleteRes">삭제</button></td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -95,6 +94,24 @@ text-align: center;
 			</div>
 		</div>
 	<script type="text/javascript">
+	$(".deleteRes").click(function(){
+		var r_num = $(this).closest("tr").data("rnum");
+		var result = confirm("정말 삭제하시겠습니까?");
+		if(result==true){
+			$.ajax({
+				data:{"r_num":r_num},
+				dataType:"html",
+				url:"deleteResume",
+				success:function(){
+					alert("삭제되었습니다.");
+					location.reload();
+				},error: function() {
+			        alert("에러!");
+			    }
+			})
+		}
+	})
+	
 	$(".setMainOff").click(function(){
 		 var r_num = $(this).closest("tr").data("rnum");
 		 $.ajax({

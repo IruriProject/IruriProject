@@ -144,6 +144,11 @@
 		r_private=#{r_private},r_writeday=now() where r_num=#{r_num}
 	</update>
 	
+	<!-- 이력서 삭제 -->
+	<delete id="deleteResume" parameterType="String">
+		delete from RESUME where r_num=#{r_num}
+	</delete>
+	
 	<!-- 관심 공고(스크랩) -->
 	<!-- 관심 공고 count -->
 	<select id="countScrapPosting" resultType="int" parameterType="String">
