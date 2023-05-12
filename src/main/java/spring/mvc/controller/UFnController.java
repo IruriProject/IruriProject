@@ -86,7 +86,7 @@ public class UFnController {
 
 	// 이력서등록 페이지로 이동
 	@GetMapping("/insertresume")
-	public ModelAndView insertResume(HttpServletRequest request, HttpSession session) {
+	public ModelAndView insertResume(HttpSession session) {
 	    ModelAndView model = new ModelAndView();
 	    String u_id = (String) session.getAttribute("loginId");
 	    String loginStatus = (String) session.getAttribute("loginStatus");
@@ -104,8 +104,22 @@ public class UFnController {
 	        model.addObject("dto", dto);
 	    }
 	    model.setViewName("/user/insertresume");
+	    
 	    return model;
 	}
+	@GetMapping("/updateresume")
+	public ModelAndView updateResume(HttpSession session, String r_num) {
+	    ModelAndView model = new ModelAndView();
+	    String u_id = (String) session.getAttribute("loginId");
+	    UserDto dto = service.findUserdataById(u_id);
+	    ResumeDto rdto = uservice.getResumeOfRNum(r_num);
+	    model.addObject("rdto", rdto);
+	    model.addObject("dto", dto);
+	    model.setViewName("/user/updateresume");
+	    
+	    return model;
+	}
+	
 	@GetMapping("/resumelist")
 	public ModelAndView resumeList(HttpSession session) {
 		 ModelAndView model=new ModelAndView();
@@ -155,6 +169,11 @@ public class UFnController {
    public String insert(ResumeDto dto) {
       uservice.insertResume(dto);
       return "redirect:mypage";
+   }
+   @PostMapping("/updateResume")
+   public String update(ResumeDto dto) {
+	   uservice.updateResume(dto);
+	   return "redirect:mypage";
    }
 
    // 유저정보 변경

@@ -292,7 +292,7 @@ div {
 
 									<td>이메일</td>
 
-									<td><button type="button" onclick="location.href='#'">수정</button>
+									<td><button type="button" onclick="location.href='updateresume?r_num=${dto.r_num}'">수정</button>
 										<button type="button" onclick="location.href='#'">삭제</button></td>
 
 								</tr>

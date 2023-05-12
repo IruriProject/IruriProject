@@ -26,6 +26,7 @@ public interface UFnMapperInter {
 	public UserDto findUserByNum(String u_num);
 	public void deleteUser(String u_num);
 	public void insertResume(ResumeDto dto);
+	public void updateResume(ResumeDto dto);
 	//주소, 대표 변경
 	public void updatePrivate(int r_num);
 	public void updatePublic(int r_num);

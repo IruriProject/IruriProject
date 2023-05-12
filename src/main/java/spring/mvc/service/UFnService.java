@@ -69,6 +69,9 @@ public class UFnService {
    public void insertResume(ResumeDto dto) {
       mapper.insertResume(dto);
    }
+   public void updateResume(ResumeDto dto) {
+	   mapper.updateResume(dto);
+   }
 
    // num으로 이력서 찾기
    public ResumeDto getResume(String u_num) {
