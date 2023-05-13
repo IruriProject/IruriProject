@@ -1361,6 +1361,8 @@ td {
                       $("#directBtn").addClass("on");
                       // 1분 자동완성 버튼에서 on 클래스 제거
                       $("#autoBtn").removeClass("on");
+                      $('.textCount').text('0자 / 1000자');
+                      $(".textCount").show();
                     });
                      
                     // 1분 자동완성 버튼 클릭 시
@@ -1374,6 +1376,7 @@ td {
                       $("#directBtn").removeClass("on");
                       $("#personality").show();
                       $("#personality").siblings().hide();
+                      $(".textCount").hide();
                     });
                   });
                //웹 브라우저 내부에서만 적용되는 변경, 실제로 서버로 전송되는 데이터는 바뀌지않음
@@ -1556,8 +1559,28 @@ td {
 								class="rcontent-autoInput"></textarea>
 							<!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
 					<br> <div class="form-inline"><input type="checkbox" name="r_private" class="checkbox">
-					<span>&nbsp;&nbsp;이력서 비공개</span></div>
+					<span>&nbsp;&nbsp;이력서 비공개</span>
+					<span class="textCount" style="float: right"></span></div>
 					<script type="text/javascript">
+					$('#r_content').keyup(function (e) {
+						var content = $(this).val();
+					    
+					    // 글자수 세기
+					    if (content.length == 0 || content == '') {
+					    	$('.textCount').text('0자 / 1000자');
+					    } else {
+					    	$('.textCount').text(content.length + '자 / 1000자');
+					    }
+					    
+					    // 글자수 제한
+					    if (content.length > 1000) {
+					    	// 1000자 부터는 타이핑 되지 않도록
+					        $(this).val($(this).val().substring(0, 1000));
+					        // 1000자 넘으면 알림창 뜨도록
+					        alert('글자수는 1000자까지 입력 가능합니다.');
+					    };
+					});
+					
 					  var r_private_checkbox = document.querySelector('input[name="r_private"]');
 					  
 					  r_private_checkbox.addEventListener('change', function() {

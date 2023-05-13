@@ -18,9 +18,6 @@
 <script
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
-div {
-   border: 1px solid gray;
-}
 
 ul {
    list-style: none;
@@ -35,7 +32,7 @@ li {
 }
 
 td {
-   font-size: 1.5em;
+   font-size: 1.2em;
 }
 
 .autoResume td {
@@ -58,8 +55,8 @@ td {
             <div class="formbold-input-wrapp formbold-mb-3"
                style="height: 250px;">
                <label for="p_title" class="formbold-form-label"> 기본정보 </label> <span
-                  style="font-size: 2.5em">${sessionScope.loginName }</span>
-               <div style="float: left; width: 150px; height: 200px;">
+                  style="font-size: 2em">${sessionScope.loginName }</span>
+               <div style="float: left; width: 150px; height: 200px; margin-right: 20px;">
                   <img alt="" src="/photo/${dto.u_photo}"
                      style="width: 150px; height: 200px;">
                </div>
@@ -72,7 +69,7 @@ td {
                </c:if>
                &nbsp;&nbsp;/&nbsp;&nbsp; ${dto.u_birth }
                (나이 들어가야함) <br>
-               <table style="border: 1px solid red;">
+               <table style="border: 0px solid red;">
                   <tr>
                      <td width=100>연락처</td>
                      <td>${dto.u_hp }</td>
@@ -98,10 +95,11 @@ td {
                <label class="formbold-form-label">희망지역</label>
                <div class="searchValue regist__item">
                   <button type="button" id="tagarea" onclick="selectLocation()">지역선택</button>
-                  <input id="areainput" name="r_larea" readonly="readonly" value="${rdto.r_larea }">
+                  <input id="areainput" name="r_larea" readonly="readonly" class="formbold-form-input"
+                  value="${rdto.r_larea }">
                </div>
                <div id="dllocal" class="searchArea"
-                  style="display: none; height: 500px;">
+                  style="display: none; height: 250px;">
                   <ul id="ulAreacd" class="tabForm">
                      <li id="10" class="  ">
                         <button type="button" onclick="setSido(10);">서울</button>
@@ -155,7 +153,7 @@ td {
                         <button type="button" onclick="setSido(25);">제주</button>
                      </li>
                   </ul>
-                  <br> <br>
+                  <br> <br><br>
                   <ul id="ulGugun" class="inputWrap">
                      <!-- 서울 -->
                      <li><span class="input "> <input type="checkbox"
@@ -1179,11 +1177,11 @@ td {
                            onchange="localdisplay(this, '25','2511');"><label
                            for="selGugun2511">제주시</label></span></li>
                   </ul>
+               </div>
                   <div>
                      <button type="button" id="exitarea" onclick="deletelocation()">취소</button>
-                     <button type="button" id="savearea" onclick="exitLocation()">추가</button>
+                     <button type="button" id="savearea" onclick="exitLocation()">확인</button>
                   </div>
-               </div>
             </div>
             <script type="text/javascript">
             
@@ -1353,7 +1351,7 @@ td {
                   <li><button type="button" id="direct" class="first on">직접입력</button></li>
                   <li><button type="button" id="auto" class="">1분 자동완성</button></li>
                </ul>
-
+				<br><br>
                <script type="text/javascript">
                $(document).ready(function() {
                     // 직접입력 버튼 클릭 시
@@ -1365,6 +1363,8 @@ td {
                       $("#directBtn").addClass("on");
                       // 1분 자동완성 버튼에서 on 클래스 제거
                       $("#autoBtn").removeClass("on");
+                      $('.textCount').text('0자 / 1000자');
+                      $(".textCount").show();
                     });
                      
                     // 1분 자동완성 버튼 클릭 시
@@ -1378,6 +1378,7 @@ td {
                       $("#directBtn").removeClass("on");
                       $("#personality").show();
                       $("#personality").siblings().hide();
+                      $(".textCount").hide();
                     });
                   });
                //웹 브라우저 내부에서만 적용되는 변경, 실제로 서버로 전송되는 데이터는 바뀌지않음
@@ -1386,7 +1387,7 @@ td {
 
                <div id="OneMinDoc" class="introduceWrap" style="display: none;">
 
-                  <div class="resizable-textarea">
+                  <div class="resizable-textarea" style="display: flex; flex-direction: row;">
                      <br>
                      <div style="width:90px; height: 180px;">
                         <ul>
@@ -1559,8 +1560,29 @@ td {
 								placeholder="나의 강점과 특징을 등록해 보세요!"
 								class="rcontent-autoInput">${rdto.r_content }</textarea>
 							<!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
-					<br> <input type="checkbox" name="r_private" class="checkbox">이력서 비공개
+					<br> <div class="form-inline"><input type="checkbox" name="r_private" class="checkbox">
+					<span>&nbsp;&nbsp;이력서 비공개</span>
+					<span class="textCount" style="float: right"></span></div>
 					<script type="text/javascript">
+					$('#r_content').keyup(function (e) {
+						var content = $(this).val();
+					    
+					    // 글자수 세기
+					    if (content.length == 0 || content == '') {
+					    	$('.textCount').text('0자 / 1000자');
+					    } else {
+					    	$('.textCount').text(content.length + '자 / 1000자');
+					    }
+					    
+					    // 글자수 제한
+					    if (content.length > 1000) {
+					    	// 1000자 부터는 타이핑 되지 않도록
+					        $(this).val($(this).val().substring(0, 1000));
+					        // 1000자 넘으면 알림창 뜨도록
+					        alert('글자수는 1000자까지 입력 가능합니다.');
+					    };
+					});
+					
 					  var r_private_checkbox = document.querySelector('input[name="r_private"]');
 					  
 					  if (${rdto.r_private}=== 1) {
