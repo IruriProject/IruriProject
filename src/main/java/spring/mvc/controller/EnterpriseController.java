@@ -40,7 +40,7 @@ public class EnterpriseController {
 		String e_num=service.findEnterdataById(loginId).getE_num();
 
 		mview.addObject("dto", dto);
-		mview.addObject("heartCount", service.heartByEnter(dto.getE_num()));
+		mview.addObject("heartCount", service.heartByEnter(dto.getE_num()).size());
 		mview.addObject("postings", efn_service.getPreviewPostings(dto.getE_num()));
 		mview.addObject("postingCount", efn_service.getAllPostings(dto.getE_num()).size());
 		mview.addObject("messages", efn_service.getPreviewMessages(dto.getE_num()));
@@ -168,5 +168,17 @@ public class EnterpriseController {
 		service.authCertificate(e_num);
 		
 		return "redirect:/enterprise";
+	}
+	
+	@GetMapping("/heartlist")
+	public ModelAndView heartList(HttpSession session) {
+		ModelAndView mview=new ModelAndView();
+		
+		String loginId = (String) session.getAttribute("loginId");
+		EnterpriseDto dto = service.findEnterdataById(loginId);
+
+		mview.addObject("list", service.heartByEnter(dto.getE_num()));
+		mview.setViewName("/enterprise/heartList");
+		return mview;
 	}
 }

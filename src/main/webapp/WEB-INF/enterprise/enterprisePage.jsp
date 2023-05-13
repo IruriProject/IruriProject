@@ -101,7 +101,7 @@
 					<br>
 					<div class="h-100 bg-light rounded p-4">위치 : ${dto.e_addr }</div>
 					<br>
-					<div class="h-100 bg-light rounded p-4">관심기업으로 선정한 인재수 : ${heartCount } 명</div>
+					<div class="h-100 bg-light rounded p-4">관심기업으로 선정한 인재 : <span id="heartList" style="cursor: pointer;" onclick="location.href='/enterprise/heartlist'">${heartCount } 명</span></div>
 				</div>
 			</div>
 		</div>

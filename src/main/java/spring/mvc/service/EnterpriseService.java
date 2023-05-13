@@ -55,7 +55,7 @@ public class EnterpriseService {
 	public List<ApplicantDto> getAllResumeOfEnter(String e_num){
 		return mapper.getApplicantsByEnterprise(e_num);
 	}
-	public int heartByEnter(String e_num) {
+	public  List<Map<String, Object>> heartByEnter(String e_num) {
 		return mapper.heartByEnter(e_num);
 	}
 	

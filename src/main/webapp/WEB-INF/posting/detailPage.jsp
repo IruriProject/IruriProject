@@ -275,7 +275,7 @@ body {
                <!-- Post title-->
                <div class="withbtn">
                      <div class="withbtnTitle fw-bolder mb-1"
-                        style="color: #41644a; font-size: 2em">${dto.p_title }</div>
+                        style="color: #41644a; font-size: 2em">[${dto.p_status}]&nbsp;${dto.p_title }</div>
                         <input type="hidden" id="p_num" value="${dto.p_num }">
                      <div>
                         <c:if

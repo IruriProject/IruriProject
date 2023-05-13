@@ -11,6 +11,28 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
+<style>
+.atag {
+	padding: 8px;
+}
+
+.atag, .atag:hover {
+	color: #416442;
+	text-decoration: none;
+}
+
+.atag:hover {
+	background-color: #e3f2c9;
+	border-radius: 10px;
+}
+
+.counting{
+	float:right;
+	cursor: pointer;
+	color: #416442;
+	font-size: 0.8em;
+}
+</style>
 <body>
 <form class="form-inline" style="width: 100%; margin: 0 auto">
 		<select class="form-control">
@@ -35,13 +57,37 @@
 		<c:forEach var="dto" items="${list }" varStatus="i">
 		<tr align="center">
 			<td>${i.count }</td>
-			<td><a href="/posting/detailpage?p_num=${dto.p_num }">${dto.p_title }</a></td>
+			<td style="text-align: left">
+				<a class="atag" href="posting/detailpage?p_num=${dto.p_num }">&nbsp;&nbsp;
+					<b>${dto.p_title }</b>
+				</a>&nbsp;&nbsp;
+				<span class="counting viewer" p_num=${dto.p_num } title="열람한 인재목록 보기" onclick="location.href='/enterprise/viewerlist?p_num=${dto.p_num}'"></span>
+				<span class="counting">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+				<span class="counting scrap" p_num=${dto.p_num } title="스크랩한 인재목록 보기" onclick="location.href='/enterprise/scraplist?p_num=${dto.p_num}'"></span>
+			</td>
 			<td>${dto.p_type }</td>
 			<td><fmt:formatDate value="${dto.p_writeday }" pattern="yyyy-MM-dd"/> </td>
 			<td>${dto.p_enddate }</td>
 			<td><select class="pStatus" pnum=${dto.p_num }><option value="지원가능" ${dto.p_status=="지원가능"?'selected':'' }>지원가능</option>
 											<option value="지원마감" ${dto.p_status=="지원마감"?'selected':'' }>지원마감</option></select></td>
 		</tr>
+		
+		 <script type="text/javascript">
+	        $(function(){
+	            var p_num = "${dto.p_num}";
+	            $.ajax({
+	                type:"get",
+	                data:{"p_num":p_num},
+	                dataType:"json",
+	                url:"/enterprise/counting",
+	                success:function(res){
+	                    $(".viewer[p_num='"+p_num+"']").text("열람 : "+res.viewercounting+"명");
+	                    $(".scrap[p_num='"+p_num+"']").text("스크랩 : "+res.scrapcounting+"명");
+	                }
+	            });
+	        });
+	    </script>
+							    
 		</c:forEach>
 	</table>
 	

@@ -40,7 +40,7 @@
 				<div class="formbold-checkbox-wrapper">
 					<label for="supportCheckbox" class="formbold-checkbox-label">
 						<div class="formbold-relative">
-							<input type="checkbox" id="supportCheckbox"
+							<input type="checkbox" id="supportCheckbox" required="required"
 								class="formbold-input-checkbox" />
 							<div class="formbold-checkbox-inner">
 								<span class="formbold-opacity-0"> <svg width="11"

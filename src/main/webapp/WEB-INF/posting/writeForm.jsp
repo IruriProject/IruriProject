@@ -132,7 +132,7 @@ $(function(){
 	         	<c:forEach var="draftDto" items="${draftList }">
 	         		<tr>
 	                	<td>
-	                    	<input type="radio" name="draft" value="${draftDto.p_num }"> ${draftDto.p_title } (${draftDto.p_type }) <button style="float: right" type="button" p_num="${draftDto.p_num }" class="btn btn-info btn-xs draftdel">임시저장 삭제</button>
+	                    	<input type="radio" name="draft" value="${draftDto.p_num }"> ${draftDto.p_title } (${draftDto.p_type })&nbsp;&nbsp;<span style="font-size: 0.8em; color: gray"><fmt:formatDate value="${draftDto.p_writeday }" pattern="yy-MM-dd"/></span><button style="float: right" type="button" p_num="${draftDto.p_num }" class="btn btn-info btn-xs draftdel">임시저장 삭제</button>
 	                    </td>
 	                </tr>
 	         	</c:forEach>
@@ -178,7 +178,7 @@ $(function(){
 
 	<div class="formbold-main-wrapper">
 		<div class="formbold-form-wrapper">
-			<form method="POST" flag="new" id="frm">
+			<form method="POST" flag="new" id="frm" onsubmit="return submit();">
 				<input type="hidden" name="e_num" id="e_num" value=${enterNum }
 					class="formbold-form-input" />
 				<div id="pNum"></div>
@@ -199,50 +199,50 @@ $(function(){
 
 					<div>
 						<input type="text" name="p_title" id="p_title"
-							placeholder="공고 제목을 입력해주세요." class="formbold-form-input" />
+							placeholder="공고 제목을 입력해주세요." class="formbold-form-input" required="required" />
 					</div>
 				</div>
 
 				<div class="formbold-mb-3">
 					<label for="p_type" class="formbold-form-label"> 직종 </label> <input
 						type="text" name="p_type" id="p_type"
-						placeholder="직종을 입력해주세요 (ex: 광고/홍보)" class="formbold-form-input" />
+						placeholder="직종을 입력해주세요 (ex: 광고/홍보)" class="formbold-form-input" required="required" />
 				</div>
 
 				<div class="formbold-mb-3">
 					<label for="p_pay" class="formbold-form-label"> 급여 </label> <input
 						type="number" name="p_pay" id="p_pay" step="50"
-						placeholder="급여를 입력해주세요 (ex: 3000000)" class="formbold-form-input" />
+						placeholder="급여를 입력해주세요 (ex: 3000000)" class="formbold-form-input" required="required" />
 				</div>
 
 				<div class="formbold-input-flex">
 					<div>
 						<label for="p_period" class="formbold-form-label"> 기간 </label> <input
 							type="text" name="p_period" id="p_period" placeholder="ex:6개월"
-							class="formbold-form-input" />
+							class="formbold-form-input" required="required" />
 					</div>
 					<div>
 						<label for="p_workday" class="formbold-form-label"> 요일 </label> <input
 							type="text" name="p_workday" id="p_workday"
-							placeholder="ex: 월/수/금" class="formbold-form-input" />
+							placeholder="ex: 월/수/금" class="formbold-form-input" required="required" />
 					</div>
 					<div>
 						<label for="p_hirenum" class="formbold-form-label"> 채용인원 </label>
 						<input type="number" name="p_hirenum" id="p_hirenum"
-							placeholder="ex:0" class="formbold-form-input" />
+							placeholder="ex:0" class="formbold-form-input" required="required" />
 					</div>
 				</div>
 
 				<div class="formbold-input-flex">
 					<div>
 						<label for="p_starttime" class="formbold-form-label"> 시작시간
-						</label> <input type="time" name="p_starttime" id="p_starttime"
-							placeholder="ex:6개월" class="formbold-form-input" />
+						</label> <input type="time" name="p_starttime" id="p_starttime" value="09:00"
+							placeholder="ex:6개월" class="formbold-form-input" required="required" />
 					</div>
 					<div>
 						<label for="p_endtime" class="formbold-form-label"> 끝시간 </label> <input
-							type="time" name="p_endtime" id="p_endtime" placeholder="ex:6개월"
-							class="formbold-form-input" />
+							type="time" name="p_endtime" id="p_endtime" placeholder="ex:6개월" value="18:00"
+							class="formbold-form-input" required="required" />
 					</div>
 				</div>
 
@@ -257,19 +257,19 @@ $(function(){
 				<div class="formbold-mb-3">
 					<label for="p_content" class="formbold-form-label"> 상세내용<button type="button" id="phrases" class="btn-sm small-btn" style="width: 100px; margin-left: 410px;" data-toggle="modal" data-target="#phrasesModal">자주쓰는 문구</button></label>
 					<textarea name="p_content" id="p_content"
-						placeholder="상세내용을 입력해주세요." class="pcontent-input"></textarea>
+						placeholder="상세내용을 입력해주세요." class="pcontent-input" required="required"></textarea>
 				</div>
 
 				<div class="formbold-mb-3">
 					<label for="p_enddate" class="formbold-form-label"> 공고 마감일
 					</label> <input type="date" name="p_enddate" id="p_enddate"
-						class="formbold-form-input" />
+						class="formbold-form-input" required="required" />
 				</div>
 				<br>
 				<div class="formbold-checkbox-wrapper">
 					<label for="supportCheckbox" class="formbold-checkbox-label">
 						<div class="formbold-relative">
-							<input type="checkbox" id="supportCheckbox"
+							<input type="checkbox" id="supportCheckbox" required="required"
 								class="formbold-input-checkbox" />
 							<div class="formbold-checkbox-inner">
 								<span class="formbold-opacity-0"> <svg width="11"
