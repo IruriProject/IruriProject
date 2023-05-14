@@ -24,11 +24,12 @@
 			var index = $(".insertPhrases > div").length;
 
 			var s = "";
-			s += "<div class='formbold-mb-3'>";
+			s += "<div class='formbold-mb-3 form-inline' style='height: 100px; position: relative;'>";
 			s += "<label for='f_phrase_" + index + "' class='formbold-form-label'>등록할 문구_ "
 					+ (index + 1) + "</label>";
-			s += "<input type='text' name='fPhraseList' id='f_phrase_"+index+"' class='formbold-form-input'/>";
-			s += "</div><br>";
+			s += "<input type='text' style='width:90%' name='fPhraseList' id='f_phrase_"+index+"' class='formbold-form-input'/>";
+			s += "<button class='small-btn cancelbtn' type='button' style='position: absolute; top: 40%; vertical-align: middle; text-align: center;'>-</button>";
+			s += "</div>";
 
 			$(".insertPhrases").append(s);
 
@@ -42,35 +43,49 @@
 			var index = $(".insertPhrases > div").length;
 
 			var s = "";
-			s += "<div class='formbold-mb-3'>";
+			s += "<div class='formbold-mb-3 form-inline' style='height: 100px; position: relative;'>";
 			s += "<label for='f_phrase_" + index + "' class='formbold-form-label'>등록할 문구_ "
 					+ (index + 1) + "</label>";
-			s += "<input type='text' name='fPhraseList' id='f_phrase_"+index+"' class='formbold-form-input'/>";
-			s += "</div><br>";
+			s += "<input type='text' style='width:90%' name='fPhraseList' id='f_phrase_"+index+"' class='formbold-form-input'/>";
+			s += "<button class='small-btn cancelbtn' type='button' style='position: absolute; top: 40%; vertical-align: middle; text-align: center;'>-</button>";
+			s += "</div>";
 
 			$(".insertPhrases").append(s);
 
 			$("#f_phrase_" + index).val(phrase);
+			$("#direct").val("");
 
 		})
 
+		$(document).on('click', ".cancelbtn", function(){
+			$(this).siblings().remove();
+			$(this).parent().remove();
+			$(this).remove();
+			
+		})
+		
 	})
 	
-	function countCheck(){
-		
+	
+	function check(){	
 		if(${listCount}+$('input[name=fPhraseList]').length>5){
 			alert("자주 쓰는 문구는 기업당 최대 5개까지 입력할 수 있습니다.\n현재 문구 개수는 "+${listCount}+"개 입니다.");
 			return false;
 		}
 		
+		if($('input[name=fPhraseList]').length==0){
+			alert("문구를 입력해주세요.");
+			return false;
+		}
 	}
+
 
 </script>
 <body>
 
 	<div class="formbold-main-wrapper">
 		<div class="formbold-form-wrapper">
-			<form action="writephrases" method="POST" onsubmit="return countCheck(this);">
+			<form action="writephrases" method="POST" onsubmit="return check();">
 				<input type="hidden" name="e_num" id="e_num" value=${e_num }
 					class="formbold-form-input" />
 				<div align="center">
@@ -99,6 +114,7 @@
 							placeholder="직접 문구를 입력해주세요." class="pcontent-input"></textarea>
 						<button class="small-btn" id="directbtn" type="button"
 							style="position: absolute; top: 40%; vertical-align: middle; text-align: center;">+</button>
+					
 					</div>
 				</div>
 
