@@ -455,7 +455,8 @@ public class EFnController {
 
 		model.addAttribute("udto", udto);
 		model.addAttribute("edto", edto);
-
+		model.addAttribute("duplicateUser", service.duplicateUserOfMessage(udto.getU_num(), edto.getE_num()));
+		
 		return "/message/writeForm";
 	}
 

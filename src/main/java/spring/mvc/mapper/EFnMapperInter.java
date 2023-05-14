@@ -50,5 +50,6 @@ public interface EFnMapperInter {
 	public int getMaxNumOfPosting();
 	public Map<String, Object> getMessage(String m_num);
 	public void insertMessage(MessageDto dto);
+	public int duplicateUserOfMessage(Map<String, String> map);
 
 }

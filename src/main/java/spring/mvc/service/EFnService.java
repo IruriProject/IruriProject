@@ -103,6 +103,15 @@ public class EFnService {
 	public void insertMessage(MessageDto dto) {
 		mapper.insertMessage(dto);
 	}
+	
+	public int duplicateUserOfMessage(String u_num,String e_num) {
+		Map<String, String> map=new HashMap<>();
+		
+		map.put("u_num", u_num);
+		map.put("e_num", e_num);
+		
+		return mapper.duplicateUserOfMessage(map);
+	}
 
 	
 	public int getTotalCount() {

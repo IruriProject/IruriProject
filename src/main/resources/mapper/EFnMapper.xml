@@ -178,6 +178,11 @@
 		insert into MESSAGE(e_num,u_num,m_content,m_day) values(#{e_num},#{u_num},#{m_content},now())
 	</insert>
 	
+	<!-- 동일 인재에게 쪽지 보내는지 확인 -->
+	<select id="duplicateUserOfMessage" parameterType="Map" resultType="int">
+		select count(*) from MESSAGE where u_num=#{u_num} and e_num=#{e_num}
+	</select>
+	
 	<select id="getEnumOfPosting" parameterType="String" resultType="String">
 	select e_num from POSTING where p_num=#{p_num}
 	</select>

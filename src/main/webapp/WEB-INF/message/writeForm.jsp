@@ -14,6 +14,14 @@
 	href="https://fonts.googleapis.com/css2?family=Anton&family=Edu+VIC+WA+NT+Beginner:wght@600&family=Gamja+Flower&family=Single+Day&family=Jua&family=Nanum+Pen+Script&display=swap"
 	rel="stylesheet">
 </head>
+<script>
+$(function(){
+	if(${duplicateUser!=0}){
+		alert("이미 쪽지를 보낸 인재입니다.");
+		history.back();
+	}
+})
+</script>
 <body>
 	<div class="formbold-main-wrapper">
 		<div class="formbold-form-wrapper">
