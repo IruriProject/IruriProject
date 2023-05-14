@@ -79,6 +79,15 @@ $(function(){
 			}
 		})		
 	})
+	
+	$("#insertbtn").click(function(){
+		if(${list.size()==5}){
+			alert("문구는 5개까지만 등록 가능합니다.");
+		}else{
+			location.href='/phrases/write';
+		}
+		
+	})
 })
 
 </script>
@@ -86,7 +95,7 @@ $(function(){
 <body>
 	<div>
 		<button style="float: right; margin-bottom: 10px;" type="button"
-			class="btn btn-info" onclick="location.href='/phrases/write'">문구등록</button>
+			class="btn btn-info" id="insertbtn">문구등록</button>
 	</div>
 	<table class="table" style="width: 80%; margin: 0 auto;">
 		<tr>
