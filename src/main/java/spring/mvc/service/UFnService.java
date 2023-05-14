@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.HeartDto;
+import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.ScrapDto;
 import spring.mvc.dto.UserDto;
@@ -90,6 +91,11 @@ public class UFnService {
    // num으로 유저정보 찾기
    public UserDto findUserdataByNum(String u_num) {
       return mapper.findUserByNum(u_num);
+   }
+   
+   //쪽지
+   public List<Map<String, Object>> getMessageByUserNum(String u_num){
+	   return mapper.getMessageByUserNum(u_num);
    }
 
    // 회원삭제

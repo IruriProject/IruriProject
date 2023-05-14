@@ -45,6 +45,25 @@ div {
 .fa-star{
    color: yellow;
 }
+.longsentence{
+	word-break: break-all;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+.atag {
+	padding: 8px;
+}
+
+.atag, .atag:hover {
+	color: #416442;
+	text-decoration: none;
+}
+.atag:hover {
+	background-color: #e3f2c9;
+	border-radius: 10px;
+}
 </style>
 </head>
 
@@ -58,10 +77,9 @@ div {
 						<img alt="" src="/photo/${dto.u_photo}"
 							style="width: 150px; height: 200px;">
 					</div>
-					${sessionScope.loginName }<br> ${dto.u_gender } / 나이 들어가야함
+					${sessionScope.loginName }<br> ${dto.u_gender } / 나이 들어가야함<br>
 					<button type="button" data-toggle="modal" data-target="#myPhoto">사진
-						등록 및 변경</button>
-					<br>
+						등록 및 변경</button><br>
 					<button type="button" onclick="location.href='update'">개인정보
 						수정</button>
 					<div>
@@ -175,62 +193,47 @@ div {
       crossorigin="anonymous"></script><!-- 아이콘에 필요한거니 삭제말것 -->
       <!-- Profile End -->
 
-		<!-- Widgets Start -->
+		<!-- 쪽지함 -->
 		<div class="container-fluid pt-4 px-4">
 			<div class="row g-4">
 				<div class="col-sm-12 col-md-6 col-xl-4">
 					<div class="h-100 bg-light rounded p-4">
 						<div
 							class="d-flex align-items-center justify-content-between mb-2">
-							<h6 class="mb-0">쪽지함</h6>
-							<a href="">Show All</a>
+							<h4 class="mb-5"><b>쪽지함</b></h4>
+							<a href="mymessage">더보기</a>
 						</div>
-						<div class="d-flex align-items-center border-bottom py-3">
-							<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
-								alt="" style="width: 40px; height: 40px;">
+						
+						<c:if test="${messages.size()==0 }">
+							<div class="w-100" align="center">
+								<br>
+								<span style="color: gray">받은 쪽지가 없습니다.</span>
+							</div>
+						</c:if>
+						<c:forEach var="mdto" items="${mlist }" varStatus="i">
+						<c:if test="${i.count<=3 }">
+						
+						
+						
+						<div class="d-flex align-items-center border-bottom py-3 atag mt-3">
+							<img class="rounded-circle flex-shrink-0" src="/photo/${mdto.e_logo}"
+							alt="" style="width: 40px; height: 40px;"><!-- 이미지 -->
+							<a class="atag" href="/posting/messagelist">
 							<div class="w-100 ms-3">
 								<div class="d-flex w-100 justify-content-between">
-									<h6 class="mb-0">Jhon Doe</h6>
-									<small>15 minutes ago</small>
+									<h5 class="mb-0"><b>${mdto.e_name }</b></h5>
+									<small><fmt:formatDate value="${mdto.m_day}" pattern="yy-MM-dd"/></small>
 								</div>
-								<span>Short message goes here...</span>
+								<span class="longsentence">${mdto.m_content }</span>
 							</div>
+							</a>
 						</div>
-						<div class="d-flex align-items-center border-bottom py-3">
-							<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
-								alt="" style="width: 40px; height: 40px;">
-							<div class="w-100 ms-3">
-								<div class="d-flex w-100 justify-content-between">
-									<h6 class="mb-0">Jhon Doe</h6>
-									<small>15 minutes ago</small>
-								</div>
-								<span>Short message goes here...</span>
-							</div>
-						</div>
-						<div class="d-flex align-items-center border-bottom py-3">
-							<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
-								alt="" style="width: 40px; height: 40px;">
-							<div class="w-100 ms-3">
-								<div class="d-flex w-100 justify-content-between">
-									<h6 class="mb-0">Jhon Doe</h6>
-									<small>15 minutes ago</small>
-								</div>
-								<span>Short message goes here...</span>
-							</div>
-						</div>
-						<div class="d-flex align-items-center pt-3">
-							<img class="rounded-circle flex-shrink-0" src="img/user.jpg"
-								alt="" style="width: 40px; height: 40px;">
-							<div class="w-100 ms-3">
-								<div class="d-flex w-100 justify-content-between">
-									<h6 class="mb-0">Jhon Doe</h6>
-									<small>15 minutes ago</small>
-								</div>
-								<span>Short message goes here...</span>
-							</div>
-						</div>
+						</c:if>
+						</c:forEach>
 					</div>
 				</div>
+				
+				
 				<div class="col-sm-12 col-md-6 col-xl-4">
 					<div class="h-100 bg-light rounded p-4">
 						<div
@@ -273,6 +276,22 @@ div {
 									<td>${i.count}</td>
 									<td
 										style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+										
+											<c:if test="${dto.r_presume==1 && dto.r_private==0}">
+											[대표] [공개]
+											</c:if>
+											
+											<c:if test="${dto.r_presume==1 && dto.r_private==1}">
+											[대표] [비공개]
+											</c:if>
+											
+											<c:if test="${dto.r_presume==0 && dto.r_private==1}">
+											[비공개]
+											</c:if>
+											
+											<c:if test="${dto.r_presume==0 && dto.r_private==0}">
+											[공개]
+											</c:if>
 										<a href="resume/detail?r_num=${dto.r_num }">${dto.r_title}</a>
 									</td>
 

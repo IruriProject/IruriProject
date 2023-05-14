@@ -26,7 +26,9 @@ import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.ScrapDto;
 import spring.mvc.dto.HeartDto;
+import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.UserDto;
+import spring.mvc.service.EnterpriseService;
 import spring.mvc.service.UFnService;
 import spring.mvc.service.UserService;
 
@@ -38,6 +40,10 @@ public class UFnController {
 
    @Autowired
    UserService service;
+   
+	@Autowired
+	EnterpriseService e_service;
+
 
    // 마이페이지 이동
    @GetMapping("/mypage")
@@ -48,6 +54,8 @@ public class UFnController {
       ResumeDto rdto = uservice.getResume(dto.getU_num());
       List<ResumeDto> list=uservice.getMyResume(dto.getU_num());
       
+      
+      model.addObject("mlist", uservice.getMessageByUserNum(dto.getU_num()));
       model.addObject("list", list);
       model.addObject("dto", dto);
       model.addObject("rdto", rdto);
@@ -225,6 +233,18 @@ public class UFnController {
 		uservice.updateAllOff();
 		uservice.updateMainOn(r_num);
 		return "redirect:resumelist";
+	}
+	
+	@GetMapping("/mymessage")
+	public ModelAndView getAllMessages(HttpSession session) {
+		ModelAndView model = new ModelAndView();
+		
+		String loginId = (String) session.getAttribute("loginId");
+		UserDto udto = service.findUserdataById(loginId);
+		
+		model.addObject("list", uservice.getMessageByUserNum(udto.getU_num()));
+		model.setViewName("/user/mymessage");
+		return model;
 	}
 
    // 사진등록

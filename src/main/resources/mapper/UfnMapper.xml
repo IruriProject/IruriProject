@@ -69,6 +69,15 @@
 	<select id="getResumeByUserId" resultType="rdto" parameterType="String">
     	SELECT * FROM RESUME WHERE u_num = (SELECT u_num FROM USER WHERE u_id = #{u_id})
   	</select>
+  	
+  	<!-- 쪽지함 리스트 -->
+	<select id="getMessageByUserNum" resultType="Map" parameterType="String">
+    SELECT *
+    FROM MESSAGE
+    INNER JOIN ENTERPRISE
+    ON MESSAGE.e_num = ENTERPRISE.e_num
+    WHERE u_num = #{u_num}
+	</select>
 
 	<!-- 이력서 detailpage -->
 	<select id="getResumeOfRNum" resultType="rdto"

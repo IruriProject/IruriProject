@@ -89,7 +89,7 @@ td {
                   type="text" name="r_title" id="r_title" step="50"
                   placeholder="25글자 이내로 자신을 표현해보세요." class="formbold-form-input" />
             </div>
-
+			</script>
             <div class="formbold-mb-3">
                <label class="formbold-form-label">희망지역</label>
                <div class="searchValue regist__item">
@@ -1176,13 +1176,16 @@ td {
                            for="selGugun2511">제주시</label></span></li>
                   </ul>
                </div>
-                  <div>
-                     <button type="button" id="exitarea" onclick="deletelocation()">취소</button>
-                     <button type="button" id="savearea" onclick="exitLocation()">확인</button>
+                  <div style="display: flex">
+                     <button type="button" id="exitarea" onclick="deletelocation()" style="display: none">취소</button>
+                     <button type="button" id="savearea" onclick="exitLocation()" style="display: none">확인</button>
                   </div>
             </div>
             <script type="text/javascript">
-            
+            	$("#tagarea").click(function(){
+            		$("#exitarea").css("display","block");
+            		$("#savearea").css("display","block");
+            	})
                //디폴트값 서울
                window.onload = function() {
                   setSido(10);
@@ -1206,6 +1209,8 @@ td {
                function exitLocation() {
                   var dllocal = document.getElementById("dllocal");
                   dllocal.style.display = "none";
+                $("#exitarea").css("display","none");
+          		$("#savearea").css("display","none");
                }
                //체크박스 클릭시 span태그에 입력
                function localdisplay() {
