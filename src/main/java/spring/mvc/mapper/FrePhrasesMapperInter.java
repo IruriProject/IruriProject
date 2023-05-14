@@ -19,5 +19,7 @@ public interface FrePhrasesMapperInter {
 	public void updatePhrase(Map<String, String> map);
 	
 	public FrePhrasesDto getPhrase(String f_num);
+	
+	public int duplicatePhrase(Map<String, String> map);
 
 }

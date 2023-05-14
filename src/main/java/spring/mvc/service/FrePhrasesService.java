@@ -41,5 +41,14 @@ public class FrePhrasesService {
 		return mapper.getPhrase(f_num);
 	}
 	
+	public int duplicatePhrase(String e_num,String f_phrase) {
+		Map<String, String> map=new HashMap<>();
+		
+		map.put("e_num", e_num);
+		map.put("f_phrase", f_phrase);
+		
+		return mapper.duplicatePhrase(map);
+	}
+	
 	
 }

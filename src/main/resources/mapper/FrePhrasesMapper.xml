@@ -24,4 +24,9 @@
 		select * from FRE_PHRASES where f_num=#{f_num}
 	</select>
 	
+	<!-- 문구 중복 불가  -->
+	<select id="duplicatePhrase" parameterType="Map" resultType="int">
+		select count(*) from FRE_PHRASES where e_num=#{e_num} and f_phrase=#{f_phrase}
+	</select>
+	
 </mapper>

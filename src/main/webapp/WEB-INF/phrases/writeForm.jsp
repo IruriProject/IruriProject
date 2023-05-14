@@ -19,8 +19,28 @@
 <script>
 	$(function() {
 		$("#auto").change(function() {
-
+			
 			var phrase = $(this).val();
+			
+			$.ajax({
+				type:"get",
+				data:{"f_phrase":phrase},
+				dataType:"json",
+				url:"/phrases/duplicate",
+				success:function(res){
+					
+					if(res.count==1){
+						alert("중복된 문구는 입력할 수 없습니다.");
+					
+						$(".cancelbtn").last().trigger('click');
+						
+						return false;
+					}
+					
+				}
+			})
+
+			
 			var index = $(".insertPhrases > div").length;
 
 			var s = "";
@@ -40,6 +60,25 @@
 		$("#directbtn").click(function() {
 
 			var phrase = $("#direct").val();
+			
+			$.ajax({
+				type:"get",
+				data:{"f_phrase":phrase},
+				dataType:"json",
+				url:"/phrases/duplicate",
+				success:function(res){
+					
+					if(res.count==1){
+						alert("중복된 문구는 입력할 수 없습니다.");
+					
+						$(".cancelbtn").last().trigger('click');
+						
+						return false;
+					}
+					
+				}
+			})
+			
 			var index = $(".insertPhrases > div").length;
 
 			var s = "";
@@ -77,6 +116,7 @@
 			alert("문구를 입력해주세요.");
 			return false;
 		}
+		
 	}
 
 

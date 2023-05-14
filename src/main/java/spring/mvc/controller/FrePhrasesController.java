@@ -89,5 +89,22 @@ public class FrePhrasesController {
 	public FrePhrasesDto getphrase(@RequestParam String f_num){
 		return service.getPhrase(f_num);
 	}
+	
+	@GetMapping("/duplicate")
+	@ResponseBody
+	public Map<String, Object> duplicateCheck(@RequestParam String f_phrase, HttpSession session) {
+		
+		Map<String, Object> map=new HashMap<>();
+		
+		String loginId=(String)session.getAttribute("loginId");
+		EnterpriseDto dto=e_service.findEnterdataById(loginId);
+		
+		int count= service.duplicatePhrase(dto.getE_num(), f_phrase);
+		
+		map.put("count", count);
+		map.put("f_phrase", f_phrase);
+		
+		return map;
+	}
 
 }
