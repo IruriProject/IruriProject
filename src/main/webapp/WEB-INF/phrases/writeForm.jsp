@@ -55,13 +55,22 @@
 		})
 
 	})
+	
+	function countCheck(){
+		
+		if(${listCount}+$('input[name=fPhraseList]').length>5){
+			alert("자주 쓰는 문구는 기업당 최대 5개까지 입력할 수 있습니다.\n현재 문구 개수는 "+${listCount}+"개 입니다.");
+			return false;
+		}
+		
+	}
 
 </script>
 <body>
 
 	<div class="formbold-main-wrapper">
 		<div class="formbold-form-wrapper">
-			<form action="writephrases" method="POST">
+			<form action="writephrases" method="POST" onsubmit="return countCheck(this);">
 				<input type="hidden" name="e_num" id="e_num" value=${e_num }
 					class="formbold-form-input" />
 				<div align="center">
@@ -99,7 +108,6 @@
 				<br>
 
 				<button class="formbold-btn" type="submit">문구등록</button>
-
 
 			</form>
 		</div>

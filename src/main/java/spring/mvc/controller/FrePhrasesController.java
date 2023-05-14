@@ -52,6 +52,7 @@ public class FrePhrasesController {
 		EnterpriseDto e_dto = e_service.findEnterdataById(loginId);
 
 		model.addAttribute("e_num", e_dto.getE_num());
+		model.addAttribute("listCount", service.phrasesList(e_dto.getE_num()).size());
 
 		return "/phrases/writeForm";
 	}
