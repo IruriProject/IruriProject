@@ -55,6 +55,7 @@
 		})
 
 	})
+
 </script>
 <body>
 
@@ -95,11 +96,6 @@
 				<br> <br>
 
 				<div class="insertPhrases"></div>
-				<!-- 				<div class="formbold-mb-3">
-					<label for="f_phrase1" class="formbold-form-label"> 등록할 문구1 </label> <input
-						type="text" name="f_phrase1" id="f_phrase1"
-						placeholder="자동으로 입력됩니다." class="formbold-form-input" />
-				</div> -->
 				<br>
 
 				<button class="formbold-btn" type="submit">문구등록</button>
