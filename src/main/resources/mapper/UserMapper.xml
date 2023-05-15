@@ -45,6 +45,12 @@
         where u_email=#{u_email}
     </select>
     
+	 <select id="userSearchId" parameterType="String" resultType="int">
+        select count(*)
+        from USER
+        where u_id=#{u_id}
+    </select>
+    
     <!-- 카카오 가입 후 정보입력 -->
     <update id="updateKakaoInfo" parameterType="String">
      update USER

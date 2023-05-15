@@ -207,33 +207,41 @@ public class JoinController {
         String email = (String) response_obj.get("email"); //선택동의
         String nickname = (String) response_obj2.get("nickname"); //필수동의
 
-        if(email==null) { //널체크 안되는중 
-        	return "/join/kakaoFail";
-        }else {
-        	String randomId=getRandomStr(8);
-        	UserDto userDto = new UserDto();
-        	userDto.setU_id(randomId); //랜덤아이디 부여
-        	userDto.setU_email(email);
-        	userDto.setU_name(nickname);
-
-        	session.setAttribute("loginStatus", "user");
-        	session.setAttribute("loginId", randomId);
-        	session.setAttribute("loginName", nickname);
+        //일반회원가입으로 가입된 이메일이 있다면 가입 거절
+        if(service.userSearchEmail(email)== 1 && service.findUserByEmail(email).getU_pw()!=null) { 
+        	return "redirect:/callback/kakaotalk/duplicatedemail";
         	
-        	if (service.userSearchEmail(email) != 1) { //email 있으면 1 없으면 0반환 -> 첫 로그인
-        		
-        		service.joinUser(userDto); //db저장
-        		String u_num=service.findUserByEmail(email).getU_num();
-        		return "redirect:/join/kakaoUserForm?u_num="+u_num;
-        		
-        	}else {
-        		
-        		return "redirect:/";
-        	}
+        //없는 경우 가입 진행 + 로그인
+        }else {
+	    	String randomId=getRandomStr(8);
+	    	UserDto userDto = new UserDto();
+	    	userDto.setU_id(randomId); //랜덤아이디 부여
+	    	userDto.setU_email(email);
+	    	userDto.setU_name(nickname);
+	
+	    	session.setAttribute("loginStatus", "user");
+	    	session.setAttribute("loginId", randomId);
+	    	session.setAttribute("loginName", nickname);
+	    	
+	    	//email 있으면 1 없으면 0반환
+	    	if (service.userSearchEmail(email) ==0) { //첫 로그인 ->회원가입 진행
+	    		
+	    		service.joinUser(userDto); //db저장
+	    		String u_num=service.findUserByEmail(email).getU_num();
+	    		return "redirect:/join/kakaoUserForm?u_num="+u_num;
+	    		
+	    	}else { //가입된 아이디 존재 ->로그인 후 홈으로 이동
+	    		
+	    		return "redirect:/";
+	    	}
         }
         
     }
     
+    @GetMapping("/callback/kakaotalk/duplicatedemail")
+    public String kakaoFail() {
+    	return "/join/kakaoFail";
+    }
     @GetMapping("/join/kakaoCheck")
     public String kakaoCheck() {
     	return "/join/kakaoUserformCheck";
