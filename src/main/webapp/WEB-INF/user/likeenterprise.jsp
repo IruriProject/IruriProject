@@ -68,33 +68,16 @@ div {
 							</tr>
 						</thead>
 						<tbody>
+						<c:forEach var="dto" items="${list }" varStatus="i">
 							<tr>
 								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
+								<td>{i.count}</td>
+								<td>${dto.e_name }</td>
 								<td><a class="btn btn-sm btn-primary glyphicon glyphicon-search" href="">상세페이지</a></td>
 							</tr>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">상세페이지</a></td>
-							</tr>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">상세페이지</a></td>
-							</tr>
+							
+							</c:forEach>
+							
 						</tbody>
 					</table>
 				</div>
