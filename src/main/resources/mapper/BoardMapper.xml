@@ -81,6 +81,11 @@
 		select * from B_COMMENT where b_num=#{b_num} order by bc_regroup desc,bc_restep asc
 	</select>
 
+	<!--추가  -->
+	<select id="getchildComments" parameterType="Map" resultType="bcdto">
+		select * from B_COMMENT where bc_regroup = #{bc_regroup} and bc_restep > #{bc_restep} order by bc_restep asc
+	</select>
+
 	<select id="getComment" parameterType="String" resultType="bcdto">
 		select * from B_COMMENT where bc_num=#{bc_num}
 	</select>
@@ -93,6 +98,11 @@
 		delete from B_COMMENT where bc_num=#{bc_num}
 	</delete>
 	
+	<delete id="deletechildComment" parameterType="int">
+		delete from B_COMMENT where bc_regroup=#{bc_regroup}
+	</delete>
+	
+	<!--추가-->
 	<!-- <insert id="insertComment" parameterType="bcdto">
 		insert into B_COMMENT (b_num, bc_loginid, bc_content, bc_writeday) values (#{b_num}, #{bc_loginid}, #{bc_content},now())
 	</insert> -->

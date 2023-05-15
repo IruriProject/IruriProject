@@ -52,18 +52,6 @@
   }
 
 </style>
-<!-- <script type="text/javascript">
-$(function(){
-	
-	$("#sort").change(function(){
-		var sort = $(this).val();
-		var keyword = $("#keyword").val();
-	    var url = "boardlist?sort=" + sort + "&keyword=" + keyword;
-	    location.href = url;
-		
-	});
-});
-</script>  -->
 <script>
 function updateUrl() {
   var sort = document.getElementById("sort").value;
@@ -140,7 +128,7 @@ function updateUrl() {
                         <img src="${root }/image/newicon.png" alt="newpng" style="width:21px; margin-bottom:4px; padding:1px;" />
                     </c:if>
                     <c:if test="${dto.b_acount>0 }">
-					<span><a href="content?b_num=${dto.b_num }&currentPage=${currentPage}"  style="color:red;">[${dto.b_acount}]</a></span>
+					<span><a href="detailboard?b_num=${dto.b_num }&currentPage=${currentPage}"  style="color:red;">[${dto.b_acount}]</a></span>
 					</c:if>
 					
                     <br>
@@ -148,7 +136,7 @@ function updateUrl() {
 					</a>	
 					
 					<br>
-					<div style="width:20%; height:30px; float:left; line-height:30px; color:gray;">
+					<div style="width:100%; height:30px; float:left; line-height:30px; color:gray;">
 					${dto.b_loginid }  <span style="color:#bebebe;"> <span style=" padding:1px;font-size:0.8em;">|</span> ${dto.b_time }</span>
 					</div>
 					</td>

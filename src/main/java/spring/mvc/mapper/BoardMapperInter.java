@@ -32,7 +32,9 @@ public interface BoardMapperInter {
 	public List<BCommentDto> getAllComments(String bc_num);
 	public void updateRestep(Map<String, Integer> map);
 	
-	
+	//추가
+	public List<BCommentDto> getchildComments(Map<String, Integer> map);
+	public void deletechildComment(int bc_regroup);
 	/*
 	 * 	public void insertComment(BCommentDto bc_dto);
 	 public void updateRestep(Map<String, Integer> map); //추가
