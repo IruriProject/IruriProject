@@ -37,7 +37,7 @@ public interface EFnMapperInter {
 	
 	//스크랩
 	public int scrapByPosting(String p_num);
-	public List<Map<String, Object>> scrapUserByPosting(String p_num);
+	public List<Map<String, Object>> scrapUserByPosting(Map<String, Object> map);
 	
 	//열람
 	public int viewerByPosting(String p_num);

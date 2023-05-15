@@ -1,6 +1,7 @@
 package spring.mvc.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.EnterpriseDto;
+import spring.mvc.dto.PostingDto;
 import spring.mvc.service.EFnService;
 import spring.mvc.service.EnterpriseService;
 import spring.mvc.service.UFnService;
@@ -64,10 +66,52 @@ public class EnterpriseController {
 	
 	
 	@GetMapping("/scraplist")
-	public ModelAndView scrapList(@RequestParam String p_num) {
+	public ModelAndView scrapList(@RequestParam String p_num, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
+		
 		ModelAndView mview=new ModelAndView();
 		
-		mview.addObject("list", efn_service.scrapUserByPosting(p_num));
+		int totalCount = efn_service.scrapByPosting(p_num);
+		
+		int totalPage; // 총 페이지수
+		int startPage; // 각 블럭(1,2,3..)의 시작페이지
+		int endPage;
+
+		// 각 블럭의 마지막 페이지
+		int start; // 각 페이지의 시작번호
+		int perpage = 5; // 한 페이지당 보여질 글 개수
+		int perBlock = 5; // 한 블럭당 보여지는 페이지 개수
+
+		// 총 페이지 개수
+		totalPage = totalCount / perpage + (totalCount % perpage == 0 ? 0 : 1);
+
+		// 각 블럭의 시작페이지 -> 현재페이지가 3 -> s:1, e:5 / 6 -> s:6, e:10
+		startPage = (currentPage - 1) / perBlock * perBlock + 1;
+		endPage = startPage + perBlock - 1;
+
+		// 총 페이지가 8이면 (6~10 -> end페이지를 8로 수정)
+		if (endPage > totalPage)
+			endPage = totalPage;
+
+		// 각페이지에서 불러올 시작번호
+		start = (currentPage - 1) * perpage;
+
+		// 메서드 불러오기
+		List<Map<String, Object>> list= efn_service.scrapUserByPosting(p_num,start,perpage);
+		
+		// 게시글 앞에 붙을 번호
+		int no = totalCount - (currentPage - 1) * perpage;
+
+		// 출력에 필요한 변수들 mview에 저장
+		mview.addObject("p_num", p_num);
+		mview.addObject("totalCount", totalCount);
+		mview.addObject("list", list);
+		mview.addObject("totalPage", totalPage);
+		mview.addObject("startPage", startPage);
+		mview.addObject("endPage", endPage);
+		mview.addObject("perBlock", perBlock);
+		mview.addObject("currentPage", currentPage);
+		mview.addObject("no", no);
+		
 		mview.setViewName("/posting/scrapList");
 		
 		return mview;

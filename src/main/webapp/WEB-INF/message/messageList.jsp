@@ -106,7 +106,7 @@ $(function(){
 			  <c:if test="${pp==currentPage }">
 				<li class="active">
 				 <c:if test="${keyword!=null }">
-			    <a href="messagelistt?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
+			    <a href="messagelist?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
 				</c:if>
 				<c:if test="${keyword==null }">
 					<a href="messagelist?currentPage=${pp}">${pp}</a>

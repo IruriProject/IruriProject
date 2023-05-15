@@ -20,11 +20,12 @@
 	</select>
 	
 	<!-- 공고별 스크랩한 유저 -->
-	<select id="scrapUserByPosting" parameterType="String" resultType="Map">
+	<select id="scrapUserByPosting" parameterType="Map" resultType="Map">
 		SELECT POSTING.*, SCRAP.*, USER.* FROM SCRAP
 		JOIN USER ON SCRAP.u_num = USER.u_num
 		JOIN POSTING ON SCRAP.p_num = POSTING.p_num
 		WHERE SCRAP.p_num = #{p_num}
+		order by s_num desc limit #{start},#{perpage}
 	</select>
 	
 	<!-- 공고별 열람 수 -->

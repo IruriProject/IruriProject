@@ -99,8 +99,14 @@ public class EFnService {
 		return mapper.scrapByPosting(p_num);
 	}
 	
-	public List<Map<String, Object>> scrapUserByPosting(String p_num){
-		return mapper.scrapUserByPosting(p_num);
+	public List<Map<String, Object>> scrapUserByPosting(String p_num,int start,int perpage){
+		Map<String, Object> map=new HashMap<>();
+		
+		map.put("p_num", p_num);
+		map.put("start", start);
+		map.put("perpage", perpage);
+		
+		return mapper.scrapUserByPosting(map);
 	}
 	
 	
