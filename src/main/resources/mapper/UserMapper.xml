@@ -34,4 +34,23 @@
 	insert into APPLICANT values(null,#{p_num},#{r_num},now())
 	</insert>
 	
+	<!-- 카카오 이메일로 회원등록여부 확인 -->
+	<select id="findUserByEmail" parameterType="String" resultType="udto">
+	select * from USER where u_email=#{u_email}
+	</select>
+	
+	 <select id="userSearchEmail" parameterType="String" resultType="int">
+        select count(*)
+        from USER
+        where u_email=#{u_email}
+    </select>
+    
+    <!-- 카카오 가입 후 정보입력 -->
+    <update id="updateKakaoInfo" parameterType="String">
+     update USER
+     set u_gender=#{u_gender},u_birth=#{u_birth},
+     u_hp=#{u_hp},u_addr=#{u_addr},u_email_agree=#{u_email_agree} 
+     where u_num=#{u_num}
+    </update>
+	
 </mapper>
