@@ -125,6 +125,22 @@
 		select * from POSTING where e_num=#{e_num} and p_published=true order by p_num desc
 	</select>
 	
+	<!-- 페이징 검색 추가 -->
+	<select id="getAllPostingsWithPagingSearch" parameterType="Map" resultType="pdto">
+	select * from POSTING where e_num=#{e_num} and p_published=true
+		<if test="searchcolumn!=null and searchword!=null">
+			 and ${searchcolumn} like concat('%',#{searchword},'%')
+		</if>
+		order by p_num desc limit #{start},#{perpage}
+	</select>
+	
+	<select id="getSearchCountWithPagingSearch" parameterType="Map" resultType="int">
+	select count(*) from POSTING where e_num=#{e_num} and p_published=true
+		<if test="searchcolumn!=null and searchword!=null">
+		and ${searchcolumn} like concat('%',#{searchword},'%')
+		</if>
+	</select>
+	
 	<select id="getPreviewPostings" parameterType="String" resultType="pdto">
 		select * from POSTING where e_num=#{e_num} and p_published=true order by p_num desc limit 0,3
 	</select>

@@ -21,7 +21,11 @@ public interface EFnMapperInter {
 	public void draftPosting(PostingDto dto);
 	public List<PostingDto> draftList(String e_num);
 	public int findPostingNum(String p_num);
+	
 	public List<PostingDto> getAllPostings(String e_num);
+	public List<PostingDto> getAllPostingsWithPagingSearch(Map<String, Object> map);
+	public int getSearchCountWithPagingSearch(Map<String, Object> map);
+	
 	public void updatePostingStatus(Map<String, String> map);
 	public List<PostingDto> getAddrPostings(Map<String, String> map);
 	public List<PostingDto> getPreviewPostings(String e_num);

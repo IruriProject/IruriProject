@@ -41,9 +41,35 @@ public class EFnService {
 		return mapper.findPostingNum(p_num);
 	}
 	
+	
+	
 	public List<PostingDto> getAllPostings(String e_num){
 		return mapper.getAllPostings(e_num);
-	}	
+	}
+	public List<PostingDto> getAllPostingsWithPagingSearch(String e_num,String searchcolumn,String searchword,int start, int perpage){
+		Map<String, Object> map =new HashMap<>();
+		map.put("e_num", e_num);
+		map.put("searchcolumn", searchcolumn);
+		map.put("searchword", searchword);
+		map.put("start", start);
+		map.put("perpage", perpage);
+		
+		return mapper.getAllPostingsWithPagingSearch(map);
+	}
+	public int getSearchCountWithPagingSearch(String e_num, String searchcolumn, String searchword) {
+		
+		Map<String, Object> map=new HashMap<>();
+		
+		map.put("e_num", e_num);
+		map.put("searchcolumn", searchcolumn);
+		map.put("searchword", searchword);
+		
+		return mapper.getSearchCountWithPagingSearch(map);
+	}
+	
+	
+	
+	
 	public List<PostingDto> getPreviewPostings(String e_num){
 		return mapper.getPreviewPostings(e_num);
 	}
