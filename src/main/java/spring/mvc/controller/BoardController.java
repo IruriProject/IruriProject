@@ -363,16 +363,20 @@ public class BoardController {
 	@ResponseBody
 	@PostMapping("/board/commentinsert")
 	public void commentinsert(@ModelAttribute BCommentDto bc_dto,
-			@RequestParam String b_num,
 			HttpSession session)
 	{
 		//세션에 로그인한 아이디 얻기 
 		String myid=(String)session.getAttribute("loginId");
 
+	
 		//dto에 넣기
-		bc_dto.setB_num(b_num);
 		bc_dto.setBc_loginid(myid);
-
+		
+		if (!bc_dto.getBc_num().equals("0")) {
+			bc_dto.setBc_regroup(bservice.getComment(bc_dto.getBc_num()).getBc_regroup());
+		    bc_dto.setBc_restep(bservice.getComment(bc_dto.getBc_num()).getBc_restep());
+		    bc_dto.setBc_relevel(bservice.getComment(bc_dto.getBc_num()).getBc_relevel());
+		}
 		//insert
 		bservice.insertComment(bc_dto);
 	}
@@ -382,7 +386,20 @@ public class BoardController {
 	@GetMapping("/board/commentlist")
 	public List<BCommentDto> commentlist(String b_num)
 	{
+		
 		return bservice.getAllComments(b_num);
+		
+	}
+	
+	
+	@GetMapping("/board/commentdelete")
+	public String commentdelete(String bc_num,
+			HttpSession session)
+	{
+	
+		mapper.deleteComment(bc_num);
+		
+		return "redirect:boardlist";
 	}
 	
 	/*

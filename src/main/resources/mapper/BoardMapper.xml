@@ -61,15 +61,44 @@
 	<delete id="deleteBoard" parameterType="String">
 		delete from BOARD where b_num=#{b_num}
 	</delete>
-	
-	<!--boardComment-->
-	
+
+
+	<!--boardComment -->
 	<insert id="insertComment" parameterType="bcdto">
-		insert into B_COMMENT (b_num, bc_loginid, bc_content, bc_writeday) values (#{b_num}, #{bc_loginid}, #{bc_content},now())
+		insert into B_COMMENT (b_num, bc_loginid, bc_content,bc_regroup, bc_restep, bc_relevel, bc_writeday) 
+		values (#{b_num}, #{bc_loginid}, #{bc_content}, #{bc_regroup}, #{bc_restep}, #{bc_relevel},now())
 	</insert>
+
+	<update id="updateRestep" parameterType="Map">
+		update B_COMMENT set bc_restep=bc_restep+1 where bc_regroup=#{bc_regroup} and bc_restep >#{bc_restep}
+	</update>
+
+	<update id="updateComment" parameterType="bcdto">
+		update B_COMMENT set bc_content=#{bc_content} where bc_num=#{bc_num}
+	</update>
+
+	<select id="getAllComments" parameterType="String" resultType="bcdto">
+		select * from B_COMMENT where b_num=#{b_num} order by bc_regroup desc,bc_restep asc
+	</select>
+
+	<select id="getComment" parameterType="String" resultType="bcdto">
+		select * from B_COMMENT where bc_num=#{bc_num}
+	</select>
+
+	<select id="getCommentMaxNum" resultType="int">
+		select ifnull(max(bc_num),0) from B_COMMENT
+	</select>
+	
+	<delete id="deleteComment" parameterType="String">
+		delete from B_COMMENT where bc_num=#{bc_num}
+	</delete>
+	
+	<!-- <insert id="insertComment" parameterType="bcdto">
+		insert into B_COMMENT (b_num, bc_loginid, bc_content, bc_writeday) values (#{b_num}, #{bc_loginid}, #{bc_content},now())
+	</insert> -->
 	
 	<!-- 최신글 올라가게  b_num desc -->
-	<select id="getAllComments" parameterType="String" resultType="bcdto">
+	<!-- <select id="getAllComments" parameterType="String" resultType="bcdto">
 		select * from B_COMMENT  where b_num=#{b_num} order by bc_num desc
 	</select>
 	
@@ -79,10 +108,6 @@
 	
 	<update id="updateComment" parameterType="bcdto">
 		update B_COMMENT set bc_content=#{bc_content} where b_num=#{b_num}
-	</update>
-	
-	<delete id="deleteComment" parameterType="String">
-		delete from B_COMMENT where bc_num=#{bc_num}
-	</delete>
+	</update> -->
 	
 </mapper>

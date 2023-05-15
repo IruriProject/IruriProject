@@ -24,11 +24,13 @@ public interface BoardMapperInter {
 	public void deleteBoard(String b_num);
 	
 	//comment
+	public void deleteComment(String bc_num);
+	public BCommentDto getComment(String bc_num);
+	public int getCommentMaxNum();
+	public void updateComment(BCommentDto bc_dto);
 	public void insertComment(BCommentDto bc_dto);
 	public List<BCommentDto> getAllComments(String bc_num);
-	public BCommentDto getComment(String b_num);
-	public void updateComment(BCommentDto bc_dto);
-	public void deleteComment(String bc_num);
+	public void updateRestep(Map<String, Integer> map);
 	
 	
 	/*

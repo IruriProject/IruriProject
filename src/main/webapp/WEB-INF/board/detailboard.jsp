@@ -28,6 +28,19 @@
 	margin-left:3%;
 }
 
+.formbold-reply-btn {
+	font-size: 16px;
+	border-radius: 5px;
+	padding: 8px 24px;
+	border: none;
+	font-weight: 500;
+	background-color: #4E9F3D;
+	color: white;
+	cursor: pointer;
+	margin-top: 25px;
+	float: right;
+}
+
 .formbold-comment-btn:hover {
 	box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
 }
@@ -51,6 +64,20 @@
 	resize: none;
 }
 
+.bcontent-commentreply-input{
+	float:left;
+	width: 86%;
+	height: 50px;
+	padding: 13px 22px;
+	border-radius: 5px;
+	border: 1px solid #dde3ec;
+	background: #ffffff;
+	font-weight: 500;
+	font-size: 16px;
+	color: #536387;
+	outline: none;
+	resize: none;
+}
 .bcontent-comment-input::placeholder {
 	color: rgba(83, 99, 135, 0.5);
 }
@@ -164,19 +191,44 @@
 </style>
 
 <script type="text/javascript">
-
 $(function(){
 	
 	//num값은 전역변수로 선언..
-	 num=$("#b_num").val();
-	 loginok="${sessionScope.loginStatus }";
-	 myid="${sessionScope.loginId}";
-	
+	num=$("#b_num").val();
+	loginok="${sessionScope.loginStatus }";
+	myid="${sessionScope.loginId}";
+
 	list();
+	 
 	
+	//댓글의 댓글창 show
+	$(document).on('click', '#btncomment', function() {
+
+	      $(this).closest('.reply-item').find('.reply-form').show();
+	    //alert("댓글 보이기 버튼이 클릭되었습니다.");
+	});
+	
+	//delete
+	$(document).on('click', '#commentdeletebtn', function() {
+	    var bc_num = $(this).closest('.reply-item').data('bc_num');
+	    alert(bc_num);
+	    // 서버로 댓글 삭제 요청을 보냄
+	    $.ajax({
+	        type: "get",
+	        dataType: "text",
+	        url: "commentdelete",
+	        data: {"bc_num": bc_num},
+	        success: function(){
+	            alert("댓글이 삭제되었습니다.");
+	            list();
+	        }
+	    });
+	});
+		
 	//insert
 	$("#btncommentadd").click(function(){
-		
+	
+	
 		var bc_content=$("#bc_content").val();
 		 
 		if(bc_content.trim().length==0){
@@ -185,13 +237,35 @@ $(function(){
 		}
 		
 		$.ajax({
+			type: "post",
+			dataType: "text",
+			url: "commentinsert",
+			data: {"b_num": num, "bc_num":"0", "bc_content": bc_content},
+			success: function(){
+				alert("인서트 성공");
+				$("#bc_content").val("");
+				list();
+			}
+		}); 
+	});
+	
+	  //댓글의 댓글 insert
+	 $(document).on('click', '.comment-answerbtn', function() {
+	    var bc_answercontent = $(this).siblings('.reply-content').val();
+        var bc_num = $(this).closest('.reply-item').data('bc_num');
+
+		if(bc_answercontent.trim().length == 0){
+			alert("댓글을 입력해주세요.");
+			return;
+		}
+		
+		$.ajax({
 			type : "post",
 			dataType : "text",
 		    url : "commentinsert",
-		    data :{"b_num":num,"bc_content":bc_content},
+		    data : {"b_num": num, "bc_num": bc_num, "bc_content": bc_answercontent},
 		    success : function(){
-		        alert("인서트성공");
-		        $("#bc_content").val("");
+		        alert("인서트 성공");
 		        list();
 			}
 		}); 
@@ -199,65 +273,64 @@ $(function(){
 	
 });
 
-
-//사용자 함수  list
+//사용자 함수 list
 function list() {
-	var num=$("#b_num").val();
-	 loginok="${sessionScope.loginStatus }";
-	 
-	$.ajax({
-		type : "get",
-		dataType : "json",
-		url : "commentlist",
-		data : {
-			"b_num" : num
-		},
-		success : function(res) {
-			$("span.acount").text(res.length);
-			var s = "";
-			
-			/* $.each(res,function(i, dto) {
-			     s += "<div class='answer'>";
-				 s += "<b class='name'>" + dto.bc_loginid + "</b><br><br><span class='content'>" + dto.bc_content + "</span>"; 
-				 s += "<span class='day'>" + dto.bc_writeday + "</span>";
-				if (loginok != 'null' && myid == dto.bc_loginid) {
-					s += "<span data-toggle='modal' data-target='#answermodal' class='glyphicon glyphicon-edit amod' b_num='" + dto.b_bum + "'></span>";
-					s += "&nbsp;&nbsp;";
-					s += "<span class='glyphicon glyphicon-remove adel' b_num='" + dto.b_num + "'></span>";
-				} 
-				s += "</div><hr>";
-			});
-			 */
-			 
-			 $.each(res,function(i, dto) {
-				 
-				 if (dto.bc_relevel != 0) {
-					    for (var i = 0; i < dto.bc_relevel; i++) {
-					        s += "&nbsp;&nbsp;&nbsp;";
-					    }
-					    s += "ㄴ";
-					}
-				   
-			     s += "<div class='answer'>";
-				 s += "<b class='name'>" + dto.bc_loginid + "</b>"; 
-				 s += "<span class='day'>" + dto.bc_writeday + "</span>";
+    var num = $("#b_num").val();
+    var loginok = "${sessionScope.loginStatus}";
 
+    $.ajax({
+        type: "get",
+        dataType: "json",
+        url: "commentlist",
+        data: {
+            "b_num": num
+        },
+        success: function (res) {
+            $("span.acount").text(res.length);
+            var s = "";
 
-					if (loginok != 'null' && myid == dto.bc_loginid) {
-						s+="<div class='dropdown' style='float:right;'>";
-						s+="<span class='glyphicon glyphicon-option-vertical' style='color: gray; font-size: 17px;'></span>";
-						s+="<div class='dropdown-content'>";
-						s+="<button type='button' data-toggle='modal' data-target='#answermodal'  style='text-align:center;' onclick='location.href='update?num="+ dto.b_num +"'>수정</button>";
-						s+="<button type='button' style='text-align:center;' onclick='location.href='delete?num="+ dto.b_num +"'>삭제</button>";
-						s+="<button type='button' style='text-align:center;'id ='btncomment' onclick='location.href='form?b_num="+dto.b_num+"&currentPage=${currentPage}&bc_regroup="+dto.bc_regroup+"&bc_restep="+dto.bc_restep+"&relevel="+dto.bc_relevel+"''>댓글</button>";
-						s+="</div></div>";
-					} 
-					
-				 s +="<br><br><span class='content'>" + dto.bc_content + "</span>";
-				 s += "</div><hr>";
-			});
+            res.sort(function (a, b) {
+                return a.bc_regroup - b.bc_regroup;
+            });
 
-			 
+            $.each(res, function (i, dto) {
+                s += "<div class='reply-item' data-bc_num='" + dto.bc_num + "'>";
+                s += "<b class='name'>" + dto.bc_loginid + "</b>";
+                s += "<span class='day'>" + dto.bc_writeday + "</span>";
+
+                s += "<div class='reply-form' style='width:70%;'><textarea class='bcontent-commentreply-input reply-content' placeholder='댓글을 입력해주세요'></textarea>";
+                s += "<button type='button' class='formbold-reply-btn comment-answerbtn'>등록</button></div>";
+
+                if (loginok != 'null' && myid == dto.bc_loginid) {
+                    s += "<div class='dropdown' style='float:right;'>";
+                    s += "<span class='glyphicon glyphicon-option-vertical' style='color: gray; font-size: 17px;'></span>";
+                    s += "<div class='dropdown-content'>";
+                    s += "<button type='button' data-toggle='modal' data-target='#answermodal' style='text-align:center;' onclick='location.href=\"update?num=" + dto.b_num + "\"'>수정</button>";
+                    s += "<button type='button' style='text-align:center;' id='commentdeletebtn'>삭제</button>";
+                    s += "<button type='button' style='text-align:center;' id='btncomment'>댓글</button>";
+                    s += "</div></div>";
+                }
+
+                if (dto.bc_relevel != 0) {
+                    for (var i = 0; i < dto.bc_relevel; i++) {
+                        s += "&nbsp;&nbsp;&nbsp;";
+                    }
+                    s += "ㄴ";
+                    s += "<br><br><span class='content'>" + dto.bc_content + "</span>";
+                } else {
+                    s += "<br><br><span class='content'>" + dto.bc_content + "</span>";
+                }
+
+                s += "</div><hr>";
+
+                // 새로운 댓글 아래에 댓글이 보이도록 처리
+                if (i === res.length - 1) {
+                    s += "<div class='reply-item' id='new-reply-item'>";
+                    s += "<div class='reply-form' style='display: none;'><textarea class='reply-content' placeholder='댓글을 입력해주세요'></textarea>";
+                    s += "<button type='button' class='comment-answerbtn'>등록</button></div>";
+                    s += "</div>";
+                }
+            });
 			 // 등록된 댓글이 없는 경우에 대한 처리
 	            if (res.length === 0) {
 	                s += "<div class='answer' style='text-align:center;'>";

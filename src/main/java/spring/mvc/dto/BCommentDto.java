@@ -13,7 +13,7 @@ import lombok.Data;
 public class BCommentDto {
 
 	//private String bc_num;// int 로변경
-	private int bc_num;
+	private String bc_num;
 	private String b_num;
 	private String bc_loginid;
 	private String bc_content;
