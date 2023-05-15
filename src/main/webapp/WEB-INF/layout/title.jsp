@@ -289,7 +289,8 @@ $(document).ready(function(){
 	<!-- 로그인 상태 / 개인 -->
 	<c:if test="${sessionScope.loginStatus=='user' }">
 	${sessionScope.loginName }님 안녕하세요
-	<span class="glyphicon glyphicon-envelope" style="padding:0 10px;"></span> <br>
+	<span class="glyphicon glyphicon-envelope" style="padding:0 10px; cursor: pointer;"
+	onclick="location.href='mymessage'"></span> <br>
 	<a href="/logout" style="padding-left: 100px;">로그아웃</a>
 	</c:if>
 	

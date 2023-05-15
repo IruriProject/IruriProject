@@ -57,8 +57,14 @@ text-align: center;
 								<th scope="col" style="width:110px;">이력서 관리</th>
 							</tr>
 						</thead>
+						<c:if test="${list.size()==0 }">
+							<tr align="center">
+								<td colspan="5">이력서가 존재하지 않습니다.<br>
+								대표 이력서를 등록해보세요!</td>
+							</tr>
+						</c:if>
 						<c:forEach var="dto" items="${list }" varStatus="i">
-							<tr data-rnum="${dto.r_num}">
+							<tr data-rnum="${dto.r_num}", data-rpresume="${dto.r_presume }">
 								<td>${i.count}</td>
 								
 								
@@ -155,6 +161,11 @@ text-align: center;
 	
 	$(".setPrivate").click(function(){
 		 var r_num = $(this).closest("tr").data("rnum");
+		 var r_presume = $(this).closest("tr").data("rpresume");
+		 if(r_presume==1){
+			 alert("대표이력서는 비공개 설정이 불가능합니다.");
+			 return false;
+		 }
 		$.ajax({
 			type:"post",
 			dataType:"html",
@@ -168,15 +179,20 @@ text-align: center;
 	
 	$(".setPublic").click(function(){
 		 var r_num = $(this).closest("tr").data("rnum");
-		$.ajax({
-			type:"post",
-			dataType:"html",
-			data:{"r_num":r_num},
-			url:"/updatePublic",
-			success:function(){
-				location.reload();
-			}
-		})
+		 var result = confirm("이력서를 공개로 전환하시겠습니까?");
+		 if(result==true){
+			$.ajax({
+				type:"post",
+				dataType:"html",
+				data:{"r_num":r_num},
+				url:"/updatePublic",
+				success:function(){
+					location.reload();
+				}
+			}) 
+		 }else{
+			 return false;
+		 }
 	})
 	</script>
 </body>

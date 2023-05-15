@@ -64,6 +64,12 @@ div {
 	background-color: #e3f2c9;
 	border-radius: 10px;
 }
+.myresume{
+font-size:1.2em; display:flex; flex-direction: row; justify-content: space-around;
+}
+.spanbutton{
+cursor: pointer;
+}
 </style>
 </head>
 
@@ -71,16 +77,22 @@ div {
 	<div>
 		<!-- Content Start -->
 		<div class="container-fluid pt-4 px-4">
-			<div class="row g-4" style="border: 1px solid gray">
+			<div class="row g-4" style="border: 1px solid green; border-radius: 10px; padding-bottom: 10px;">
 				<div class="col-sm-12 col-md-3 col-xl-4 w-25">
 					<div style="width: 150px; height: 200px;" id="photoZone">
-						<img alt="" src="/photo/${dto.u_photo}"
-							style="width: 150px; height: 200px;">
+					<c:if test="${dto.u_photo==null }">
+						<img src="/image/nophoto.png"
+						style="width: 170px; height: 170px; border-radius: 500px; margin-top:10px;">
+					</c:if>
+					<c:if test="${dto.u_photo!=null }">
+							<img alt="" src="/photo/${dto.u_photo}"
+							style="width: 170px; height: 170px; border-radius: 500px; margin-top:10px;">
+					</c:if>
 					</div>
 					${sessionScope.loginName }<br> ${dto.u_gender } / 나이 들어가야함<br>
-					<button type="button" data-toggle="modal" data-target="#myPhoto">사진
-						등록 및 변경</button><br>
-					<button type="button" onclick="location.href='update'">개인정보
+					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myPhoto">사진
+						변경</button>
+					<button type="button" class="btn btn-default" onclick="location.href='update'">개인정보
 						수정</button>
 					<div>
 						<!-- Modal -->
@@ -91,7 +103,7 @@ div {
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title">사진 등록</h4>
+										<h4 class="modal-title">사진 변경</h4>
 									</div>
 									<div class="modal-body">
 										<input type="file" id="inputFile">
@@ -120,7 +132,7 @@ div {
 								<!-- 이력서 목록 페이지로 -->
 							</c:if>
 							<c:if test="${rdto.r_title!=null}">
-								<h3>${rdto.r_title}</h3>
+								<h2>${rdto.r_title}</h2>
 								<br>
                         최종수정일 : ${rdto.r_writeday }<br>
 
@@ -170,20 +182,19 @@ div {
                   })
                </script>
                <br>
-               <div class="h-100 bg-light rounded p-4">
-                  <button type="button" onclick="location.href='insertresume'">이력서
-                     등록</button>
-                  <button type="button" onclick="location.href='resumelist'">내
-                     이력서 목록</button>
-                  <button type="button">지원현황</button>
+               <div class="h-100 bg-light rounded p-4 myresume">
+                  <span class="spanbutton" onclick="location.href='insertresume'">이력서
+                     등록</span>
+                  <span class="spanbutton" onclick="location.href='resumelist'">이력서 목록</span>
+                  <span type="button">지원현황</span>
                   <br>
                </div>
                <br>
-               <div class="h-100 bg-light rounded p-4">
-               	  <span class="gwansim" onclick="location.href='enterLike'">관심기업<i class="fa-solid fa-heart"></i> ${countLikeEnter }</span>&nbsp;&nbsp;&nbsp;&nbsp;
-               	  <span class="gwansim" onclick="location.href=''">관심직종<i class="fa-solid fa-briefcase"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
-               	  <span class="gwansim" onclick="location.href=''">관심공고<i class="fa-solid fa-star"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
-               	  <span class="gwansim" onclick="location.href=''">관심근무지<i class="fa-solid fa-location-dot"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
+               <div class="h-100 bg-light rounded p-4 myresume">
+               	  <span class="gwansim" onclick="location.href='enterLike'">관심기업<i class="fa-solid fa-heart"></i> ${countLikeEnter }</span>
+               	  <span class="gwansim" onclick="location.href=''">관심직종<i class="fa-solid fa-briefcase"></i></span>
+               	  <span class="gwansim" onclick="location.href=''">관심공고<i class="fa-solid fa-star"></i></span>
+               	 
                   <br>
                </div>
             </div>
@@ -269,9 +280,15 @@ div {
 								<th scope="col" style="width: 110px;">이력서 관리</th>
 							</tr>
 						</thead>
+						<c:if test="${list.size()==0 }">
+							<tr align="center">
+								<td colspan="5">이력서가 존재하지 않습니다.<br>
+								대표 이력서를 등록해보세요!</td>
+							</tr>
+						</c:if>
 						<c:forEach var="dto" items="${list }" varStatus="i">
 							<c:if test="${i.count<=3 }">
-								<tr data-rnum="${dto.r_num}">
+								<tr data-rnum="${dto.r_num}", data-rpresume="${dto.r_presume }">
 									<td>${i.count}</td>
 									<td
 										style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
@@ -309,7 +326,7 @@ div {
 										</c:if></td>
 
 									<td><button type="button" onclick="location.href='updateresume?r_num=${dto.r_num}'">수정</button>
-										<button type="button" onclick="location.href='#'">삭제</button></td>
+										<button type="button" class="deleteRes">삭제</button></td>
 
 								</tr>
 							</c:if>
@@ -585,6 +602,23 @@ div {
 	</script>
 	<!-- 대표/공개 설정 -->
 	<script type="text/javascript">
+	$(".deleteRes").click(function(){
+		var r_num = $(this).closest("tr").data("rnum");
+		var result = confirm("정말 삭제하시겠습니까?");
+		if(result==true){
+			$.ajax({
+				data:{"r_num":r_num},
+				dataType:"html",
+				url:"deleteResume",
+				success:function(){
+					alert("삭제되었습니다.");
+					location.reload();
+				},error: function() {
+			        alert("에러!");
+			    }
+			})
+		}
+	})
 		$(".setMainOff").click(function() {
 			var r_num = $(this).closest("tr").data("rnum");
 			$.ajax({
@@ -614,35 +648,41 @@ div {
 			})
 		})
 
-		$(".setPrivate").click(function() {
-			var r_num = $(this).closest("tr").data("rnum");
-			$.ajax({
-				type : "post",
-				dataType : "html",
-				data : {
-					"r_num" : r_num
-				},
-				url : "/updatePrivate",
-				success : function() {
-					location.reload();
-				}
-			})
+		$(".setPrivate").click(function(){
+		 var r_num = $(this).closest("tr").data("rnum");
+		 var r_presume = $(this).closest("tr").data("rpresume");
+		 if(r_presume==1){
+			 alert("대표이력서는 비공개 설정이 불가능합니다.");
+			 return false;
+		 }
+		$.ajax({
+			type:"post",
+			dataType:"html",
+			data:{"r_num":r_num},
+			url:"/updatePrivate",
+			success:function(){
+				location.reload();
+			}
 		})
+	})
 
-		$(".setPublic").click(function() {
-			var r_num = $(this).closest("tr").data("rnum");
+		$(".setPublic").click(function(){
+		 var r_num = $(this).closest("tr").data("rnum");
+		 var result = confirm("이력서를 공개로 전환하시겠습니까?");
+		 if(result==true){
 			$.ajax({
-				type : "post",
-				dataType : "html",
-				data : {
-					"r_num" : r_num
-				},
-				url : "/updatePublic",
-				success : function() {
+				type:"post",
+				dataType:"html",
+				data:{"r_num":r_num},
+				url:"/updatePublic",
+				success:function(){
 					location.reload();
 				}
-			})
-		})
+			}) 
+		 }else{
+			 return false;
+		 }
+	})
 	</script>
 </body>
 
