@@ -276,28 +276,41 @@
           class="formbold-form-input"
         />
       <div id="pwcheck"></div>
-      <input type="hidden" id="pwChecked" value="ok">
+      <input type="text" id="pwChecked" value="ok">
       </div>
       
       <script type="text/javascript">
 	
-        $("#pw1").onkeyup(function(){
+        $("#pw1").keyup(function(){
 
+		    pw1=$("#pw1").val();
+		    pw2=$("#pw2").val();
+		    
 	    	$('#pwcheck').html('');
 	    	$("#pwChecked").val("no");
+	    	
+	    	if(pw2.length!=0){
+				if(pw1!=pw2){
+				 $("#pwcheck").html("비밀번호가 일치하지 않습니다.").css("color","red");
+				 $("#pwChecked").val("no");
+				}else{
+				 $("#pwcheck").html("유효한 비밀번호입니다.").css("color","green");
+				 $("#pwChecked").val("ok");
+				}
+	    	}
         })
       
-	    $("#pw2").onkeyup(function(){
-	    	
-		      pw1=$("#pw1").val();
-		      pw2=$("#pw2").val();
+	    $("#pw2").keyup(function(){
+
+		    pw1=$("#pw1").val();
+		    pw2=$("#pw2").val();
 		      
 		      if(pw1!=pw2){
-	    		  $("#pwcheck").html("비밀번호가 일치하지 않습니다.");
-	    	  }else{
-	    		  $("#pwcheck").html("유효한 비밀번호입니다.");
-	    		  $("#pwcheck").css("color","green");
+		    	  $("#pwcheck").html("비밀번호가 일치하지 않습니다.").css("color","red");
 	    		  $("#pwChecked").val("no");
+	    	  }else{
+	    		  $("#pwcheck").html("유효한 비밀번호입니다.").css("color","green");
+	    		  $("#pwChecked").val("ok");
 	    	  }
 	      })
             
@@ -349,10 +362,38 @@
           type="email"
           name="u_email"
           id="u_email"
+          onkeyup="emailcheckClean();" onkeydown="emailcheckClean();"
           placeholder="example@email.com 형태로 입력해주세요" required
           class="formbold-form-input"
         />
       </div>
+      <div id="emailcheck" chk="0"></div>
+      
+      <script type="text/javascript">
+          
+      	  $("#u_email").keyup(function(){
+      		  
+      		  const email=$("#u_email").val();
+      		  
+      		  $.ajax({
+      			  type:"get",
+      			  url:"/emailcheck",
+      			  dateType:"json",
+      			  data:{"u_email":email},
+      			  success:function(res){
+      				  if(res==1){
+	      				  $("#emailcheck").html("이미 사용중인 이메일입니다<br>").css("color","red");
+  	      				  $("#emailcheck").attr("chk","1");
+      				  }else{
+      					  $("#emailcheck").html("");
+      					  $("#emailcheck").attr("chk","0");
+      				  }
+      			  }
+      			  
+      		  })
+      	  })
+          
+      </script>
 
       <div class="formbold-mb-3">
         <label class="formbold-form-label"> 주소 </label>
@@ -409,6 +450,8 @@
 <script>
 
 	$("#btnjoin").click(function(){
+		
+		alert($("#emailcheck").attr("chk"));
 		//아이디 중복확인 버튼 클릭 여부 확인
 		if(document.joinform.isDuplication.value!='isChecked'){
 			alert("아이디 중복확인을 해주세요");
@@ -424,6 +467,12 @@
 		//핸드폰 번호 유효성 확인
 		if($("#phone").val().toString().length!=11){
 			alert("핸드폰 번호를 확인해주세요.");
+			return false;
+		}
+		
+		//이메일 중복 확인
+		if($("#emailcheck").attr("chk")==1){
+			alert("이메일을 확인해주세요.");
 			return false;
 		}
 	})

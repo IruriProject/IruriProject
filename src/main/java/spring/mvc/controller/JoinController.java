@@ -273,5 +273,11 @@ public class JoinController {
 		service.updateKakaoInfo(u_num);
 		return "/join/joinPassSuccess";
    }
+   
+   @GetMapping("/emailcheck")
+   @ResponseBody
+   public int emailCheck(String u_email){
+	   return service.userSearchEmail(u_email);
+   }
 
 }
