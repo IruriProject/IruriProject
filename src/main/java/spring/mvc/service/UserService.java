@@ -49,5 +49,16 @@ public class UserService {
 	public UserDto findUserByNum(String u_num) {
 		return mapper.findUserByNum(u_num);
 	}
-
+	
+	public UserDto findUserByEmail(String u_email) {
+		return mapper.findUserByEmail(u_email);
+	}
+	
+	public int userSearchEmail(String u_email) {
+		return mapper.userSearchEmail(u_email);
+	}
+	
+	public void updateKakaoInfo(String u_num) {
+		mapper.updateKakaoInfo(u_num);
+	}
 }
