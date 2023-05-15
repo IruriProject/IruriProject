@@ -80,23 +80,63 @@ public class BoardService {
 	}
 	
 	//boardComment
+	
+	 public void updateRestep(int bc_regroup, int bc_restep) {
+	      // TODO Auto-generated method stub
+	      Map<String, Integer> map=new HashMap<>();
+	      
+	      map.put("bc_regroup", bc_regroup);
+	      map.put("bc_restep", bc_restep);
+	      mapperInter.updateRestep(map);
+	   }
+	 
 	public void insertComment(BCommentDto bc_dto) {
 		// TODO Auto-generated method stub
-		mapperInter.insertComment(bc_dto);
+		
+		  String bc_num=bc_dto.getBc_num();
+	      int bc_regroup=bc_dto.getBc_regroup();
+	      int bc_restep=bc_dto.getBc_restep();
+	      int bc_relevel= bc_dto.getBc_relevel();
+	      
+	      if(bc_num.equals("0")) {  //새글
+	         
+	    	  bc_regroup=this.getCommentMaxNum()+1;
+	    	  bc_restep=0;
+	    	  bc_relevel=0;
+	    	  
+	      }  else {     //답글
+	         	       
+	         this.updateRestep(bc_regroup, bc_restep);
+	         
+	         //그 이후에 전달받은 값보다 1크게 db에 저장
+	         bc_restep++;
+	         bc_relevel++;
+	      }
+	      
+	      //변경된 값을 다시 dto에 담는다
+	      bc_dto.setBc_regroup(bc_regroup);
+	      bc_dto.setBc_restep(bc_restep);
+	      bc_dto.setBc_relevel(bc_relevel);
+
+	      mapperInter.insertComment(bc_dto);
 	}
 
 	
-	public List<BCommentDto> getAllComments(String b_num) {
+	public List<BCommentDto> getAllComments(String bc_num) {
 		// TODO Auto-generated method stub
-		return mapperInter.getAllComments(b_num);
+		return mapperInter.getAllComments(bc_num);
 	}
 
 	
-	public BCommentDto getComment(String b_num) {
+	public BCommentDto getComment(String bc_num) {
 		// TODO Auto-generated method stub
-		return mapperInter.getComment(b_num);
+		return mapperInter.getComment(bc_num);
 	}
-
+	
+	public int getCommentMaxNum() {
+		
+		return mapperInter.getCommentMaxNum();
+	}
 	
 	public void updateComment(BCommentDto bc_dto) {
 		// TODO Auto-generated method stub
@@ -104,9 +144,9 @@ public class BoardService {
 	}
 
 	
-	public void deleteComment(String b_num) {
+	public void deleteComment(String bc_num) {
 		// TODO Auto-generated method stub
-		mapperInter.deleteComment(b_num);
+		mapperInter.deleteComment(bc_num);
 	}
 	
 
