@@ -34,11 +34,12 @@
 	</select>
 	
 	<!-- 공고별 열람한 유저 -->
-	<select id="viewerUserByPosting" parameterType="String" resultType="Map">
+	<select id="viewerUserByPosting" parameterType="Map" resultType="Map">
 		SELECT POSTING.*, VIEWER.*, USER.* FROM VIEWER
 		JOIN USER ON VIEWER.u_num = USER.u_num
 		JOIN POSTING ON VIEWER.p_num = POSTING.p_num
 		WHERE VIEWER.p_num = #{p_num}
+		order by v_num desc limit #{start},#{perpage}
 	</select>
 	
 	<!-- 최근 공고 불러오기 -->

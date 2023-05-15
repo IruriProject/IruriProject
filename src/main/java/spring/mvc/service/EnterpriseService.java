@@ -55,8 +55,20 @@ public class EnterpriseService {
 	public List<ApplicantDto> getAllResumeOfEnter(String e_num){
 		return mapper.getApplicantsByEnterprise(e_num);
 	}
-	public  List<Map<String, Object>> heartByEnter(String e_num) {
+	
+	public int heartByEnter(String e_num) {
 		return mapper.heartByEnter(e_num);
+	}
+	
+	public List<Map<String, Object>> heartUserByEnter(String e_num, int start, int perpage) {
+		
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("e_num", e_num);
+		map.put("start", start);
+		map.put("perpage", perpage);
+		
+		return mapper.heartUserByEnter(map);
 	}
 	
 	public void authCertificate(String e_num) {

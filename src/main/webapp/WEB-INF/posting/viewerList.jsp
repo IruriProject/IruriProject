@@ -38,7 +38,8 @@
 		<c:forEach var="dto" items="${list }" varStatus="i">
 		
 			<tr align="center">
-				<td>${i.count }</td>
+				<td>${no }</td>
+				<c:set value="${no-1 }" var="no"/>
 				<td>${dto.u_name }</td>
 				<td>${dto.u_gender }</td>
 				<td>${dto.u_birth }</td>
@@ -49,6 +50,33 @@
 			</tr>
 		</c:forEach>
 	</table>
+	
+	<!-- 페이징 -->
+		<div style="width: 800px; text-align: center;">
+			<ul class="pagination">
+
+				<!-- 이전 -->
+				<c:if test="${startPage > 1 }">
+					<li><a href="/enterprise/viewerlist?p_num=${p_num }&currentPage=${startPage - 1 }">이전</a></li>
+				</c:if>
+				<c:forEach var="pp" begin="${startPage }" end="${endPage }">
+
+					<c:if test="${pp == currentPage }">
+						<li class="active"><a href="/enterprise/viewerlist?p_num=${p_num }&currentPage=${pp }">${pp }</a></li>
+					</c:if>
+					<c:if test="${pp != currentPage }">
+						<li><a href="/enterprise/viewerlist?p_num=${p_num }&currentPage=${pp }">${pp }</a></li>
+					</c:if>
+
+				</c:forEach>
+
+				<!-- 다음 -->
+				<c:if test="${endPage < totalPage }">
+					<li><a href="/enterprise/viewerlist?p_num=${p_num }&currentPage=${endPage + 1 }">다음</a></li>
+				</c:if>
+
+			</ul>
+		</div>
 
 </body>
 </html>

@@ -37,7 +37,8 @@
 		</c:if>
 		<c:forEach var="dto" items="${list }" varStatus="i">
 			<tr align="center">
-				<td>${i.count }</td>
+				<td>${no }</td>
+				<c:set value="${no-1 }" var="no"/>
 				<td>${dto.u_name }</td>
 				<td>${dto.u_gender }</td>
 				<td>${dto.u_birth }</td>

@@ -41,7 +41,7 @@ public interface EFnMapperInter {
 	
 	//열람
 	public int viewerByPosting(String p_num);
-	public List<Map<String, Object>> viewerUserByPosting(String p_num);
+	public List<Map<String, Object>> viewerUserByPosting(Map<String, Object> map);
 
 	public List<PostingDto> getSearchList(Map<String, Object> map);
 	public int getsearchTotalCount(Map<String, String>map);
