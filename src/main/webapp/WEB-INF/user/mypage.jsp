@@ -173,9 +173,9 @@ div {
                <div class="h-100 bg-light rounded p-4">
                   <button type="button" onclick="location.href='insertresume'">이력서
                      등록</button>
-                  <button type="button">지원현황</button>
                   <button type="button" onclick="location.href='resumelist'">내
                      이력서 목록</button>
+                  <button type="button">지원현황</button>
                   <br>
                </div>
                <br>
