@@ -52,7 +52,7 @@ td {
             </div>
             <br>
             <div class="formbold-input-wrapp formbold-mb-3"
-               style="height: 250px;">
+               style="height: 250px; border: 2px solid green;">
                <label for="p_title" class="formbold-form-label"> 기본정보 </label> <span
                   style="font-size: 2em">${sessionScope.loginName }</span>
                <div style="float: left; width: 150px; height: 200px; margin-right:20px;">
