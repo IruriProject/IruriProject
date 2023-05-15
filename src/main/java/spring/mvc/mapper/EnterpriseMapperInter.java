@@ -37,5 +37,7 @@ public interface EnterpriseMapperInter {
 	public List<Map<String, Object>> heartUserByEnter(Map<String, Object> map);
 	
 	public void authCertificate(String e_num);
+	
+	public List<Map<String, Object>> applicantByEnterprise(String e_num);
 }
 

@@ -1,5 +1,7 @@
 package spring.mvc.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +54,139 @@ public class EnterpriseController {
 
 		return mview;
 	}
+	
+	@GetMapping("/enterprisepage")
+	public ModelAndView enterprisePageForUser(HttpSession session) {
+		ModelAndView mview = new ModelAndView();
+
+		String loginId = (String) session.getAttribute("loginId");
+		EnterpriseDto dto = service.findEnterdataById(loginId);
+
+		mview.addObject("dto", dto);
+		mview.addObject("heartCount", service.heartByEnter(dto.getE_num()));
+		mview.addObject("postings", efn_service.getPreviewPostings(dto.getE_num()));
+		mview.addObject("postingCount", efn_service.getAllPostings(dto.getE_num()).size());
+
+		mview.setViewName("/enterprise/enterprisePageForUser");
+
+		return mview;
+	}
+	
+	
+	@GetMapping("/gendergraph")
+	@ResponseBody
+	public List<Map<String, Object>> genderGraph(@RequestParam String e_num) {
+
+		List<Map<String, Object>> list = service.applicantByEnterprise(e_num);
+
+		int female = 0;
+		int male = 0;
+
+		for (Map<String, Object> a : list) {
+			Object b = a.get("u_gender");
+			if (b.equals("여"))
+				female++;
+			else
+				male++;
+		}
+
+		List<Map<String, Object>> result = new ArrayList<>();
+
+		Map<String, Object> map1 = new HashMap<>();
+		map1.put("gender", "여자");
+		map1.put("count", female);
+
+		Map<String, Object> map2 = new HashMap<>();
+		map2.put("gender", "남자");
+		map2.put("count", male);
+
+		result.add(map1);
+		result.add(map2);
+
+		return result;
+	}
+
+	@GetMapping("/agegraph")
+	@ResponseBody
+	public List<Map<String, Object>> ageGraph(@RequestParam String e_num) {
+
+		List<Map<String, Object>> list = service.applicantByEnterprise(e_num);
+
+		int underthirties = 0;
+		int thirties = 0;
+		int fourties = 0;
+		int fifties = 0;
+		int sixties = 0;
+		int others = 0;
+
+		for (Map<String, Object> a : list) {
+			String b = a.get("u_birth").toString();
+			String[] bb = b.split("-");
+
+			LocalDate now = LocalDate.now();
+
+			int age = now.getYear() - Integer.parseInt(bb[0]) + 1;
+
+			switch (age / 10) {
+			case 2:
+				underthirties++;
+				break;
+			case 3:
+				thirties++;
+				break;
+			case 4:
+				fourties++;
+				break;
+			case 5:
+				fifties++;
+				break;
+			case 6:
+				sixties++;
+				break;
+			default:
+				others++;
+				break;
+			}
+
+		}
+
+		List<Map<String, Object>> result = new ArrayList<>();
+
+		Map<String, Object> map1 = new HashMap<>();
+		map1.put("age", "30대 이하");
+		map1.put("count", underthirties);
+
+		Map<String, Object> map2 = new HashMap<>();
+		map2.put("age", "30대");
+		map2.put("count", thirties);
+
+		Map<String, Object> map3 = new HashMap<>();
+		map3.put("age", "40대");
+		map3.put("count", fourties);
+
+		Map<String, Object> map4 = new HashMap<>();
+		map4.put("age", "50대");
+		map4.put("count", fifties);
+
+		Map<String, Object> map5 = new HashMap<>();
+		map5.put("age", "60대");
+		map5.put("count", sixties);
+
+		Map<String, Object> map6 = new HashMap<>();
+		map6.put("age", "60대 이상");
+		map6.put("count", others);
+
+		result.add(map1);
+		result.add(map2);
+		result.add(map3);
+		result.add(map4);
+		result.add(map5);
+		result.add(map6);
+
+		return result;
+	}
+	
+	
 
 	@GetMapping("/counting")
 	@ResponseBody

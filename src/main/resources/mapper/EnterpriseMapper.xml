@@ -69,4 +69,15 @@
 		update ENTERPRISE set e_auth=1 where e_num=#{e_num}
 	</update>
 	
+	<!-- 분포도 -->
+	<select id="applicantByEnterprise" parameterType="String" resultType="Map">
+		SELECT a.*, u.*
+    FROM APPLICANT AS a
+    JOIN RESUME AS r ON a.r_num = r.r_num
+    JOIN USER AS u ON r.u_num = u.u_num
+    JOIN POSTING AS p ON a.p_num = p.p_num
+    JOIN ENTERPRISE AS e ON p.e_num = e.e_num
+    WHERE e.e_num = #{e_num};
+	</select>
+	
 </mapper>

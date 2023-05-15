@@ -74,4 +74,8 @@ public class EnterpriseService {
 	public void authCertificate(String e_num) {
 		mapper.authCertificate(e_num);
 	}
+	
+	public List<Map<String, Object>> applicantByEnterprise(String e_num) {
+		return mapper.applicantByEnterprise(e_num);
+	}
 }
