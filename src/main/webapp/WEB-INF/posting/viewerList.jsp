@@ -12,13 +12,6 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 <body>
-	<form class="form-inline" style="width: 100%; margin: 0 auto">
-		<select class="form-control">
-			<option>인재이름</option>
-		</select> <input type="text" placeholder="검색어 입력" class="form-control">
-		<button type="button" class="btn btn-info">검색</button>
-	</form>
-	<br>
 	<table class="table" style="width: 100%; margin: 0 auto;">
 		<c:forEach var="dto" items="${list }" varStatus="i" end="0">
 			<caption>
