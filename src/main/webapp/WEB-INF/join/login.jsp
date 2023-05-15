@@ -121,6 +121,7 @@
 </head>
 <body>
 
+
 <!-- 개인로그인 -->
 <div class="formbold-main-wrapper">
   <div class="formbold-form-wrapper">
@@ -142,6 +143,10 @@
           class="formbold-form-input"
         />
       </div>
+
+<button type="button" class="btn" onclick="location.href='${urlKakao}'" style="border: none; background-color: #fff;">
+ 	<img src="../../img/kakao_login_medium.png" style="width: 180px; height: 45px;">
+ </button> 
 
       <button type="submit" class="formbold-btn">로그인</button>
     </form>
@@ -174,6 +179,7 @@
     </form>
   </div>
 </div>
+
 
 </body>
 

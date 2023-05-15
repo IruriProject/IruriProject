@@ -1,19 +1,28 @@
 package spring.mvc.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.github.scribejava.core.model.OAuth2AccessToken;
+
+import spring.mvc.controller.kakaoApi.KakaoLoginBO;
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.UserDto;
 import spring.mvc.service.EnterpriseService;
@@ -27,7 +36,12 @@ public class JoinController {
 	
 	@Autowired
 	EnterpriseService eservice;
+	
+	@Autowired
+    private KakaoLoginBO kakaoLoginBO;
 
+	private String apiResult = null;
+	
 	@GetMapping("/join")
 	public String joinPage() {
 		return "/join/select";
@@ -44,7 +58,12 @@ public class JoinController {
 	}
 	
 	@GetMapping("/login")
-	public String loginPage() {
+	public String loginPage(Model model, HttpSession session) {
+		
+		String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
+        System.out.println("카카오:" + kakaoAuthUrl);
+        model.addAttribute("urlKakao", kakaoAuthUrl);
+        
 		return "/join/login";
 	}
 	
@@ -151,4 +170,100 @@ public class JoinController {
 		return map;
 	}
 	
+	public static String getRandomStr(int size) {
+		if(size > 0) {
+			char[] tmp = new char[size];
+			for(int i=0; i<tmp.length; i++) {
+				int div = (int) Math.floor( Math.random() * 2 );
+				
+				if(div == 0) { // 0이면 숫자로
+					tmp[i] = (char) (Math.random() * 10 + '0') ;
+				}else { //1이면 알파벳
+					tmp[i] = (char) (Math.random() * 26 + 'A') ;
+				}
+			}
+			return new String(tmp);
+		}
+		return "ERROR : Size is required."; 
+	}
+	
+	
+	/////////////kakao
+    @RequestMapping(value = "/callback/kakaotalk", method = {RequestMethod.GET, RequestMethod.POST})
+    public String callbackKakao(Model model, @RequestParam String code, @RequestParam(value="state", required=false) String state, HttpSession session) throws Exception {
+
+        System.out.println("카카오 로그인 성공 callbackKakao");
+        OAuth2AccessToken oauthToken;
+        oauthToken = kakaoLoginBO.getAccessToken(session, code, state);
+        apiResult = kakaoLoginBO.getUserProfile(oauthToken);
+
+        JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObj;
+
+        jsonObj = (JSONObject) jsonParser.parse(apiResult);
+        JSONObject response_obj = (JSONObject) jsonObj.get("kakao_account");
+        JSONObject response_obj2 = (JSONObject) response_obj.get("profile");
+
+        String email = (String) response_obj.get("email"); //선택동의
+        String nickname = (String) response_obj2.get("nickname"); //필수동의
+
+        if(email==null) { //널체크 안되는중 
+        	return "/join/kakaoFail";
+        }else {
+        	String randomId=getRandomStr(8);
+        	UserDto userDto = new UserDto();
+        	userDto.setU_id(randomId); //랜덤아이디 부여
+        	userDto.setU_email(email);
+        	userDto.setU_name(nickname);
+
+        	session.setAttribute("loginStatus", "user");
+        	session.setAttribute("loginId", randomId);
+        	session.setAttribute("loginName", nickname);
+        	
+        	if (service.userSearchEmail(email) != 1) { //email 있으면 1 없으면 0반환 -> 첫 로그인
+        		
+        		service.joinUser(userDto); //db저장
+        		String u_num=service.findUserByEmail(email).getU_num();
+        		return "redirect:/join/kakaoUserForm?u_num="+u_num;
+        		
+        	}else {
+        		
+        		return "redirect:/";
+        	}
+        }
+        
+    }
+    
+    @GetMapping("/join/kakaoCheck")
+    public String kakaoCheck() {
+    	return "/join/kakaoUserformCheck";
+    }
+    
+   @GetMapping("/join/kakaoUserForm")
+   public ModelAndView kakaoUserForm(HttpSession session,String u_num) {
+      
+      ModelAndView mview=new ModelAndView();
+      
+      UserDto dto=new UserDto();
+//      String email=dto.getU_email(); //누구의 이메일인지 안알려줫으니 당연히 안나옴..mapper만들어야행
+//      System.out.println(email); //근데 이걸 왜 필요로했는지 까먹엇다 아마필요없을지도?
+      
+      service.findUserByNum(u_num);
+      
+      mview.addObject("u_num",u_num);
+      
+      
+      mview.setViewName("/join/kakaoUserForm");
+      
+      return mview;
+   }
+
+   @PostMapping("/kakaoupdate")
+   public String kakaoUpdate(String u_gender, String u_birth, 
+		   String u_addr,String u_hp, String u_email_agree,String u_num) {
+		
+		service.updateKakaoInfo(u_num);
+		return "/join/joinPassSuccess";
+   }
+
 }

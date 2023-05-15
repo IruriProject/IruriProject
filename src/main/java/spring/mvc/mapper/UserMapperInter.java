@@ -1,5 +1,6 @@
 package spring.mvc.mapper;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -16,4 +17,7 @@ public interface UserMapperInter {
 	public int getSearchId(String u_id);
 	public void insertResume(ApplicantDto dto);
 	public UserDto findUserByNum(String u_num);
+	public UserDto findUserByEmail(String u_email);
+	public int userSearchEmail(String u_email);
+	public void updateKakaoInfo(String u_num);
 }
