@@ -204,10 +204,10 @@ div {
 							<a href="mymessage">더보기</a>
 						</div>
 						
-						<c:if test="${messages.size()==0 }">
+						<c:if test="${mlist.size()==0 }">
 							<div class="w-100" align="center">
 								<br>
-								<span style="color: gray">받은 쪽지가 없습니다.</span>
+								<span style="color: gray">쪽지내역이 존재하지 않습니다.</span>
 							</div>
 						</c:if>
 						<c:forEach var="mdto" items="${mlist }" varStatus="i">
@@ -218,7 +218,7 @@ div {
 						<div class="d-flex align-items-center border-bottom py-3 atag mt-3">
 							<img class="rounded-circle flex-shrink-0" src="/photo/${mdto.e_logo}"
 							alt="" style="width: 40px; height: 40px;"><!-- 이미지 -->
-							<a class="atag" href="/posting/messagelist">
+							<a class="atag" href="/mymessage">
 							<div class="w-100 ms-3">
 								<div class="d-flex w-100 justify-content-between">
 									<h5 class="mb-0"><b>${mdto.e_name }</b></h5>
