@@ -374,14 +374,9 @@ public class EFnController {
 
 		String loginId = (String) session.getAttribute("loginId");
 		EnterpriseDto dto = e_service.findEnterdataById(loginId);
-
-		/*
-		 * int totalCount = service.getTotalCount();  // 검색 결과에 따른 총 게시글 수
-		 */
 		
 		int totalCount = service.getAllPostings(dto.getE_num()).size();
-		int searchCount = service.getSearchCountWithPagingSearch(dto.getE_num(),sc, sw);
-		System.out.println(searchCount);
+		int searchCount = service.getPostingSearchCountWithPagingSearch(dto.getE_num(),sc, sw);
 		
 		int totalPage;
 		int startPage;
@@ -403,7 +398,6 @@ public class EFnController {
 		// 각 페이지에서 불러 올 시작번호
 		start = (currentPage - 1) * perPage;
 
-		//List<PostingDto> list = service.getPagingList(sc, sw, start, perPage);
 		List<PostingDto> list= service.getAllPostingsWithPagingSearch(dto.getE_num(),sc, sw, start, perPage);
 
 		int no = searchCount - (currentPage - 1) * perPage;
@@ -420,8 +414,6 @@ public class EFnController {
 		mview.addObject("searchCount", searchCount);
 		mview.addObject("column", sc);
 		mview.addObject("keyword", sw);
-		
-		//mview.addObject("list", service.getAllPostings(dto.getE_num()));
 		
 		mview.setViewName("/posting/postingList");
 
@@ -476,17 +468,6 @@ public class EFnController {
 
 	}
 
-	// 쪽지
-	@GetMapping("/messagedetail")
-	public ModelAndView messagedetail(@RequestParam String m_num) {
-		ModelAndView mview = new ModelAndView();
-
-		mview.addObject("dto", service.getMessage(m_num));
-		mview.setViewName("/message/detailPage");
-
-		return mview;
-	}
-
 	@GetMapping("/reposting")
 	public String reloadPosting(String p_num) {
 		service.reposting(p_num);
@@ -494,7 +475,9 @@ public class EFnController {
 		int maxNum = service.getMaxNumOfPosting();
 		return "redirect:/posting/detailpage?p_num=" + maxNum;
 	}
-
+	
+	
+	// 쪽지
 	@GetMapping("/writemessage")
 	public String writemessageForm(HttpSession session, Model model, @RequestParam String u_id) {
 
@@ -518,13 +501,55 @@ public class EFnController {
 	}
 
 	@GetMapping("/messagelist")
-	public ModelAndView allMessages(HttpSession session) {
+	public ModelAndView allMessages(HttpSession session,@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value = "searchcolumn", required = false) String sc,
+			@RequestParam(value = "searchword", required = false) String sw) {
+		
 		ModelAndView mview = new ModelAndView();
 
 		String loginId = (String) session.getAttribute("loginId");
 		EnterpriseDto dto = e_service.findEnterdataById(loginId);
+		
+		int totalCount = service.getAllMessages(dto.getE_num()).size();
+		int searchCount = service.getMessageSearchCountWithPagingSearch(dto.getE_num(),sc, sw);
+		
+		int totalPage;
+		int startPage;
+		int endPage;
+		int start;
+		int perPage = 5;
+		int perBlock = 5;
 
-		mview.addObject("list", service.getAllMessages(dto.getE_num()));
+		// 총 페이지 갯수
+		totalPage = searchCount / perPage + (searchCount % perPage == 0 ? 0 : 1);
+
+		// 각 블럭의 시작 페이지
+		startPage = (currentPage - 1) / perBlock * perBlock + 1;
+		endPage = startPage + perBlock - 1;
+
+		if (endPage > totalPage)
+			endPage = totalPage;
+
+		// 각 페이지에서 불러 올 시작번호
+		start = (currentPage - 1) * perPage;
+
+		List<Map<String, Object>> list= service.getAllMessageWithPagingSearch(dto.getE_num(),sc, sw, start, perPage);
+
+		int no = searchCount - (currentPage - 1) * perPage;
+
+		// 출력에 필요한 변수를 model에 저장
+		mview.addObject("totalCount", totalCount);
+		mview.addObject("list", list);
+		mview.addObject("totalPage", totalPage);
+		mview.addObject("startPage", startPage);
+		mview.addObject("endPage", endPage);
+		mview.addObject("perBlock", perBlock);
+		mview.addObject("currentPage", currentPage);
+		mview.addObject("no", no);
+		mview.addObject("searchCount", searchCount);
+		mview.addObject("column", sc);
+		mview.addObject("keyword", sw);
+		
 		mview.setViewName("/message/messageList");
 
 		return mview;

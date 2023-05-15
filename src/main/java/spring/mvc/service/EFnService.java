@@ -56,7 +56,7 @@ public class EFnService {
 		
 		return mapper.getAllPostingsWithPagingSearch(map);
 	}
-	public int getSearchCountWithPagingSearch(String e_num, String searchcolumn, String searchword) {
+	public int getPostingSearchCountWithPagingSearch(String e_num, String searchcolumn, String searchword) {
 		
 		Map<String, Object> map=new HashMap<>();
 		
@@ -64,7 +64,7 @@ public class EFnService {
 		map.put("searchcolumn", searchcolumn);
 		map.put("searchword", searchword);
 		
-		return mapper.getSearchCountWithPagingSearch(map);
+		return mapper.getPostingSearchCountWithPagingSearch(map);
 	}
 	
 	
@@ -122,10 +122,6 @@ public class EFnService {
 		return mapper.getPreviewMessages(e_num);
 	}
 	
-	public Map<String, Object> getMessage(String m_num) {
-		return mapper.getMessage(m_num);
-	}
-	
 	public void insertMessage(MessageDto dto) {
 		mapper.insertMessage(dto);
 	}
@@ -138,6 +134,29 @@ public class EFnService {
 		
 		return mapper.duplicateUserOfMessage(map);
 	}
+	
+	
+	public List<Map<String, Object>> getAllMessageWithPagingSearch(String e_num,String searchcolumn,String searchword,int start, int perpage){
+		Map<String, Object> map =new HashMap<>();
+		
+		map.put("e_num", e_num);
+		map.put("searchcolumn", searchcolumn);
+		map.put("searchword", searchword);
+		map.put("start", start);
+		map.put("perpage", perpage);
+		
+		return mapper.getAllMessageWithPagingSearch(map);
+	}
+	public int getMessageSearchCountWithPagingSearch(String e_num, String searchcolumn, String searchword) {
+		Map<String, Object> map=new HashMap<>();
+		
+		map.put("e_num", e_num);
+		map.put("searchcolumn", searchcolumn);
+		map.put("searchword", searchword);
+		
+		return mapper.getMessageSearchCountWithPagingSearch(map);
+	}
+	
 
 	
 	public int getTotalCount() {

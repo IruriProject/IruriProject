@@ -24,7 +24,7 @@ public interface EFnMapperInter {
 	
 	public List<PostingDto> getAllPostings(String e_num);
 	public List<PostingDto> getAllPostingsWithPagingSearch(Map<String, Object> map);
-	public int getSearchCountWithPagingSearch(Map<String, Object> map);
+	public int getPostingSearchCountWithPagingSearch(Map<String, Object> map);
 	
 	public void updatePostingStatus(Map<String, String> map);
 	public List<PostingDto> getAddrPostings(Map<String, String> map);
@@ -52,8 +52,10 @@ public interface EFnMapperInter {
 	public List<Map<String, Object>> getPreviewMessages(String e_num);
 	public void reposting(String p_num);
 	public int getMaxNumOfPosting();
-	public Map<String, Object> getMessage(String m_num);
 	public void insertMessage(MessageDto dto);
 	public int duplicateUserOfMessage(Map<String, String> map);
+	
+	public List<Map<String, Object>> getAllMessageWithPagingSearch(Map<String, Object> map);
+	public int getMessageSearchCountWithPagingSearch(Map<String, Object> map);
 
 }
