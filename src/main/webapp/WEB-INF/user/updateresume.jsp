@@ -43,8 +43,9 @@ td {
 <body>
    <div class="formbold-main-wrapper">
       <div class="formbold-form-wrapper">
-         <form action="insertResume" method="POST">
+         <form action="updateResume" method="POST">
             <input type="hidden" name="u_num" value="${dto.u_num }">
+            <input type="hidden" name="r_num" value="${rdto.r_num }">
             <div align="center">
                <h2
                   style="font-weight: 600; color: #416442; background-color: #e3f2c9; width: 300px; height: 50px; font-size: 1.8em; padding: 10px 0px; border-radius: 10px; text-align: center;">이력서
@@ -52,10 +53,10 @@ td {
             </div>
             <br>
             <div class="formbold-input-wrapp formbold-mb-3"
-               style="height: 250px; border: 2px solid green;">
+               style="height: 250px;">
                <label for="p_title" class="formbold-form-label"> 기본정보 </label> <span
                   style="font-size: 2em">${sessionScope.loginName }</span>
-               <div style="float: left; width: 150px; height: 200px; margin-right:20px;">
+               <div style="float: left; width: 150px; height: 200px; margin-right: 20px;">
                   <img alt="" src="/photo/${dto.u_photo}"
                      style="width: 150px; height: 200px;">
                </div>
@@ -67,7 +68,7 @@ td {
                여성
                </c:if>
                &nbsp;&nbsp;/&nbsp;&nbsp; ${dto.u_birth }
-               (나이 들어가야함) <br><br>
+               (나이 들어가야함) <br>
                <table style="border: 0px solid red;">
                   <tr>
                      <td width=100>연락처</td>
@@ -86,15 +87,16 @@ td {
 
             <div class="formbold-mb-3">
                <label for="r_title" class="formbold-form-label"> 이력서 제목 </label> <input
-                  type="text" name="r_title" id="r_title" step="50"
+                  type="text" name="r_title" id="r_title" step="50" value="${rdto.r_title }"
                   placeholder="25글자 이내로 자신을 표현해보세요." class="formbold-form-input" />
             </div>
-			</script>
+
             <div class="formbold-mb-3">
                <label class="formbold-form-label">희망지역</label>
                <div class="searchValue regist__item">
                   <button type="button" id="tagarea" onclick="selectLocation()">지역선택</button>
-                  <input id="areainput" name="r_larea" readonly="readonly" class="formbold-form-input">
+                  <input id="areainput" name="r_larea" readonly="readonly" class="formbold-form-input"
+                  value="${rdto.r_larea }">
                </div>
                <div id="dllocal" class="searchArea"
                   style="display: none; height: 250px;">
@@ -151,7 +153,7 @@ td {
                         <button type="button" onclick="setSido(25);">제주</button>
                      </li>
                   </ul>
-                  <br> <br> <br>
+                  <br> <br><br>
                   <ul id="ulGugun" class="inputWrap">
                      <!-- 서울 -->
                      <li><span class="input "> <input type="checkbox"
@@ -1182,10 +1184,10 @@ td {
                   </div>
             </div>
             <script type="text/javascript">
-            	$("#tagarea").click(function(){
-            		$("#exitarea").css("display","block");
-            		$("#savearea").css("display","block");
-            	})
+            $("#tagarea").click(function(){
+        		$("#exitarea").css("display","block");
+        		$("#savearea").css("display","block");
+        	})
                //디폴트값 서울
                window.onload = function() {
                   setSido(10);
@@ -1209,8 +1211,8 @@ td {
                function exitLocation() {
                   var dllocal = document.getElementById("dllocal");
                   dllocal.style.display = "none";
-                $("#exitarea").css("display","none");
-          		$("#savearea").css("display","none");
+                  $("#exitarea").css("display","none");
+            		$("#savearea").css("display","none");
                }
                //체크박스 클릭시 span태그에 입력
                function localdisplay() {
@@ -1322,13 +1324,13 @@ td {
             </script>
             <div class="formbold-mb-3">
                <label for="p_type" class="formbold-form-label"> 희망직종 </label> <input
-                  type="text" name="r_ltask" id="r_ltask"
+                  type="text" name="r_ltask" id="r_ltask" value="${rdto.r_ltask }"
                   placeholder="직종을 입력해주세요 (ex: 광고/홍보)" class="formbold-form-input" />
             </div>
 
             <div class="formbold-mb-3">
                <label class="formbold-form-label">희망고용형태</label> <select
-                  class="formbold-form-input" name="r_ltype" id="r_ltype">
+                  class="formbold-form-input" name="r_ltype" id="r_ltype" value="${rdto.r_ltype }">
                   <option value="정규직">정규직</option>
                   <option value="기간제">기간제</option>
                </select>
@@ -1337,13 +1339,13 @@ td {
             <div class="formbold-input-flex">
                <div>
                   <label for="r_lperiod" class="formbold-form-label"> 희망기간 </label>
-                  <input type="text" name="r_lperiod" id="r_lperiod"
+                  <input type="text" name="r_lperiod" id="r_lperiod" value="${rdto.r_lperiod }"
                      placeholder="ex:6개월" class="formbold-form-input" />
                </div>
                <div>
                   <label for="r_lday" class="formbold-form-label"> 희망요일 </label> <input
                      type="text" name="r_lday" id="r_lday" placeholder="ex: 월,화,수,목,금"
-                     class="formbold-form-input" />
+                     class="formbold-form-input" value="${rdto.r_lday }"/>
                </div>
             </div>
 
@@ -1561,7 +1563,7 @@ td {
 				</div>
 								<textarea name="r_content" id="r_content" style="height: 100px;"
 								placeholder="나의 강점과 특징을 등록해 보세요!"
-								class="rcontent-autoInput"></textarea>
+								class="rcontent-autoInput">${rdto.r_content }</textarea>
 							<!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
 					<br> <div class="form-inline"><input type="checkbox" name="r_private" class="checkbox">
 					<span>&nbsp;&nbsp;이력서 비공개</span>
@@ -1588,6 +1590,9 @@ td {
 					
 					  var r_private_checkbox = document.querySelector('input[name="r_private"]');
 					  
+					  if (${rdto.r_private}=== "1") {
+						    r_private_checkbox.checked = true;
+						  }
 					  r_private_checkbox.addEventListener('change', function() {
 					    if (this.checked) {
 					      this.value = 1;
@@ -1598,7 +1603,7 @@ td {
 					</script>
 					<!-- 대표이력서 체크되면 1(대표이력서), 비공개 체크되면 0(공개)되게 해야함 -->
 					
-               <button id="submitBtn" type="submit" class="formbold-btn">공고등록</button>
+               <button id="submitBtn" type="submit" class="formbold-btn">수정</button>
                <script type="text/javascript">
                </script>
                <!-- 수정시 writeday가 now로 update -->

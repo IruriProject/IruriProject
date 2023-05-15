@@ -61,10 +61,29 @@ text-align: center;
 						<c:forEach var="dto" items="${list }" varStatus="i">
 							<tr data-rnum="${dto.r_num}">
 								<td>${i.count}</td>
-								<td style="white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">
-								<a href="resume/detail?r_num=${dto.r_num }">${dto.r_title}</a></td>
 								
+								
+								<td style="white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">
+								
+								<c:if test="${dto.r_presume==1 && dto.r_private==0}">
+								[대표] [공개]
+								</c:if>
+								
+								<c:if test="${dto.r_presume==1 && dto.r_private==1}">
+								[대표] [비공개]
+								</c:if>
+								
+								<c:if test="${dto.r_presume==0 && dto.r_private==1}">
+								[비공개]
+								</c:if>
+								
+								<c:if test="${dto.r_presume==0 && dto.r_private==0}">
+								[공개]
+								</c:if>
+								
+								<a href="resume/detail?r_num=${dto.r_num }">${dto.r_title}</a></td>
 								<td>
+								
 								<!-- if문 -->
 								<c:if test="${dto.r_private==1}">
 									<button type="button" class="setPublic">공개 전환</button>
@@ -85,9 +104,8 @@ text-align: center;
 								
 								<td>이메일</td>
 								
-								<td><button type="button" onclick="location.href='#'">수정</button>
-									<button type="button" onclick="location.href='#'">삭제</button></td>
-									
+								<td><button type="button" onclick="location.href='updateresume?r_num=${dto.r_num}'">수정</button>
+									<button type="button" class="deleteRes">삭제</button></td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -95,6 +113,24 @@ text-align: center;
 			</div>
 		</div>
 	<script type="text/javascript">
+	$(".deleteRes").click(function(){
+		var r_num = $(this).closest("tr").data("rnum");
+		var result = confirm("정말 삭제하시겠습니까?");
+		if(result==true){
+			$.ajax({
+				data:{"r_num":r_num},
+				dataType:"html",
+				url:"deleteResume",
+				success:function(){
+					alert("삭제되었습니다.");
+					location.reload();
+				},error: function() {
+			        alert("에러!");
+			    }
+			})
+		}
+	})
+	
 	$(".setMainOff").click(function(){
 		 var r_num = $(this).closest("tr").data("rnum");
 		 $.ajax({

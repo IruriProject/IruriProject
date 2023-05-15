@@ -66,6 +66,9 @@ img{
 	margin-left: 20px;
 	margin-bottom: 10px;
 }
+@media print {
+  @page { margin: 0mm 25mm 0mm 0mm; }
+}
 </style>
 
 <title>Insert title here</title>
@@ -82,7 +85,7 @@ img{
 	})
 </script>
  <div id="pdfDiv" style="width:800px;"><!-- 출력div -->
-<h2 class="title">기본정보</h2>
+<h2 class="resTitle">기본정보</h2>
 <div class="box">
 <h3>${resume.r_title }</h3>
 <hr>
@@ -136,6 +139,19 @@ ${resume.r_content }
 </div>
 </body>
 <script>
+window.onbeforeprint = function () { 
+    // 프린트 할 영역 필터링 
+    $(".footer").css("display", "none"); 
+    $(".nav").css("display", "none"); 
+    $(".title").css("display", "none"); 
+    $("#printResume").css("display", "none");
+}; 
+window.onafterprint = function () { 
+    $(".footer").css("display", "block"); 
+    $(".nav").css("display", "block"); 
+    $(".title").css("display", "block"); 
+    $("#printResume").css("display", "block");
+}; 
 $(document).ready(function() {
 	$('#savePdf').click(function() { // pdf저장 button id
 		

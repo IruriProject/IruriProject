@@ -12,6 +12,7 @@ import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.ScrapDto;
 import spring.mvc.dto.HeartDto;
+import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.UserDto;
 import spring.mvc.dto.ViewerDto;
 
@@ -25,7 +26,15 @@ public interface UFnMapperInter {
 	public ResumeDto getResume(String u_num);
 	public UserDto findUserByNum(String u_num);
 	public void deleteUser(String u_num);
+	
+	//이력서 등록/수정/삭제
 	public void insertResume(ResumeDto dto);
+	public void updateResume(ResumeDto dto);
+	public void deleteResume(String r_num);
+	
+	//쪽지
+	public List<Map<String, Object>> getMessageByUserNum(String u_num);
+	
 	//주소, 대표 변경
 	public void updatePrivate(int r_num);
 	public void updatePublic(int r_num);

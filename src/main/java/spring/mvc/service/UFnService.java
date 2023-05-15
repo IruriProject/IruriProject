@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.HeartDto;
+import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.ScrapDto;
 import spring.mvc.dto.UserDto;
@@ -66,8 +67,19 @@ public class UFnService {
       mapper.updatePhoto(map);
    }
    
+   //이력서 등록
    public void insertResume(ResumeDto dto) {
       mapper.insertResume(dto);
+   }
+   
+   //이력서 수정
+   public void updateResume(ResumeDto dto) {
+	   mapper.updateResume(dto);
+   }
+   
+   //이력서 삭제
+   public void deleteResume(String r_num) {
+	   mapper.deleteResume(r_num);
    }
 
    // num으로 이력서 찾기
@@ -79,6 +91,11 @@ public class UFnService {
    // num으로 유저정보 찾기
    public UserDto findUserdataByNum(String u_num) {
       return mapper.findUserByNum(u_num);
+   }
+   
+   //쪽지
+   public List<Map<String, Object>> getMessageByUserNum(String u_num){
+	   return mapper.getMessageByUserNum(u_num);
    }
 
    // 회원삭제
