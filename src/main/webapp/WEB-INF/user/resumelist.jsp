@@ -54,7 +54,6 @@ text-align: center;
 								<th scope="col" style="width:200px;">제목</th>
 								<th scope="col" style="width:110px;">설정관리</th>
 								<th scope="col" style="width:90px;">대표 설정</th>
-								<th scope="col" style="width:110px;">이메일 전송</th>
 								<th scope="col" style="width:110px;">이력서 관리</th>
 							</tr>
 						</thead>
@@ -101,8 +100,6 @@ text-align: center;
 								<button type="button" class="setMainOff">대표 해제</button>	
 								</c:if>								
 								</td>	
-								
-								<td>이메일</td>
 								
 								<td><button type="button" onclick="location.href='updateresume?r_num=${dto.r_num}'">수정</button>
 									<button type="button" class="deleteRes">삭제</button></td>

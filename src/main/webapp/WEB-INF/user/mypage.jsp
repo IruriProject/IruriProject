@@ -33,7 +33,7 @@
 <link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style type="text/css">
 div {
-	border: 1px solid gray;
+	border: 0px solid gray;
 }
 
 .gwansim {
@@ -266,7 +266,6 @@ div {
 								<th scope="col" style="width: 200px;">제목</th>
 								<th scope="col" style="width: 110px;">설정관리</th>
 								<th scope="col" style="width: 90px;">대표 설정</th>
-								<th scope="col" style="width: 110px;">이메일 전송</th>
 								<th scope="col" style="width: 110px;">이력서 관리</th>
 							</tr>
 						</thead>
@@ -308,8 +307,6 @@ div {
 										</c:if> <c:if test="${dto.r_presume==1}">
 											<button type="button" class="setMainOff">대표 해제</button>
 										</c:if></td>
-
-									<td>이메일</td>
 
 									<td><button type="button" onclick="location.href='updateresume?r_num=${dto.r_num}'">수정</button>
 										<button type="button" onclick="location.href='#'">삭제</button></td>
