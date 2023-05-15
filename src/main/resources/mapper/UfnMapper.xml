@@ -32,16 +32,12 @@
       select count(h_num) from HEART where u_num=#{u_num}
    </select>
    
-   <!-- 기업 리스트 -->
-   <select id="getEnterPrise" resultType="edto"
-      parameterType="string">
-      select * from ENTERPRISE where e_num=#{e_num} 
+   <!-- 관심기업 -->
+   <select id="getLikeEnterprise" resultType="edto"
+      parameterType="String">
+      select HEART.*, ENTERPRISE.* from HEART inner join ENTERPRISE on HEART.e_num = ENTERPRISE.e_num where HEART.u_num=#{u_num} 
    </select>
 
-	<!-- 관심 기업 데이터 갖고오기 -->
-	<select id="getLikeEnterPrise" resultType="hdto" parameterType="string">
-		select * from HEART where u_num=#{u_num} 
-	</select>
 
    <!-- 좋아요버튼 누르면 데이터 저장됨 -->
    <insert id="insertLikeEnter" parameterType="hdto">

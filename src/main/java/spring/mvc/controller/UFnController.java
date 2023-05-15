@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -222,21 +223,29 @@ public class UFnController {
       }
    }
 
+   
    // 관심기업페이지
    @GetMapping("/enterLike")
-   public ModelAndView likeEnterList(String u_num) {
-
+   public ModelAndView likeEnterList(HttpSession session, HeartDto hdto, EnterpriseDto edto) {
 
       ModelAndView model = new ModelAndView();
+      String myId = (String) session.getAttribute("loginId");
+	  String loginStatus = (String) session.getAttribute("loginStatus");
 
-      HeartDto dto = uservice.getLikeEnterPrise(u_num);
-      int countLikeEnter = uservice.countLikeEnterprise(u_num);
-
-      model.addObject("countLikeEnter", countLikeEnter);
-      model.addObject("dto", dto);
-      model.setViewName("/user/likeenterprise");
-
+	  if(myId!=null && loginStatus.equals("user")) {
+		  
+		  String u_num=service.findUserdataById(myId).getU_num();
+		  List<EnterpriseDto> list =uservice.getLikeEnterprise(u_num); //기업데이터
+	      int countLikeEnter = uservice.countLikeEnterprise(u_num);
+	      
+	      model.addObject("countLikeEnter", countLikeEnter);
+	      model.addObject("list", list);
+	      //model.addObject("edto", edto);
+	      model.setViewName("/user/likeenterprise");
+	  }
+	  
       return model;
+   
    }
 
 	// 버튼 누르면 HEART 테이블에 데이터 insert
@@ -257,6 +266,19 @@ public class UFnController {
 	}
 	
 	
+	//관심 공고(스크랩)페이지
+	@GetMapping("/Scrap")
+	public ModelAndView ScrapList(String u_num) {
+		
+		ModelAndView model=new ModelAndView();
+		//ScrapDto sdto=uservice.getUserScr
+		
+		
+		
+		model.setViewName("/user/likescrap");
+		
+		return model;
+	}
 	
 	//버튼 누르면 SCRAP 테이블에 데이터 insert
 	@PostMapping("/sinsert")

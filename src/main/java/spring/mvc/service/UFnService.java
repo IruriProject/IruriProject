@@ -86,22 +86,17 @@ public class UFnService {
       mapper.deleteUser(u_num);
    }
    
+   
    //좋아요 한 기업 수
-   public int countLikeEnterprise(String num) {
+   public int countLikeEnterprise(String u_num) {
 
-      return mapper.countLikeEnterprise(num);
+      return mapper.countLikeEnterprise(u_num);
    }
    
-   //...?
-   public EnterpriseDto getEnterPrise(String num) {
-
-      return mapper.getEnterPrise(num);
-   }
-   
-   //유저 별 좋아요 한 기업 가져오기
-   public HeartDto getLikeEnterPrise(String u_num) {
+   //기업 데이터 가져오기
+   public List<EnterpriseDto> getLikeEnterprise(String e_num) {
 	   
-	   return mapper.getLikeEnterPrise(u_num);
+	   return mapper.getLikeEnterprise(e_num);
    }
    
    // 좋아요 한 회원과 기업 데이터 추가

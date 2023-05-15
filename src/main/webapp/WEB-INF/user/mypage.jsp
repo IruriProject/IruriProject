@@ -162,10 +162,10 @@ div {
                </div>
                <br>
                <div class="h-100 bg-light rounded p-4">
-               	  <span class="gwansim" onclick="location.href='enterLike'">관심기업<i class="fa-solid fa-heart"></i> ${countLikeEnter }</span>
-               	  <span class="gwansim" onclick="location.href=''">관심직종</span>
-               	  <span class="gwansim" onclick="location.href=''">관심공고<i class="fa-solid fa-star"></i></span>
-               	  <span class="gwansim" onclick="location.href=''">관심근무지</span>
+               	  <span class="gwansim" onclick="location.href='enterLike'">관심기업<i class="fa-solid fa-heart"></i> ${countLikeEnter }</span>&nbsp;&nbsp;&nbsp;&nbsp;
+               	  <span class="gwansim" onclick="location.href=''">관심직종<i class="fa-solid fa-briefcase"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
+               	  <span class="gwansim" onclick="location.href=''">관심공고<i class="fa-solid fa-star"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
+               	  <span class="gwansim" onclick="location.href=''">관심근무지<i class="fa-solid fa-location-dot"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
                   <br>
                </div>
             </div>
@@ -319,11 +319,11 @@ div {
 							<tr class="text-dark">
 								<th scope="col" style="text-align: center;"><input
 									class="form-check-input" type="checkbox"></th>
-								<th scope="col" style="text-align: center;">Date</th>
-								<th scope="col" style="text-align: center;">Invoice</th>
-								<th scope="col" style="text-align: center;">Customer</th>
-								<th scope="col" style="text-align: center;">Amount</th>
-								<th scope="col" style="text-align: center;">Status</th>
+								<th scope="col" style="text-align: center;">No.</th>
+								<th scope="col" style="text-align: center;">기업명</th>
+								<th scope="col" style="text-align: center;">주소</th>
+								<th scope="col" style="text-align: center;">전화번호</th>
+								<th scope="col" style="text-align: center;">이메일</th>
 								<th scope="col" style="text-align: center;">Action</th>
 							</tr>
 						</thead>
@@ -335,7 +335,7 @@ div {
 								<td>Jhon Doe</td>
 								<td>$123</td>
 								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+								<td><a class="btn btn-sm btn-primary" href="">상세보기</a></td>
 							</tr>
 							<tr>
 								<td><input class="form-check-input" type="checkbox"></td>
@@ -393,7 +393,7 @@ div {
 								<td>Jhon Doe</td>
 								<td>$123</td>
 								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+								<td><a class="btn btn-sm btn-primary" href="">상세보기</a></td>
 							</tr>
 							<tr>
 								<td><input class="form-check-input" type="checkbox"></td>
@@ -451,7 +451,7 @@ div {
 								<td>Jhon Doe</td>
 								<td>$123</td>
 								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+								<td><a class="btn btn-sm btn-primary" href="">상세보기</a></td>
 							</tr>
 							<tr>
 								<td><input class="form-check-input" type="checkbox"></td>
@@ -508,7 +508,7 @@ div {
 								<td>Jhon Doe</td>
 								<td>$123</td>
 								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+								<td><a class="btn btn-sm btn-primary" href="">상세보기</a></td>
 							</tr>
 							<tr>
 								<td><input class="form-check-input" type="checkbox"></td>
