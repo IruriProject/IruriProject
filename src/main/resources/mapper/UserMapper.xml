@@ -39,10 +39,17 @@
 	select * from USER where u_email=#{u_email}
 	</select>
 	
+	<!-- 이메일 중복확인 -->
 	 <select id="userSearchEmail" parameterType="String" resultType="int">
         select count(*)
         from USER
         where u_email=#{u_email}
+    </select>
+    
+	 <select id="userSearchId" parameterType="String" resultType="int">
+        select count(*)
+        from USER
+        where u_id=#{u_id}
     </select>
     
     <!-- 카카오 가입 후 정보입력 -->
@@ -52,5 +59,6 @@
      u_hp=#{u_hp},u_addr=#{u_addr},u_email_agree=#{u_email_agree} 
      where u_num=#{u_num}
     </update>
+    
 	
 </mapper>

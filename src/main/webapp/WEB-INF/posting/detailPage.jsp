@@ -376,9 +376,13 @@ body {
                                  </tr>
                                  <input type="hidden" name="p_num" value="${dto.p_num }">
                                  <c:forEach var="udto" items="${rlist }">
+                                 <c:if test="${udto.r_num==null }">
+                                 없어
+                                 </c:if>
+                                 <c:if test="${udto.r_num!=null }">
                                     <tr>
                                        <td width="50"><input type="radio" name="r_num"
-                                          value="${udto.r_num }"></td>
+                                          value="${udto.r_num }" required></td>
                                        <td><c:if test="${udto.r_presume==1 }">[대표]</c:if>
                                           ${udto.r_title } <br></td>
                                        <td><c:if test="${udto.r_private==0 }">X</c:if> <c:if
@@ -386,6 +390,7 @@ body {
                                        <td><fmt:formatDate value="${udto.r_writeday}"
                                              pattern="yyyy.MM.dd" /></td>
                                     </tr>
+                                 </c:if>
                                  </c:forEach>
                                  <tr>
                                     <td colspan="4" align="center"><button type="submit"

@@ -12,16 +12,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script type="text/javascript">
 
-	const a=confirm('이메일 사용동의를 하셔야 가입할 수 있습니다. 가입을 계속하시겠습니까?');
+<script type="text/javascript">
+	const a=confirm('가입된 동일한 이메일이 있습니다. \n로그인 페이지로 이동하시겠습니까?');
 	
 	if(a){
-		history.back();
-		return;
+		location.href="/login";
 	}else{
 		location.href="/";
-		return;
 	}
 
 </script>

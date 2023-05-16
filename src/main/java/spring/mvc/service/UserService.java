@@ -61,4 +61,8 @@ public class UserService {
 	public void updateKakaoInfo(String u_num) {
 		mapper.updateKakaoInfo(u_num);
 	}
+	
+	public int userSearchId(String u_id) {
+		return mapper.userSearchId(u_id);
+	}
 }

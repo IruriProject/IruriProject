@@ -20,4 +20,5 @@ public interface UserMapperInter {
 	public UserDto findUserByEmail(String u_email);
 	public int userSearchEmail(String u_email);
 	public void updateKakaoInfo(String u_num);
+	public int userSearchId(String u_id);
 }
