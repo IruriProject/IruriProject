@@ -195,7 +195,6 @@ $(function(){
 
 				<div class="formbold-input-wrapp formbold-mb-3">
 					<label for="p_title" class="formbold-form-label"> 공고제목 </label>
-
 					<div>
 						<input type="text" name="p_title" id="p_title"
 							placeholder="공고 제목을 입력해주세요." class="formbold-form-input" required="required" />
@@ -209,7 +208,8 @@ $(function(){
 				</div>
 				
 				<div class="formbold-mb-3">
-					<label class="formbold-form-label">고용형태</label> <select
+					<label class="formbold-form-label">고용형태</label>
+					<select
 						class="formbold-form-input" name="p_employtype" id="p_employtype">
 						<option value="정규직">정규직</option>
 						<option value="기간제">기간제</option>
@@ -217,7 +217,8 @@ $(function(){
 				</div>
 				
 				<div class="formbold-mb-3">
-					<label for="p_pay" class="formbold-form-label"> 급여 </label> <input
+					<label for="p_pay" class="formbold-form-label"> 급여 </label>
+					<input
 						type="number" name="p_pay" id="p_pay" step="50"
 						placeholder="급여를 입력해주세요 (ex: 3000000)" class="formbold-form-input" required="required" />
 				</div>
@@ -230,12 +231,15 @@ $(function(){
 
 				<div class="formbold-input-flex">
 					<div>
-						<label for="p_period" class="formbold-form-label"> 기간 </label> <input
+						<label for="p_period" class="formbold-form-label"> 기간 </label>
+						<input
 							type="text" name="p_period" id="p_period" placeholder="ex:6개월"
 							class="formbold-form-input" required="required" />
 					</div>
+					
 					<div>
-						<label for="p_workday" class="formbold-form-label"> 요일 </label> <input
+						<label for="p_workday" class="formbold-form-label"> 요일 </label>
+						<input
 							type="text" name="p_workday" id="p_workday"
 							placeholder="ex: 월/수/금" class="formbold-form-input" required="required" />
 					</div>
@@ -243,26 +247,52 @@ $(function(){
 
 				<div class="formbold-input-flex">
 					<div>
-						<label for="p_starttime" class="formbold-form-label"> 시작시간
-						</label> <input type="time" name="p_starttime" id="p_starttime" value="09:00"
+						<label for="p_starttime" class="formbold-form-label"> 시작시간 </label>
+						<input type="time" name="p_starttime" id="p_starttime" value="09:00"
 							placeholder="ex:6개월" class="formbold-form-input" required="required" />
 					</div>
 					<div>
-						<label for="p_endtime" class="formbold-form-label"> 끝시간 </label> <input
+						<label for="p_endtime" class="formbold-form-label"> 끝시간 </label>
+						<input
 							type="time" name="p_endtime" id="p_endtime" placeholder="ex:6개월" value="18:00"
 							class="formbold-form-input" required="required" />
 					</div>
 				</div>
 
 				<div class="formbold-mb-3">
-					<label for="p_content" class="formbold-form-label"> 상세내용<button type="button" id="phrases" class="btn-sm small-btn" style="width: 100px; margin-left: 410px;" data-toggle="modal" data-target="#phrasesModal">자주쓰는 문구</button></label>
+					<label for="p_content" class="formbold-form-label"> 상세내용
+						<button type="button" id="phrases" class="btn-sm small-btn" style="width: 100px; margin-left: 410px;" data-toggle="modal" data-target="#phrasesModal">자주쓰는 문구</button>
+					</label>
 					<textarea name="p_content" id="p_content"
 						placeholder="상세내용을 입력해주세요." class="pcontent-input" required="required"></textarea>
+				
+					<span class="textCount" style="float: right"></span>
 				</div>
+				
+				<script>
+					$('#p_content').keyup(function (e) {
+						var content = $(this).val();
+					    
+					    // 글자수 세기
+					    if (content.length == 0 || content == '') {
+					    	$('.textCount').text('0자 / 1000자');
+					    } else {
+					    	$('.textCount').text(content.length + '자 / 1000자');
+					    }
+					    
+					    // 글자수 제한
+					    if (content.length > 1000) {
+					    	// 1000자 부터는 타이핑 되지 않도록
+					        $(this).val($(this).val().substring(0, 1000));
+					        // 1000자 넘으면 알림창 뜨도록
+					        alert('글자수는 1000자까지 입력 가능합니다.');
+					    };
+					});
+				</script>
 
 				<div class="formbold-mb-3">
-					<label for="p_enddate" class="formbold-form-label"> 공고 마감일
-					</label> <input type="date" name="p_enddate" id="p_enddate"
+					<label for="p_enddate" class="formbold-form-label"> 공고 마감일 </label>
+					<input type="date" name="p_enddate" id="p_enddate"
 						class="formbold-form-input" required="required" />
 				</div>
 				<br>

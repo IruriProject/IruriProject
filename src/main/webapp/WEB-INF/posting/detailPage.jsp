@@ -2,6 +2,7 @@
    pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -497,7 +498,17 @@ body {
                   <button type="button" class="btn btn-info">확대하기 +</button>
                </div>
             </div>
-            <p>${dto.p_content }</p>
+
+			<p id="txt">${dto.p_content }</p>
+			
+			<script>
+				$(function(){
+					var text = $("#txt").text();
+					text = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
+					$("#txt").html(text);
+				})
+			</script>
+			
          </div>
 
          <div id="section3" class="container-fluid scpy">
