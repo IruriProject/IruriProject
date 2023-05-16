@@ -232,7 +232,6 @@ public class EFnController {
 			}
 
 		}
-
 		
 		mview.addObject("dto", service.getPosting(p_num));
 		mview.addObject("scrapCount", service.scrapByPosting(p_num));
