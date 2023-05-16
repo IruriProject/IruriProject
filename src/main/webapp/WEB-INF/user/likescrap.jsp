@@ -71,8 +71,8 @@ div {
 							<c:forEach var="pdto" items="${list }" varStatus="i">
 							<tr>
 									<td><input class="form-check-input" type="checkbox"></td>
+									<td><input type="hidden" class="p_num" value="${pdto.p_num }"></td>
 									<td>${i.count }</td>
-									<%-- <td><input type="hidden" id="p_num">${pdto.p_num }</td> --%>
 									<td>${pdto.e_name }</td>
 									<td>${pdto.p_title}</td>
 									<td>${pdto.p_type }</td>
