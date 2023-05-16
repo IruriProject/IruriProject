@@ -79,7 +79,7 @@ div {
 								<td style="text-align: center;">${dto.e_addr }</td>
 								<td style="text-align: center;">${dto.e_tel }</td>
 								<td style="text-align: center;">${dto.e_email }</td>
-								<td style="text-align: center;"><a class="btn btn-sm btn-primary glyphicon glyphicon-search" href="">상세페이지</a></td>
+								<td style="text-align: center;"><a class="btn btn-sm btn-primary glyphicon glyphicon-search" href="">기업페이지</a></td>
 							</tr>
 							
 							</c:forEach>

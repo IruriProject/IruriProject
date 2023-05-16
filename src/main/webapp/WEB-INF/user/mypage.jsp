@@ -357,7 +357,7 @@ text-align: center;
 								<td style="text-align: center;">${edto.e_addr}</td>
 								<td style="text-align: center;">${edto.e_tel}</td>
 								<td style="text-align: center;">${edto.e_email}</td>
-								<td style="text-align: center;"><a class="btn btn-sm btn-primary glyphicon glyphicon-search" href="">상세보기</a></td>
+								<td style="text-align: center;"><a class="btn btn-sm btn-primary glyphicon glyphicon-search" href="">기업페이지</a></td>
 							</tr>
 						</c:forEach>
 							
