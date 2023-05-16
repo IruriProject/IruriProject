@@ -10,16 +10,17 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
   body {
     font-family: 'Inter', sans-serif;
     flex-direction: row;
     display: flex;
   }
+  
+  #wrapper{
+    display: flex;
+    justify-content: flex-start;
+  }
+
   .formbold-mb-3 {
     margin-bottom: 15px;
   }
@@ -90,14 +91,6 @@
     border-color: #4E9F3D;
     box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
   }
-  .formbold-form-label {
-    color: #536387;
-    font-size: 14px;
-    line-height: 24px;
-    display: block;
-    margin-bottom: 10px;
-  }
-
 
   .formbold-btn {
     font-size: 16px;
@@ -108,7 +101,10 @@
     background-color: #4E9F3D;
     color: white;
     cursor: pointer;
+    height: 44px;
+   	
   }
+  
   .formbold-btn:hover {
     box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
   }
@@ -116,20 +112,36 @@
   .formbold-w-45 {
     width: 45%;
   }
+  
+  .btn{
+  	justify-content: flex-end;
+  	margin-left: 60px;
+  }
+  
+  .enterlabel{
+  	margin-bottom: 20px;
+  }
+  
 </style>
 <title>login</title>
 </head>
 <body>
 
+<div id="wrapper">
 
 <!-- 개인로그인 -->
 <div class="formbold-main-wrapper">
-  <div class="formbold-form-wrapper">
+  <div class="formbold-form-wrapper" style="width:100%; display:flex; text-align:center;justify-content: center;">
     <form action="/login/user" method="POST">
 
-      <div class="formbold-mb-3">
-        <label for="login" class="formbold-form-label"> 일반회원 로그인 </label>
-
+      <div class="formbold-mb-3" style="width:100%;">
+        <label for="login" class="formbold-form-label">일반회원 로그인
+        <button type="button" class="btn" onclick="location.href='${urlKakao}'" style="border: none; background-color: #fff;margin-bottom: 10px; padding: 0px;">
+		    <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="130"
+		    alt="카카오 로그인 버튼" />
+		</button> 
+        </label>
+       
         <input
           type="text"
           name="u_id"
@@ -143,23 +155,25 @@
           class="formbold-form-input"
         />
       </div>
-
-<button type="button" class="btn" onclick="location.href='${urlKakao}'" style="border: none; background-color: #fff;">
- 	<img src="../../img/kakao_login_medium.png" style="width: 180px; height: 45px;">
- </button> 
-
+      
+      
+	  <div style="width: 100%; display:inline-block;">
       <button type="submit" class="formbold-btn">로그인</button>
+	  </div>
+	  
+	  
+	  
     </form>
   </div>
 </div>
 
 <!-- 기업로그인 -->
 <div class="formbold-main-wrapper">
-  <div class="formbold-form-wrapper">
+  <div class="formbold-form-wrapper" style="width:100%; display:flex; text-align:center;">
     <form action="/login/enterprise" method="POST">
 
       <div class="formbold-mb-3">
-        <label for="login" class="formbold-form-label"> 기업회원 로그인 </label>
+        <label for="login" class="formbold-form-label enterlabel" style="float: left;"> 기업회원 로그인 </label>
 
         <input
           type="text"
@@ -175,12 +189,14 @@
         />
       </div>
 
+	  <div style="width: 100%; display:inline-block;">
       <button type="submit" class="formbold-btn">로그인</button>
+      </div>
     </form>
   </div>
 </div>
 
-
+</div>
 </body>
 
 </html>
