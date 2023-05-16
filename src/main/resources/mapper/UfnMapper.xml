@@ -28,7 +28,7 @@
 	<!-- 작성한 이력서 목록 가져오기 -->
 	<select id="getMyResume" resultType="rdto"
 		parameterType="String">
-		select * from RESUME where u_num=#{u_num}
+		select * from RESUME where u_num=#{u_num} order by r_presume desc
 	</select>
 
 	<!-- UserId에 해당하는 RESUME 찾기 -->
@@ -82,7 +82,7 @@
 
 	<!-- 대표 설정 -->
 	<update id="updateMainOn" parameterType="int">
-		update RESUME set r_presume=1 where r_num=#{r_num}
+		update RESUME set r_presume=1, r_private=0 where r_num=#{r_num}
 	</update>
 	
 	<!-- 대표 전체해제 -->
