@@ -357,7 +357,7 @@ text-align: center;
 								<td style="text-align: center;">${edto.e_addr}</td>
 								<td style="text-align: center;">${edto.e_tel}</td>
 								<td style="text-align: center;">${edto.e_email}</td>
-								<td style="text-align: center;"><a class="btn btn-sm btn-primary glyphicon glyphicon-search" href="">상세보기</a></td>
+								<td style="text-align: center;"><a class="btn btn-sm btn-primary glyphicon glyphicon-search" href="/enterprise/enterprisepage?e_num=${edto.e_num }">기업페이지</a></td>
 							</tr>
 						</c:forEach>
 							
@@ -464,7 +464,7 @@ text-align: center;
 								<td style="text-align: center;">${pdto.p_workday}</td>
 								<td style="text-align: center;">${pdto.p_starttime } ~ ${pdto.p_endtime }</td>
 								<td style="text-align: center;">${pdto.p_employtype}</td>
-								<td style="text-align: center;"><a class="btn btn-sm btn-primary" href="posting/detailpage?p_num=${pdto.p_num}">상세페이지</a></td>
+								<td style="text-align: center;"><a class="btn btn-sm btn-primary" href="posting/detailpage?p_num=${pdto.p_num}">공고페이지</a></td>
 							</tr>	
 							</c:forEach>
 						</tbody>

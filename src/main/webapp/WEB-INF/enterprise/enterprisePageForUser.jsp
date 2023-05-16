@@ -220,10 +220,7 @@ $(function(){
 					<div style="width: 150px; height: 100%">
 						<img src="${dto.e_logo }" width="100%">
 					</div>
-					<br>
-					<br>
-					<button type="button" onclick="location.href='/enterprise/update'">회사정보
-						수정</button>
+
 				</div>
 				<div class="col-sm-12 col-md-6 col-xl-7 w-75">
 					<div class="h-100 bg-light rounded p-4">
@@ -255,7 +252,7 @@ $(function(){
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h4 class="mb-5"><b>최근공고현황</b></h4>
-					<a class="atag" href="/posting/postinglist">더보기</a>
+					<a class="atag" href="/posting/postinglistforuser?e_num=${dto.e_num }">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table

@@ -59,6 +59,7 @@ public class EnterpriseController {
 	public ModelAndView enterprisePageForUser(String e_num) {
 		ModelAndView mview = new ModelAndView();
 
+		mview.addObject("dto", service.findEnterByNum(e_num));
 		mview.addObject("heartCount", service.heartByEnter(e_num));
 		mview.addObject("postings", efn_service.getPreviewPostings(e_num));
 		mview.addObject("postingCount", efn_service.getAllPostings(e_num).size());
