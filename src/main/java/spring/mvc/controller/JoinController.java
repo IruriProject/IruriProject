@@ -61,7 +61,6 @@ public class JoinController {
 	public String loginPage(Model model, HttpSession session) {
 		
 		String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
-        System.out.println("카카오:" + kakaoAuthUrl);
         model.addAttribute("urlKakao", kakaoAuthUrl);
         
 		return "/join/login";
@@ -174,7 +173,6 @@ public class JoinController {
     @RequestMapping(value = "/callback/kakaotalk", method = {RequestMethod.GET, RequestMethod.POST})
     public String callbackKakao(Model model, @RequestParam String code, @RequestParam(value="state", required=false) String state, HttpSession session) throws Exception {
 
-        System.out.println("카카오 로그인 성공 callbackKakao");
         OAuth2AccessToken oauthToken;
         oauthToken = kakaoLoginBO.getAccessToken(session, code, state);
         apiResult = kakaoLoginBO.getUserProfile(oauthToken);

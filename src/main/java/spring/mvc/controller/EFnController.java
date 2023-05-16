@@ -216,6 +216,7 @@ public class EFnController {
 		if (loginStatus != null && loginStatus.equals("user")) {
 			String u_num = user_service.findUserdataById(myId).getU_num();
 			mview.addObject("rlist", ufn_service.getMyResume(u_num));
+			mview.addObject("rsize", ufn_service.getMyResume(u_num).size());
 		}
 		
 

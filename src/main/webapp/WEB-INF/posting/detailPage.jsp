@@ -280,8 +280,29 @@ body {
                      <div>
                         <c:if
                            test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
-
+						   
+						   <!-- 지원하기 -->
+						   <c:if test="${rsize==0 }">
+						   <span class="support" onclick="noResume()">지원하기 <i class="fa-solid fa-envelope-open-text"></i></span>&nbsp;&nbsp;
+						   
+						   <script type="text/javascript">
+						   function noResume(){
+							   
+							   const a=confirm("등록된 이력서가 없습니다.\n 이력서 등록 페이지로 이동하시겠습니까?");
+							   
+							   if(a){
+								   location.href="/insertresume";
+							   }else{
+								   return;
+							   }
+						   }
+						   </script>
+						   
+			               </c:if>
+			               
+			               <c:if test="${rsize>0 }">
                            <span class="support" data-toggle="modal" data-target="#myModal">지원하기 <i class="fa-solid fa-envelope-open-text"></i></span>&nbsp;&nbsp;
+			               </c:if>
 
                            <!-- 기스크랩 시 스크랩 해제 -->
                            <c:if test="${s_num!=null }">
@@ -358,13 +379,15 @@ body {
 
                <!-- Modal -->
                <div class="modal fade" id="myModal" role="dialog">
-                  <div class="modal-dialog modal-lg">
-                     <div class="modal-content">
-                        <div class="modal-header">
-                           <h4 class="modal-title">${dto.p_title }- ${dto.e_name }
-                              회사에 지원하기 &nbsp;</h4>
-                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
+               <div class="modal-dialog modal-lg">
+               
+               <div class="modal-content">
+                  <div class="modal-header">
+                  
+                     <h4 class="modal-title">${dto.p_title }- ${dto.e_name }
+                        회사에 지원하기 &nbsp;</h4>
+                     <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
                         <div class="modal-body">
                            <form action="/apply" method="post">
                               <table class="table table-bordered" style="width: 700px;">
@@ -375,11 +398,8 @@ body {
                                     <td>작성일</td>
                                  </tr>
                                  <input type="hidden" name="p_num" value="${dto.p_num }">
+                                 
                                  <c:forEach var="udto" items="${rlist }">
-                                 <c:if test="${udto.r_num==null }">
-                                 없어
-                                 </c:if>
-                                 <c:if test="${udto.r_num!=null }">
                                     <tr>
                                        <td width="50"><input type="radio" name="r_num"
                                           value="${udto.r_num }" required></td>
@@ -390,11 +410,9 @@ body {
                                        <td><fmt:formatDate value="${udto.r_writeday}"
                                              pattern="yyyy.MM.dd" /></td>
                                     </tr>
-                                 </c:if>
                                  </c:forEach>
                                  <tr>
-                                    <td colspan="4" align="center"><button type="submit"
-                                          class="">제출</button></td>
+                                    <td colspan="4" align="center"><button type="submit">제출</button></td>
                                  </tr>
                               </table>
                            </form>
