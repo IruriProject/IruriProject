@@ -57,10 +57,9 @@ public class EFnController {
 
 	@Autowired
 	UserService u_service;
-	
+
 	@Autowired
 	FrePhrasesService f_service;
-
 
 	@GetMapping("/insertForm")
 	public String insertForm() {
@@ -132,9 +131,9 @@ public class EFnController {
 		model.addAttribute("draftCount", service.draftList(e_dto.getE_num()).size());
 		model.addAttribute("enterNum", e_dto.getE_num());
 		model.addAttribute("draftList", service.draftList(e_dto.getE_num()));
-		
+
 		model.addAttribute("phraseList", f_service.phrasesList(e_dto.getE_num()));
-		
+
 		return "/posting/writeForm";
 	}
 
@@ -156,10 +155,19 @@ public class EFnController {
 			service.deletePosting(dto.getP_num());
 		}
 		EnterpriseDto edto = e_service.findEnterdataById((String) session.getAttribute("loginId"));
-		String [] enterAddr=edto.getE_addr().split(" ");
-		String saveAddr=enterAddr[0]+" "+enterAddr[1];
+		String[] enterAddr = edto.getE_addr().split(" ");
+		String saveAddr = enterAddr[0] + " " + enterAddr[1];
 
 		dto.setP_addr(saveAddr);
+
+		String workdays[] = dto.getP_workday().split(",");
+		String workday = "";
+		for (int i = 0; i < workdays.length; i++) {
+			workday += workdays[i] + "/";
+		}
+
+		dto.setP_workday(workday.substring(0, workday.length() - 1));
+
 		service.insertPosting(dto);
 
 		return "redirect:/";
@@ -183,41 +191,39 @@ public class EFnController {
 	@GetMapping("/detailpage")
 	public ModelAndView detailPage(String p_num, HttpSession session) {
 		ModelAndView mview = new ModelAndView();
-		
+
 		// 유저 로그인 상태인 경우, u_num에 해당하는 이력서 목록
 		String myId = (String) session.getAttribute("loginId");
 		String loginStatus = (String) session.getAttribute("loginStatus");
 		// p_num에 해당하는 posting 정보
 		mview.addObject("dto", service.getPosting(p_num));
 
+		// 좋아요 관련, 스크랩 관련
+		if (myId != null && loginStatus.equals("user")) {
 
-		//좋아요 관련, 스크랩 관련
-		if(myId!=null && loginStatus.equals("user")) {
-			
-			String unum=u_service.findUserdataById(myId).getU_num();
-			String e_num=service.getEnumOfPosting(p_num);
-			HeartDto hdto=ufn_service.checkLikeEnter(unum, e_num);
-			
-			ScrapDto sdto=ufn_service.checkScrapPosting(unum, p_num);
-			
-			if(hdto!=null) {
+			String unum = u_service.findUserdataById(myId).getU_num();
+			String e_num = service.getEnumOfPosting(p_num);
+			HeartDto hdto = ufn_service.checkLikeEnter(unum, e_num);
+
+			ScrapDto sdto = ufn_service.checkScrapPosting(unum, p_num);
+
+			if (hdto != null) {
 				mview.addObject("h_num", hdto.getH_num());
 			}
-			
-			if (sdto!=null) {
+
+			if (sdto != null) {
 				mview.addObject("s_num", sdto.getS_num());
 			}
-			
+
 			mview.addObject("hdto", hdto);
-			mview.addObject("u_num",unum);
-			
+			mview.addObject("u_num", unum);
+
 		}
 
 		if (loginStatus != null && loginStatus.equals("user")) {
 			String u_num = user_service.findUserdataById(myId).getU_num();
 			mview.addObject("rlist", ufn_service.getMyResume(u_num));
 		}
-		
 
 		if (session.getAttribute("loginStatus") == "user") {
 			ViewerDto vdto = new ViewerDto();
@@ -232,7 +238,7 @@ public class EFnController {
 			}
 
 		}
-		
+
 		mview.addObject("dto", service.getPosting(p_num));
 		mview.addObject("scrapCount", service.scrapByPosting(p_num));
 		mview.addObject("viewerCount", service.viewerByPosting(p_num));
@@ -366,18 +372,19 @@ public class EFnController {
 	}
 
 	@GetMapping("/postinglist")
-	public ModelAndView getAllPostings(HttpSession session,@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+	public ModelAndView getAllPostings(HttpSession session,
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "searchcolumn", required = false) String sc,
 			@RequestParam(value = "searchword", required = false) String sw) {
-		
+
 		ModelAndView mview = new ModelAndView();
 
 		String loginId = (String) session.getAttribute("loginId");
 		EnterpriseDto dto = e_service.findEnterdataById(loginId);
-		
+
 		int totalCount = service.getAllPostings(dto.getE_num()).size();
-		int searchCount = service.getPostingSearchCountWithPagingSearch(dto.getE_num(),sc, sw);
-		
+		int searchCount = service.getPostingSearchCountWithPagingSearch(dto.getE_num(), sc, sw);
+
 		int totalPage;
 		int startPage;
 		int endPage;
@@ -398,7 +405,7 @@ public class EFnController {
 		// 각 페이지에서 불러 올 시작번호
 		start = (currentPage - 1) * perPage;
 
-		List<PostingDto> list= service.getAllPostingsWithPagingSearch(dto.getE_num(),sc, sw, start, perPage);
+		List<PostingDto> list = service.getAllPostingsWithPagingSearch(dto.getE_num(), sc, sw, start, perPage);
 
 		int no = searchCount - (currentPage - 1) * perPage;
 
@@ -414,7 +421,7 @@ public class EFnController {
 		mview.addObject("searchCount", searchCount);
 		mview.addObject("column", sc);
 		mview.addObject("keyword", sw);
-		
+
 		mview.setViewName("/posting/postingList");
 
 		return mview;
@@ -422,10 +429,10 @@ public class EFnController {
 
 	@ResponseBody
 	@GetMapping("/addrsearch")
-	public List<PostingDto> addrSearch(@RequestParam(name="p_addr") String p_addr,
-            @RequestParam(name="employtype", required=false, defaultValue="") String employtype) {
+	public List<PostingDto> addrSearch(@RequestParam(name = "p_addr") String p_addr,
+			@RequestParam(name = "employtype", required = false, defaultValue = "") String employtype) {
 		return service.getAddrSearch(p_addr, employtype);
-		}
+	}
 
 	@GetMapping("/confirmpw")
 	public String confirmpw(@RequestParam String p_num, Model model) {
@@ -475,8 +482,7 @@ public class EFnController {
 		int maxNum = service.getMaxNumOfPosting();
 		return "redirect:/posting/detailpage?p_num=" + maxNum;
 	}
-	
-	
+
 	// 쪽지
 	@GetMapping("/writemessage")
 	public String writemessageForm(HttpSession session, Model model, @RequestParam String u_id) {
@@ -489,7 +495,7 @@ public class EFnController {
 		model.addAttribute("udto", udto);
 		model.addAttribute("edto", edto);
 		model.addAttribute("duplicateUser", service.duplicateUserOfMessage(udto.getU_num(), edto.getE_num()));
-		
+
 		return "/message/writeForm";
 	}
 
@@ -501,18 +507,19 @@ public class EFnController {
 	}
 
 	@GetMapping("/messagelist")
-	public ModelAndView allMessages(HttpSession session,@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+	public ModelAndView allMessages(HttpSession session,
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "searchcolumn", required = false) String sc,
 			@RequestParam(value = "searchword", required = false) String sw) {
-		
+
 		ModelAndView mview = new ModelAndView();
 
 		String loginId = (String) session.getAttribute("loginId");
 		EnterpriseDto dto = e_service.findEnterdataById(loginId);
-		
+
 		int totalCount = service.getAllMessages(dto.getE_num()).size();
-		int searchCount = service.getMessageSearchCountWithPagingSearch(dto.getE_num(),sc, sw);
-		
+		int searchCount = service.getMessageSearchCountWithPagingSearch(dto.getE_num(), sc, sw);
+
 		int totalPage;
 		int startPage;
 		int endPage;
@@ -533,7 +540,7 @@ public class EFnController {
 		// 각 페이지에서 불러 올 시작번호
 		start = (currentPage - 1) * perPage;
 
-		List<Map<String, Object>> list= service.getAllMessageWithPagingSearch(dto.getE_num(),sc, sw, start, perPage);
+		List<Map<String, Object>> list = service.getAllMessageWithPagingSearch(dto.getE_num(), sc, sw, start, perPage);
 
 		int no = searchCount - (currentPage - 1) * perPage;
 
@@ -549,22 +556,23 @@ public class EFnController {
 		mview.addObject("searchCount", searchCount);
 		mview.addObject("column", sc);
 		mview.addObject("keyword", sw);
-		
+
 		mview.setViewName("/message/messageList");
 
 		return mview;
 	}
-	
+
 	@GetMapping("/postinglistforuser")
-	public ModelAndView postinglistforuser(@RequestParam String e_num,@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+	public ModelAndView postinglistforuser(@RequestParam String e_num,
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "searchcolumn", required = false) String sc,
 			@RequestParam(value = "searchword", required = false) String sw) {
-		
+
 		ModelAndView mview = new ModelAndView();
 
 		int totalCount = service.getAllPostings(e_num).size();
-		int searchCount = service.getPostingSearchCountWithPagingSearch(e_num,sc, sw);
-		
+		int searchCount = service.getPostingSearchCountWithPagingSearch(e_num, sc, sw);
+
 		int totalPage;
 		int startPage;
 		int endPage;
@@ -585,7 +593,7 @@ public class EFnController {
 		// 각 페이지에서 불러 올 시작번호
 		start = (currentPage - 1) * perPage;
 
-		List<PostingDto> list= service.getAllPostingsWithPagingSearch(e_num,sc, sw, start, perPage);
+		List<PostingDto> list = service.getAllPostingsWithPagingSearch(e_num, sc, sw, start, perPage);
 
 		int no = searchCount - (currentPage - 1) * perPage;
 
@@ -602,10 +610,10 @@ public class EFnController {
 		mview.addObject("searchCount", searchCount);
 		mview.addObject("column", sc);
 		mview.addObject("keyword", sw);
-		
+
 		mview.setViewName("/posting/postingListForUser");
 
 		return mview;
 	}
-	
+
 }

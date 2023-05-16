@@ -449,10 +449,22 @@ body {
       <section class="mb-4">
          <div class="postingContents">
             <div class="postingContent">
+            	<span style="font-size: 0.8em; color: #416442;"><c:if test="${dto.p_employtype=='정규직' }">연봉&nbsp;</c:if></span>
+            	<span style="font-size: 0.8em; color: #416442;"><c:if test="${dto.p_employtype=='기간제' }">월급&nbsp;</c:if></span>
                <fmt:formatNumber value="${dto.p_pay }" type="currency" />
             </div>
             <div class="postingContent">${dto.p_period }</div>
-            <div class="postingContent">${dto.p_workday }</div>
+            <div class="postingContent">
+            	<c:if test="${dto.p_workday == '월/화/수/목/금' }">
+            		평일
+            	</c:if>
+            	<c:if test="${dto.p_workday == '토/일' }">
+            		주말
+            	</c:if>
+            	<c:if test="${dto.p_workday != '월/화/수/목/금' && dto.p_workday != '토/일'}">
+            		${dto.p_workday }
+            	</c:if>
+            </div>
             <div class="postingContent">
                <fmt:formatDate value="${dto.p_starttime }" pattern="HH:mm" />
                &nbsp;~&nbsp;

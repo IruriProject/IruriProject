@@ -111,6 +111,16 @@ $(function(){
 	})
 	
 	
+	$("#p_employtype").change(function(){
+		if($("#p_employtype").val()=="기간제"){
+			$("#p_pay").attr("placeholder","월급을 입력해주세요 (ex: 3000000)");
+		}else{
+			$("#p_pay").attr("placeholder","연봉을 입력해주세요 (ex: 28000000)");
+		}
+	})
+	
+	
+	
 })
 
 </script>
@@ -220,28 +230,37 @@ $(function(){
 					<label for="p_pay" class="formbold-form-label"> 급여 </label>
 					<input
 						type="number" name="p_pay" id="p_pay" step="50"
-						placeholder="급여를 입력해주세요 (ex: 3000000)" class="formbold-form-input" required="required" />
+						placeholder="연봉을 입력해주세요 (ex: 28000000)" class="formbold-form-input" required="required" />
 				</div>
 				
 				<div class="formbold-mb-3">
 					<label for="p_hirenum" class="formbold-form-label"> 채용인원 </label>
 					<input type="number" name="p_hirenum" id="p_hirenum"
-						placeholder="ex:0" class="formbold-form-input" required="required" />
+						placeholder="ex) 0" class="formbold-form-input" required="required" />
 				</div>
 
 				<div class="formbold-input-flex">
-					<div>
+					<div style="width: 35%">
 						<label for="p_period" class="formbold-form-label"> 기간 </label>
 						<input
-							type="text" name="p_period" id="p_period" placeholder="ex:6개월"
+							type="text" name="p_period" id="p_period" placeholder="ex) 6개월"
 							class="formbold-form-input" required="required" />
 					</div>
 					
-					<div>
-						<label for="p_workday" class="formbold-form-label"> 요일 </label>
-						<input
+					<div style="width: 65%">
+						<label for="p_workday" class="formbold-form-label" style="margin-bottom: 12px"> 요일 </label>
+						<!-- <input
 							type="text" name="p_workday" id="p_workday"
-							placeholder="ex: 월/수/금" class="formbold-form-input" required="required" />
+							placeholder="ex) 월/수/금" class="formbold-form-input" required="required" /> -->
+							<div style="border: 1px solid #dde3ec; border-radius:5px; padding: 11px;">
+							<input type="checkbox" name="p_workday" class="chkbox" value="월"> 월&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="화"> 화&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="수"> 수&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="목"> 목&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="금"> 금&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="토"> 토&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="일"> 일
+							</div>
 					</div>
 				</div>
 
@@ -554,6 +573,18 @@ body {
 .formbold-w-45 {
 	width: 45%;
 }
+
+.chkbox{
+	width: 15px;
+	height: 15px;
+	margin-right: 16px;
+	margin-top: 2px;
+	border: 0.7px solid #4E9F3D;
+	border-radius: 3px;
+	accent-color: #4E9F3D;
+}
+
+
 </style>
 </body>
 </html>
