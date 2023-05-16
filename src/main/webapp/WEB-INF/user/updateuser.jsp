@@ -227,15 +227,6 @@
             value="${dto.u_hp }"
           />
 
-          <button type="button" id="sms-btn" class="formbold-btn btn-s">인증번호발송</button>
-          
-          <input
-            type="text"
-            id="sms-id"
-            placeholder="인증번호입력"
-            class="formbold-form-input"
-          />
-          <button type="button" class="formbold-btn btn-s">확인</button>
         </div>
       </div>
 
@@ -372,27 +363,7 @@
             }
         }).open();
     }
-    
   
-    
-    //문자발송
-     $("#sms-btn").click(function(){
-    	
-	    const msgModule = require('coolsms-node-sdk').default
-	
-		// 인증을 위해 발급받은 본인의 API Key를 사용합니다.
-		const apiKey = 'NCSXNDMDJQXS14ZS'
-		const apiSecret = 'PB0HDL4TIDTSIA3NG8ZWH5DGC9DNASSY'
-		const messageService = new msgModule(apiKey, apiSecret);
-		
-		const params = {
-		  text: '[쿨에스엠에스 테스트] hello world!', // 문자 내용
-		  to: $("#phone").val(), // 수신번호 (받는이)
-		  from: '01023953374' // 발신번호 (보내는이)
-		}
-		messageService.sendMany([params]).then(console.log).catch(console.error)
-		
-    })
     
 </script>
 </html>

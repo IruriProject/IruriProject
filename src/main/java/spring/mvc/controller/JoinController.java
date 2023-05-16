@@ -1,6 +1,6 @@
 package spring.mvc.controller;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -218,6 +218,11 @@ public class JoinController {
 	    	userDto.setU_id(randomId); //랜덤아이디 부여
 	    	userDto.setU_email(email);
 	    	userDto.setU_name(nickname);
+	    	userDto.setU_birth(new Date(0));
+	    	userDto.setU_addr("");
+	    	userDto.setU_gender("");
+	    	userDto.setU_hp("");
+	    	
 	
 	    	session.setAttribute("loginStatus", "user");
 	    	session.setAttribute("loginId", randomId);
@@ -228,7 +233,7 @@ public class JoinController {
 	    		
 	    		service.joinUser(userDto); //db저장
 	    		String u_num=service.findUserByEmail(email).getU_num();
-	    		return "redirect:/join/kakaoUserForm?u_num="+u_num;
+	    		return "/updateuser";
 	    		
 	    	}else { //가입된 아이디 존재 ->로그인 후 홈으로 이동
 	    		
@@ -247,33 +252,6 @@ public class JoinController {
     	return "/join/kakaoUserformCheck";
     }
     
-   @GetMapping("/join/kakaoUserForm")
-   public ModelAndView kakaoUserForm(HttpSession session,String u_num) {
-      
-      ModelAndView mview=new ModelAndView();
-      
-      UserDto dto=new UserDto();
-//      String email=dto.getU_email(); //누구의 이메일인지 안알려줫으니 당연히 안나옴..mapper만들어야행
-//      System.out.println(email); //근데 이걸 왜 필요로했는지 까먹엇다 아마필요없을지도?
-      
-      service.findUserByNum(u_num);
-      
-      mview.addObject("u_num",u_num);
-      
-      
-      mview.setViewName("/join/kakaoUserForm");
-      
-      return mview;
-   }
-
-   @PostMapping("/kakaoupdate")
-   public String kakaoUpdate(String u_gender, String u_birth, 
-		   String u_addr,String u_hp, String u_email_agree,String u_num) {
-		
-		service.updateKakaoInfo(u_num);
-		return "/join/joinPassSuccess";
-   }
-   
    @GetMapping("/emailcheck")
    @ResponseBody
    public int emailCheck(String u_email){

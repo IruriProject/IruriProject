@@ -51,6 +51,7 @@ public class UFnController {
    public ModelAndView home(HttpSession session, String num) {
       ModelAndView model = new ModelAndView();
       String u_id = (String) session.getAttribute("loginId");
+      System.out.println(u_id);
       UserDto dto = service.findUserdataById(u_id);
       ResumeDto rdto = uservice.getResume(dto.getU_num());
       List<ResumeDto> list=uservice.getMyResume(dto.getU_num());

@@ -276,7 +276,7 @@
           class="formbold-form-input"
         />
       <div id="pwcheck"></div>
-      <input type="text" id="pwChecked" value="ok">
+      <input type="hidden" id="pwChecked" value="ok">
       </div>
       
       <script type="text/javascript">
