@@ -13,6 +13,7 @@ import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.ScrapDto;
 import spring.mvc.dto.HeartDto;
 import spring.mvc.dto.MessageDto;
+import spring.mvc.dto.PostingDto;
 import spring.mvc.dto.UserDto;
 import spring.mvc.dto.ViewerDto;
 
@@ -49,13 +50,16 @@ public interface UFnMapperInter {
 	public void insertLikeEnter(HeartDto dto);//관심기업 인서트
 	public void deleteLikeEnter(String h_num);//관심기업 딜리트
 	public HeartDto checkLikeEnter (Map<String, String> map);//좋아요했는지 체크
+	public List<EnterpriseDto> getMypageLikeEnter(String u_num);//마이페이지에 관심기업
 	
 	//관심 공고(스크랩)
 	public int countScrapPosting(String s_num);//관심공고 수
-	public ScrapDto getUserScrap(String u_num);//관심공고
+	public List<Map<String, Object>> getScrapPosting(String u_num);//관심 공고 데이터 가져오기
 	public void insertScrapPosting(ScrapDto dto);//관심공고 인서트
 	public void deleteScrapPosting(String s_num);//관심공고 딜리트
 	public ScrapDto checkScrapPosting(Map<String, String> map);//스크랩했는지 체크
+	public List<Map<String, Object>> getMypageScrapPosting (String u_num);
+	
 	
 	//열람
 	public void insertViewer(ViewerDto dto);
