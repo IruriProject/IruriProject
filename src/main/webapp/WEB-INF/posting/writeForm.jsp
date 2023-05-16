@@ -187,13 +187,12 @@ $(function(){
 						style="font-weight: 600; color: #416442; background-color: #e3f2c9; width: 300px; height: 50px; font-size: 1.8em; padding: 10px 0px; border-radius: 10px; text-align: center;">공고등록</h2>
 				</div>
 				<br>
-				
 				<div align="right">
 					<c:if test="${draftCount!=0 }">
 						<button type="button" id="draftbtn" class="small-btn" data-toggle="modal" style="margin-right: 10px;" data-target="#draftPostModal">임시저장 불러오기</button>
 					</c:if>
 				<button type="button" class="small-btn" id="recentPosting">이전공고 불러오기</button></div>
-				<br>
+
 				<div class="formbold-input-wrapp formbold-mb-3">
 					<label for="p_title" class="formbold-form-label"> 공고제목 </label>
 
@@ -208,11 +207,25 @@ $(function(){
 						type="text" name="p_type" id="p_type"
 						placeholder="직종을 입력해주세요 (ex: 광고/홍보)" class="formbold-form-input" required="required" />
 				</div>
-
+				
+				<div class="formbold-mb-3">
+					<label class="formbold-form-label">고용형태</label> <select
+						class="formbold-form-input" name="p_employtype" id="p_employtype">
+						<option value="정규직">정규직</option>
+						<option value="기간제">기간제</option>
+					</select>
+				</div>
+				
 				<div class="formbold-mb-3">
 					<label for="p_pay" class="formbold-form-label"> 급여 </label> <input
 						type="number" name="p_pay" id="p_pay" step="50"
 						placeholder="급여를 입력해주세요 (ex: 3000000)" class="formbold-form-input" required="required" />
+				</div>
+				
+				<div class="formbold-mb-3">
+					<label for="p_hirenum" class="formbold-form-label"> 채용인원 </label>
+					<input type="number" name="p_hirenum" id="p_hirenum"
+						placeholder="ex:0" class="formbold-form-input" required="required" />
 				</div>
 
 				<div class="formbold-input-flex">
@@ -225,11 +238,6 @@ $(function(){
 						<label for="p_workday" class="formbold-form-label"> 요일 </label> <input
 							type="text" name="p_workday" id="p_workday"
 							placeholder="ex: 월/수/금" class="formbold-form-input" required="required" />
-					</div>
-					<div>
-						<label for="p_hirenum" class="formbold-form-label"> 채용인원 </label>
-						<input type="number" name="p_hirenum" id="p_hirenum"
-							placeholder="ex:0" class="formbold-form-input" required="required" />
 					</div>
 				</div>
 
@@ -244,14 +252,6 @@ $(function(){
 							type="time" name="p_endtime" id="p_endtime" placeholder="ex:6개월" value="18:00"
 							class="formbold-form-input" required="required" />
 					</div>
-				</div>
-
-				<div class="formbold-mb-3">
-					<label class="formbold-form-label">고용형태</label> <select
-						class="formbold-form-input" name="p_employtype" id="p_employtype">
-						<option value="정규직">정규직</option>
-						<option value="기간제">기간제</option>
-					</select>
 				</div>
 
 				<div class="formbold-mb-3">
@@ -380,7 +380,7 @@ body {
 
 .pcontent-input {
 	width: 100%;
-	height: 500px;
+	height: 300px;
 	padding: 13px 22px;
 	border-radius: 5px;
 	border: 1px solid #dde3ec;
