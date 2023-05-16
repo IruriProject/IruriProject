@@ -60,7 +60,7 @@ div {
 						<thead>
 							<tr class="text-dark">
 								<th scope="col" style="text-align: center;"><input class="form-check-input"
-									type="checkbox"></th>
+									type="checkbox" id="allcheck"></th>
 								<th scope="col" style="text-align: center;">No.</th>
 								<th scope="col" style="text-align: center;">기업명</th>
 								<th scope="col" style="text-align: center;">주소</th>
@@ -73,7 +73,8 @@ div {
 						<tbody>
 						<c:forEach var="dto" items="${list }" varStatus="i">
 							<tr>
-								<td style="text-align: center;"><input class="form-check-input" type="checkbox"></td>
+								<input type="hidden" id="h_num" value="${dto.h_num }">
+								<td style="text-align: center;"><input class="form-check-input del" type="checkbox"></td>
 								<td style="text-align: center;">${i.count}</td>
 								<td style="text-align: center;">${dto.e_name }</td>
 								<td style="text-align: center;">${dto.e_addr }</td>
@@ -86,7 +87,7 @@ div {
 							
 							<tr>
 								<td colspan="7" >
-								<button id="btndel">관심 기업 해제</button>
+								<button id="btnEnterDel">관심 기업 해제</button>
 								</td>							
 							</tr>
 							
@@ -97,8 +98,62 @@ div {
 		</div>
 		<!-- Recent Sales End -->
 		
+		<script type="text/javascript">
+		
+		$("#allcheck").click(function(){
+			
+			//체크 값 없음
+			var chk=$(this).is(":checked");
+			console.log(chk);//true, false로 나옴
+			
+			//전체 체크값을 아래의 체크에 일괄전달
+			$(".del").prop("checked",chk);
+			
+		});
+		
+		$("#btnEnterDel").click(function(){
+			//alert("삭제 하고 싶어요");
+			
+			//체크한 기업 개수 구하기
+			var cnt=$(".del:checked").length;
+			//alert(cnt);
+			
+			if (cnt==0) {
+				alert("삭제할 기업을 선택해주세요 :)");
+				return;//종료
+			}
+			
+			$(".del:checked").each(function(i,elt){
+				
+				var num=$("#h_num").val();
+				console.log(num);//선택한 num만 나오는지 확인
+				
+				//삭제 할 ajax(진짜 삭제 되는 것)
+				$.ajax({
+					
+					type:"get",
+					url:"hdelete",
+					dataType:"html",
+					data:{"num":num},
+					success:function(){
+						location.reload();
+					}
+					
+				})
+				
+			})
+			
+		});
+		
+		
+		</script>
+		
+		
+		
+		
 		<script src="https://kit.fontawesome.com/2663817d27.js"
       crossorigin="anonymous"></script><!-- 아이콘에 필요한거니 삭제말것 -->
+      
 	
 	
 </body>

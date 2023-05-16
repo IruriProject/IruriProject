@@ -112,7 +112,7 @@ public class UFnService {
    }
    
    //기업 데이터 가져오기
-   public List<EnterpriseDto> getLikeEnterprise(String e_num) {
+   public List<Map<String, Object>> getLikeEnterprise(String e_num) {
 	   
 	   return mapper.getLikeEnterprise(e_num);
    }

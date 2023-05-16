@@ -138,7 +138,7 @@
    </select>
    
    <!-- 관심기업 -->
-   <select id="getLikeEnterprise" resultType="edto"
+   <select id="getLikeEnterprise" resultType="Map"
       parameterType="String">
       select HEART.*, ENTERPRISE.* from HEART inner join ENTERPRISE on HEART.e_num = ENTERPRISE.e_num where HEART.u_num=#{u_num} 
    </select>

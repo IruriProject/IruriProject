@@ -52,12 +52,11 @@ public class UFnController {
    public ModelAndView home(HttpSession session, String h_num, String s_um) {
       ModelAndView model = new ModelAndView();
       String u_id = (String) session.getAttribute("loginId");
-      String loginStatus=(String) session.getAttribute("loginStatus");
-      System.out.println(u_id);
+      String loginStatus = (String) session.getAttribute("loginStatus");
       UserDto dto = service.findUserdataById(u_id);
       ResumeDto rdto = uservice.getResume(dto.getU_num());
       List<ResumeDto> list=uservice.getMyResume(dto.getU_num());
-      List<EnterpriseDto> getEnterlist =uservice.getLikeEnterprise(u_id); //기업데이터
+      List<Map<String, Object>> getEnterlist =uservice.getLikeEnterprise(u_id); //기업데이터
       List<EnterpriseDto> getMypageLikeEnter=uservice.getMypageLikeEnter(dto.getU_num());//세션의 아이디 통해 dto를 갖고오고 그 dto통해 U_num갖고오기, U_num통해 관심 기업과 관심 공고 갖고옴
       List<Map<String, Object>> getMypageScrapPosting=uservice.getMypageScrapPosting(dto.getU_num());
      
@@ -303,7 +302,7 @@ public class UFnController {
 	  if(myId!=null && loginStatus.equals("user")) {
 		  
 		  String u_num=service.findUserdataById(myId).getU_num();
-		  List<EnterpriseDto> list =uservice.getLikeEnterprise(u_num); //기업데이터
+		  List<Map<String, Object>> list =uservice.getLikeEnterprise(u_num); //기업데이터
 	      int countLikeEnter = uservice.countLikeEnterprise(u_num);
 	      
 	      model.addObject("countLikeEnter", countLikeEnter);
@@ -375,6 +374,16 @@ public class UFnController {
 	public void deleteScrapPosting(String s_num) {
 
 		uservice.deleteScrapPosting(s_num);
+	}
+	
+	//지원 현황
+	@GetMapping("/state")
+	public ModelAndView applicationList(String num) {
+		
+		ModelAndView model=new ModelAndView();
+		model.setViewName("/user/applicationstate");
+		
+		return model;
 	}
 		
 
