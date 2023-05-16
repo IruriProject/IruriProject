@@ -56,16 +56,12 @@ public class EnterpriseController {
 	}
 	
 	@GetMapping("/enterprisepage")
-	public ModelAndView enterprisePageForUser(HttpSession session) {
+	public ModelAndView enterprisePageForUser(String e_num) {
 		ModelAndView mview = new ModelAndView();
 
-		String loginId = (String) session.getAttribute("loginId");
-		EnterpriseDto dto = service.findEnterdataById(loginId);
-
-		mview.addObject("dto", dto);
-		mview.addObject("heartCount", service.heartByEnter(dto.getE_num()));
-		mview.addObject("postings", efn_service.getPreviewPostings(dto.getE_num()));
-		mview.addObject("postingCount", efn_service.getAllPostings(dto.getE_num()).size());
+		mview.addObject("heartCount", service.heartByEnter(e_num));
+		mview.addObject("postings", efn_service.getPreviewPostings(e_num));
+		mview.addObject("postingCount", efn_service.getAllPostings(e_num).size());
 
 		mview.setViewName("/enterprise/enterprisePageForUser");
 
