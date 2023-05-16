@@ -170,24 +170,6 @@ public class JoinController {
 		return map;
 	}
 	
-	public static String getRandomStr(int size) {
-		if(size > 0) {
-			char[] tmp = new char[size];
-			for(int i=0; i<tmp.length; i++) {
-				int div = (int) Math.floor( Math.random() * 2 );
-				
-				if(div == 0) { // 0이면 숫자로
-					tmp[i] = (char) (Math.random() * 10 + '0') ;
-				}else { //1이면 알파벳
-					tmp[i] = (char) (Math.random() * 26 + 'A') ;
-				}
-			}
-			return new String(tmp);
-		}
-		return "ERROR : Size is required."; 
-	}
-	
-	
 	/////////////kakao
     @RequestMapping(value = "/callback/kakaotalk", method = {RequestMethod.GET, RequestMethod.POST})
     public String callbackKakao(Model model, @RequestParam String code, @RequestParam(value="state", required=false) String state, HttpSession session) throws Exception {
@@ -213,23 +195,18 @@ public class JoinController {
         	
         //없는 경우 가입 진행 + 로그인
         }else {
-	    	String randomId=getRandomStr(8);
-	    	UserDto userDto = new UserDto();
-	    	userDto.setU_id(randomId); //랜덤아이디 부여
-	    	userDto.setU_email(email);
-	    	userDto.setU_name(nickname);
-	    	userDto.setU_birth(new Date(0));
-	    	userDto.setU_addr("");
-	    	userDto.setU_gender("");
-	    	userDto.setU_hp("");
-	    	
-	
-	    	session.setAttribute("loginStatus", "user");
-	    	session.setAttribute("loginId", randomId);
-	    	session.setAttribute("loginName", nickname);
 	    	
 	    	//email 있으면 1 없으면 0반환
 	    	if (service.userSearchEmail(email) ==0) { //첫 로그인 ->회원가입 진행
+	    		
+		    	UserDto userDto = new UserDto();
+		    	userDto.setU_id(email);
+		    	userDto.setU_email(email);
+		    	userDto.setU_name(nickname);
+		
+		    	session.setAttribute("loginStatus", "user");
+		    	session.setAttribute("loginId", email);
+		    	session.setAttribute("loginName", nickname);
 	    		
 	    		service.joinUser(userDto); //db저장
 	    		String u_num=service.findUserByEmail(email).getU_num();
@@ -237,6 +214,10 @@ public class JoinController {
 	    		
 	    	}else { //가입된 아이디 존재 ->로그인 후 홈으로 이동
 	    		
+		    	session.setAttribute("loginStatus", "user");
+		    	session.setAttribute("loginId", email);
+		    	session.setAttribute("loginName", nickname);
+		    	
 	    		return "redirect:/";
 	    	}
         }
