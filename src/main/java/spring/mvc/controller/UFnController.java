@@ -52,6 +52,7 @@ public class UFnController {
    public ModelAndView home(HttpSession session, String h_num, String s_um) {
       ModelAndView model = new ModelAndView();
       String u_id = (String) session.getAttribute("loginId");
+      String loginStatus=(String) session.getAttribute("loginStatus");
       System.out.println(u_id);
       UserDto dto = service.findUserdataById(u_id);
       ResumeDto rdto = uservice.getResume(dto.getU_num());
@@ -72,12 +73,20 @@ public class UFnController {
       model.addObject("getMypageScrapPosting", getMypageScrapPosting);
       
       //좋아요한 기업 수 
-      int countLikeEnter = uservice.countLikeEnterprise(h_num);
-      model.addObject("countLikeEnter", countLikeEnter);
+      if (u_id!=null && loginStatus.equals("user")) {
+    	  
+		 String u_num=service.findUserdataById(u_id).getU_num(); 
+		 int countLikeEnter = uservice.countLikeEnterprise(u_num);
+		 model.addObject("countLikeEnter", countLikeEnter);
+	    
+      }
       
       //스크랩한 공고 수
-      int countPosting = uservice.countScrapPosting(s_um);
-      model.addObject("countPosting", countPosting);
+      if (u_id!=null && loginStatus.equals("user")) {
+    	  String u_num=service.findUserdataById(u_id).getU_num(); 
+	      int countPosting = uservice.countScrapPosting(u_num);
+	      model.addObject("countPosting", countPosting);
+      }
       
       return model;
    }

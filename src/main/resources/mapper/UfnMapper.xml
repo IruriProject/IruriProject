@@ -131,6 +131,12 @@
       select count(h_num) from HEART where u_num=#{u_num}
    </select>
    
+   <!-- 마이페이지 관심 기업 수 -->
+   <select id="mypageCountLikeEnterprise" resultType="int"
+      parameterType="String">
+      select count(h_num) from HEART where u_num=#{u_num}
+   </select>
+   
    <!-- 관심기업 -->
    <select id="getLikeEnterprise" resultType="edto"
       parameterType="String">
