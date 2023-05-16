@@ -11,6 +11,7 @@
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://kit.fontawesome.com/7027f21a5f.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style type="text/css">
 
@@ -31,13 +32,12 @@
 .formbold-reply-btn {
 	font-size: 16px;
 	border-radius: 5px;
-	padding: 8px 24px;
+	padding: 13px 24px;
 	border: none;
 	font-weight: 500;
 	background-color: #4E9F3D;
 	color: white;
 	cursor: pointer;
-	margin-top: 25px;
 	float: right;
 }
 
@@ -133,6 +133,7 @@
 }
 .name {
 	padding:5px;
+	font-weight:bold;
 }
 .content{
 	padding:10px;
@@ -195,7 +196,7 @@ $(function(){
 	
 	//num값은 전역변수로 선언..
 	num=$("#b_num").val();
-	loginok="${sessionScope.loginStatus }";
+	loginok="${sessionScope.loginStatus}";
 	myid="${sessionScope.loginId}";
 
 	list();
@@ -204,14 +205,74 @@ $(function(){
 	//댓글의 댓글창 show
 	$(document).on('click', '#btncomment', function() {
 
-	      $(this).closest('.reply-item').find('.reply-form').show();
-	    //alert("댓글 보이기 버튼이 클릭되었습니다.");
+	    
+	    var replyForm = $(this).closest('.reply-item').find('.reply-form');
+    
+    if (replyForm.is(":visible")) {
+        replyForm.hide();
+    } else {
+        replyForm.show();
+    }
+    
 	});
 	
+
+//수정창 띄우기
+	
+	$(document).on('click', '.updatecommentbtn', function(e) {
+		
+		  var bc_num = $(this).attr("bc_num");
+		  var bc_loginid=$("#bc_loginid").val();
+		  var bc_updatecontent=$("#bc_updatecontent").val(); 
+		  var data="bc_num="+bc_num+"&bc_loginid="+bc_loginid+"&bc_updatecontent="+bc_updatecontent;
+		  //console.log(data);
+		  //alert(data);
+		  
+				$.ajax({
+					type : "get", 
+					dataType : "json", // 받을게 없을때는 text, html 아닐때는 dataType받는 파일형식으로 적기
+					url : "answerupdateform",
+					data : data,
+					success:function(res){
+						
+						$("#bc_loginid").val(res.bc_loginid);
+						$("#bc_updatecontent").val(res.bc_content);
+						$("#bc_updatenum").val(res.bc_num);
+					}
+
+				});
+	
+		});
+
+	//수정
+	$("#btnupdateinfo").click(function(){
+		
+		var bc_num=$("#bc_updatenum").val();
+		var bc_updatecontent=$("#bc_updatecontent").val();
+		
+		var data="bc_num="+bc_num+"&bc_content="+bc_updatecontent;
+		
+		//alert(data);
+		
+		$.ajax({
+			  
+			  type:"post",
+			  dataType:"text",
+			  data:data,
+			  url:"commentupdate",
+			  success:function(){
+				  
+				  location.reload();
+			  }
+		  });
+		 
+	});
+
+
 	//delete
 	$(document).on('click', '#commentdeletebtn', function() {
 	    var bc_num = $(this).closest('.reply-item').data('bc_num');
-	    alert(bc_num);
+	    //alert(bc_num);
 	    // 서버로 댓글 삭제 요청을 보냄
 	    $.ajax({
 	        type: "get",
@@ -224,7 +285,8 @@ $(function(){
 	        }
 	    });
 	});
-		
+		 	 
+		 
 	//insert
 	$("#btncommentadd").click(function(){
 	
@@ -242,7 +304,7 @@ $(function(){
 			url: "commentinsert",
 			data: {"b_num": num, "bc_num":"0", "bc_content": bc_content},
 			success: function(){
-				alert("인서트 성공");
+				//alert("인서트 성공");
 				$("#bc_content").val("");
 				list();
 			}
@@ -265,7 +327,7 @@ $(function(){
 		    url : "commentinsert",
 		    data : {"b_num": num, "bc_num": bc_num, "bc_content": bc_answercontent},
 		    success : function(){
-		        alert("인서트 성공");
+		       // alert("인서트 성공");
 		        list();
 			}
 		}); 
@@ -276,8 +338,11 @@ $(function(){
 //사용자 함수 list
 function list() {
     var num = $("#b_num").val();
-    var loginok = "${sessionScope.loginStatus}";
+    loginok="${sessionScope.loginStatus}";
+	myid="${sessionScope.loginId}";
 
+	//alert(loginok+myid);
+	
     $.ajax({
         type: "get",
         dataType: "json",
@@ -294,57 +359,80 @@ function list() {
             });
 
             $.each(res, function (i, dto) {
-                s += "<div class='reply-item' data-bc_num='" + dto.bc_num + "'>";
-                s += "<b class='name'>" + dto.bc_loginid + "</b>";
-                s += "<span class='day'>" + dto.bc_writeday + "</span>";
-
-                s += "<div class='reply-form' style='width:70%;'><textarea class='bcontent-commentreply-input reply-content' placeholder='댓글을 입력해주세요'></textarea>";
-                s += "<button type='button' class='formbold-reply-btn comment-answerbtn'>등록</button></div>";
-
-                if (loginok != 'null' && myid == dto.bc_loginid) {
+            	
+            	var indent = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".repeat(dto.bc_relevel);
+            	 
+            	if(dto.bc_relevel != 0){
+	                s += "<div class='reply-item' data-bc_num='" + dto.bc_num + "'>";
+	                s += indent+indent;
+	                s +="<b class='fa-solid fa-reply fa-rotate-180' style='padding-top:3px; padding-left:8px; font-size:12px;'></b>";
+	                s += "<b class='name' style='font-weight:bold;'>"+ dto.bc_loginid + "</b>";
+	                s += "<span class='day' style='font-weight:500;'>" + dto.bc_writeday + "</span>";
+            	}else{
+            		 s += "<div class='reply-item' data-bc_num='" + dto.bc_num + "'>";
+            		 s += indent+indent;
+            		 s += "<b class='name' style='font-weight:bold;'>"+ dto.bc_loginid + "</b>";
+                     s += "<span class='day' style='font-weight:500;'>" + dto.bc_writeday + "</span>";
+            	}
+                 
+              
+                if (loginok !='' && myid == dto.bc_loginid) {
                     s += "<div class='dropdown' style='float:right;'>";
                     s += "<span class='glyphicon glyphicon-option-vertical' style='color: gray; font-size: 17px;'></span>";
                     s += "<div class='dropdown-content'>";
-                    s += "<button type='button' data-toggle='modal' data-target='#answermodal' style='text-align:center;' onclick='location.href=\"update?num=" + dto.b_num + "\"'>수정</button>";
+                    s += "<button type='button' data-toggle='modal' class='updatecommentbtn' data-target='#answermodal' style='text-align:center;' bc_num='"+dto.bc_num+"'>수정</button>";
                     s += "<button type='button' style='text-align:center;' id='commentdeletebtn'>삭제</button>";
                     s += "<button type='button' style='text-align:center;' id='btncomment'>댓글</button>";
                     s += "</div></div>";
                 }
-
-                if (dto.bc_relevel != 0) {
-                    for (var i = 0; i < dto.bc_relevel; i++) {
-                        s += "&nbsp;&nbsp;&nbsp;";
-                    }
-                    s += "ㄴ";
-                    s += "<br><br><span class='content'>" + dto.bc_content + "</span>";
-                } else {
-                    s += "<br><br><span class='content'>" + dto.bc_content + "</span>";
+                
+                else if (loginok !='' && myid != dto.bc_loginid) {
+                    s += "<div class='dropdown' style='float:right;'>";
+                    s += "<span class='glyphicon glyphicon-option-vertical' style='color: gray; font-size: 17px;'></span>";
+                    s += "<div class='dropdown-content'>";
+                    s += "<button type='button' style='text-align:center;' id='btncomment'>댓글</button>";
+                    s += "</div></div>";
                 }
-
-                s += "</div><hr>";
+               else{
+                	s+="";
+                }
+                
+                if (dto.bc_relevel != 0) {
+                	var indent = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".repeat(dto.bc_relevel);
+                	
+                    s += "<br><br><span class='content'><p style='padding:0 24px;'>"+indent+indent+ dto.bc_content + "</p></span><br>";
+                } else {
+                    s += "<br><br><span class='content'><p style='padding:0 24px;'>"+indent+indent+ dto.bc_content + "</p></span><br>";
+                }
+              
+                
+                s += "<div class='reply-form' style='width:100%; display:none; margin-top:20px; margin-bottom:80px;'><textarea class='bcontent-commentreply-input reply-content' placeholder='댓글을 입력해주세요'></textarea>";
+                s += "<button type='button' class='formbold-reply-btn comment-answerbtn'>등록</button></div>";
+                s += "</div><hr><br>";
 
                 // 새로운 댓글 아래에 댓글이 보이도록 처리
                 if (i === res.length - 1) {
-                    s += "<div class='reply-item' id='new-reply-item'>";
+                    s += "<br><div class='reply-item' id='new-reply-item'>";
                     s += "<div class='reply-form' style='display: none;'><textarea class='reply-content' placeholder='댓글을 입력해주세요'></textarea>";
                     s += "<button type='button' class='comment-answerbtn'>등록</button></div>";
-                    s += "</div>";
+                    s += "</div><br>";
                 }
             });
-			 // 등록된 댓글이 없는 경우에 대한 처리
+			    // 등록된 댓글이 없는 경우에 대한 처리
 	            if (res.length === 0) {
 	                s += "<div class='answer' style='text-align:center;'>";
 	                s += "<span style='font-size:18px;text-align:center;'>등록된 댓글이 없습니다.<br>댓글을 남겨보세요!</span>";
-	                s += "</div>";
+	                s += "</div><br>";
 	            }
 			 
 	            // 등록된 댓글 있는 경우에 대한 처리
 	            /* if (res.length > 0) {
 	                s += "<div class='answer' style='text-align:center;'>";
-	                s += "<span style='text-align:center;'>등록된 댓글이 있습니다.<br>댓글을 남겨보세요!</span>";
+	                s += "<span style='text-align:center;'>로그인 후 <br>댓글을 남겨보세요!</span>";
 	                s += "</div>";
 	            } */
 			 
+	            console.log(s);	
 			$("div.alist").html(s);
 		}
 	});
@@ -383,7 +471,7 @@ function list() {
 						pattern="yyyy-MM-dd HH:mm" />
 			</span> <span
 				style="color: gray; float: right; font-size: 14px; padding: 10px;">
-					<i class="glyphicon glyphicon-comment"></i> <span class="acount"></span>
+					<i class="glyphicon glyphicon-comment"></i> <span class="acount" style="color:gray;"></span>
 			</span> <span
 				style="color: gray; float: right; font-size: 14px; padding: 10px;">
 					<i class="	glyphicon glyphicon-eye-open"></i> ${bdto.b_readcount }
@@ -461,7 +549,48 @@ function list() {
 
 	
 	</table>
-				
+			
+			
+			
+
+	<div class="container" style="margin: 0 auto;">
+	
+		  <!-- Modal -->
+		  <div class="modal fade" id="answermodal" role="dialog" >
+		    <div class="modal-dialog">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content" style="width:80%;">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title" style="text-align:center; padding:20px; font-size:20px; font-weight:bold;">댓글 수정</h4>
+		        </div>
+		        <div class="modal-body">
+		            <form name ="answerupdateform" method="post">
+					<input type="hidden" name="bc_num" id="bc_updatenum">
+					<div style="width: 300px; margin: 0 auto; padding: 20px 0;">
+									<input type="text"  id="bc_loginid" class="form-control" style="width: 300px;"
+										readonly="readonly" value="${bc_loginid}"><br>
+								
+									<textarea type="text" class="form-control" 
+									placeholder="댓글을 입력하세요" 
+									id="bc_updatecontent" style="width: 100%; height:200px;"></textarea>
+								</div>
+				   </form>
+		        </div>
+		        <div class="modal-footer">
+		         <button type="button" class="btn btn-info" 
+					data-dismiss="modal" id="btnupdateinfo" style="background-color: #4E9F3D; margin-left: 100px;">수정하기</button>
+		          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>
+		  
+		</div>
+
+			
 				
 	
 </body>

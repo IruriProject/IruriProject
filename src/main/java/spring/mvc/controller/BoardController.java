@@ -390,75 +390,76 @@ public class BoardController {
 		return bservice.getAllComments(b_num);
 		
 	}
+
 	
-	
-	@GetMapping("/board/commentdelete")
-	public String commentdelete(String bc_num,
+	//update
+	@ResponseBody
+	@PostMapping("/board/commentupdate")
+	public void commentupdate(@ModelAttribute BCommentDto bc_dto,
 			HttpSession session)
 	{
+		//세션에 로그인한 아이디 얻기 
+		String myid=(String)session.getAttribute("loginId");
+
 	
-		mapper.deleteComment(bc_num);
+		//dto에 넣기
+		bc_dto.setBc_loginid(myid);
 		
-		return "redirect:boardlist";
+		if (!bc_dto.getBc_num().equals("0")) {
+			bc_dto.setBc_regroup(bservice.getComment(bc_dto.getBc_num()).getBc_regroup());
+		    bc_dto.setBc_restep(bservice.getComment(bc_dto.getBc_num()).getBc_restep());
+		    bc_dto.setBc_relevel(bservice.getComment(bc_dto.getBc_num()).getBc_relevel());
+		}
+		//update
+		bservice.updateComment(bc_dto);
+		
+		session.setAttribute("content", bc_dto.getBc_content());
 	}
 	
-	/*
- 	@ResponseBody
-@PostMapping("/board/commentinsert")
-public void commentinsert(@ModelAttribute BCommentDto bc_dto,
-		@RequestParam String b_num,
-		HttpSession session)
-{
-	//세션에 로그인한 아이디 얻기 
-	String myid=(String)session.getAttribute("loginId");
-
-	//dto에 넣기
-	bc_dto.setB_num(b_num);
-	bc_dto.setBc_loginid(myid);
-
-	//insert
-	bservice.insertComment(bc_dto);
-}
-
-@ResponseBody
-@GetMapping("/board/form")
-public String form(
-		@RequestParam(defaultValue = "0") int bc_num,
-		@RequestParam(defaultValue = "0") int bc_regroup,
-		@RequestParam(defaultValue = "0") int bc_restep,
-		@RequestParam(defaultValue = "0") int bc_relevel,
-		Model model)
-{
-	
-	//답글일때 넘어오는 값
-	//새글일 경우는 모두 null이므로 default값으로 전달
-	model.addAttribute("bc_num",bc_num);
-	model.addAttribute("bc_regroup",bc_regroup);
-	model.addAttribute("bc_restep",bc_restep);
-	model.addAttribute("bc_relevel",bc_relevel);
-	
-	//제목에 새글일 경우 "", 답글일 경우 해당 제목 넣어보자
-	String subject="";
-	
-	if(bc_num>0) {
-		subject= bservice.getComment(bc_num).getBc_content();
-		// subject=service.getData(num).getSubject();
+	@ResponseBody
+	@GetMapping("/board/answerupdateform")
+	public BCommentDto getComment(String bc_num) //data
+	{
+		return bservice.getComment(bc_num);
 	}
 	
-	model.addAttribute("subject",subject);
-	
-	return "/board/writeform";
-}
+	@GetMapping("/board/commentdelete")
+	@ResponseBody
+	public String commentdelete(String bc_num) {
+	    BCommentDto comment = bservice.getComment(bc_num); // 삭제할 댓글 조회
+
+	    int level = comment.getBc_relevel(); // 댓글의 bc_relevel 값 가져오기
+
+	    if (level == 0) { 
+	        int bc_regroup = comment.getBc_regroup(); // 댓글의 bc_regroup 값 가져오기
+	        mapper.deletechildComment(bc_regroup);
+	    } else {
+	        int bc_regroup = comment.getBc_regroup(); // 댓글의 bc_regroup 값 가져오기
+	        int bc_restep = comment.getBc_restep(); // 댓글의 bc_restep 값 가져오기
+
+	        List<BCommentDto> list = bservice.getchildComments(bc_regroup, bc_restep); // 해당 bc_regroup의 모든 댓글들 조회
+
+	        // 자식 댓글들을 삭제 처리하기 위해 list가 해당 bc_regroup의 모든 댓글들이 있을 동안..
+	        for (int i = 0; i < list.size(); i++) {
+	            BCommentDto childComment = list.get(i); // 자식 댓글 정보 가져오기
+	            int child_restep = childComment.getBc_restep(); // 자식 댓글의 bc_restep 값 가져오기
+	            int child_relevel = childComment.getBc_relevel(); // 자식 댓글의 bc_relevel 값 가져오기
+
+	            if (child_relevel > level) { // bc_restep보다 크고 bc_relevel이 큰 경우에만 삭제
+	                String child_bc_num = childComment.getBc_num(); // 자식 댓글의 bc_num 가져오기
+
+	                // 자식 댓글 삭제
+	                mapper.deleteComment(child_bc_num);
+	            }else
+	            	break;
+	        }
+	    }
+
+	    // 부모 댓글 삭제
+	    mapper.deleteComment(bc_num);
+
+	    return "redirect:boardlist";
+	}
 
 
-
-//list
-@ResponseBody
-@GetMapping("/board/commentlist")
-public List<BCommentDto> commentlist(int bc_num)
-{
-	return bservice.getAllComments(bc_num);
-}
-*/
-	
 }
