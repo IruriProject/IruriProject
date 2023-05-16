@@ -49,45 +49,51 @@ div {
 					</div>
 					<div class="table-responsive">
 						<table
-							class="table text-start align-middle table-bordered table-hover mb-0"
-							style="width: 1000px;">
+							class="table text-start align-middle table-bordered table-hover mb-0">
 							<thead>
 								<tr class="text-dark">
-									<th scope="col"><input class="form-check-input" id="allcheck"
-										type="checkbox"></th>
+									<th scope="col" style="text-align: center;"><input class="form-check-input"
+										type="checkbox" id="allcheck"></th>
 									<th scope="col" style="text-align: center;">No.</th>
-									<th scope="col" style="text-align: center;">회사명</th>
+									<th scope="col" style="text-align: center;">지원일</th>
 									<th scope="col" style="text-align: center;">공고 제목</th>
-									<th scope="col" style="text-align: center;">직무</th>
+									<!-- <th scope="col" style="text-align: center;">직무</th> -->
+									<th scope="col" style="text-align: center;">이력서 제목</th>
+									<th scope="col" style="text-align: center;">모집 마감 일</th>
 									<th scope="col" style="text-align: center;">급여</th>
-									<th scope="col" style="text-align: center;">계약기간</th>
-									<th scope="col" style="text-align: center;">근무요일</th>
-									<th scope="col" style="text-align: center;">근무시간</th>
 									<th scope="col" style="text-align: center;">고용형태</th>
-									<th scope="col">Action</th>
+									<th scope="col" style="text-align: center;">근무요일</th>
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach var="pdto" items="${list }" varStatus="i">
+							<c:forEach var="adto" items="${list }" varStatus="i">
 							<tr>
-									<td><input class="form-check-input" type="checkbox"></td>
-									<td>${i.count }</td>
-									<%-- <td><input type="hidden" id="p_num">${pdto.p_num }</td> --%>
-									<td>${pdto.e_name }</td>
-									<td>${pdto.p_title}</td>
-									<td>${pdto.p_type }</td>
-									<td>${pdto.p_pay }</td>
-									<td>${pdto.p_period }</td>
-									<td>${pdto.p_workday}</td>
-									<td>${pdto.p_starttime } ~ ${pdto.p_endtime }</td>
-									<td>${pdto.p_employtype}</td>
-									<td><a class="btn btn-sm btn-primary" href="posting/detailpage?p_num=${pdto.p_num}">공고페이지</a></td>
+									<input type="hidden" class="s_num" value="${adto.a_num }">
+									<td style="text-align: center;"><input class="form-check-input del" type="checkbox"></td>
+									<td style="text-align: center;">${i.count }</td>
+									<td style="text-align: center;"><fmt:formatDate value="${adto.a_writeday}" pattern="yyyy-MM-dd"/></td>
+									<td style="text-align: center;"><a href="posting/detailpage?p_num=${adto.p_num}">${adto.p_title }</a></td>
+									<td style="text-align: center;"><a href="resume/detail?r_num=${adto.r_num}">${adto.r_title }</a></td>
+									<td style="text-align: center;">${adto.p_enddate}</td>
+									<td style="text-align: center;">${adto.p_pay}</td>
+									<td style="text-align: center;">${adto.p_employtype}</td>									
+									<td style="text-align: center;">
+									<c:if test="${adto.p_workday=='월/화/수/목/금'}">
+										평일
+									</c:if>
+									<c:if test="${adto.p_workday=='토/일'}">
+										주말
+									</c:if>
+									<c:if test="${adto.p_workday!='토/일' && adto.p_workday!='월/화/수/목/금'}">
+										${adto.p_workday }
+									</c:if>
+									</td>
 								</tr>
 							</c:forEach>
 							
 							<tr>
 								<td colspan="11" >
-								<button id="btndel">스크랩 해제</button>
+								<button id="btnAppDel">지원 취소</button>
 								</td>							
 							</tr>
 							

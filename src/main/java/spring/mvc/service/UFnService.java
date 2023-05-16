@@ -183,6 +183,13 @@ public class UFnService {
    
    
    
+   //지원현황 리스트 가져오기
+   public List<Map<String, Object>> getApplicantList(String u_num){
+	   
+	   return mapper.getApplicantList(u_num);
+   }
+   
+   
    //열람
    public void insertViewer(ViewerDto dto) {
       mapper.insertViewer(dto);

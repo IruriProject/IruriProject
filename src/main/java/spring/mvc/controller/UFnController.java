@@ -23,6 +23,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import spring.mvc.dto.ApplicantDto;
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.ScrapDto;
@@ -336,11 +337,11 @@ public class UFnController {
 	
 	//관심 공고(스크랩)페이지
 	@GetMapping("/scrap")
-	public ModelAndView ScrapList(HttpSession session, ScrapDto sdto, PostingDto pdto, String e_num) {
+	public ModelAndView ScrapList(HttpSession session, ScrapDto sdto, PostingDto pdto, String num) {
 		
 		  ModelAndView model=new ModelAndView();
-		  String myId=(String) session.getAttribute("loginId"); String
-		  loginStatus=(String) session.getAttribute("loginStatus");
+		  String myId=(String) session.getAttribute("loginId"); 
+		  String loginStatus=(String) session.getAttribute("loginStatus");
 		 
 		
 		  if(myId!=null && loginStatus.equals("user")) {
@@ -348,7 +349,6 @@ public class UFnController {
 		  String u_num=service.findUserdataById(myId).getU_num();
 		  List<Map<String, Object>> list =uservice.getScrapPosting(u_num); //기업데이터
 		  int countScrapPosting = uservice.countScrapPosting(u_num);
-		 // String e_name =uservice.getEnterpriseENAME(e_num);
 		  
 		  
 		  model.addObject("countScrapPosting", countScrapPosting); //
@@ -378,10 +378,21 @@ public class UFnController {
 	
 	//지원 현황
 	@GetMapping("/state")
-	public ModelAndView applicationList(String num) {
+	public ModelAndView applicationList(HttpSession session, ResumeDto rdto, ApplicantDto adto, String num) {
 		
 		ModelAndView model=new ModelAndView();
-		model.setViewName("/user/applicationstate");
+		String myId = (String) session.getAttribute("loginId");
+		String loginStatus = (String) session.getAttribute("loginStatus");
+		
+		if (myId!=null && loginStatus.equals("user")) {
+			
+			String u_num = service.findUserdataById(myId).getU_num();
+			List<Map<String, Object>> list =uservice.getApplicantList(u_num);
+			
+			
+			model.addObject("list", list);
+			model.setViewName("/user/applicationstate");
+		}
 		
 		return model;
 	}

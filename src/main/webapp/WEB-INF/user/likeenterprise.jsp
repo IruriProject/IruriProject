@@ -55,8 +55,7 @@ div {
 				</div>
 				<div class="table-responsive">
 					<table
-						class="table text-start align-middle table-bordered table-hover mb-0"
-						style="width: 1000px;" >
+						class="table text-start align-middle table-bordered table-hover mb-0" >
 						<thead>
 							<tr class="text-dark">
 								<th scope="col" style="text-align: center;"><input class="form-check-input"
@@ -66,7 +65,6 @@ div {
 								<th scope="col" style="text-align: center;">주소</th>
 								<th scope="col" style="text-align: center;">전화번호</th>
 								<th scope="col" style="text-align: center;">이메일</th>
-								<th scope="col" style="text-align: center;">Action</th>
 								
 							</tr>
 						</thead>
@@ -76,11 +74,10 @@ div {
 								<input type="hidden" class="h_num" value="${dto.h_num }">
 								<td style="text-align: center;"><input class="form-check-input del" type="checkbox"></td>
 								<td style="text-align: center;">${i.count}</td>
-								<td style="text-align: center;">${dto.e_name }</td>
+								<td style="text-align: center;"><a href="/enterprise/enterprisepage?e_num=${dto.e_num }">${dto.e_name }</a></td>
 								<td style="text-align: center;">${dto.e_addr }</td>
 								<td style="text-align: center;">${dto.e_tel }</td>
 								<td style="text-align: center;">${dto.e_email }</td> 
-								<td style="text-align: center;"><a class="btn btn-sm btn-primary glyphicon glyphicon-search" href="/enterprise/enterprisepage?e_num=${dto.e_num }">기업페이지</a></td>
 							</tr>
 							
 							</c:forEach>
@@ -125,7 +122,7 @@ div {
 			
 			$(".del:checked").each(function(i,elt){
 				
-				var num=$(".h_num").val();
+				var num = $(this).closest("tr").find(".h_num").val();
 				console.log(num);//선택한 num만 나오는지 확인
 				
 				//삭제 할 ajax(진짜 삭제 되는 것)
@@ -136,6 +133,7 @@ div {
 					dataType:"html",
 					data:{"h_num":num},
 					success:function(){
+						
 						location.reload();
 					}
 					

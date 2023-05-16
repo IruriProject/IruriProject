@@ -61,6 +61,10 @@ public interface UFnMapperInter {
 	public List<Map<String, Object>> getMypageScrapPosting (String u_num);
 	
 	
+	//지원현황
+	public List<Map<String, Object>> getApplicantList(String u_num);//유저별 지원현황 리스트
+	
+	
 	//열람
 	public void insertViewer(ViewerDto dto);
 	public int getSearchUnum(Map<String, String> map);
