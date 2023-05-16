@@ -14,11 +14,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
+
 
 .formbold-mb-3 {
 	margin-bottom: 15px;
