@@ -80,16 +80,16 @@ text-align: center;
 	<div>
 		<!-- Content Start -->
 		<div class="container-fluid pt-4 px-4">
-			<div class="row g-4" style="border: 1px solid green; border-radius: 10px; padding-bottom: 10px;">
+			<div class="row g-4" style="border: 1px solid green; border-radius: 10px; padding:20px 0px 20px 10px;">
 				<div class="col-sm-12 col-md-3 col-xl-4 w-25">
 					<div style="width: 150px; height: 200px;" id="photoZone">
 					<c:if test="${dto.u_photo==null }">
 						<img src="/image/nophoto.png"
-						style="width: 170px; height: 170px; border-radius: 500px; margin-top:10px;">
+						style="width: 170px; height: 170px; border-radius: 500px;">
 					</c:if>
 					<c:if test="${dto.u_photo!=null }">
 							<img alt="" src="/photo/${dto.u_photo}"
-							style="width: 170px; height: 170px; border-radius: 500px; margin-top:10px;">
+							style="width: 170px; height: 170px; border-radius: 500px;">
 					</c:if>
 					</div>
 					${sessionScope.loginName }<br> ${dto.u_gender } / 나이 들어가야함<br>
