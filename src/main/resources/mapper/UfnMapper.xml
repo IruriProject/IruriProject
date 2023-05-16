@@ -58,7 +58,7 @@
 	<!-- 작성한 이력서 목록 가져오기 -->
 	<select id="getMyResume" resultType="rdto"
 		parameterType="String">
-		select * from RESUME where u_num=#{u_num}
+		select * from RESUME where u_num=#{u_num} order by r_presume desc
 	</select>
 
 	<!-- UserId에 해당하는 RESUME 찾기 -->

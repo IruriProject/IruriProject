@@ -64,7 +64,7 @@ text-align: center;
 							</tr>
 						</c:if>
 						<c:forEach var="dto" items="${list }" varStatus="i">
-							<tr data-rnum="${dto.r_num}", data-rpresume="${dto.r_presume }">
+							<tr data-rnum="${dto.r_num}", data-rpresume="${dto.r_presume }", data-rprivate="${dto.r_private }">
 								<td>${i.count}</td>
 								
 								
@@ -148,15 +148,24 @@ text-align: center;
 	})
 	$(".setMainOn").click(function(){
 		var r_num = $(this).closest("tr").data("rnum");
-		$.ajax({
-			type:"post",
-			dataType:"html",
-			data:{"r_num":r_num},
-			url:"/updateMainOn",
-			success:function(){
-				location.reload();
+		var r_private = $(this).closest("tr").data("rprivate");
+		if(r_private==1){
+			var result = confirm("비공개된 이력서를 대표설정 시 공개상태로 전환됩니다.\n대표이력서로 변경하시겠습니까?");
+			if(result==true){
+				$.ajax({
+					type:"post",
+					dataType:"html",
+					data:{"r_num":r_num},
+					url:"/updateMainOn",
+					success:function(){
+						location.reload();
+					}
+				})
+			}else{
+				return false;
 			}
-		})
+		}
+		
 	})
 	
 	$(".setPrivate").click(function(){
