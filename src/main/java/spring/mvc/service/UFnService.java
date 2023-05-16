@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.HeartDto;
 import spring.mvc.dto.MessageDto;
+import spring.mvc.dto.PostingDto;
 import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.ScrapDto;
 import spring.mvc.dto.UserDto;
@@ -103,8 +104,8 @@ public class UFnService {
       mapper.deleteUser(u_num);
    }
    
-   
-   //좋아요 한 기업 수
+   //관심기업
+   //관심 기업 수
    public int countLikeEnterprise(String u_num) {
 
       return mapper.countLikeEnterprise(u_num);
@@ -139,7 +140,23 @@ public class UFnService {
 	mapper.deleteLikeEnter(h_num);
    }
    
+   public List<EnterpriseDto> getMypageLikeEnter(String u_num){
+	   
+	   return mapper.getMypageLikeEnter(u_num);
+   }
+   
    //관심 공고(스크랩)
+   //관심 공고 수
+   public int countScrapPosting(String s_num) {
+	   
+	  return mapper.countScrapPosting(s_num);
+   }
+   
+   public List<Map<String, Object>> getScrapPosting(String u_num){
+	   
+	   return mapper.getScrapPosting(u_num);
+   }
+   
    //관심 공고 insert
    public void insertScrapPosting(ScrapDto dto) {
 	   
@@ -154,8 +171,14 @@ public class UFnService {
 	   return mapper.checkScrapPosting(map);
    }
    
+   //관심 공고 delete
    public void deleteScrapPosting(String s_num) {
 	   mapper.deleteScrapPosting(s_num);
+   }
+   
+   public List<Map<String, Object>> getMypageScrapPosting(String u_num){
+	   
+	   return mapper.getMypageScrapPosting(u_num);
    }
    
    

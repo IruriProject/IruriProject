@@ -24,36 +24,6 @@
       select *
       from RESUME where u_num=#{u_num} and r_presume=1
    </select>
-   
- 	<!-- 관심 기업 -->
-	<!-- 관심 기업 수 -->
-   <select id="countLikeEnterprise" resultType="int"
-      parameterType="String">
-      select count(h_num) from HEART where u_num=#{u_num}
-   </select>
-   
-   <!-- 관심기업 -->
-   <select id="getLikeEnterprise" resultType="edto"
-      parameterType="String">
-      select HEART.*, ENTERPRISE.* from HEART inner join ENTERPRISE on HEART.e_num = ENTERPRISE.e_num where HEART.u_num=#{u_num} 
-   </select>
-
-
-   <!-- 좋아요버튼 누르면 데이터 저장됨 -->
-   <insert id="insertLikeEnter" parameterType="hdto">
-      insert into HEART
-      (u_num, e_num) values (#{u_num},#{e_num})
-   </insert>
-
-	<!-- 좋아요버튼 다시 누르면 데이터 삭제됨 -->
-	<delete id="deleteLikeEnter" parameterType="String">
-		delete from HEART where h_num=#{h_num}
-	</delete>
-	
-	<!-- 좋아요 버튼 눌렀는지 확인하는 sql -->
-	<select id="checkLikeEnter" resultType="hdto" parameterType="Map">
-		select * from HEART where u_num=#{u_num} and e_num=#{e_num}
-	</select>
 	
 	<!-- 작성한 이력서 목록 가져오기 -->
 	<select id="getMyResume" resultType="rdto"
@@ -153,6 +123,42 @@
 	<delete id="deleteResume" parameterType="String">
 		delete from RESUME where r_num=#{r_num}
 	</delete>
+   
+ 	<!-- 관심 기업 -->
+	<!-- 관심 기업 수 -->
+   <select id="countLikeEnterprise" resultType="int"
+      parameterType="String">
+      select count(h_num) from HEART where u_num=#{u_num}
+   </select>
+   
+   <!-- 관심기업 -->
+   <select id="getLikeEnterprise" resultType="edto"
+      parameterType="String">
+      select HEART.*, ENTERPRISE.* from HEART inner join ENTERPRISE on HEART.e_num = ENTERPRISE.e_num where HEART.u_num=#{u_num} 
+   </select>
+
+
+   <!-- 좋아요버튼 누르면 데이터 저장됨 -->
+   <insert id="insertLikeEnter" parameterType="hdto">
+      insert into HEART
+      (u_num, e_num) values (#{u_num},#{e_num})
+   </insert>
+
+	<!-- 좋아요버튼 다시 누르면 데이터 삭제됨 -->
+	<delete id="deleteLikeEnter" parameterType="String">
+		delete from HEART where h_num=#{h_num}
+	</delete>
+	
+	<!-- 좋아요 버튼 눌렀는지 확인하는 sql -->
+	<select id="checkLikeEnter" resultType="hdto" parameterType="Map">
+		select * from HEART where u_num=#{u_num} and e_num=#{e_num}
+	</select>
+	
+	<!-- 마이페이지 관심 기업 리스트 -->
+	<select id="getMypageLikeEnter" resultType="edto" parameterType="String">
+		 select HEART.*, ENTERPRISE.* from HEART inner join ENTERPRISE on HEART.e_num = ENTERPRISE.e_num where HEART.u_num=#{u_num} order by h_num desc Limit 0,3
+	</select>
+	
 	
 	<!-- 관심 공고(스크랩) -->
 	<!-- 관심 공고 count -->
@@ -161,14 +167,13 @@
 	</select>
 
 	<!-- 공고 리스트 -->
-	<select id="getPosting" resultType="sdto" parameterType="string">
-		select * from SCRAP where p_num=#{p_num} 
-	</select>
-
-	<!-- 관심 공고 데이터 갖고오기 -->
-	<select id="getUserScrap" resultType="sdto" parameterType="string">
-		select * from SCRAP where u_num=#{u_num}
-	</select>
+	 <select id="getScrapPosting" resultType="Map"
+      parameterType="String">
+      select SCRAP.*, POSTING.*, ENTERPRISE.* from SCRAP  
+      inner join POSTING on SCRAP.p_num = POSTING.p_num 
+      inner join ENTERPRISE on ENTERPRISE.e_num= POSTING.e_num
+      where SCRAP.u_num=#{u_num} 
+   </select>
 
 	<!-- 스크랩버튼 누르면 데이터 저장됨 -->
 	<insert id="insertScrapPosting" parameterType="sdto">
@@ -185,7 +190,13 @@
 		select * from SCRAP where u_num=#{u_num} and p_num=#{p_num}
 	</select>
 	
-	
-	
+	<!-- 마이페이지 관심 공고 리스트 -->
+	<select id="getMypageScrapPosting" resultType="Map"
+      parameterType="String">
+      select SCRAP.*, POSTING.*, ENTERPRISE.* from SCRAP  
+      inner join POSTING on SCRAP.p_num = POSTING.p_num 
+      inner join ENTERPRISE on ENTERPRISE.e_num= POSTING.e_num
+      where SCRAP.u_num=#{u_num} order by s_num desc Limit 0,3
+   </select>
 
 </mapper>

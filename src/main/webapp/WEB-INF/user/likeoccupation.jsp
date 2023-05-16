@@ -2,19 +2,40 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>이루리_관심직종</title>
-<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet" />
+<title>관심 기업</title>
 <c:set var="root" value="<%=request.getContextPath()%>" />
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<link href="root/css/postingDetailStyles.css" rel="stylesheet" />
+<!-- Icon Font Stylesheet -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+	rel="stylesheet">
+	
+
+<!-- Libraries Stylesheet -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link href="${root }/css/usercss/owl.carousel.min.css" rel="stylesheet">
+<link href="${root }/css/usercss/tempusdominus-bootstrap-4.min.css"
+	rel="stylesheet" />
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="${root }/css/usercss/bootstrap.min.css" rel="stylesheet">
+
+<!-- Template Stylesheet -->
+<link href="${root }/css/usercss/style.css" rel="stylesheet">
+<style type="text/css">
+div {
+	border: 0px solid gray;
+}
+</style>
 </head>
 <body>
 

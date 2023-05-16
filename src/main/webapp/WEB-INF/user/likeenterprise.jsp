@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
+<title>관심 기업</title>
 <c:set var="root" value="<%=request.getContextPath()%>" />
 <!-- Icon Font Stylesheet -->
 <link
@@ -33,13 +35,13 @@
 div {
 	border: 0px solid gray;
 }
+
+.btndel{
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
-	
-	
-	관심기어어어어어업
-	
 	
 	
 	<h3 class="alert alert-info">총 ${countLikeEnter }개의 관심 기업</h3>
@@ -65,18 +67,28 @@ div {
 								<th scope="col" style="text-align: center;">전화번호</th>
 								<th scope="col" style="text-align: center;">이메일</th>
 								<th scope="col" style="text-align: center;">Action</th>
+								
 							</tr>
 						</thead>
 						<tbody>
 						<c:forEach var="dto" items="${list }" varStatus="i">
 							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>{i.count}</td>
-								<td>${dto.e_name }</td>
-								<td><a class="btn btn-sm btn-primary glyphicon glyphicon-search" href="">상세페이지</a></td>
+								<td style="text-align: center;"><input class="form-check-input" type="checkbox"></td>
+								<td style="text-align: center;">${i.count}</td>
+								<td style="text-align: center;">${dto.e_name }</td>
+								<td style="text-align: center;">${dto.e_addr }</td>
+								<td style="text-align: center;">${dto.e_tel }</td>
+								<td style="text-align: center;">${dto.e_email }</td>
+								<td style="text-align: center;"><a class="btn btn-sm btn-primary glyphicon glyphicon-search" href="">상세페이지</a></td>
 							</tr>
 							
 							</c:forEach>
+							
+							<tr>
+								<td colspan="7" >
+								<button id="btndel">관심 기업 해제</button>
+								</td>							
+							</tr>
 							
 						</tbody>
 					</table>
@@ -84,7 +96,9 @@ div {
 			</div>
 		</div>
 		<!-- Recent Sales End -->
-	
+		
+		<script src="https://kit.fontawesome.com/2663817d27.js"
+      crossorigin="anonymous"></script><!-- 아이콘에 필요한거니 삭제말것 -->
 	
 	
 </body>
