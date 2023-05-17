@@ -371,8 +371,14 @@ $(document).ready(function() {
 								${a.q_content }
 								</a>
 								</td>
-
-										<td align="center"> <b>답변상태</b></td>
+								<td align="center">
+								            <c:if test="${a.qnaCount == 0}">
+								                <b style="font-weight:500; color:red;">대기중</b>
+								            </c:if>
+								            <c:if test="${a.qnaCount != 0}">
+								                <b style="font-weight:500; color:green;">답변완료</b>
+								            </c:if>
+								        </td>
 										<td align="center">
 							<fmt:formatDate value="${a.q_writeday }" pattern="yyyy-MM-dd" />
 								

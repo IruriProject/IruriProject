@@ -327,12 +327,15 @@ function list() {
 		                s +="<b class='fa-solid fa-reply fa-rotate-180' style='padding-top:3px; padding-left:8px; font-size:12px;'></b>";
 		                s += "<b class='name' style='font-weight:bold;'>관리자</b>";
 		                s += "<span class='day' style='font-weight:500;'>" +dto.qc_writeday + "</span>"; 
+		                
+		                if (loginok !='' && myid == 'admin'){
 		        		s += "<div class='dropdown' style='float:right;'>";
 		                s += "<span class='glyphicon glyphicon-option-vertical' style='color: gray; font-size: 17px;'></span>";
 		                s += "<div class='dropdown-content'>";
 		                s += "<button type='button' data-toggle='modal' class='qnaupdatecommentbtn' data-target='#qnaanswermodal' style='text-align:center;' qc_num='"+dto.qc_num+"'>수정</button>";
 		                s += "<button type='button' style='text-align:center;' id='qnacommentdeletebtn'>삭제</button>";
 		                s += "</div></div>";
+		                }
 						s +="<br><span class='content'><p style='padding:0 24px;'>"+ dto.qc_content + "</p></span><br><hr>";     
 						});
  
@@ -380,10 +383,10 @@ function list() {
 			
 			<span style="color: gray; float: right; font-size: 14px; padding: 10px;">
 			<c:if test="${qnaCount==0}">
-				<b style="font-weight:500;">대기중</b>
+				<b style="font-weight:500; color:red;">대기중</b>
 			</c:if>
 			<c:if test="${qnaCount!=0}">
-				<b style="font-weight:500;">답변완료</b>
+				<b style="font-weight:500; color:green;">답변완료</b>
 			</c:if>
 			</span> 
 			

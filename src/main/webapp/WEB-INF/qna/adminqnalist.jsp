@@ -335,11 +335,13 @@
             ${a.q_title}
           </a>
         </td>
-        <td align="center">
-          <%-- 해당 글 번호의 qnaCount 값을 가져옴 --%>
-        
-          <%-- 해당 글 번호에 대한 조건문으로 출력 --%>
-          <!--실패 나중에 할것  -->
+       <td align="center">
+            <c:if test="${a.qnaCount == 0}">
+                <b style="font-weight:500; color:red;">대기중</b>
+            </c:if>
+            <c:if test="${a.qnaCount != 0}">
+                <b style="font-weight:500; color:green;">답변완료</b>
+            </c:if>
         </td>
         <td align="center">
           <fmt:formatDate value="${a.q_writeday}" pattern="yyyy-MM-dd" />

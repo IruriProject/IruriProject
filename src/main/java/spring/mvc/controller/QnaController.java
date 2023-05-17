@@ -125,6 +125,18 @@ public class QnaController {
 		//각 페이지에서 필요한 게시글 가져오기
 		List<QnaDto> list=qservice.getList(start, perPage);
 
+	    for (QnaDto qnaDto : list) {
+	        QCommentDto qc_dto = new QCommentDto();
+	        qc_dto.setQ_num(qnaDto.getQ_num());
+	        String qnum = qc_dto.getQ_num();
+	        int qnaCount = qservice.countqnum(qnum);
+	        
+	        // QnaDto에 qnaCount 값을 저장
+	        qnaDto.setQnaCount(qnaCount);
+	        //System.out.println(qnaCount);
+	    }
+	    
+	    
 		//각 페이지에 출력할 시작번호
 		int no=usertotalCount-(currentPage-1)*perPage;
 
@@ -238,23 +250,23 @@ public class QnaController {
 
 	    // 각 페이지에서 필요한 게시글 가져오기
 	    List<QnaDto> list = qservice.getList(start, perPage);
-	    List<Integer> qnaCountList = new ArrayList<>(); // qnaCount 값을 저장할 리스트 생성
-
+	      
 	    for (QnaDto qnaDto : list) {
 	        QCommentDto qc_dto = new QCommentDto();
 	        qc_dto.setQ_num(qnaDto.getQ_num());
 	        String qnum = qc_dto.getQ_num();
 	        int qnaCount = qservice.countqnum(qnum);
-
-	        qnaCountList.add(qnaCount); // qnaCount 값을 리스트에 추가
-	        System.out.println(qnaCount);    }
-
+	        
+	        // QnaDto에 qnaCount 값을 저장
+	        qnaDto.setQnaCount(qnaCount);
+	        //System.out.println(qnaCount);
+	    }
+	    
 	    // 각 페이지에 출력할 시작번호
 	    int no = totalCount - (currentPage - 1) * perPage;
 
 	    // 출력에 필요한 변수들을 model에 저장
 	    model.addObject("totalCount", totalCount);
-	    model.addObject("qnaCountList", qnaCountList);
 	    model.addObject("list", list);
 	    model.addObject("totalPage", totalPage);
 	    model.addObject("startPage", startPage);
