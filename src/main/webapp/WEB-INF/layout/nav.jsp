@@ -149,14 +149,28 @@
 			<li><c:if test="${sessionScope.loginStatus=='enterprise' }">
 					<a href="/enterprise" class="mainMenu">기업서비스</a>
 				</c:if> <c:if test="${sessionScope.loginStatus!='enterprise' }">
-					<a href="/mypage" class="mainMenu">회원서비스</a>
+					
+					<a style="cursor: pointer" class="mainMenu" onclick="checkLogin()">회원서비스</a>
 					<ul class="subMenu">
 						<li><a href="/update">개인정보 관리</a></li>
 						<li><a href="/resumelist">이력서 관리</a></li>
 						<li><a href="/enterLike">관심 기업</a></li>
-						<li><a href="hi">지원현황</a></li>
+						<li><a href="/applicationstate">지원현황</a></li>
 					</ul>
-				</c:if></li>
+					
+					<script type="text/javascript">
+					function checkLogin() {
+					  <c:if test="${empty sessionScope.loginStatus}">
+					    alert("로그인 후 이용 가능합니다.");
+					    location.href = "/login";
+					    return false;
+					  </c:if>
+					  location.href = "/mypage";
+					}
+					</script>
+				</c:if>
+			</li>
+				
 			<li><a href="#" class="mainMenu">인재정보</a>
 				<ul class="subMenu">
 					<li><a href="hi">sub메뉴</a></li>

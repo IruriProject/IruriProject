@@ -54,8 +54,8 @@ public class UFnService {
    public void updateMainOff(int r_num) {
       mapper.updateMainOff(r_num);
    }
-   public void updateAllOff() {
-      mapper.updateAllOff();
+   public void updateAllOff(String u_num) {
+      mapper.updateAllOff(u_num);
    }
 
    public void updatePhoto(String u_id, String u_photo) {
@@ -112,7 +112,7 @@ public class UFnService {
    }
    
    //기업 데이터 가져오기
-   public List<EnterpriseDto> getLikeEnterprise(String e_num) {
+   public List<Map<String, Object>> getLikeEnterprise(String e_num) {
 	   
 	   return mapper.getLikeEnterprise(e_num);
    }
@@ -176,11 +176,27 @@ public class UFnService {
 	   mapper.deleteScrapPosting(s_num);
    }
    
+   
+   //지원현황
+      
+   //지원 취소
+   public void deleteApply(String a_nun) {
+	   mapper.deleteApply(a_nun);
+   }
+   
+   //지원 현황 리스트
    public List<Map<String, Object>> getMypageScrapPosting(String u_num){
 	   
 	   return mapper.getMypageScrapPosting(u_num);
    }
    
+   
+   
+   //지원현황 리스트 가져오기
+   public List<Map<String, Object>> getApplicantList(String u_num){
+	   
+	   return mapper.getApplicantList(u_num);
+   }
    
    
    //열람

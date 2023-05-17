@@ -111,6 +111,16 @@ $(function(){
 	})
 	
 	
+	$("#p_employtype").change(function(){
+		if($("#p_employtype").val()=="기간제"){
+			$("#p_pay").attr("placeholder","월급을 입력해주세요 (ex: 3000000)");
+		}else{
+			$("#p_pay").attr("placeholder","연봉을 입력해주세요 (ex: 28000000)");
+		}
+	})
+	
+	
+	
 })
 
 </script>
@@ -187,16 +197,14 @@ $(function(){
 						style="font-weight: 600; color: #416442; background-color: #e3f2c9; width: 300px; height: 50px; font-size: 1.8em; padding: 10px 0px; border-radius: 10px; text-align: center;">공고등록</h2>
 				</div>
 				<br>
-				
 				<div align="right">
 					<c:if test="${draftCount!=0 }">
 						<button type="button" id="draftbtn" class="small-btn" data-toggle="modal" style="margin-right: 10px;" data-target="#draftPostModal">임시저장 불러오기</button>
 					</c:if>
 				<button type="button" class="small-btn" id="recentPosting">이전공고 불러오기</button></div>
-				<br>
+
 				<div class="formbold-input-wrapp formbold-mb-3">
 					<label for="p_title" class="formbold-form-label"> 공고제목 </label>
-
 					<div>
 						<input type="text" name="p_title" id="p_title"
 							placeholder="공고 제목을 입력해주세요." class="formbold-form-input" required="required" />
@@ -208,61 +216,102 @@ $(function(){
 						type="text" name="p_type" id="p_type"
 						placeholder="직종을 입력해주세요 (ex: 광고/홍보)" class="formbold-form-input" required="required" />
 				</div>
-
+				
 				<div class="formbold-mb-3">
-					<label for="p_pay" class="formbold-form-label"> 급여 </label> <input
+					<label class="formbold-form-label">고용형태</label>
+					<select
+						class="formbold-form-input" name="p_employtype" id="p_employtype">
+						<option value="정규직">정규직</option>
+						<option value="기간제">기간제</option>
+					</select>
+				</div>
+				
+				<div class="formbold-mb-3">
+					<label for="p_pay" class="formbold-form-label"> 급여 </label>
+					<input
 						type="number" name="p_pay" id="p_pay" step="50"
-						placeholder="급여를 입력해주세요 (ex: 3000000)" class="formbold-form-input" required="required" />
+						placeholder="연봉을 입력해주세요 (ex: 28000000)" class="formbold-form-input" required="required" />
+				</div>
+				
+				<div class="formbold-mb-3">
+					<label for="p_hirenum" class="formbold-form-label"> 채용인원 </label>
+					<input type="number" name="p_hirenum" id="p_hirenum"
+						placeholder="ex) 0" class="formbold-form-input" required="required" />
 				</div>
 
 				<div class="formbold-input-flex">
-					<div>
-						<label for="p_period" class="formbold-form-label"> 기간 </label> <input
-							type="text" name="p_period" id="p_period" placeholder="ex:6개월"
+					<div style="width: 35%">
+						<label for="p_period" class="formbold-form-label"> 기간 </label>
+						<input
+							type="text" name="p_period" id="p_period" placeholder="ex) 6개월"
 							class="formbold-form-input" required="required" />
 					</div>
-					<div>
-						<label for="p_workday" class="formbold-form-label"> 요일 </label> <input
+					
+					<div style="width: 65%">
+						<label for="p_workday" class="formbold-form-label" style="margin-bottom: 12px"> 요일 </label>
+						<!-- <input
 							type="text" name="p_workday" id="p_workday"
-							placeholder="ex: 월/수/금" class="formbold-form-input" required="required" />
-					</div>
-					<div>
-						<label for="p_hirenum" class="formbold-form-label"> 채용인원 </label>
-						<input type="number" name="p_hirenum" id="p_hirenum"
-							placeholder="ex:0" class="formbold-form-input" required="required" />
+							placeholder="ex) 월/수/금" class="formbold-form-input" required="required" /> -->
+							<div style="border: 1px solid #dde3ec; border-radius:5px; padding: 11px;">
+							<input type="checkbox" name="p_workday" class="chkbox" value="월"> 월&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="화"> 화&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="수"> 수&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="목"> 목&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="금"> 금&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="토"> 토&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="일"> 일
+							</div>
 					</div>
 				</div>
 
 				<div class="formbold-input-flex">
 					<div>
-						<label for="p_starttime" class="formbold-form-label"> 시작시간
-						</label> <input type="time" name="p_starttime" id="p_starttime" value="09:00"
+						<label for="p_starttime" class="formbold-form-label"> 시작시간 </label>
+						<input type="time" name="p_starttime" id="p_starttime" value="09:00"
 							placeholder="ex:6개월" class="formbold-form-input" required="required" />
 					</div>
 					<div>
-						<label for="p_endtime" class="formbold-form-label"> 끝시간 </label> <input
+						<label for="p_endtime" class="formbold-form-label"> 끝시간 </label>
+						<input
 							type="time" name="p_endtime" id="p_endtime" placeholder="ex:6개월" value="18:00"
 							class="formbold-form-input" required="required" />
 					</div>
 				</div>
 
 				<div class="formbold-mb-3">
-					<label class="formbold-form-label">고용형태</label> <select
-						class="formbold-form-input" name="p_employtype" id="p_employtype">
-						<option value="정규직">정규직</option>
-						<option value="기간제">기간제</option>
-					</select>
-				</div>
-
-				<div class="formbold-mb-3">
-					<label for="p_content" class="formbold-form-label"> 상세내용<button type="button" id="phrases" class="btn-sm small-btn" style="width: 100px; margin-left: 410px;" data-toggle="modal" data-target="#phrasesModal">자주쓰는 문구</button></label>
+					<label for="p_content" class="formbold-form-label"> 상세내용
+						<button type="button" id="phrases" class="btn-sm small-btn" style="width: 100px; margin-left: 410px;" data-toggle="modal" data-target="#phrasesModal">자주쓰는 문구</button>
+					</label>
 					<textarea name="p_content" id="p_content"
 						placeholder="상세내용을 입력해주세요." class="pcontent-input" required="required"></textarea>
+				
+					<span class="textCount" style="float: right"></span>
 				</div>
+				
+				<script>
+					$('#p_content').keyup(function (e) {
+						var content = $(this).val();
+					    
+					    // 글자수 세기
+					    if (content.length == 0 || content == '') {
+					    	$('.textCount').text('0자 / 1000자');
+					    } else {
+					    	$('.textCount').text(content.length + '자 / 1000자');
+					    }
+					    
+					    // 글자수 제한
+					    if (content.length > 1000) {
+					    	// 1000자 부터는 타이핑 되지 않도록
+					        $(this).val($(this).val().substring(0, 1000));
+					        // 1000자 넘으면 알림창 뜨도록
+					        alert('글자수는 1000자까지 입력 가능합니다.');
+					    };
+					});
+				</script>
 
 				<div class="formbold-mb-3">
-					<label for="p_enddate" class="formbold-form-label"> 공고 마감일
-					</label> <input type="date" name="p_enddate" id="p_enddate"
+					<label for="p_enddate" class="formbold-form-label"> 공고 마감일 </label>
+					<input type="date" name="p_enddate" id="p_enddate"
 						class="formbold-form-input" required="required" />
 				</div>
 				<br>
@@ -380,7 +429,7 @@ body {
 
 .pcontent-input {
 	width: 100%;
-	height: 500px;
+	height: 300px;
 	padding: 13px 22px;
 	border-radius: 5px;
 	border: 1px solid #dde3ec;
@@ -524,6 +573,18 @@ body {
 .formbold-w-45 {
 	width: 45%;
 }
+
+.chkbox{
+	width: 15px;
+	height: 15px;
+	margin-right: 16px;
+	margin-top: 2px;
+	border: 0.7px solid #4E9F3D;
+	border-radius: 3px;
+	accent-color: #4E9F3D;
+}
+
+
 </style>
 </body>
 </html>

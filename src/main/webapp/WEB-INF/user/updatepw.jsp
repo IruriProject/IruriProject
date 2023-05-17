@@ -14,11 +14,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
+
 
 .formbold-mb-3 {
 	margin-bottom: 15px;
@@ -183,25 +179,32 @@
 }
 
 div {
-	border: 1px solid gray;
+	border: 0px solid gray;
 }
 
 .pwcheck span {
 	color: red;
 }
+div a{
+color: black;
+}
+div a:hover{
+color:black;
+text-decoration: none;
+}
 </style>
 </head>
 <body>
+<div style="display:flex; flex-direction:row;">
 	<form action="updatePw" method="post">
 		<input type="hidden" name="u_id" value="${sessionScope.loginId}">
-		<div>
+		<div style="float:left; width: 150px; font-size: 1.5em;">
 			<a href="updateuser">내 정보 수정</a><br> <br>
 			<b>비밀번호변경</b><br> <br>
 			<a href="deleteform">회원탈퇴</a>
 		</div>
 
-		<div>
-			<div class="pwcheck">
+			<div class="pwcheck" style="width:600px; margin-left: 120px; float:right;">
 
 				<input id="presentPw" type="password" placeholder="기존 비밀번호"
 					style="margin-bottom: 10px; width: 380px; height: 45px; margin-bottom: 20px;"
@@ -219,8 +222,8 @@ div {
 				<button id="updatePw" type="submit" class="formbold-btn"
 					style="width: 380px; height: 45px; line-height: 0px;">변경</button>
 			</div>
-		</div>
 	</form>
+	</div>
 </body>
 <script type="text/javascript">
 	$("#updatePw").click(

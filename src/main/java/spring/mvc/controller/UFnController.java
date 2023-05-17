@@ -23,6 +23,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import spring.mvc.dto.ApplicantDto;
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.ScrapDto;
@@ -52,15 +53,18 @@ public class UFnController {
    public ModelAndView home(HttpSession session, String h_num, String s_um) {
       ModelAndView model = new ModelAndView();
       String u_id = (String) session.getAttribute("loginId");
-      System.out.println(u_id);
+      String loginStatus = (String) session.getAttribute("loginStatus");
       UserDto dto = service.findUserdataById(u_id);
       ResumeDto rdto = uservice.getResume(dto.getU_num());
       List<ResumeDto> list=uservice.getMyResume(dto.getU_num());
-      List<EnterpriseDto> getEnterlist =uservice.getLikeEnterprise(u_id); //기업데이터
+      List<Map<String, Object>> getEnterlist =uservice.getLikeEnterprise(u_id); //기업데이터
       List<EnterpriseDto> getMypageLikeEnter=uservice.getMypageLikeEnter(dto.getU_num());//세션의 아이디 통해 dto를 갖고오고 그 dto통해 U_num갖고오기, U_num통해 관심 기업과 관심 공고 갖고옴
       List<Map<String, Object>> getMypageScrapPosting=uservice.getMypageScrapPosting(dto.getU_num());
      
-      
+      if(loginStatus==null) {
+	    	String loginmessage = "로그인 후 사용 가능합니다.";
+	    	model.addObject("loginmessage", loginmessage);
+	    }
       model.addObject("mlist", uservice.getMessageByUserNum(dto.getU_num()));
       model.addObject("list", list);
       model.addObject("dto", dto);
@@ -72,12 +76,20 @@ public class UFnController {
       model.addObject("getMypageScrapPosting", getMypageScrapPosting);
       
       //좋아요한 기업 수 
-      int countLikeEnter = uservice.countLikeEnterprise(h_num);
-      model.addObject("countLikeEnter", countLikeEnter);
+      if (u_id!=null && loginStatus.equals("user")) {
+    	  
+		 String u_num=service.findUserdataById(u_id).getU_num(); 
+		 int countLikeEnter = uservice.countLikeEnterprise(u_num);
+		 model.addObject("countLikeEnter", countLikeEnter);
+	    
+      }
       
       //스크랩한 공고 수
-      int countPosting = uservice.countScrapPosting(s_um);
-      model.addObject("countPosting", countPosting);
+      if (u_id!=null && loginStatus.equals("user")) {
+    	  String u_num=service.findUserdataById(u_id).getU_num(); 
+	      int countPosting = uservice.countScrapPosting(u_num);
+	      model.addObject("countPosting", countPosting);
+      }
       
       return model;
    }
@@ -236,16 +248,18 @@ public class UFnController {
 		uservice.updatePublic(r_num);
 		return "redirect:resumelist";
 	}
+	@ResponseBody
 	@PostMapping("/updateMainOff")
-	public String updateMainOff(int r_num) {
+	public void updateMainOff(int r_num) {
 		uservice.updateMainOff(r_num);
-		return "redirect:resumelist";
 	}
+	@ResponseBody
 	@PostMapping("/updateMainOn")
-	public String updateMainOn(int r_num) {
-		uservice.updateAllOff();
+	public void updateMainOn(int r_num, HttpSession session) {
+		String u_id = (String) session.getAttribute("loginId");
+	    UserDto dto = service.findUserdataById(u_id);
+		uservice.updateAllOff(dto.getU_num());
 		uservice.updateMainOn(r_num);
-		return "redirect:resumelist";
 	}
 	
 	@GetMapping("/mymessage")
@@ -294,7 +308,7 @@ public class UFnController {
 	  if(myId!=null && loginStatus.equals("user")) {
 		  
 		  String u_num=service.findUserdataById(myId).getU_num();
-		  List<EnterpriseDto> list =uservice.getLikeEnterprise(u_num); //기업데이터
+		  List<Map<String, Object>> list =uservice.getLikeEnterprise(u_num); //기업데이터
 	      int countLikeEnter = uservice.countLikeEnterprise(u_num);
 	      
 	      model.addObject("countLikeEnter", countLikeEnter);
@@ -328,11 +342,11 @@ public class UFnController {
 	
 	//관심 공고(스크랩)페이지
 	@GetMapping("/scrap")
-	public ModelAndView ScrapList(HttpSession session, ScrapDto sdto, PostingDto pdto, String e_num) {
+	public ModelAndView ScrapList(HttpSession session, ScrapDto sdto, PostingDto pdto, String num) {
 		
 		  ModelAndView model=new ModelAndView();
-		  String myId=(String) session.getAttribute("loginId"); String
-		  loginStatus=(String) session.getAttribute("loginStatus");
+		  String myId=(String) session.getAttribute("loginId"); 
+		  String loginStatus=(String) session.getAttribute("loginStatus");
 		 
 		
 		  if(myId!=null && loginStatus.equals("user")) {
@@ -340,7 +354,6 @@ public class UFnController {
 		  String u_num=service.findUserdataById(myId).getU_num();
 		  List<Map<String, Object>> list =uservice.getScrapPosting(u_num); //기업데이터
 		  int countScrapPosting = uservice.countScrapPosting(u_num);
-		 // String e_name =uservice.getEnterpriseENAME(e_num);
 		  
 		  
 		  model.addObject("countScrapPosting", countScrapPosting); //
@@ -366,6 +379,49 @@ public class UFnController {
 	public void deleteScrapPosting(String s_num) {
 
 		uservice.deleteScrapPosting(s_num);
+	}
+	
+	//지원 현황
+	@GetMapping("/adelete")
+	@ResponseBody
+	public void deleteApply(String a_num) {
+		uservice.deleteApply(a_num);
+	}
+	
+	
+	@GetMapping("/applicationstate")
+	public ModelAndView applicationList(HttpSession session, ResumeDto rdto, ApplicantDto adto, String num) {
+		
+		ModelAndView model=new ModelAndView();
+		String myId = (String) session.getAttribute("loginId");
+		String loginStatus = (String) session.getAttribute("loginStatus");
+		
+		if (myId!=null && loginStatus.equals("user")) {
+			
+			String u_num = service.findUserdataById(myId).getU_num();
+			List<Map<String, Object>> list =uservice.getApplicantList(u_num);
+			int countApply = uservice.getApplicantList(u_num).size();
+			
+			
+			model.addObject("list", list);
+			model.addObject("countApply", countApply);
+			model.setViewName("/user/applicationstate");
+		}
+		
+		
+		
+		return model;
+	}
+	
+	//관심 직종
+	@GetMapping("/occupationlike")
+	public ModelAndView occupationList(HttpSession session ,String num) {
+		ModelAndView model= new ModelAndView();
+		
+		
+		model.setViewName("/user/likeoccupation");
+		
+		return model;
 	}
 		
 

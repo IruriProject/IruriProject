@@ -1565,7 +1565,7 @@ td {
 							<!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
 					<br> <div class="form-inline"><input type="checkbox" name="r_private" class="checkbox">
 					<span>&nbsp;&nbsp;이력서 비공개</span>
-					<span class="textCount" style="float: right"></span></div>
+					<span class="textCount" style="float: right">0자 / 1000자</span></div>
 					<script type="text/javascript">
 					$('#r_content').keyup(function (e) {
 						var content = $(this).val();

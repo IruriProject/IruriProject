@@ -13,6 +13,7 @@ import spring.mvc.dto.EnterpriseDto;
 
 @Mapper
 public interface EnterpriseMapperInter {
+	public EnterpriseDto findEnterByNum(String e_num);
 
 	public int EnterIdPassCheck(Map<String, String> map);
 	public EnterpriseDto findEnterById(String e_id);

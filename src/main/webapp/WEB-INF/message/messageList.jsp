@@ -54,12 +54,6 @@ $(function(){
 			<th style="text-align: center; width: 40%">쪽지 내용</th>
 			<th style="text-align: center">보낸일시</th>
 		</tr>
-<%-- 		<c:if test="${list.size()==0 }">
-			<tr align="center">
-				<td colspan="4">쪽지내역이 존재하지 않습니다.</td>
-			</tr>
-		</c:if> --%>
-		
 		
 		<c:if test="${totalCount==0 }">
    		<tr><td colspan="4" align="center">
@@ -78,7 +72,15 @@ $(function(){
 		<tr align="center">
 			<td>${no }</td>
 			<c:set value="${no-1 }" var="no"/>
-			<td><a href="#">${dto.u_name }</a></td>
+			<td>
+				<c:if test="${dto.r_num!=null }">
+					<a href="/resume/detail?r_num=${dto.r_num }" title="해당 인재 대표이력서 확인">${dto.u_name }</a>
+				</c:if>
+				
+				<c:if test="${dto.r_num==null }">
+					<a href="#" title="해당 인재 대표이력서 없음" onclick="alert('해당 인재는 대표이력서가 없습니다.')">${dto.u_name }</a>
+				</c:if>
+			</td>
 			<td><span class="longsentence mcontent" flag="0" style="cursor: pointer;" title="자세히보기">${dto.m_content }</span></td>
 			<td><fmt:formatDate value="${dto.m_day }" pattern="yyyy-MM-dd"/></td>
 		</tr>

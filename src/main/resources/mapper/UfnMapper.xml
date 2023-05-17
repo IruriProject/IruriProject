@@ -86,8 +86,8 @@
 	</update>
 	
 	<!-- 대표 전체해제 -->
-	<update id="updateAllOff">
-		update RESUME set r_presume=0
+	<update id="updateAllOff" parameterType="string">
+		update RESUME set r_presume=0 where u_num=#{u_num}
 	</update>
 
 	<!-- 대표 해제 -->
@@ -131,8 +131,14 @@
       select count(h_num) from HEART where u_num=#{u_num}
    </select>
    
+   <!-- 마이페이지 관심 기업 수 -->
+   <select id="mypageCountLikeEnterprise" resultType="int"
+      parameterType="String">
+      select count(h_num) from HEART where u_num=#{u_num}
+   </select>
+   
    <!-- 관심기업 -->
-   <select id="getLikeEnterprise" resultType="edto"
+   <select id="getLikeEnterprise" resultType="Map"
       parameterType="String">
       select HEART.*, ENTERPRISE.* from HEART inner join ENTERPRISE on HEART.e_num = ENTERPRISE.e_num where HEART.u_num=#{u_num} 
    </select>
@@ -198,5 +204,22 @@
       inner join ENTERPRISE on ENTERPRISE.e_num= POSTING.e_num
       where SCRAP.u_num=#{u_num} order by s_num desc Limit 0,3
    </select>
+   
+   <!-- 지원 현황 -->
+    
+   <!-- 지원 취소 delete -->
+   <delete id="deleteApply" parameterType="String">
+   		delete from APPLICANT where a_num=#{a_num}
+   </delete>
+   
+   <!-- 지원현황 리스트 출력 -->
+   <select id="getApplicantList" resultType="Map" parameterType="String">
+   	select RESUME.*, APPLICANT.*, POSTING.* from APPLICANT
+   	inner join POSTING on APPLICANT.p_num = POSTING.p_num 
+    inner join RESUME on RESUME.r_num= APPLICANT.r_num
+    where RESUME.u_num=#{u_num} 
+   </select>
+   
+   
 
 </mapper>
