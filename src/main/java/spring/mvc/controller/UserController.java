@@ -20,10 +20,10 @@ public class UserController {
 	UFnService ufn_service;
 
 	@PostMapping("/apply")
-	public String applyResume(ApplicantDto dto) {
+	public String applyResume(ApplicantDto dto,String p_num,String currentPage) {
 		service.insertResume(dto);
 		
-		return "redirect:/";
+		return "redirect:/posting/detailpage?p_num="+p_num+"&currentPage="+currentPage;
 	}
 
 	@GetMapping("/resume/detail")

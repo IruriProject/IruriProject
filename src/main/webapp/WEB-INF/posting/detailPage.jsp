@@ -398,6 +398,7 @@ body {
                                     <td>작성일</td>
                                  </tr>
                                  <input type="hidden" name="p_num" value="${dto.p_num }">
+                                 <input type="hidden" name="currentPage" value="${currentPage }">
                                  
                                  <c:forEach var="udto" items="${rlist }">
                                     <tr>
@@ -494,7 +495,6 @@ body {
                </ul>
             </div>
          </nav>
-
          <div id="section1" class="container-fluid scpy">
             <h2>모집조건</h2>
             <p>직종: ${dto.p_type }</p>
@@ -628,6 +628,7 @@ body {
       </section>
 
    </div>
+   <button type="button" onclick="location.href='/posting/search?currentPage=${currentPage}'" class="btn btn-default" style="width: 100px;">뒤로가기</button>
    </div>
    </div>
 
