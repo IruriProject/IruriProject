@@ -189,7 +189,7 @@ public class EFnController {
 	}
 
 	@GetMapping("/detailpage")
-	public ModelAndView detailPage(String p_num, HttpSession session) {
+	public ModelAndView detailPage(String p_num, HttpSession session, String currentPage) {
 		ModelAndView mview = new ModelAndView();
 
 		// 유저 로그인 상태인 경우, u_num에 해당하는 이력서 목록
@@ -223,6 +223,7 @@ public class EFnController {
 		if (loginStatus != null && loginStatus.equals("user")) {
 			String u_num = user_service.findUserdataById(myId).getU_num();
 			mview.addObject("rlist", ufn_service.getMyResume(u_num));
+			mview.addObject("rsize", ufn_service.getMyResume(u_num).size());
 		}
 
 		if (session.getAttribute("loginStatus") == "user") {
@@ -242,6 +243,7 @@ public class EFnController {
 		mview.addObject("dto", service.getPosting(p_num));
 		mview.addObject("scrapCount", service.scrapByPosting(p_num));
 		mview.addObject("viewerCount", service.viewerByPosting(p_num));
+		mview.addObject("currentPage", currentPage);
 
 		mview.setViewName("/posting/detailPage");
 		return mview;
