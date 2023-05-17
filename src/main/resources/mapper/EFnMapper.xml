@@ -4,6 +4,16 @@
 
 <mapper namespace="spring.mvc.mapper.EFnMapperInter">
 
+	<!--인기있는 포스팅4개 -->
+	<select id="bestPosting" resultType="adto">
+	select * from APPLICIANT order by p_num desc limit 4;
+	</select>
+	
+	<!--최근업로드된 포스팅4개 -->
+	<select id="recentPosting" resultType="pdto">
+		select * from POSTING order by p_writeday desc limit 4;
+	</select>
+
 	<!-- 디테일페이지 출력용(enter 조인) -->
 	<select id="getPosting" parameterType="String" resultType="Map">
 		select POSTING.*, ENTERPRISE.* from POSTING inner join ENTERPRISE on POSTING.e_num = ENTERPRISE.e_num where POSTING.p_num = #{p_num}
