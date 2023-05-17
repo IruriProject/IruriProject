@@ -247,16 +247,16 @@ public class UFnController {
 		uservice.updatePublic(r_num);
 		return "redirect:resumelist";
 	}
+	@ResponseBody
 	@PostMapping("/updateMainOff")
-	public String updateMainOff(int r_num) {
+	public void updateMainOff(int r_num) {
 		uservice.updateMainOff(r_num);
-		return "redirect:resumelist";
 	}
+	@ResponseBody
 	@PostMapping("/updateMainOn")
-	public String updateMainOn(int r_num) {
+	public void updateMainOn(int r_num) {
 		uservice.updateAllOff();
 		uservice.updateMainOn(r_num);
-		return "redirect:resumelist";
 	}
 	
 	@GetMapping("/mymessage")

@@ -164,6 +164,16 @@ text-align: center;
 			}else{
 				return false;
 			}
+		}else{
+			$.ajax({
+				type:"post",
+				dataType:"html",
+				data:{"r_num":r_num},
+				url:"/updateMainOn",
+				success:function(){
+					location.reload();
+				}
+			})
 		}
 		
 	})
