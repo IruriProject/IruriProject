@@ -39,7 +39,13 @@ div {
 </head>
 <body>
 
-	<h3 class="alert alert-info">총 ${countApply }개의 지원</h3>
+	
+	<c:if test="${countApply==0 }">
+		<h3 class="alert alert-info">지원 현황이 없습니다</h3>
+	</c:if>
+	<c:if test="${countApply>0 }">
+		<h3 class="alert alert-info">총 ${countApply }개의 지원</h3>
+	</c:if>
 	
 	
 		<!-- Recent Sales Start -->
@@ -50,7 +56,8 @@ div {
 					</div>
 					<div class="table-responsive">
 						<table
-							class="table text-start align-middle table-bordered table-hover mb-0">
+							class="table text-start align-middle table-bordered table-hover mb-0"
+							style="width: 1000px;">
 							<thead>
 								<tr class="text-dark">
 									<th scope="col" style="text-align: center;"><input class="form-check-input"

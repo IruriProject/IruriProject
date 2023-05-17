@@ -44,7 +44,13 @@ div {
 <body>
 	
 	
-	<h3 class="alert alert-info">총 ${countLikeEnter }개의 관심 기업</h3>
+	
+	<c:if test="${countLikeEnter==0 }">
+		<h3 class="alert alert-info">관심 기업이 없습니다</h3>
+	</c:if>
+	<c:if test="${countLikeEnter>0 }">
+		<h3 class="alert alert-info">총 ${countLikeEnter }개의 관심 기업</h3>
+	</c:if>
 
 	<!-- Recent Sales Start -->
 	<!-- <form action="getEnter" method="get" ></form> -->
@@ -55,7 +61,8 @@ div {
 				</div>
 				<div class="table-responsive">
 					<table
-						class="table text-start align-middle table-bordered table-hover mb-0" >
+						class="table text-start align-middle table-bordered table-hover mb-0" 
+						style="width: 1000px;">
 						<thead>
 							<tr class="text-dark">
 								<th scope="col" style="text-align: center;"><input class="form-check-input"
