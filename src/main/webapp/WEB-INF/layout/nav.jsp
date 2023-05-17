@@ -154,7 +154,7 @@
 						<li><a href="/update">개인정보 관리</a></li>
 						<li><a href="/resumelist">이력서 관리</a></li>
 						<li><a href="/enterLike">관심 기업</a></li>
-						<li><a href="/state">지원현황</a></li>
+						<li><a href="/applicationstate">지원현황</a></li>
 					</ul>
 				</c:if></li>
 			<li><a href="#" class="mainMenu">인재정보</a>

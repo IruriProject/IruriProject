@@ -377,7 +377,14 @@ public class UFnController {
 	}
 	
 	//지원 현황
-	@GetMapping("/state")
+	@GetMapping("/adelete")
+	@ResponseBody
+	public void deleteApply(String a_num) {
+		uservice.deleteApply(a_num);
+	}
+	
+	
+	@GetMapping("/applicationstate")
 	public ModelAndView applicationList(HttpSession session, ResumeDto rdto, ApplicantDto adto, String num) {
 		
 		ModelAndView model=new ModelAndView();
@@ -388,11 +395,26 @@ public class UFnController {
 			
 			String u_num = service.findUserdataById(myId).getU_num();
 			List<Map<String, Object>> list =uservice.getApplicantList(u_num);
+			int countApply = uservice.getApplicantList(u_num).size();
 			
 			
 			model.addObject("list", list);
+			model.addObject("countApply", countApply);
 			model.setViewName("/user/applicationstate");
 		}
+		
+		
+		
+		return model;
+	}
+	
+	//관심 직종
+	@GetMapping("/occupationlike")
+	public ModelAndView occupationList(HttpSession session ,String num) {
+		ModelAndView model= new ModelAndView();
+		
+		
+		model.setViewName("/user/likeoccupation");
 		
 		return model;
 	}

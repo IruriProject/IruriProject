@@ -62,6 +62,7 @@ public interface UFnMapperInter {
 	
 	
 	//지원현황
+	public void deleteApply(String a_num);
 	public List<Map<String, Object>> getApplicantList(String u_num);//유저별 지원현황 리스트
 	
 	

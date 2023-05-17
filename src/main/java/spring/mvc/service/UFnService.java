@@ -176,6 +176,15 @@ public class UFnService {
 	   mapper.deleteScrapPosting(s_num);
    }
    
+   
+   //지원현황
+      
+   //지원 취소
+   public void deleteApply(String a_nun) {
+	   mapper.deleteApply(a_nun);
+   }
+   
+   //지원 현황 리스트
    public List<Map<String, Object>> getMypageScrapPosting(String u_num){
 	   
 	   return mapper.getMypageScrapPosting(u_num);

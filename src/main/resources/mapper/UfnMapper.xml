@@ -206,8 +206,11 @@
    </select>
    
    <!-- 지원 현황 -->
-   <!-- 지원 현황 count -->
-   
+    
+   <!-- 지원 취소 delete -->
+   <delete id="deleteApply" parameterType="String">
+   		delete from APPLICANT where a_num=#{a_num}
+   </delete>
    
    <!-- 지원현황 리스트 출력 -->
    <select id="getApplicantList" resultType="Map" parameterType="String">
@@ -216,5 +219,7 @@
     inner join RESUME on RESUME.r_num= APPLICANT.r_num
     where RESUME.u_num=#{u_num} 
    </select>
+   
+   
 
 </mapper>

@@ -39,7 +39,8 @@ div {
 </head>
 <body>
 
-	<h3 class="alert alert-info">지원 현황</h3>
+	<h3 class="alert alert-info">총 ${countApply }개의 지원</h3>
+	
 	
 		<!-- Recent Sales Start -->
 			<div class="container-fluid pt-4 px-4">
@@ -68,7 +69,7 @@ div {
 							<tbody>
 							<c:forEach var="adto" items="${list }" varStatus="i">
 							<tr>
-									<input type="hidden" class="s_num" value="${adto.a_num }">
+									<input type="hidden" class="a_num" value="${adto.a_num }">
 									<td style="text-align: center;"><input class="form-check-input del" type="checkbox"></td>
 									<td style="text-align: center;">${i.count }</td>
 									<td style="text-align: center;"><fmt:formatDate value="${adto.a_writeday}" pattern="yyyy-MM-dd"/></td>
@@ -106,15 +107,52 @@ div {
 			
 			<script type="text/javascript">
 			
-				$("#btndel").click(function(){
-					alert("삭제 하고 싶다");
+				$("#allcheck").click(function(){
 					
+					var chk=$(this).is(":checked")
+					console.log(chk);//true, false로 나옴
+					
+					//전체 체크값을 아래의 체크에 일괄 전달
+					$(".del").prop("checked",chk);
 					
 				});
 			
-			
-			
-			
+				$("#btnAppDel").click(function(){
+					//alert("지원 취소 하고 싶다");
+					
+					//체크 한 기업 개수 구하기
+					var cnt =$(".del:checked").length;
+					//alert(cnt);
+					
+					if(cnt==0){
+						alert("삭제 할 지원을 선택해주세요 :)");
+						return;
+					}
+					
+					$(".del:checked").each(function(){
+						
+						var num=$(this).closest("tr").find(".a_num").val();
+						console.log(num);//선택한 num만 나오는지 확인
+						
+						//삭제 할 ajax(진짜a 삭제 되는 것)
+						$.ajax({
+							
+							type:"get",
+							url:"adelete",
+							dataType:"html",
+							data:{"a_num":num},
+							success:function(){
+								
+								location.reload();
+							}
+							
+						})
+						
+					});
+					
+					alert("삭제되었습니다 :)")
+					
+				});
 			</script>
 			
 	
