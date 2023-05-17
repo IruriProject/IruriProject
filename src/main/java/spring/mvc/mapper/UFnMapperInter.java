@@ -46,7 +46,7 @@ public interface UFnMapperInter {
 	
 	//관심 기업
 	public int countLikeEnterprise(String u_num);//관심기업 수
-	public List<EnterpriseDto> getLikeEnterprise(String u_num);//기업 데이터 가져오기
+	public List<Map<String, Object>> getLikeEnterprise(String u_num);//기업 데이터 가져오기
 	public void insertLikeEnter(HeartDto dto);//관심기업 인서트
 	public void deleteLikeEnter(String h_num);//관심기업 딜리트
 	public HeartDto checkLikeEnter (Map<String, String> map);//좋아요했는지 체크
@@ -59,6 +59,11 @@ public interface UFnMapperInter {
 	public void deleteScrapPosting(String s_num);//관심공고 딜리트
 	public ScrapDto checkScrapPosting(Map<String, String> map);//스크랩했는지 체크
 	public List<Map<String, Object>> getMypageScrapPosting (String u_num);
+	
+	
+	//지원현황
+	public void deleteApply(String a_num);
+	public List<Map<String, Object>> getApplicantList(String u_num);//유저별 지원현황 리스트
 	
 	
 	//열람

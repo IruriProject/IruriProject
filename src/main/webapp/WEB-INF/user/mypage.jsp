@@ -183,16 +183,17 @@ text-align: center;
                   <span class="spanbutton" onclick="location.href='insertresume'">이력서
                      등록</span>
                   <span class="spanbutton" onclick="location.href='resumelist'">이력서 목록</span>
-                  <span type="button">지원현황</span>
+                  <span type="button" onclick="location.href='applicationstate'">지원현황</span>
                   <br>
                </div>
                <br>
+
             </div>
             
                <div class="col-sm-12 col-md-3 col-xl-4 w-15" style="float:right">
                	  <span class="gwansim" onclick="location.href='enterLike'">관심기업 <i class="fa-solid fa-heart"></i> ${countLikeEnter }</span><br>
                	  <br>
-               	  <span class="gwansim" onclick="location.href=''">관심직종 <i class="fa-solid fa-briefcase"></i></span><br>
+               	  <span class="gwansim" onclick="location.href='occupationlike'">관심직종 <i class="fa-solid fa-briefcase"></i></span><br>
                	  <br>
                	  <span class="gwansim" onclick="location.href='/scrap'">관심공고 <i class="fa-solid fa-star"></i> ${countPosting }</span>
                   <br>
@@ -382,7 +383,7 @@ text-align: center;
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<h6 class="mb-0">관심 직종</h6>
-					<a href="/occupation">더보기</a>
+					<a href="/occupationlike">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table

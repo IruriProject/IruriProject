@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>관심 기업</title>
+<title>채용 현황</title>
 <c:set var="root" value="<%=request.getContextPath()%>" />
 <!-- Icon Font Stylesheet -->
 <link
@@ -40,18 +40,19 @@ div {
 <body>
 
 	
-	<c:if test="${countScrapPosting==0 }">
-		<h3 class="alert alert-info">관심 공고가 없습니다</h3>
+	<c:if test="${countApply==0 }">
+		<h3 class="alert alert-info">지원 현황이 없습니다</h3>
 	</c:if>
-	<c:if test="${countScrapPosting>0 }">
-		<h3 class="alert alert-info">총 ${countScrapPosting }개의 관심 공고</h3>
+	<c:if test="${countApply>0 }">
+		<h3 class="alert alert-info">총 ${countApply }개의 지원</h3>
 	</c:if>
+	
 	
 		<!-- Recent Sales Start -->
 			<div class="container-fluid pt-4 px-4">
 				<div class="bg-light text-center rounded p-4">
 					<div class="d-flex align-items-center justify-content-between mb-4">
-						<h6 class="mb-0">나의 관심 공고</h6>
+						<h6 class="mb-0">나의 채용 현황</h6>
 					</div>
 					<div class="table-responsive">
 						<table
@@ -62,48 +63,45 @@ div {
 									<th scope="col" style="text-align: center;"><input class="form-check-input"
 										type="checkbox" id="allcheck"></th>
 									<th scope="col" style="text-align: center;">No.</th>
-									<th scope="col" style="text-align: center;">회사명</th>
+									<th scope="col" style="text-align: center;">지원일</th>
 									<th scope="col" style="text-align: center;">공고 제목</th>
+									<!-- <th scope="col" style="text-align: center;">직무</th> -->
+									<th scope="col" style="text-align: center;">이력서 제목</th>
 									<th scope="col" style="text-align: center;">모집 마감 일</th>
-									<th scope="col" style="text-align: center;">직무</th>
 									<th scope="col" style="text-align: center;">급여</th>
 									<th scope="col" style="text-align: center;">고용형태</th>
-									<th scope="col" style="text-align: center;">계약기간</th>
 									<th scope="col" style="text-align: center;">근무요일</th>
-									<th scope="col" style="text-align: center;">근무시간</th>
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach var="pdto" items="${list }" varStatus="i">
+							<c:forEach var="adto" items="${list }" varStatus="i">
 							<tr>
-									<input type="hidden" class="s_num" value="${pdto.s_num }">
+									<input type="hidden" class="a_num" value="${adto.a_num }">
 									<td style="text-align: center;"><input class="form-check-input del" type="checkbox"></td>
 									<td style="text-align: center;">${i.count }</td>
-									<td style="text-align: center;">${pdto.e_name }</td>
-									<td style="text-align: center;"><a href="posting/detailpage?p_num=${pdto.p_num}">${pdto.p_title}</a></td>
-									<td style="text-align: center;">${pdto.p_enddate}</td>
-									<td style="text-align: center;">${pdto.p_type }</td>
-									<td style="text-align: center;">${pdto.p_pay }</td>
-									<td style="text-align: center;">${pdto.p_employtype}</td>
-									<td style="text-align: center;">${pdto.p_period }</td>
+									<td style="text-align: center;"><fmt:formatDate value="${adto.a_writeday}" pattern="yyyy-MM-dd"/></td>
+									<td style="text-align: center;"><a href="posting/detailpage?p_num=${adto.p_num}">${adto.p_title }</a></td>
+									<td style="text-align: center;"><a href="resume/detail?r_num=${adto.r_num}">${adto.r_title }</a></td>
+									<td style="text-align: center;">${adto.p_enddate}</td>
+									<td style="text-align: center;">${adto.p_pay}</td>
+									<td style="text-align: center;">${adto.p_employtype}</td>									
 									<td style="text-align: center;">
-									<c:if test="${pdto.p_workday=='월/화/수/목/금'}">
+									<c:if test="${adto.p_workday=='월/화/수/목/금'}">
 										평일
 									</c:if>
-									<c:if test="${pdto.p_workday=='토/일'}">
+									<c:if test="${adto.p_workday=='토/일'}">
 										주말
 									</c:if>
-									<c:if test="${pdto.p_workday!='토/일' && pdto.p_workday!='월/화/수/목/금'}">
+									<c:if test="${adto.p_workday!='토/일' && adto.p_workday!='월/화/수/목/금'}">
 										${adto.p_workday }
 									</c:if>
 									</td>
-									<td style="text-align: center;">${pdto.p_starttime } ~ ${pdto.p_endtime }</td>
 								</tr>
 							</c:forEach>
 							
 							<tr>
 								<td colspan="11" >
-								<button id="btnScrapDel">스크랩 해제</button>
+								<button id="btnAppDel">지원 취소</button>
 								</td>							
 							</tr>
 							
@@ -115,41 +113,41 @@ div {
 			<!-- Recent Sales End -->
 			
 			<script type="text/javascript">
+			
 				$("#allcheck").click(function(){
 					
-					//체크 값 없음
-					var chk=$(this).is(":checked");
+					var chk=$(this).is(":checked")
 					console.log(chk);//true, false로 나옴
 					
-					//전체 체크값을 아래의 체크에 일괄전달
+					//전체 체크값을 아래의 체크에 일괄 전달
 					$(".del").prop("checked",chk);
 					
 				});
-				
-				$("#btnScrapDel").click(function(){
-					//alert("삭제 하고 싶다");
+			
+				$("#btnAppDel").click(function(){
+					//alert("지원 취소 하고 싶다");
 					
-					//체크한 기업 개수 구하기
-					var cnt=$(".del:checked").length;
+					//체크 한 기업 개수 구하기
+					var cnt =$(".del:checked").length;
 					//alert(cnt);
 					
-					if (cnt==0) {
-						alert("삭제할 공고를 선택해주세요 :)");
-						return;//종료
+					if(cnt==0){
+						alert("삭제 할 지원을 선택해주세요 :)");
+						return;
 					}
 					
-					$(".del:checked").each(function(i,elt){
+					$(".del:checked").each(function(){
 						
-						var num = $(this).closest("tr").find(".s_num").val();
+						var num=$(this).closest("tr").find(".a_num").val();
 						console.log(num);//선택한 num만 나오는지 확인
 						
-						//삭제 할 ajax(진짜S 삭제 되는 것)
+						//삭제 할 ajax(진짜a 삭제 되는 것)
 						$.ajax({
 							
 							type:"get",
-							url:"sdelete",
+							url:"adelete",
 							dataType:"html",
-							data:{"s_num":num},
+							data:{"a_num":num},
 							success:function(){
 								
 								location.reload();
@@ -157,14 +155,11 @@ div {
 							
 						})
 						
-					})	
+					});
 					
-					alert("스크랩이 해제되었습니다 :)")
+					alert("삭제되었습니다 :)")
+					
 				});
-			
-			
-			
-			
 			</script>
 			
 	
