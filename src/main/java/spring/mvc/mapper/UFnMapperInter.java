@@ -67,5 +67,4 @@ public interface UFnMapperInter {
 	public List<ResumeDto> getMyResume(String u_num);
 	public ResumeDto getResumeOfRNum(String r_num);
 
-
 }
