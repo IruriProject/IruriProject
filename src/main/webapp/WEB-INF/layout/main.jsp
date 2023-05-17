@@ -12,14 +12,14 @@
 </head>
 <body>
 
-<div id="recent" style="width: 100%; height: 300px;">
+<div id="recent" style="width: 100%; height: 300px; border: 1px solid gray;">
     <h2 style="text-align: center; color: green; font-weight: bold;">최근공고</h2>
-    <div class="recent" style="height: 80%; padding: 20px; display: flex;">
-      <c:forEach var="rposting" items="${recentPostings}">
+    <div class="recent" style="height: 80%; padding: 20px; border: 1px solid gray; display: flex;">
+      <c:forEach var="posting" items="${recentPostings}">
             <div style="width: 25%; height: 100%; border: 1px solid gray; padding: 10px;">
-                ${rposting.p_title}<br>
-                <b>급여</b> ${rposting.p_pay}<br>
-                <span style="color:gray;">${rposting.p_addr}</span><br>
+                ${posting.p_title}<br>
+                <b>급여</b> ${posting.p_pay}<br>
+                <span>${posting.p_addr}</span><br>
             </div>
         </c:forEach>
     </div>

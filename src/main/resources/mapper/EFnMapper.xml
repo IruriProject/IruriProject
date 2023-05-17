@@ -31,9 +31,10 @@
 	
 	<!-- 공고별 스크랩한 유저 -->
 	<select id="scrapUserByPosting" parameterType="Map" resultType="Map">
-		SELECT POSTING.*, SCRAP.*, USER.* FROM SCRAP
+		SELECT POSTING.*, SCRAP.*, USER.*, RESUME.* FROM SCRAP
 		JOIN USER ON SCRAP.u_num = USER.u_num
 		JOIN POSTING ON SCRAP.p_num = POSTING.p_num
+		left join RESUME on SCRAP.u_num = RESUME.u_num and RESUME.r_presume = 1
 		WHERE SCRAP.p_num = #{p_num}
 		order by s_num desc limit #{start},#{perpage}
 	</select>
@@ -45,9 +46,10 @@
 	
 	<!-- 공고별 열람한 유저 -->
 	<select id="viewerUserByPosting" parameterType="Map" resultType="Map">
-		SELECT POSTING.*, VIEWER.*, USER.* FROM VIEWER
+		SELECT POSTING.*, VIEWER.*, USER.*, RESUME.* FROM VIEWER
 		JOIN USER ON VIEWER.u_num = USER.u_num
 		JOIN POSTING ON VIEWER.p_num = POSTING.p_num
+		left join RESUME on VIEWER.u_num = RESUME.u_num and RESUME.r_presume = 1
 		WHERE VIEWER.p_num = #{p_num}
 		order by v_num desc limit #{start},#{perpage}
 	</select>
@@ -198,14 +200,20 @@
 		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num} order by m_num desc limit 0,3
 	</select>
 	
-	<!-- 기업별 쪽지 페이징 검색 추가 -->
+	<!-- 기업별 쪽지 페이징 검색 이력서 확인 추가 -->	
 	<select id="getAllMessageWithPagingSearch" parameterType="Map" resultType="Map">
-		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num}
-		<if test="searchcolumn!=null and searchword!=null">
-			 and ${searchcolumn} like concat('%',#{searchword},'%')
-		</if>
-		order by m_num desc limit #{start},#{perpage}
+		  select MESSAGE.*, USER.*, RESUME.*
+		  from MESSAGE
+		  inner join USER on MESSAGE.u_num = USER.u_num
+		  left join RESUME on MESSAGE.u_num = RESUME.u_num and RESUME.r_presume = 1
+		  where MESSAGE.e_num = #{e_num}
+		  <if test="searchcolumn != null and searchword != null">
+		    and ${searchcolumn} like concat('%', #{searchword}, '%')
+		  </if>
+		  order by MESSAGE.m_num desc
+		  limit #{start}, #{perpage}
 	</select>
+	
 	
 	<select id="getMessageSearchCountWithPagingSearch" parameterType="Map" resultType="int">
 		select count(*) from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num}
