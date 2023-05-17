@@ -14,6 +14,28 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  var hash = window.location.hash;
+  
+  // URL에서 가져온 해시값이 "#menu1"인 경우 해당 탭 활성화
+  if (hash === "#menu1") {
+    $("#home").removeClass("active");
+    $("#menu1").removeClass("fade");
+    $("#menu1").addClass("active in");
+    $("#menu1").removeClass("active");
+    $("#menu1").closest("li").addClass("active");
+    $(".tab-content").removeClass("active");
+    $("#menu1").addClass("active");
+    $(".nav-pills li").removeClass("active"); // 모든 li에서 active 클래스 제거
+    $(".tabmenu[href='#menu1']").closest("li").addClass("active"); // #menu1에 해당하는 tabmenu의 li에 active 클래스 추가
+    $(".tabmenu[href='#menu1']").tab("show"); // #menu1 탭 활성화
+  }
+});
+</script>
+
   <style>
 @import
 	url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
@@ -315,9 +337,11 @@
 				<table class="table table-info"
 					style="width: 100%; margin: 0 auto;">
 					<tr>
-						<td width="30" align="center" >제목</td>
-						<td  width="60"  align="center">내용</td>
-						<td  width="10" align="center">날짜</td>
+					    <td width="5%" align="center" >번호</td>
+						<td width="15%" align="center" >제목</td>
+						<td  width="50%"  align="center">내용</td>
+						<td  width="10%"  align="center">답변상태</td>
+						<td  width="10%" align="center">날짜</td>
 					</tr>
 				
 
@@ -337,7 +361,7 @@
 							<tr>
 								<%-- <td align="center">${no }</td> --%>
 								<c:set var="no" value="${no-1 }" />
-
+								<td align="center">${no+1 }</td>
 								<%-- 
 					<td align="center">${a.num }</td> --%>
 								<td align="center">${a.q_title }</td>
@@ -348,7 +372,15 @@
 								</a>
 								</td>
 								<td align="center">
-							<fmt:formatDate value="${a.q_writeday }" pattern="yyyy-MM-dd hh:mm" />
+								            <c:if test="${a.qnaCount == 0}">
+								                <b style="font-weight:500; color:red;">대기중</b>
+								            </c:if>
+								            <c:if test="${a.qnaCount != 0}">
+								                <b style="font-weight:500; color:green;">답변완료</b>
+								            </c:if>
+								        </td>
+										<td align="center">
+							<fmt:formatDate value="${a.q_writeday }" pattern="yyyy-MM-dd" />
 								
 								</td>
 							</tr>
@@ -390,7 +422,9 @@
 			</div>
 		</c:if>
 			</div>
-			</div>
+</div>
+			
+			
     <div id="menu1" class="tab-pane fade" style="padding:30px 0;">
  		 <div class="formbold-main-wrapper">
 		<div class="formbold-form-wrapper">
@@ -404,7 +438,7 @@
 
 					<div>
 						<input type="text" name="q_title" id="q_title"
-							placeholder="제목을 입력해주세요.(50자 이하) " class="formbold-form-input"  required="required" maxlength="50"/>
+							placeholder="제목을 입력해주세요.(20자 이하) " class="formbold-form-input"  required="required" maxlength="19"/>
 					</div>
 				</div>
 

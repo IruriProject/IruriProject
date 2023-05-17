@@ -273,7 +273,7 @@ $(function(){
 							<c:forEach var="post" items="${postings }">
 								<tr>
 									<td style="text-align: left"><a class="atag"
-										href="posting/detailpage?p_num=${post.p_num }">&nbsp;&nbsp;<b>${post.p_title }</b></a>&nbsp;&nbsp;
+										href="../posting/detailpage?p_num=${post.p_num }">&nbsp;&nbsp;<b>${post.p_title }</b></a>&nbsp;&nbsp;
 										<span class="counting viewer" p_num=${post.p_num }></span>
 										<span class="counting">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 										<span class="counting scrap" p_num=${post.p_num }></span>

@@ -149,14 +149,28 @@
 			<li><c:if test="${sessionScope.loginStatus=='enterprise' }">
 					<a href="/enterprise" class="mainMenu">기업서비스</a>
 				</c:if> <c:if test="${sessionScope.loginStatus!='enterprise' }">
-					<a href="/mypage" class="mainMenu">회원서비스</a>
+					
+					<a style="cursor: pointer" class="mainMenu" onclick="checkLogin()">회원서비스</a>
 					<ul class="subMenu">
 						<li><a href="/update">개인정보 관리</a></li>
 						<li><a href="/resumelist">이력서 관리</a></li>
 						<li><a href="/enterLike">관심 기업</a></li>
 						<li><a href="/applicationstate">지원현황</a></li>
 					</ul>
-				</c:if></li>
+					
+					<script type="text/javascript">
+					function checkLogin() {
+					  <c:if test="${empty sessionScope.loginStatus}">
+					    alert("로그인 후 이용 가능합니다.");
+					    location.href = "/login";
+					    return false;
+					  </c:if>
+					  location.href = "/mypage";
+					}
+					</script>
+				</c:if>
+			</li>
+				
 			<li><a href="#" class="mainMenu">인재정보</a>
 				<ul class="subMenu">
 					<li><a href="hi">sub메뉴</a></li>
@@ -171,13 +185,26 @@
 					<li><a href="hi">sub메뉴</a></li>
 					<li><a href="hi">sub메뉴</a></li>
 				</ul></li>
-			<li><a href="/qna/qnawriteform" class="mainMenu">문의하기</a>
+				
+				
+			<c:if test="${sessionScope.loginStatus!=null}">
+			<li>
+			
+			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId!='admin'}">
+			<a href="/qna/qnawriteform" class="mainMenu">일대일문의</a>
+			</c:if>
+			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
+			<a href="/qna/adminqnalist"  class="mainMenu">관리자일대일</a>
+			</c:if>
 				<ul class="subMenu">
+					
 					<li><a href="hi">sub메뉴</a></li>
 					<li><a href="hi">sub메뉴</a></li>
 					<li><a href="hi">sub메뉴</a></li>
 					<li><a href="hi">sub메뉴</a></li>
-				</ul></li>
+				</ul>
+				</li>
+				</c:if>
 		</ul>
 	</nav>
     

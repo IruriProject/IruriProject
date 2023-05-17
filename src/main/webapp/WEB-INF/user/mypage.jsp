@@ -187,7 +187,6 @@ text-align: center;
                   <br>
                </div>
                <br>
-ㄴ
             </div>
             
                <div class="col-sm-12 col-md-3 col-xl-4 w-15" style="float:right">

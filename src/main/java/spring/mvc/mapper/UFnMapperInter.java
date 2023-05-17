@@ -40,7 +40,7 @@ public interface UFnMapperInter {
 	public void updatePublic(int r_num);
 	public void updateMainOn(int r_num);
 	public void updateMainOff(int r_num);
-	public void updateAllOff();
+	public void updateAllOff(String u_num);
 	//아이디에 해당하는 이력서 찾기
 	public List<ResumeDto> getResumeByUserId(String u_id);
 	
@@ -71,6 +71,5 @@ public interface UFnMapperInter {
 	public int getSearchUnum(Map<String, String> map);
 	public List<ResumeDto> getMyResume(String u_num);
 	public ResumeDto getResumeOfRNum(String r_num);
-
 
 }

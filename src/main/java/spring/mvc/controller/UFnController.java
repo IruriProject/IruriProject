@@ -61,7 +61,10 @@ public class UFnController {
       List<EnterpriseDto> getMypageLikeEnter=uservice.getMypageLikeEnter(dto.getU_num());//세션의 아이디 통해 dto를 갖고오고 그 dto통해 U_num갖고오기, U_num통해 관심 기업과 관심 공고 갖고옴
       List<Map<String, Object>> getMypageScrapPosting=uservice.getMypageScrapPosting(dto.getU_num());
      
-      
+      if(loginStatus==null) {
+	    	String loginmessage = "로그인 후 사용 가능합니다.";
+	    	model.addObject("loginmessage", loginmessage);
+	    }
       model.addObject("mlist", uservice.getMessageByUserNum(dto.getU_num()));
       model.addObject("list", list);
       model.addObject("dto", dto);
@@ -245,16 +248,18 @@ public class UFnController {
 		uservice.updatePublic(r_num);
 		return "redirect:resumelist";
 	}
+	@ResponseBody
 	@PostMapping("/updateMainOff")
-	public String updateMainOff(int r_num) {
+	public void updateMainOff(int r_num) {
 		uservice.updateMainOff(r_num);
-		return "redirect:resumelist";
 	}
+	@ResponseBody
 	@PostMapping("/updateMainOn")
-	public String updateMainOn(int r_num) {
-		uservice.updateAllOff();
+	public void updateMainOn(int r_num, HttpSession session) {
+		String u_id = (String) session.getAttribute("loginId");
+	    UserDto dto = service.findUserdataById(u_id);
+		uservice.updateAllOff(dto.getU_num());
 		uservice.updateMainOn(r_num);
-		return "redirect:resumelist";
 	}
 	
 	@GetMapping("/mymessage")

@@ -44,4 +44,37 @@
 		delete from QNA where q_num=#{q_num}
 	</delete>
 	
+	<!-- qnacomment -->
+	<insert id="insertComment" parameterType="qcdto">
+		insert into Q_COMMENT (q_num, qc_content, qc_writeday) 
+		values (#{q_num}, #{qc_content},now())
+	</insert>
+	
+	<update id="updateComment" parameterType="qcdto">
+		update Q_COMMENT set qc_content=#{qc_content} where qc_num=#{qc_num}
+	</update>
+
+	<select id="getAllComments" parameterType="String" resultType="qcdto">
+		select * from Q_COMMENT where q_num=#{q_num}
+	</select>
+
+	<select id="getComment" parameterType="String" resultType="qcdto">
+		select * from Q_COMMENT where qc_num=#{qc_num}
+	</select>
+
+	<select id="countqnum" resultType="int" parameterType="String">
+		select count(*) from Q_COMMENT where q_num=#{q_num} 	
+	</select>
+	
+	
+	<select id="getCommentMaxNum" resultType="int">
+		select ifnull(max(qc_num),0) from Q_COMMENT
+	</select>
+	
+	<delete id="deleteComment" parameterType="String">
+		delete from Q_COMMENT where qc_num=#{qc_num}
+	</delete>
+	
+	
+	
 </mapper>

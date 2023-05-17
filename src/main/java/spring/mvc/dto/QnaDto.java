@@ -17,4 +17,5 @@ public class QnaDto {
 	private String q_email;
 	private String q_file;
 	private Timestamp q_writeday;
+	private int qnaCount;
 }

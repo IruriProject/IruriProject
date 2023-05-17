@@ -30,7 +30,7 @@
 		width:100px; height:150px;
 	}
 	
-	li{
+	li[role="button"]{
 		width: 60px;
 		border-radius:20px;
 		text-align:center;
@@ -71,9 +71,6 @@
 <body>
 	
 <div class="searcharea">
-<!-- test -->
-<li role="button" class="employtype" value="기간제">기간제</li>
-<li role="button" class="employtype" value="정규직">정규직</li>
 
 <!-- 지역 필터링 -->
 <h4>지역별로 검색하기</h4><br>
@@ -470,15 +467,8 @@ $("li").click(function(){
 	
 })
 
-	$(".employtype").click(function(){
-	  type=$(this).attr("value"); 
-	  if(!type) { // p_employtype이 선택되지 않은 경우
-	    type = ""; // 빈 문자열로 설정
-	  }
-	})
-
-$(".gu").click(function a(){
-
+$(".gu").click(function(){
+	
 	const gu_name=$(this).attr("value");
 	$("#basic-list").empty();
 	$(".pagination").empty();
@@ -487,14 +477,13 @@ $(".gu").click(function a(){
 		type:"get",
 		url:"addrsearch",
 		dataType:"json",
-		data:{"p_addr":gu_name,"employtype":type},
+		data:{"p_addr":gu_name},
 		success:function(res){
 			let s="";
 			s+="<table class='table'>";
 			s+="<caption>"+gu_name+"에 해당하는 "+res.length+"개의 검색 결과가 있습니다.</caption>";
 			s+="<tr align='center'><td width='60'>지역</td><td width='400'>모집내용/기업명</td><td width='120'>급여</td>";
 	   		s+="<td width='50'>근무시간</td><td width='100'>등록일</td></tr>";
-
 	   		$.each(res,function(i,ele){
 	   			//주소
 	   			s+="<tr><td width='60'>"+ele.p_addr+"</td>";
@@ -520,7 +509,7 @@ $(".gu").click(function a(){
 			$("#addr-box").html(s);
 			$("#nosearch").hide();
 		}
-	}) // ajax끝	
+	}) // ajax끝
 	
 })
 

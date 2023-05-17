@@ -17,6 +17,13 @@
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
 }
+td a{
+color:black;
+}
+td a:hover{
+color:black;
+text-decoration: none;
+}
 </style>
 <script>
 $(function(){
@@ -36,15 +43,7 @@ $(function(){
 </script>
 </head>
 <body>
-<form class="form-inline" style="width: 80%; margin: 0 auto">
-		<select class="form-control" disabled="disabled">
-			<option>인재이름</option>
-		</select>
-		<input type="text"
-			placeholder="검색어 입력" class="form-control">
-		<button type="button" class="btn btn-info">검색</button>
-	</form>
-	<br>
+<h2 style="width: 80%; margin: 0 auto;">쪽지함</h2><br>
 	<table class="table" style="width: 80%; margin: 0 auto;">
 		<tr>
 			<th style="text-align: center">No.</th>

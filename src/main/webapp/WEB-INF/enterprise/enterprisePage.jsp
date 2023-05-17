@@ -64,6 +64,11 @@
 	cursor: pointer;
 	color: #416442;
 }
+
+.link{
+	cursor: pointer;
+}
+
 </style>
 </head>
 
@@ -249,10 +254,10 @@
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h4 class="mb-5" onclick="location.href='/enterprise/applicant'"><b>${applicant_size }명의 지원자 보러가기</b></h4>
+					<h4 class="mb-5 link" onclick="location.href='/enterprise/applicant'"><b>${applicant_size }명의 지원자 보러가기</b></h4>
 				</div>
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h4 class="mb-5" onclick="location.href='/enterprise/applicant'"><b>${applicant_size }명의 지원자 보러가기</b></h4>
+					<h4 class="mb-5 link" onclick="location.href='/enterprise/applicant'"><b>더 많은 지원자 찾기</b></h4>
 				</div>
 				
 			</div>
