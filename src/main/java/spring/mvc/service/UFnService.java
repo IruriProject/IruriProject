@@ -54,8 +54,8 @@ public class UFnService {
    public void updateMainOff(int r_num) {
       mapper.updateMainOff(r_num);
    }
-   public void updateAllOff() {
-      mapper.updateAllOff();
+   public void updateAllOff(String u_num) {
+      mapper.updateAllOff(u_num);
    }
 
    public void updatePhoto(String u_id, String u_photo) {

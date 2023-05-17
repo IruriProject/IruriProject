@@ -86,8 +86,8 @@
 	</update>
 	
 	<!-- 대표 전체해제 -->
-	<update id="updateAllOff">
-		update RESUME set r_presume=0
+	<update id="updateAllOff" parameterType="string">
+		update RESUME set r_presume=0 where u_num=#{u_num}
 	</update>
 
 	<!-- 대표 해제 -->

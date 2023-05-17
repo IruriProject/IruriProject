@@ -254,8 +254,10 @@ public class UFnController {
 	}
 	@ResponseBody
 	@PostMapping("/updateMainOn")
-	public void updateMainOn(int r_num) {
-		uservice.updateAllOff();
+	public void updateMainOn(int r_num, HttpSession session) {
+		String u_id = (String) session.getAttribute("loginId");
+	    UserDto dto = service.findUserdataById(u_id);
+		uservice.updateAllOff(dto.getU_num());
 		uservice.updateMainOn(r_num);
 	}
 	
