@@ -224,15 +224,6 @@ $(function(){
 		
 	});
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	//수정창 띄우기
 	$(document).on('click', '.qnaupdatecommentbtn', function(e) {
@@ -444,9 +435,21 @@ function list() {
 		
 		<tr>
 			<td style="margin: 10%; width:80%; display:flex; justify-content:space-between; text-align:center;">
+				
+				
+				<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
 				<button type="button" class="btn btn-default"
 					onclick="location.href='adminqnalist?currentPage=${currentPage}'"
 					style="margin: 0 auto; width: 30%;">목록</button>
+				</c:if>
+				
+				
+				<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId!='admin'}">
+				<button type="button" class="btn btn-default"
+					onclick="location.href='qnawriteform?currentPage=${currentPage}'"
+					style="margin: 0 auto; width: 30%;">목록</button>
+				</c:if>
+				
 			</td>
 		</tr>
 	

@@ -8,10 +8,18 @@ import org.apache.ibatis.annotations.Mapper;
 
 import spring.mvc.dto.BCommentDto;
 import spring.mvc.dto.BoardDto;
+import spring.mvc.dto.PostingDto;
 
 @Mapper
 public interface BoardMapperInter {
 
+	//출력
+	public List<BoardDto> recentBoard();
+	
+	//pre,next
+	public Integer getPrevNum(String b_num);
+	public Integer getNextNum(String b_num);
+	
 	//board
 	public int getTotalCount(Map<String, String>map);
 	public void updateReadCount(String b_num);

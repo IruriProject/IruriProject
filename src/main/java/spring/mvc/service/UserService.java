@@ -1,12 +1,14 @@
 package spring.mvc.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.mvc.dto.ApplicantDto;
+import spring.mvc.dto.QnaDto;
 import spring.mvc.dto.UserDto;
 import spring.mvc.mapper.UserMapperInter;
 
@@ -64,5 +66,34 @@ public class UserService {
 	
 	public int userSearchId(String u_id) {
 		return mapper.userSearchId(u_id);
+	}
+	
+	
+	//회원관리
+	
+	public int getTotalCount() {
+		// TODO Auto-generated method stub
+		return mapper.getTotalCount();
+	}
+	
+	
+	public List<UserDto> getAllUsers(int start, int perpage) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> map= new HashMap<>();
+		map.put("start", start);
+		map.put("perpage", perpage);
+
+		return mapper.getAllUsers(map);
+	}	
+	
+	public void deleteUser(String u_num) {
+		
+		mapper.deleteUser(u_num);
+	}
+	
+	public UserDto getDataByNum(String u_num) {
+		
+		return mapper.getDataByNum(u_num);
+		
 	}
 }

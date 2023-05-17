@@ -4,6 +4,19 @@
 
 <mapper namespace="spring.mvc.mapper.BoardMapperInter">
 
+	<select id="getPrevNum" parameterType="String" resultType="java.lang.Integer">
+	    SELECT b_num FROM BOARD WHERE #{b_num} > b_num ORDER BY b_num DESC LIMIT 1;
+	</select>
+	
+	<select id="getNextNum" parameterType="String"  resultType="java.lang.Integer">
+	    SELECT b_num FROM BOARD WHERE b_num > #{b_num} ORDER BY b_num ASC LIMIT 1;
+	</select>
+	
+	<!--최근업로드 게시물3개 -->
+	<select id="recentBoard" resultType="bdto">
+	select * from BOARD order by b_writeday desc limit 3
+	</select>
+	
 	<select id="getTotalCount" resultType="int" parameterType="Map">
 		select count(*) from BOARD
 		<if test="keyword!=null">

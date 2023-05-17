@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import spring.mvc.dto.BCommentDto;
 import spring.mvc.dto.BoardDto;
+import spring.mvc.dto.PostingDto;
 import spring.mvc.mapper.BoardMapperInter;
 
 @Service
@@ -18,6 +19,23 @@ public class BoardService {
 	@Autowired
 	BoardMapperInter mapperInter;
 	
+	//출력
+	public List<BoardDto> recentBoard(){
+		return mapperInter.recentBoard();
+		
+	}
+	
+	
+	//pre,next
+	public Integer getPrevNum(String b_num) {
+	    Integer prevNum = mapperInter.getPrevNum(b_num);
+	    return prevNum != null ? prevNum : 0;
+	}
+
+	public Integer getNextNum(String b_num) {
+	    Integer nextNum = mapperInter.getNextNum(b_num);
+	    return nextNum != null ? nextNum : 0;
+	}
 	
 	public int getTotalCount(String keyword) {
 		// TODO Auto-generated method stub

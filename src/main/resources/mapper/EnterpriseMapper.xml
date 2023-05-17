@@ -3,6 +3,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="spring.mvc.mapper.EnterpriseMapperInter">
+	
+	<!--전체기업회원 -->
+	<select id="getAllEnters" parameterType="HashMap" resultType="edto">
+		select * from ENTERPRISE order by e_num desc limit #{start},#{perpage}
+	</select>
+		
+	<!--기업회원삭제 -->
+	<delete id="deleteEnter" parameterType="String">
+		delete from ENTERPRISE where e_num=#{e_num}
+	</delete>
+	
+	<select id="getDataByNum" parameterType="String" resultType="edto">
+		select * from ENTERPRISE where e_num=#{e_num}
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*) from ENTERPRISE	
+	</select>
+
 
 	<!-- num으로 기업 정보찾기 -->
 	<select id="findEnterByNum" resultType="edto" parameterType="String">

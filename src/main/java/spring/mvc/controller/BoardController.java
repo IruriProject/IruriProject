@@ -339,6 +339,12 @@ public class BoardController {
 		}
 		
 		
+		
+		// 이전 글 번호와 다음 글 번호를 가져옴
+	    int prevNum = bservice.getPrevNum(b_num);
+	    int nextNum = bservice.getNextNum(b_num);
+	    
+		
 		//업로드파일의 확장자
 		int dotLoc =bdto.getB_photo().lastIndexOf('.'); //마지막 .의 위치
 		String ext= bdto.getB_photo().substring(dotLoc+1); //현재위치 다음부터 끝까지 // . 의 다음글자부터 끝까지 추출 (.은 포함되면 안되기때문)
@@ -350,6 +356,8 @@ public class BoardController {
 		else
 			mview.addObject("b_photo", false); // 이미지 인지 아닌지를 보고 출력하기 위해서
 		
+		mview.addObject("prevNum",prevNum);
+		mview.addObject("nextNum",nextNum);
 		mview.addObject("bdto",bdto);
 		mview.addObject("photoUrls", photoUrls); // 이미지 URL 리스트 추가
 		//mview.addObject("photoList", photoList); // 이미지 파일명 리스트 추가

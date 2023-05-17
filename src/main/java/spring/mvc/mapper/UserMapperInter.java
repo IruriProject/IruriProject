@@ -1,6 +1,7 @@
 package spring.mvc.mapper;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -21,4 +22,10 @@ public interface UserMapperInter {
 	public int userSearchEmail(String u_email);
 	public void updateKakaoInfo(String u_num);
 	public int userSearchId(String u_id);
+	
+	//회원관리
+	public int getTotalCount();
+	public List<UserDto> getAllUsers(HashMap<String, Object> map);
+	public void deleteUser(String u_num);
+	public UserDto getDataByNum(String u_num);
 }

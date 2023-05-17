@@ -32,4 +32,7 @@ public class BoardDto {
 	public void setNewFlag(boolean newFlag) {
 	    this.newFlag = newFlag;
 	}
+	
+	private int prevNum; //이전글의 글번호를 담을 필드
+	private int nextNum; //다음글의 글번호를 담을 필드
 }
