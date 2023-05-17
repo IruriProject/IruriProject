@@ -4,12 +4,16 @@ import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import spring.mvc.dto.PostingDto;
-
+import spring.mvc.dto.ApplicantDto;
 import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.PostingDto;
 
 @Mapper
 public interface EFnMapperInter {
+	
+	//공고출력
+	public List<PostingDto> recentPosting();
+	public List<ApplicantDto> bestPosting();
 	
 	//공고
 	public Map<String, Object> getPosting(String p_num);

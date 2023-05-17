@@ -217,8 +217,7 @@ $(function(){
 	});
 	
 
-//수정창 띄우기
-	
+	//수정창 띄우기
 	$(document).on('click', '.updatecommentbtn', function(e) {
 		
 		  var bc_num = $(this).attr("bc_num");

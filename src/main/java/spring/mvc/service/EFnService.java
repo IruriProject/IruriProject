@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.mvc.dto.PostingDto;
 import spring.mvc.mapper.EFnMapperInter;
-
+import spring.mvc.dto.ApplicantDto;
 import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.PostingDto;
 import spring.mvc.mapper.EFnMapperInter;
@@ -19,6 +19,17 @@ public class EFnService {
 	@Autowired
 	EFnMapperInter mapper;
 
+	//공고출력
+	public List<PostingDto> recentPosting(){
+		return mapper.recentPosting();
+		
+	}
+	
+	public List<ApplicantDto> bestPosting(){
+		
+		return mapper.bestPosting();
+	}
+	
 	// 공고
 	public Map<String, Object> getPosting(String p_num) {
 		return mapper.getPosting(p_num);

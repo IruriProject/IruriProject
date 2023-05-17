@@ -102,22 +102,4 @@
 		delete from B_COMMENT where bc_regroup=#{bc_regroup}
 	</delete>
 	
-	<!--추가-->
-	<!-- <insert id="insertComment" parameterType="bcdto">
-		insert into B_COMMENT (b_num, bc_loginid, bc_content, bc_writeday) values (#{b_num}, #{bc_loginid}, #{bc_content},now())
-	</insert> -->
-	
-	<!-- 최신글 올라가게  b_num desc -->
-	<!-- <select id="getAllComments" parameterType="String" resultType="bcdto">
-		select * from B_COMMENT  where b_num=#{b_num} order by bc_num desc
-	</select>
-	
-	<select id="getComment" parameterType="String" resultType="bcdto">
-		select * from B_COMMENT where b_num=#{b_num}
-	</select>
-	
-	<update id="updateComment" parameterType="bcdto">
-		update B_COMMENT set bc_content=#{bc_content} where b_num=#{b_num}
-	</update> -->
-	
 </mapper>

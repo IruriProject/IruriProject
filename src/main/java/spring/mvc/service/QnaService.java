@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import spring.mvc.dto.BCommentDto;
+import spring.mvc.dto.QCommentDto;
 import spring.mvc.dto.QnaDto;
 import spring.mvc.mapper.QnaMapperInter;
 
@@ -19,7 +21,6 @@ public class QnaService {
 	
 	public int getTotalCount() {
 		// TODO Auto-generated method stub
-		
 		return mapperInter.getTotalCount();
 	}
 
@@ -39,7 +40,6 @@ public class QnaService {
 		return mapperInter.getMaxNum();
 	}
 
-
 	public List<QnaDto> getList(int start, int perpage) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> map= new HashMap<>();
@@ -47,8 +47,7 @@ public class QnaService {
 		map.put("perpage", perpage);
 
 		return mapperInter.getList(map);
-	}
-	
+	}	
 
 	public void insertQna(QnaDto qdto) {
 		// TODO Auto-generated method stub
@@ -68,6 +67,43 @@ public class QnaService {
 	public void deleteQna(String q_num) {
 		
 		mapperInter.deleteQna(q_num);
+	}
+	
+	//comment
+	public int countqnum(String q_num) {
+		// TODO Auto-generated method stub
+		return mapperInter.countqnum(q_num);
+	}
+	
+	public void insertComment(QCommentDto qc_dto) {
+		// TODO Auto-generated method stub
+	      mapperInter.insertComment(qc_dto);
+	}
+	
+	public List<QCommentDto> getAllComments(String qc_num) {
+		// TODO Auto-generated method stub
+		return mapperInter.getAllComments(qc_num);
+	}
+
+	
+	public QCommentDto getComment(String qc_num) {
+		// TODO Auto-generated method stub
+		return mapperInter.getComment(qc_num);
+	}
+	
+	public int getCommentMaxNum() {
+		
+		return mapperInter.getCommentMaxNum();
+	}
+	
+	public void updateComment(QCommentDto qc_dto) {
+		// TODO Auto-generated method stub
+		mapperInter.updateComment(qc_dto);
+	}
+
+	public void deleteComment(String qc_num) {
+		// TODO Auto-generated method stub
+		mapperInter.deleteComment(qc_num);
 	}
 	
 }

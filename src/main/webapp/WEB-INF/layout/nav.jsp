@@ -185,13 +185,26 @@
 					<li><a href="hi">sub메뉴</a></li>
 					<li><a href="hi">sub메뉴</a></li>
 				</ul></li>
-			<li><a href="/qna/qnawriteform" class="mainMenu">문의하기</a>
+				
+				
+			<c:if test="${sessionScope.loginStatus!=null}">
+			<li>
+			
+			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId!='admin'}">
+			<a href="/qna/qnawriteform" class="mainMenu">일대일문의</a>
+			</c:if>
+			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
+			<a href="/qna/adminqnalist"  class="mainMenu">관리자일대일</a>
+			</c:if>
 				<ul class="subMenu">
+					
 					<li><a href="hi">sub메뉴</a></li>
 					<li><a href="hi">sub메뉴</a></li>
 					<li><a href="hi">sub메뉴</a></li>
 					<li><a href="hi">sub메뉴</a></li>
-				</ul></li>
+				</ul>
+				</li>
+				</c:if>
 		</ul>
 	</nav>
     

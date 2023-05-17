@@ -163,121 +163,192 @@
 
 </style>
 
-<script type="text/javascript">
+<script>
+
+function confirmDelete(q_num, currentPage) {
+	  if (confirm("정말로 삭제하시겠습니까?")) {
+	    location.href = "delete?q_num=${qdto.q_num}&currentPage=${currentPage}";
+	    
+	  }
+	}
+	
 
 $(function(){
 	
-	//num값은 전역변수로 선언..
-	 num=$("#b_num").val();
-	 loginok="${sessionScope.loginStatus }";
-	 myid="${sessionScope.loginId}";
+	num=$("#q_num").val();
+	loginok="${sessionScope.loginStatus}";
+	myid="${sessionScope.loginId}";
+	
+	var qc_count= ${qnaCount};
+	//alert(qc_count);
+	
 	
 	list();
+
+
+		
 	
 	//insert
 	$("#btncommentadd").click(function(){
+
 		
-		var bc_content=$("#bc_content").val();
-		 
-		if(bc_content.trim().length==0){
+		var qc_content=$("#qc_content").val();
+		var qcount=${qnaCount};
+		//alert(qcount);
+		if(qc_content.trim().length==0){
 			alert("댓글을 입력해주세요.");
 			return;
 		}
 		
+		
+		//alert(num+qc_content);
+		if(qcount<1){
 		$.ajax({
-			type : "post",
-			dataType : "text",
-		    url : "commentinsert",
-		    data :{"b_num":num,"bc_content":bc_content},
-		    success : function(){
-		        alert("인서트성공");
-		        $("#bc_content").val("");
-		        list();
+			type: "post",
+			dataType: "text",
+			url: "commentinsert",
+			data: {"q_num": num, "qc_num":"0","qc_content": qc_content},
+			success: function(){
+				//alert("인서트 성공");
+				$("#qc_content").val("");
+					list();
+					 location.reload();
 			}
-		}); 
-	}); 
+		});  
+		
+		}else{
+			
+			alert("답변한 문의입니다.");
+			 
+		}
+		
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	//수정창 띄우기
+	$(document).on('click', '.qnaupdatecommentbtn', function(e) {
+		
+		  var qc_num = $(this).attr("qc_num");
+		  var qc_updatecontent=$("#qc_updatecontent").val(); 
+		  var data="qc_num="+qc_num+"&bc_updatecontent="+qc_updatecontent;
+		  //console.log(data);
+		  //alert(data);
+		  
+				$.ajax({
+					type : "get", 
+					dataType : "json", // 받을게 없을때는 text, html 아닐때는 dataType받는 파일형식으로 적기
+					url : "answerupdateform",
+					data : data,
+					success:function(res){
+
+						$("#qc_updatecontent").val(res.qc_content);
+						$("#qc_updatenum").val(res.qc_num);
+					}
+				});
+		});
+		
+
+	//수정
+	$("#btnupdateqnainfo").click(function(){
+		
+		var qc_num=$("#qc_updatenum").val();
+		var qc_updatecontent=$("#qc_updatecontent").val();
+		var data="qc_num="+qc_num+"&qc_content="+qc_updatecontent;
+		//alert(data);
+		
+		$.ajax({
+			  type:"post",
+			  dataType:"text",
+			  data:data,
+			  url:"commentupdate",
+			  success:function(){  
+				  //alert("수정됨");
+				  location.reload();
+			  }
+		  });
+	});
+	
+	
+	
+	//delete
+	$(document).on('click', '#qnacommentdeletebtn', function() {
+	    var qc_num = $(this).closest('.reply-item').data('qc_num');
+	    //alert(qc_num);
+	    
+	    // 서버로 댓글 삭제 요청을 보냄
+	    $.ajax({
+	        type: "get",
+	        dataType: "text",
+	        url: "deleteqnacomment",
+	        data: {"qc_num": qc_num},
+	        success: function(){
+	            alert("댓글이 삭제되었습니다.");
+	            list();
+	            location.reload();
+	        }
+	    });
+	});
+		 	 
 	
 });
 
 
 //사용자 함수  list
 function list() {
-	var num=$("#b_num").val();
-	 loginok="${sessionScope.loginStatus }";
-	 
-	$.ajax({
-		type : "get",
-		dataType : "json",
-		url : "commentlist",
-		data : {
-			"b_num" : num
-		},
-		success : function(res) {
-			$("span.acount").text(res.length);
-			var s = "";
-			
-			/* $.each(res,function(i, dto) {
-			     s += "<div class='answer'>";
-				 s += "<b class='name'>" + dto.bc_loginid + "</b><br><br><span class='content'>" + dto.bc_content + "</span>"; 
-				 s += "<span class='day'>" + dto.bc_writeday + "</span>";
-				if (loginok != 'null' && myid == dto.bc_loginid) {
-					s += "<span data-toggle='modal' data-target='#answermodal' class='glyphicon glyphicon-edit amod' b_num='" + dto.b_bum + "'></span>";
-					s += "&nbsp;&nbsp;";
-					s += "<span class='glyphicon glyphicon-remove adel' b_num='" + dto.b_num + "'></span>";
-				} 
-				s += "</div><hr>";
+	
+	  	var num=$("#q_num").val();
+	  	loginok="${sessionScope.loginStatus}";
+		myid="${sessionScope.loginId}";
+
+		//alert(loginok+myid);
+		
+		$.ajax({
+		        type: "get",
+		        dataType: "json",
+		        url: "qnacommentlist",
+		        data: {
+		            "q_num": num
+		        },
+		        success: function (res) {
+		        	
+		            var s = "";
+               
+	                $.each(res, function (i, dto) {
+				        s += "<div class='reply-item' data-qc_num='" + dto.qc_num + "'>";
+		                s +="<b class='fa-solid fa-reply fa-rotate-180' style='padding-top:3px; padding-left:8px; font-size:12px;'></b>";
+		                s += "<b class='name' style='font-weight:bold;'>관리자</b>";
+		                s += "<span class='day' style='font-weight:500;'>" +dto.qc_writeday + "</span>"; 
+		                
+		                if (loginok !='' && myid == 'admin'){
+		        		s += "<div class='dropdown' style='float:right;'>";
+		                s += "<span class='glyphicon glyphicon-option-vertical' style='color: gray; font-size: 17px;'></span>";
+		                s += "<div class='dropdown-content'>";
+		                s += "<button type='button' data-toggle='modal' class='qnaupdatecommentbtn' data-target='#qnaanswermodal' style='text-align:center;' qc_num='"+dto.qc_num+"'>수정</button>";
+		                s += "<button type='button' style='text-align:center;' id='qnacommentdeletebtn'>삭제</button>";
+		                s += "</div></div>";
+		                }
+						s +="<br><span class='content'><p style='padding:0 24px;'>"+ dto.qc_content + "</p></span><br><hr>";     
+						});
+ 
+					$("div.alist").html(s);
+					 
+		   
+				}
 			});
-			 */
-			 
-			 $.each(res,function(i, dto) {
-				 
-				 if (dto.bc_relevel != 0) {
-					    for (var i = 0; i < dto.bc_relevel; i++) {
-					        s += "&nbsp;&nbsp;&nbsp;";
-					    }
-					    s += "ㄴ";
-					}
-				   
-			     s += "<div class='answer'>";
-				 s += "<b class='name'>" + dto.bc_loginid + "</b>"; 
-				 s += "<span class='day'>" + dto.bc_writeday + "</span>";
+	}
 
-
-					if (loginok != 'null' && myid == dto.bc_loginid) {
-						s+="<div class='dropdown' style='float:right;'>";
-						s+="<span class='glyphicon glyphicon-option-vertical' style='color: gray; font-size: 17px;'></span>";
-						s+="<div class='dropdown-content'>";
-						s+="<button type='button' data-toggle='modal' data-target='#answermodal'  style='text-align:center;' onclick='location.href='update?num="+ dto.b_num +"'>수정</button>";
-						s+="<button type='button' style='text-align:center;' onclick='location.href='delete?num="+ dto.b_num +"'>삭제</button>";
-						s+="<button type='button' style='text-align:center;'id ='btncomment' onclick='location.href='form?b_num="+dto.b_num+"&currentPage=${currentPage}&bc_regroup="+dto.bc_regroup+"&bc_restep="+dto.bc_restep+"&relevel="+dto.bc_relevel+"''>댓글</button>";
-						s+="</div></div>";
-					} 
-					
-				 s +="<br><br><span class='content'>" + dto.bc_content + "</span>";
-				 s += "</div><hr>";
-			});
-
-			 
-			 // 등록된 댓글이 없는 경우에 대한 처리
-	            if (res.length === 0) {
-	                s += "<div class='answer' style='text-align:center;'>";
-	                s += "<span style='font-size:18px;text-align:center;'>등록된 댓글이 없습니다.<br>댓글을 남겨보세요!</span>";
-	                s += "</div>";
-	            }
-			 
-	            // 등록된 댓글 있는 경우에 대한 처리
-	            /* if (res.length > 0) {
-	                s += "<div class='answer' style='text-align:center;'>";
-	                s += "<span style='text-align:center;'>등록된 댓글이 있습니다.<br>댓글을 남겨보세요!</span>";
-	                s += "</div>";
-	            } */
-			 
-			$("div.alist").html(s);
-		}
-	});
-}
 
 </script>
+
 
 </head>
 <body>
@@ -286,29 +357,40 @@ function list() {
 		<td style="display: flex; height: 90px; justify-content: space-between; align-items: center;">
     <h2 style="margin: 0; font-weight: bold;">${qdto.q_title}</h2>
     <c:if test="${sessionScope.loginStatus!=null}">
+    <c:if test="${sessionScope.loginId==qdto.q_loginid and sessionScope.loginId!='admin'}">
         <div class="dropdown">
             <span class="glyphicon glyphicon-option-vertical" style="color: gray; font-size: 17px;"></span>
             <div class="dropdown-content">
-                <button type="button" style="text-align:center;" onclick="location.href='form'">글쓰기</button>
-                <c:if test="${sessionScope.loginId==qdto.q_loginid}">
-                    <button type="button" style="text-align:center;" onclick="location.href='updateform?q_num=${qdto.q_num}&currentPage=${currentPage }'">수정</button>
-                    <button type="button" style="text-align:center;" onclick="location.href='delete?q_num=${qdto.q_num}&currentPage=${currentPage }'">삭제</button>
+             	
+                <button type="button" style="text-align:center;" onclick="location.href='qnawriteform#menu1'">추가문의</button>
+               
+                <c:if test="${sessionScope.loginId==qdto.q_loginid and sessionScope.loginId!='admin'}">
+                <button type="button" style="text-align:center;" onclick="confirmDelete('${qdto.q_num}', '${currentPage}')">삭제</button>
                 </c:if>
             </div>
         </div>
+         </c:if>
     </c:if>
 </td>
 
 		</tr>
 		<tr>
 			<td>
-			<span
-				style="color: #4E9F3D; float: left; font-size: 14px; padding: 10px;">${qdto.q_loginid }
-			</span> <span
-				style="color: gray; float: left; font-size: 14px; padding: 10px;">
-					<fmt:formatDate value="${qdto.q_writeday }"
-						pattern="yyyy-MM-dd HH:mm" />
-			</span><br>
+			<span style="color: #4E9F3D; float: left; font-size: 14px; padding: 10px;">${qdto.q_loginid } </span> 
+			<span style="color: gray; float: left; font-size: 14px; padding: 10px;">
+					<fmt:formatDate value="${qdto.q_writeday }" pattern="yyyy-MM-dd HH:mm" />
+			</span>
+			
+			<span style="color: gray; float: right; font-size: 14px; padding: 10px;">
+			<c:if test="${qnaCount==0}">
+				<b style="font-weight:500; color:red;">대기중</b>
+			</c:if>
+			<c:if test="${qnaCount!=0}">
+				<b style="font-weight:500; color:green;">답변완료</b>
+			</c:if>
+			</span> 
+			
+			<br>
 				<hr>
 				</td>
 
@@ -320,20 +402,14 @@ function list() {
 				<c:forEach var="fileUrl" items="${fileUrls}">
 				    <img  alt="이미지" src="/photo/${fileUrl}" style="max-width:100%; margin:10px;"><br>
 				</c:forEach>
-				 
-				</c:if>
-
-				
+				</c:if>				
 				<br><br>
 				<div style="padding:20px;">
 				 ${qdto.q_content }
 				</div>
 				<br><br>
 				
-				 <span
-				style="color: gray; float: left; font-size: 14px; padding: 10px;">
-					<i class="glyphicon glyphicon-comment"></i>&nbsp;&nbsp;댓글 <b><span class="acount"></span></b>개
-			</span> 
+				
 			<br><hr>
 			</td>
 		</tr>
@@ -341,22 +417,23 @@ function list() {
 		<tr>
 			<td>
 			
-			
-					<input type="hidden" name="b_num" id="b_num" value="${qdto.q_num }"> 
-					<c:if test="${sessionScope.loginStatus!=null }">
+					<input type="hidden" name="q_num" id="q_num" value="${qdto.q_num }"> 
 					
+					<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
+					<c:if test="${qnaCount<1}">
 					<div class="aform" style="margin-bottom:130px;">
 						<div class="form-inline">
-						<textarea name="bc_content" id="bc_content" placeholder="댓글을 입력해주세요"
+						<textarea name="qc_content" id="qc_content" placeholder="관리자님 답변내용을 입력해주세요"
 						class="bcontent-comment-input" required="required" ></textarea>
 						
 							<button type="button" class="formbold-comment-btn" id="btncommentadd">등록</button>
 						</div>
 					</div>
-				<hr>
-				</c:if>
-				
-			
+					<hr>
+					</c:if>
+					</c:if>
+					
+
 				<!-- 댓글출력 -->
 				<div class="alist">
 				
@@ -368,12 +445,49 @@ function list() {
 		<tr>
 			<td style="margin: 10%; width:80%; display:flex; justify-content:space-between; text-align:center;">
 				<button type="button" class="btn btn-default"
-					onclick="location.href='qnawriteform?currentPage=${currentPage}'"
+					onclick="location.href='adminqnalist?currentPage=${currentPage}'"
 					style="margin: 0 auto; width: 30%;">목록</button>
 			</td>
 		</tr>
 	
 	</table>
+
+	
+	<div class="container" style="margin: 0 auto;">
+	
+		  <!-- Modal -->
+		  <div class="modal fade" id="qnaanswermodal" role="dialog" >
+		    <div class="modal-dialog">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content" style="width:80%;">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title" style="text-align:center; padding:20px; font-size:20px; font-weight:bold;">답변수정</h4>
+		        </div>
+		        <div class="modal-body">
+		            <form name ="answerupdateform" method="post">
+					<input type="hidden" name="qc_num" id="qc_updatenum">
+					<div style="width: 300px; margin: 0 auto; padding: 20px 0;">
+
+									<textarea type="text" class="form-control" 
+									placeholder="댓글을 입력하세요" 
+									id="qc_updatecontent" style="width: 100%; height:200px;"></textarea>
+								</div>
+				   </form>
+		        </div>
+		        <div class="modal-footer">
+		         <button type="button" class="btn btn-info" 
+					data-dismiss="modal" id="btnupdateqnainfo" style="background-color: #4E9F3D; margin-left: 100px;">수정하기</button>
+		          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>
+		  
+		</div>
+	
 				
 </body>
 </html>
