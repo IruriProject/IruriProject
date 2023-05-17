@@ -141,7 +141,8 @@ text-align: center;
 							</c:if>
 							<c:if test="${rdto.r_title!=null}">
 								<h2>${rdto.r_title}</h2>
-								최종수정일 : ${rdto.r_writeday }<br>
+								<c:set var="writeday"><fmt:formatDate value="${rdto.r_writeday }" pattern="yyyy-MM-dd"/></c:set>
+								최종수정일 : ${writeday }<br>
 							</c:if>
 						</div>
 					</div>
@@ -183,7 +184,7 @@ text-align: center;
                   <span class="spanbutton" onclick="location.href='insertresume'">이력서
                      등록</span>
                   <span class="spanbutton" onclick="location.href='resumelist'">이력서 목록</span>
-                  <span type="button" onclick="location.href='applicationstate'">지원현황</span>
+                  <span class="spanbutton" onclick="location.href='applicationstate'">지원현황</span>
                   <br>
                </div>
                <br>

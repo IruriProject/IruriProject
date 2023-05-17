@@ -1335,16 +1335,26 @@ td {
             </div>
 
             <div class="formbold-input-flex">
-               <div>
+               <div style="width: 35%">
                   <label for="r_lperiod" class="formbold-form-label"> 희망기간 </label>
                   <input type="text" name="r_lperiod" id="r_lperiod"
                      placeholder="ex:6개월" class="formbold-form-input" />
                </div>
-               <div>
-                  <label for="r_lday" class="formbold-form-label"> 희망요일 </label> <input
-                     type="text" name="r_lday" id="r_lday" placeholder="ex: 월,화,수,목,금"
-                     class="formbold-form-input" />
-               </div>
+               <div style="width: 65%">
+						<label for="r_lday" class="formbold-form-label" style="margin-bottom: 12px"> 요일 </label>
+						<!-- <input
+							type="text" name="p_workday" id="p_workday"
+							placeholder="ex) 월/수/금" class="formbold-form-input" required="required" /> -->
+							<div style="border: 1px solid #dde3ec; border-radius:5px; padding: 11px;">
+							<input type="checkbox" name="r_lday" class="chkbox" value="월"> 월&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="r_lday" class="chkbox" value="화"> 화&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="r_lday" class="chkbox" value="수"> 수&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="r_lday" class="chkbox" value="목"> 목&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="r_lday" class="chkbox" value="금"> 금&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="r_lday" class="chkbox" value="토"> 토&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="r_lday" class="chkbox" value="일"> 일
+							</div>
+					</div>
             </div>
 
             <div class="formbold-mb-3">

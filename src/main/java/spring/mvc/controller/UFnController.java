@@ -147,6 +147,10 @@ public class UFnController {
 	    String u_id = (String) session.getAttribute("loginId");
 	    UserDto dto = service.findUserdataById(u_id);
 	    ResumeDto rdto = uservice.getResumeOfRNum(r_num);
+
+	    String r_content = rdto.getR_content().replace("<br>", "\r\n");
+	    rdto.setR_content(r_content);
+	    
 	    model.addObject("rdto", rdto);
 	    model.addObject("dto", dto);
 	    model.setViewName("/user/updateresume");
@@ -207,12 +211,16 @@ public class UFnController {
    }
    
    @PostMapping("/insertResume")
-   public String insert(ResumeDto dto) {
+   public String insert(ResumeDto dto, String r_content) {
+	   r_content = r_content.replace("\r\n","<br>");
+	   dto.setR_content(r_content);
       uservice.insertResume(dto);
       return "redirect:mypage";
    }
    @PostMapping("/updateResume")
-   public String update(ResumeDto dto) {
+   public String update(ResumeDto dto, String r_content) {
+	   r_content = r_content.replace("\r\n","<br>");
+	   dto.setR_content(r_content);
 	   uservice.updateResume(dto);
 	   return "redirect:mypage";
    }
