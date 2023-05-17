@@ -14,11 +14,6 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
 
   .formbold-mb-3 {
     margin-bottom: 15px;
@@ -170,21 +165,33 @@
   .formbold-w-45 {
     width: 45%;
   }
+  div a{
+color: black;
+}
+div a:hover{
+color:black;
+text-decoration: none;
+}
   div{
-  border:1px solid gray;}
+  border:0px solid gray;}
 </style>
 </head>
 <body>
-	<div style="position: absolute; top:310px; font-size: 1.5em;">
+	
+
+<div style="display:flex; flex-direction:row;">
+
+	<div style="float:left; width: 150px; font-size: 1.5em;">
 	<b>내 정보 수정</b><br><br>
 	<a href="updatepw">비밀번호변경</a><br><br>
 	<a href="deleteform">회원탈퇴</a>
 	</div>
-	
-<div class="formbold-main-wrapper">
+
+
+<div style="margin :0 auto; float:right;">
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
-  <div class="formbold-form-wrapper">
+  <div>
     <form action="updateUserInfo" method="POST">
 	<!-- 히든? -->
 	<input type="hidden" name="u_num" value="${dto.u_num }">
@@ -309,6 +316,7 @@
       <button class="formbold-btn btn-m">변경하기</button>
       <button class="formbold-btn btn-m" type="button" onclick="location.href='../mypage'">변경 취소</button>
     </form>
+  </div>
   </div>
 </div>
 	

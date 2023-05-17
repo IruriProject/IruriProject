@@ -33,7 +33,7 @@
 <link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style type="text/css">
 div {
-	border: 0px solid gray;
+	border: 1px solid gray;
 }
 
 .gwansim {
@@ -81,8 +81,7 @@ text-align: center;
 		<!-- Content Start -->
 		<div class="container-fluid pt-4 px-4">
 			<div class="row g-4" style="border: 1px solid green; border-radius: 10px; padding:20px 0px 20px 10px;">
-				<div class="col-sm-12 col-md-3 col-xl-4 w-25">
-					<div style="width: 150px; height: 200px;" id="photoZone">
+				<div class="col-sm-12 col-md-3 col-xl-4 w-25" style="text-align: center">
 					<c:if test="${dto.u_photo==null }">
 						<img src="/image/nophoto.png"
 						style="width: 170px; height: 170px; border-radius: 500px;">
@@ -90,9 +89,16 @@ text-align: center;
 					<c:if test="${dto.u_photo!=null }">
 							<img alt="" src="/photo/${dto.u_photo}"
 							style="width: 170px; height: 170px; border-radius: 500px;">
-					</c:if>
-					</div>
-					${sessionScope.loginName }<br> ${dto.u_gender } / 나이 들어가야함<br>
+					</c:if><br>
+					<h4>${sessionScope.loginName }</h4>
+					
+					<h5>${dto.u_gender } /
+					<c:set var="now" value="<%=new java.util.Date()%>" />
+					<c:set var="year"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set> 
+					<c:set var="birth"><fmt:formatDate value="${dto.u_birth }" pattern="yyyy"/></c:set>
+					${year-birth+1 }세
+					</h5>
+					
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myPhoto">사진
 						변경</button>
 					<button type="button" class="btn btn-default" onclick="location.href='update'">개인정보
@@ -124,10 +130,9 @@ text-align: center;
 					</div>
 				</div>
 
-				<div class="col-sm-12 col-md-6 col-xl-7 w-75">
+				<div class="col-sm-12 col-md-6 col-xl-7 w-60">
 					<div class="h-100 bg-light rounded p-4">
-						<div data-rnum="${rdto.r_num}"
-							class="d-flex align-items-center justify-content-between mb-4">
+						<div data-rnum="${rdto.r_num}">
 							<c:if test="${rdto.r_title==null}">
 								<h3>대표이력서가 없습니다.</h3>
 								<button type="button" onclick="location.href='resumelist'">대표이력서
@@ -136,8 +141,7 @@ text-align: center;
 							</c:if>
 							<c:if test="${rdto.r_title!=null}">
 								<h2>${rdto.r_title}</h2>
-								<br>
-                        최종수정일 : ${rdto.r_writeday }<br>
+								최종수정일 : ${rdto.r_writeday }<br>
 							</c:if>
 						</div>
 					</div>
@@ -174,6 +178,7 @@ text-align: center;
                   })
                </script>
                <br>
+               <br><br>
                <div class="h-100 bg-light rounded p-4 myresume">
                   <span class="spanbutton" onclick="location.href='insertresume'">이력서
                      등록</span>
@@ -182,13 +187,16 @@ text-align: center;
                   <br>
                </div>
                <br>
-               <div class="h-100 bg-light rounded p-4">
-               	  <span class="gwansim" onclick="location.href='enterLike'">관심기업 <i class="fa-solid fa-heart"></i> ${countLikeEnter }</span>&nbsp;&nbsp;&nbsp;&nbsp;
-               	  <span class="gwansim" onclick="location.href=''">관심직종 <i class="fa-solid fa-briefcase"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
-               	  <span class="gwansim" onclick="location.href='/scrap'">관심공고 <i class="fa-solid fa-star"></i> ${countPosting }</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+            
+               <div class="col-sm-12 col-md-3 col-xl-4 w-15" style="float:right">
+               	  <span class="gwansim" onclick="location.href='enterLike'">관심기업 <i class="fa-solid fa-heart"></i> ${countLikeEnter }</span><br>
+               	  <br>
+               	  <span class="gwansim" onclick="location.href=''">관심직종 <i class="fa-solid fa-briefcase"></i></span><br>
+               	  <br>
+               	  <span class="gwansim" onclick="location.href='/scrap'">관심공고 <i class="fa-solid fa-star"></i> ${countPosting }</span>
                   <br>
                </div>
-            </div>
          </div>
       </div>
       <script src="https://kit.fontawesome.com/2663817d27.js"
@@ -559,6 +567,16 @@ text-align: center;
 			}else{
 				return false;
 			}
+		}else{
+			$.ajax({
+				type:"post",
+				dataType:"html",
+				data:{"r_num":r_num},
+				url:"/updateMainOn",
+				success:function(){
+					location.reload();
+				}
+			})
 		}
 		
 	})
