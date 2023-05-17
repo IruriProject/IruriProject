@@ -91,7 +91,14 @@ text-align: center;
 							style="width: 170px; height: 170px; border-radius: 500px;">
 					</c:if><br>
 					<h4>${sessionScope.loginName }</h4>
-					<h5>${dto.u_gender } / 나이 들어가야함</h5>
+					
+					<h5>${dto.u_gender } /
+					<c:set var="now" value="<%=new java.util.Date()%>" />
+					<c:set var="year"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set> 
+					<c:set var="birth"><fmt:formatDate value="${dto.u_birth }" pattern="yyyy"/></c:set>
+					${year-birth+1 }세
+					</h5>
+					
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myPhoto">사진
 						변경</button>
 					<button type="button" class="btn btn-default" onclick="location.href='update'">개인정보
