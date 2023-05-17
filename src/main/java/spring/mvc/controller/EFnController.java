@@ -556,4 +556,57 @@ public class EFnController {
 		return mview;
 	}
 	
+	@GetMapping("/postinglistforuser")
+	public ModelAndView postinglistforuser(@RequestParam String e_num,@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value = "searchcolumn", required = false) String sc,
+			@RequestParam(value = "searchword", required = false) String sw) {
+		
+		ModelAndView mview = new ModelAndView();
+
+		int totalCount = service.getAllPostings(e_num).size();
+		int searchCount = service.getPostingSearchCountWithPagingSearch(e_num,sc, sw);
+		
+		int totalPage;
+		int startPage;
+		int endPage;
+		int start;
+		int perPage = 5;
+		int perBlock = 5;
+
+		// 총 페이지 갯수
+		totalPage = searchCount / perPage + (searchCount % perPage == 0 ? 0 : 1);
+
+		// 각 블럭의 시작 페이지
+		startPage = (currentPage - 1) / perBlock * perBlock + 1;
+		endPage = startPage + perBlock - 1;
+
+		if (endPage > totalPage)
+			endPage = totalPage;
+
+		// 각 페이지에서 불러 올 시작번호
+		start = (currentPage - 1) * perPage;
+
+		List<PostingDto> list= service.getAllPostingsWithPagingSearch(e_num,sc, sw, start, perPage);
+
+		int no = searchCount - (currentPage - 1) * perPage;
+
+		// 출력에 필요한 변수를 model에 저장
+		mview.addObject("e_num", e_num);
+		mview.addObject("totalCount", totalCount);
+		mview.addObject("list", list);
+		mview.addObject("totalPage", totalPage);
+		mview.addObject("startPage", startPage);
+		mview.addObject("endPage", endPage);
+		mview.addObject("perBlock", perBlock);
+		mview.addObject("currentPage", currentPage);
+		mview.addObject("no", no);
+		mview.addObject("searchCount", searchCount);
+		mview.addObject("column", sc);
+		mview.addObject("keyword", sw);
+		
+		mview.setViewName("/posting/postingListForUser");
+
+		return mview;
+	}
+	
 }

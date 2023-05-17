@@ -60,7 +60,7 @@ $(function(){
 		<c:forEach var="dto" items="${list }" varStatus="i">
 		<tr align="center">
 			<td>${i.count }</td>
-			<td><a href="#">${dto.e_name }</a></td>
+			<td><a href="/enterprise/enterprisepage?e_num=${dto.e_num }">${dto.e_name }</a></td>
 			<td><span class="longsentence mcontent" flag="0" style="cursor: pointer;" title="자세히보기">${dto.m_content }</span></td>
 			<td><fmt:formatDate value="${dto.m_day }" pattern="yyyy-MM-dd"/></td>
 		</tr>

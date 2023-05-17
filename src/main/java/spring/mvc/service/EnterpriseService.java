@@ -16,6 +16,10 @@ public class EnterpriseService {
 	
 	@Autowired
 	EnterpriseMapperInter mapper;
+	
+	public EnterpriseDto findEnterByNum(String e_num) {
+		return mapper.findEnterByNum(e_num);
+	}
 
 	public int enterIdPassCheck(String e_id, String e_pw) {
 		

@@ -81,7 +81,7 @@ div {
 									<td>${pdto.p_workday}</td>
 									<td>${pdto.p_starttime } ~ ${pdto.p_endtime }</td>
 									<td>${pdto.p_employtype}</td>
-									<td><a class="btn btn-sm btn-primary" href="posting/detailpage?p_num=${pdto.p_num}">상세페이지</a></td>
+									<td><a class="btn btn-sm btn-primary" href="posting/detailpage?p_num=${pdto.p_num}">공고페이지</a></td>
 								</tr>
 							</c:forEach>
 							
