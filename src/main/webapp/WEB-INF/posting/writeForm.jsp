@@ -210,11 +210,24 @@ $(function(){
 							placeholder="공고 제목을 입력해주세요." class="formbold-form-input" required="required" />
 					</div>
 				</div>
-
+				
 				<div class="formbold-mb-3">
-					<label for="p_type" class="formbold-form-label"> 직종 </label> <input
-						type="text" name="p_type" id="p_type"
-						placeholder="직종을 입력해주세요 (ex: 광고/홍보)" class="formbold-form-input" required="required" />
+					<label class="formbold-form-label">직무</label>
+					<select
+						class="formbold-form-input" name="p_type" id="p_type">
+						<option value="건설/건축">건설/건축</option>
+						<option value="공공/복지/봉사/교육">공공/복지/봉사/교육</option>
+						<option value="금융/보험">금융/보험</option>
+						<option value="기술">기술</option>
+						<option value="농업/어업">농업/어업</option>
+						<option value="법무">법무</option>
+						<option value="사무">사무</option>
+						<option value="서비스">서비스</option>
+						<option value="생산/제조">생산/제조</option>
+						<option value="운송">운송</option>
+						<option value="의료">의료</option>
+						
+					</select>
 				</div>
 				
 				<div class="formbold-mb-3">
