@@ -17,7 +17,6 @@
 			<th style="text-align: center">No.</th>
 			<th style="text-align: center">찜한 인재명</th>
 			<th style="text-align: center">인재성별</th>
-			<th style="text-align: center">인재나이</th>
 			<th style="text-align: center">인재연락처</th>
 			<th style="text-align: center">인재주소</th>
 			<th style="text-align: center">쪽지보내기</th>
@@ -41,7 +40,6 @@
 					</c:if>
 				</td>
 				<td>${dto.u_gender }</td>
-				<td>${dto.u_birth }</td>
 				<td>${dto.u_hp }</td>
 				<td>${dto.u_addr }</td>
 				<td><button type="button" class="btn btn-info"
