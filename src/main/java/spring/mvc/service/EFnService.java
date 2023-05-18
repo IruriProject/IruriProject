@@ -247,4 +247,12 @@ public class EFnService {
 	public String getEnumOfPosting(String p_num) {
 		return mapper.getEnumOfPosting(p_num);
 	}
+	
+	public void updatePostingStatusAuto(String p_num) {
+		mapper.updatePostingStatusAuto(p_num);
+	}
+	
+	public List<PostingDto> getAllPostingsAllEnter(){
+		return mapper.getAllPostingsAllEnter();
+	};
 }

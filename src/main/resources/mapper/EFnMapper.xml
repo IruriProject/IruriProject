@@ -160,10 +160,20 @@
 	</select>
 	
 	
-	<!-- 공고상태 변경 -->
+	<!-- 공고상태 변경(수동) -->
 	<update id="updatePostingStatus" parameterType="Map">
 		update POSTING set p_status=#{p_status} where p_num=#{p_num}
 	</update>
+	
+	<!-- 공고상태 변경(자동) -->
+	<update id="updatePostingStatusAuto" parameterType="String">
+		update POSTING set p_status="지원마감" where p_num=#{p_num}
+	</update>
+	
+	<!-- 모든 공고 -->
+	<select id="getAllPostingsAllEnter" resultType="pdto">
+		select * from POSTING where p_published=true
+	</select>
 	
 	<!-- 지역별 검색 -->
 	<select id="getAddrPostings" parameterType="Map" resultType="pdto">

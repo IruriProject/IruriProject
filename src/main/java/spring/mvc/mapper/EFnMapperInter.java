@@ -61,5 +61,8 @@ public interface EFnMapperInter {
 	
 	public List<Map<String, Object>> getAllMessageWithPagingSearch(Map<String, Object> map);
 	public int getMessageSearchCountWithPagingSearch(Map<String, Object> map);
+	
+	public void updatePostingStatusAuto(String p_num);
+	public List<PostingDto> getAllPostingsAllEnter();
 
 }
