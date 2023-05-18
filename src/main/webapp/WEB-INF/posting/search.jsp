@@ -14,6 +14,8 @@
 	.searcharea{
 		padding: 10px 20px;
 		border: 1px solid gray;
+		display: flex;
+    	justify-content: flex-start;
 	}
 	
 	#enterprise-name{
@@ -27,7 +29,7 @@
 	.scroll-box{
 		margin: 15px 10px;
 		overflow:scroll;
-		width:100px; height:150px;
+		width:100px; height:100px;
 	}
 	
 	li[role="button"]{
@@ -63,7 +65,45 @@
 		display: block;
 		padding: 20px;
 	}
+	
+	.formbold-form-input {
+	    width: 100%;
+	    padding: 6px 20px;
+	    border-radius: 5px;
+	    border: 1px solid #dde3ec;
+	    font-weight: 500;
+	    font-size: 15px;
+	    outline: none;
+	    resize: none;
+	    margin-right: 10px;
+	    margin-top: 5px;
+	  }
+	  
+    .formbold-form-input:focus {
+	    border-color: #4E9F3D;
+	    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+	  }
+	  
+    .formbold-mb-3 {
+	    margin-bottom: 15px;
+	  }
 
+	.sub-wrapper {
+		margin: 10px 30px;
+	}
+	
+	select {
+	  box-sizing: border-box;
+	  width: 100px;
+	  padding: 4px;
+	  font-size: 14px;
+	  border-radius: 6px;
+	}
+	
+	option {
+	  padding: 4px;
+	  font-size: 14px;
+	}
 </style>
 
 <title>Insert title here</title>
@@ -73,6 +113,7 @@
 <div class="searcharea">
 
 <!-- 지역 필터링 -->
+<div class="sub-wrapper">
 <h4>지역별로 검색하기</h4><br>
 <div style="display: flex;">
 
@@ -96,7 +137,7 @@
 <li role="button" value="제주">제주</li>
 </div>
 
-<div style="overflow:scroll; width:100px; height:150px;" class="addr-detail scroll-box">
+<div style="overflow:scroll; width:100px; height:100px;" class="addr-detail scroll-box">
 
 <div id="서울" style="display: none;">
 <li role="button" value="서울" class="gu">전체</li>
@@ -392,14 +433,30 @@
 <li role="button" value="화천군" class="gu">화천군</li>
 <li role="button" value="횡성군" class="gu">횡성군</li>
 </div>
-
+</div>
 </div> 
 <!-- 스크롤부분 닫음 -->
 
 </div> 
 <!-- 지역필터링 닫음 -->
 
-<!--  -->
+<div class="sub-wrapper">
+<h4>검색어로 검색하기</h4><br>
+<form action="/posting/search" method="get">
+	<div class="form-inline">
+		<select class="form-control" style="width: 150px;" name="searchcolumn">
+		  <option value="p_title">제목</option>
+		  <option value="p_content">내용</option>
+		  <option value="e_num">일단회사번호</option>
+		</select>
+		&nbsp;&nbsp;&nbsp;
+		<input type="text" name="searchword" class="formbold-form-input formbold-mb-3" style="width: 200px;" placeholder="검색어를 입력하세요">
+		<button type="submit">검색</button>
+		<button type="button" onclick="location.href='/posting/search'">초기화</button>
+	</div>
+</form>
+</div>
+
 </div>
 <script type="text/javascript">
 
@@ -486,7 +543,7 @@ $(".gu").click(function(){
 	   		s+="<td width='50'>근무시간</td><td width='100'>등록일</td></tr>";
 	   		$.each(res,function(i,ele){
 	   			//주소
-	   			s+="<tr><td width='60'>"+ele.p_addr+"</td>";
+	   			s+="<tr><td width='120'>"+ele.p_addr+"</td>";
 	   			//제목
 	   			s+="<td width='400'><span id='posting-title'>";
 	   			s+="<a href='detailpage?p_num="+ele.p_num+"'>"+ele.p_title+"</a></span><br>";
@@ -516,23 +573,6 @@ $(".gu").click(function(){
 
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<br>
-<h4>검색어로 검색하기</h4><br>
-<form action="/posting/search" method="get">
-	<div class="form-inline">
-		<select class="form-control" style="width: 150px;" name="searchcolumn">
-		  <option value="p_title">제목</option>
-		  <option value="e_num">일단회사번호</option>
-		  <option value="e_addr">일단주소</option>
-		  <option value="p_content">내용</option>
-		</select>
-		&nbsp;&nbsp;&nbsp;
-		<input type="text" name="searchword" class="form-control" style="width: 200px;" placeholder="검색어를 입력하세요">
-		<button type="submit">검색</button>
-		<button type="button" onclick="location.href='/posting/search'">초기화</button>
-	</div>
-</form>
-
 
  <div style="margin: 30px 30px;">
  
@@ -550,7 +590,7 @@ $(".gu").click(function(){
    		</caption>
 
    		<tr align="center">
-   		  <td width="60">지역</td>
+   		  <td width="120">지역</td>
    		  <td width="400">모집내용/기업명</td>
    		  <td width="120">급여</td>
    		  <td width="150">근무시간</td>

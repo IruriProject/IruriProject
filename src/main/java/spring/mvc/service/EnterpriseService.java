@@ -39,6 +39,10 @@ public class EnterpriseService {
 		mapper.joinEnterprise(dto);
 	}
 	
+	public int getSearchEnterId(String e_id) {
+		return mapper.getSearchEnterId(e_id);
+	}
+	
 	public void withdrawEnterprise(String e_num,String e_pw) {
 		Map<String, String> map=new HashMap<>();
 		map.put("e_num", e_num);
@@ -83,6 +87,7 @@ public class EnterpriseService {
 		return mapper.applicantByEnterprise(e_num);
 	}
 	
+
 	public void updatelogo(String e_id, String e_logo) {
 	      // TODO Auto-generated method stub
 	      Map<String, String> map = new HashMap<>();
@@ -92,4 +97,28 @@ public class EnterpriseService {
 
 	      mapper.updatelogo(map);
 	   }
+
+	public List<Map<String, Object>> searchAllUserResume(int start, int perpage,
+			String r_laddr, String r_ltask, String r_ltype){
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("r_laddr", r_laddr);
+		map.put("r_ltask", r_ltask);
+		map.put("r_ltype", r_ltype);
+		map.put("start", start);
+		map.put("perpage", perpage);
+		
+		return mapper.searchAllUserResume(map);
+	}
+	
+	public int getTotalCountOfResumeSearch(String r_laddr, String r_ltask, String r_ltype) {
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("r_laddr", r_laddr);
+		map.put("r_ltask", r_ltask);
+		map.put("r_ltype", r_ltype);
+		
+		return mapper.getTotalCountOfResumeSearch(map);
+	}
+
 }

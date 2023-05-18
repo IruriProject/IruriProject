@@ -24,6 +24,11 @@
 	insert into ENTERPRISE values(null,#{e_id},#{e_pw},#{e_name},#{e_registnum},null,#{e_tel},#{e_addr},#{e_email},0,0)
 	</insert>
 	
+	<!-- id중복체크 -->
+	<select id="getSearchEnterId" parameterType="String" resultType="int">
+	select count(*) from ENTERPRISE where e_id=#{e_id}
+	</select>
+	
 	<!-- 기업탈퇴 -->
 	<delete id="withdrawEnterprise" parameterType="Map">
 		delete from ENTERPRISE where e_num=#{e_num} and e_pw=#{e_pw}
@@ -80,10 +85,48 @@
     JOIN ENTERPRISE AS e ON p.e_num = e.e_num
     WHERE e.e_num = #{e_num};
 	</select>
-	
+
 	<update id="updatelogo" parameterType="Map">
       update ENTERPRISE set
       e_logo=#{e_logo} where e_id=#{e_id}
    </update>
+
+	<!-- 인재검색 -->
+	<select id="searchAllUserResume" parameterType="Map" resultType="Map">
+	    select r.*, u.* from USER u join RESUME r on u.u_num=r.u_num
+	    <if test="r_larea != null or r_ltask != null or r_ltype != null">
+	        where 
+	        <if test="r_larea != null">
+	            r_larea like #{r_larea}
+	        </if>
+	        <if test="r_ltask != null">
+	            <if test="r_larea != null or r_ltype != null">and </if>
+	            r_ltask like '#{r_ltask}'
+	        </if>
+	        <if test="r_ltype != null">
+	            <if test="r_larea != null or r_ltask != null">and </if>
+	            r_ltype like #{r_ltype}
+	        </if>
+	    </if>
+	    limit #{start}, #{perpage}
+	</select>
+
+	<select id="getTotalCountOfResumeSearch" parameterType="Map" resultType="int">
+    select count(*) from USER u join RESUME r on u.u_num = r.u_num
+    <if test="r_larea!=null or r_ltask!=null or r_ltype!=null">
+        where 
+        <if test="r_larea!=null">
+            r_larea like #{r_larea}
+        </if>
+        <if test="r_ltask!=null">
+            <if test="r_larea!=null or r_ltype!=null">and </if>
+            r_ltask like '#{r_ltask}'
+        </if>
+        <if test="r_ltype!=null">
+            <if test="r_larea!=null or r_ltask!=null">and </if>
+            r_ltype like #{r_ltype}
+        </if>
+    </if>
+</select>
 	
 </mapper>

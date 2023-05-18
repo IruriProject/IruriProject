@@ -169,6 +169,16 @@ public class JoinController {
 		return map;
 	}
 	
+	//회원가입 상세-기업 아이디 중복체크
+	@GetMapping("/enterprise/idcheck")
+	@ResponseBody
+	public Map<String, Integer> getSearchEnterId(String e_id) {
+		
+		Map<String, Integer> map=new HashMap<>();
+		map.put("count", eservice.getSearchEnterId(e_id));
+		return map;
+	}
+	
 	/////////////kakao
     @RequestMapping(value = "/callback/kakaotalk", method = {RequestMethod.GET, RequestMethod.POST})
     public String callbackKakao(Model model, @RequestParam String code, @RequestParam(value="state", required=false) String state, HttpSession session) throws Exception {
