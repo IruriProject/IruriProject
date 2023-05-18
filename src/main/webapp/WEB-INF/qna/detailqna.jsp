@@ -209,10 +209,9 @@ $(function(){
 			url: "commentinsert",
 			data: {"q_num": num, "qc_num":"0","qc_content": qc_content},
 			success: function(){
-				//alert("인서트 성공");
 				$("#qc_content").val("");
-					list();
-					 location.reload();
+				location.reload();
+				list();
 			}
 		});  
 		

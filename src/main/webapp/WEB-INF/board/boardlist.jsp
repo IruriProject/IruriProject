@@ -110,7 +110,54 @@ function updateUrl() {
 		</tr>
 	</c:if>
 	
+	
+	
 	<c:if test="${totalCount>0 }">
+				 <!-- 공지사항 -->
+				 <c:if test="${totalCount > 0 && currentPage == 1}">
+  <c:forEach var="dto" items="${noticeList}">
+    <tr style="vertical-align: middle; height: 70px; line-height: 70px; font-size: 14px; background-color:#e3f2c9;">
+      <!-- 내용 출력 -->
+      <td style="height: 70px; line-height: 70px;">
+        <!-- 게시물 제목과 내용 출력 -->
+        <a href="detailboard?b_num=${dto.b_num}&currentPage=${currentPage}" style="color:#000;">
+          <b style="font-size:16px; font-weight:500;">${dto.b_title}</b>
+          <!-- 첨부 사진 아이콘 -->
+          <c:if test="${dto.b_photo!='no'}">
+            <span class="glyphicon glyphicon-picture" style="color:gray; font-size:15px;"></span>
+          </c:if>
+          <!-- new 아이콘 -->
+          <c:if test="${dto.newFlag}">
+            <img src="${root}/image/newicon.png" alt="newpng" style="width:21px; margin-bottom:4px; padding:1px;" />
+          </c:if>
+          <!-- 댓글 수 -->
+          <c:if test="${dto.b_acount>0}">
+            <span><a href="detailboard?b_num=${dto.b_num}&currentPage=${currentPage}" style="color:red;">[${dto.b_acount}]</a></span>
+          </c:if>
+          <br>
+          <div style="width:100%; height:30px; float:left; line-height:30px; color:gray; overflow: hidden;">
+            ${dto.b_content}
+          </div>
+        </a>
+        <br>
+        <div style="width:100%; height:30px; float:left; line-height:30px; color:gray;">
+          ${dto.b_loginid} <span style="color:#bebebe;"> <span style="padding:1px;font-size:0.8em;">|</span> ${dto.b_time}</span>
+        </div>
+      </td>
+      <td style="height:70px; line-height:70px;" align="center">
+        <span style="color:#bebebe; float: right; font-size: 13px; padding: 10px;">
+          <i class="glyphicon glyphicon-eye-open"></i>&nbsp;${dto.b_readcount}
+        </span>
+        <c:if test="${dto.b_acount>0}">
+          <span style="color:#bebebe; float: right; font-size: 13px; padding: 10px;">
+            <i class="glyphicon glyphicon-comment"></i>&nbsp;${dto.b_acount}
+          </span>
+        </c:if>
+      </td>
+    </tr>
+  </c:forEach>
+  </c:if>
+
 				<c:forEach var="dto" items="${list }">
 				<tr style=" vertical-align:middle;  height:70px; line-height:70px; font-size:14px;">
 					

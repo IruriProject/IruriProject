@@ -501,7 +501,7 @@ function list() {
 					<i class="glyphicon glyphicon-comment"></i> <span class="acount" style="color:gray;"></span>
 			</span> <span
 				style="color: gray; float: right; font-size: 14px; padding: 10px;">
-					<i class="	glyphicon glyphicon-eye-open"></i> ${bdto.b_readcount }
+					<i class="glyphicon glyphicon-eye-open"></i> ${bdto.b_readcount }
 			</span> <br>
 				<hr>
 				</td>

@@ -443,57 +443,5 @@ public class EnterpriseController {
 	}
 	
 	
-	//회원관리
-		@GetMapping("/member/entermemberlist")
-		public String entermemberlist(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-				Model model)
-		{
-		    int totalCount = service.getTotalCount();
-		    int totalPage; // 총 페이지수
-		    int startPage; // 각 블럭의 시작페이지
-		    int endPage; // 각 블럭의 끝페이지
-		    int start; // 각 페이지의 시작번호
-		    int perPage = 10; // 한 페이지에 보여질 글의 갯수
-		    int perBlock = 5; // 한 블럭당 보여지는 페이지 갯수
 
-		    // 총 페이지 갯수
-		    totalPage = totalCount / perPage + (totalCount % perPage == 0 ? 0 : 1);
-		    // 각 블럭의 시작페이지
-		    startPage = (currentPage - 1) / perBlock * perBlock + 1;
-		    endPage = startPage + perBlock - 1;
-
-		    // 총페이지=8일 경우 endpage를 8로 수정한다.
-		    if (endPage > totalPage)
-		        endPage = totalPage;
-
-		    // 각 페이지에서 불러올 시작번호
-		    start = (currentPage - 1) * perPage;
-
-		    
-			//전체조회
-			List<EnterpriseDto> list = service.getAllEnters(start, perPage);
-			
-			int no = totalCount - (currentPage - 1) * perPage;
-			
-			// 출력에 필요한 변수들을 model에 저장
-		    model.addAttribute("totalCount", totalCount);
-		    model.addAttribute("list", list);
-		    model.addAttribute("totalPage", totalPage);
-		    model.addAttribute("startPage", startPage);
-		    model.addAttribute("endPage", endPage);
-		    model.addAttribute("perBlock", perBlock);
-		    model.addAttribute("currentPage", currentPage);
-		    model.addAttribute("no", no);
-			model.addAttribute("count", list.size());
-			
-			return "/member/entermemberlist";
-		}
-		
-		@PostMapping("/member/enterdelete")
-		public String enterdelete(@RequestParam("e_num") String[] e_nums) {
-		    for (String e_num : e_nums) {
-		        service.deleteEnter(e_num);
-		    }
-		    return "redirect:entermemberlist";
-		}
 }

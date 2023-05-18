@@ -5,18 +5,35 @@
 <mapper namespace="spring.mvc.mapper.EFnMapperInter">
 	
 	<!--인기업로드 포스팅4개 -->
-	<select id="bestPosting" resultType="adto">
+<!-- 	<select id="bestPosting" resultType="adto">
 		select * from (
 	    select APPLICANT.p_num, count(*) AS num_count from APPLICANT
 	    inner join POSTING on APPLICANT.p_num = POSTING.p_num
 	  	group by APPLICANT.p_num order by num_count DESC
 	    limit 4 ) as subquery
 	    inner join POSTING on subquery.p_num = POSTING.p_num;
-	</select>
+	</select> -->
 	
-	<!--최근업로드 포스팅4개 -->
+	
+	<select id="bestPosting" resultType="adto">
+	  SELECT *
+	  FROM (
+	    SELECT APPLICANT.p_num, COUNT(*) AS num_count
+	    FROM APPLICANT
+	    INNER JOIN POSTING ON APPLICANT.p_num = POSTING.p_num
+	    GROUP BY APPLICANT.p_num
+	    ORDER BY num_count DESC
+	    LIMIT 4
+	  ) AS subquery
+	  INNER JOIN POSTING ON subquery.p_num = POSTING.p_num
+	  INNER JOIN ENTERPRISE ON POSTING.e_num = ENTERPRISE.e_num;
+</select>
+	
+	
+	
+	<!--최근업로드 포스팅8개 -->
 	<select id="recentPosting" resultType="pdto">
-		select * from POSTING order by p_writeday desc limit 4;
+		select * from POSTING order by p_writeday desc limit 8;
 	</select>
 		
 	

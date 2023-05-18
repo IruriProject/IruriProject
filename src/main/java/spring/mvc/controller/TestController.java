@@ -37,11 +37,19 @@ public class TestController {
 		 List<PostingDto> recentPostings = eservice.recentPosting();
 		 List<ApplicantDto> bestPostings = eservice.bestPosting();
 		 List<BoardDto> recentboards = bservice.recentBoard();
+		
+		   for (BoardDto board : recentboards) {
+		        String bNum = board.getB_num();
+		        int commentCount = bservice.getAllComments(bNum).size();
+		        board.setB_acount(commentCount);
+		    }
+		   
 		 
 	     model.addAttribute("recentPostings", recentPostings);
 	     model.addAttribute("bestPostings", bestPostings);
 	     model.addAttribute("recentboards", recentboards);
 	     model.addAttribute("currentPage",currentPage);
+	
 		
 		return "/layout/main";
 	}

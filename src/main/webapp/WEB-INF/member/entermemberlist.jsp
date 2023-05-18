@@ -14,7 +14,7 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 <body>
-<%-- <c:set var="root" value="<%=request.getContextPath() %>"/>
+<c:set var="root" value="<%=request.getContextPath() %>"/>
 <c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
 <b>총 ${totalCount}명</b>
 <br>
@@ -149,6 +149,6 @@
 				else $("#allcheck").prop("checked", true); 
 			});
 		});
-	</script>  --%>
+	</script>  
 </body>
 </html>

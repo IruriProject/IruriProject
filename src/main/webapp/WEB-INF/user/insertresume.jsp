@@ -19,18 +19,6 @@
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 
-ul {
-   list-style: none;
-   margin: 0;
-   padding: 0;
-}
-
-li {
-   margin-right: 10px;
-   border: 0;
-   float: left;
-}
-
 td {
    font-size: 1.2em;
 }
@@ -1610,11 +1598,6 @@ td {
    url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
    ;
 
-* {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
-}
 
 body {
    font-family: fontAwesome;
