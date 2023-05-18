@@ -282,27 +282,38 @@ public class UFnController {
 		return model;
 	}
 
-   // 사진등록
-   @PostMapping("/updatePhoto")
-   @ResponseBody
-   public void photoUpload(String u_id, MultipartFile u_photo, HttpSession session) {
-      // 업로드될 경로 구하기
-      String path = session.getServletContext().getRealPath("/photo");
-      System.out.println(path);
-      // 파일명 구하기
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-      String fileName = "f_" + sdf.format(new Date()) + u_photo.getOriginalFilename();
+	// 사진 등록
+	@PostMapping("/updatePhoto")
+	@ResponseBody
+	public void photoUpload(MultipartFile u_photo, HttpSession session) {
+	   // 업로드될 경로 구하기
+	   String path = session.getServletContext().getRealPath("/photo");
+	   
+	   String u_id = (String) session.getAttribute("loginId");
+	   UserDto dto = service.findUserdataById(u_id);
+	   // 파일명 구하기
+	   SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+	   String fileName = "f_" + sdf.format(new Date()) + u_photo.getOriginalFilename();
 
-      try {
-         u_photo.transferTo(new File(path + "\\" + fileName));
+	   try {
+	      u_photo.transferTo(new File(path + "\\" + fileName));
 
-         uservice.updatePhoto(u_id, fileName);
+	      // 이전 사진 파일 삭제
+	      String previousFileName = dto.getU_photo(); // 이전 사진 파일 이름 가져오기
+	      if (previousFileName != null) {
+	         String previousFilePath = path + "\\" + previousFileName;
+	         File previousFile = new File(previousFilePath);
+	         if (previousFile.exists()) {
+	            previousFile.delete();
+	         }
+	      }
 
-      } catch (IllegalStateException | IOException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-   }
+	      uservice.updatePhoto(u_id, fileName);
+
+	   } catch (IllegalStateException | IOException e) {
+	      e.printStackTrace();
+	   }
+	}
    
    
    // 관심기업페이지

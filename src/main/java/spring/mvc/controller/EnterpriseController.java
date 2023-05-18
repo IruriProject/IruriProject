@@ -451,9 +451,12 @@ public class EnterpriseController {
 	 // 사진등록
 	   @PostMapping("/updatelogo")
 	   @ResponseBody
-	   public void photoUpload(String e_id, MultipartFile e_logo, HttpSession session) {
+	   public void photoUpload(MultipartFile e_logo, HttpSession session) {
 	      // 업로드될 경로 구하기
 	      String path = session.getServletContext().getRealPath("/photo");
+	      
+	      String e_id = (String) session.getAttribute("loginId");
+	      EnterpriseDto dto = service.findEnterdataById(e_id);
 	      // 파일명 구하기
 	      SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	      String fileName = "f_" + sdf.format(new Date()) + e_logo.getOriginalFilename();
@@ -461,6 +464,16 @@ public class EnterpriseController {
 	      try {
 	         e_logo.transferTo(new File(path + "\\" + fileName));
 
+	      // 이전 사진 파일 삭제
+		      String previousFileName = dto.getE_logo(); // 이전 사진 파일 이름 가져오기
+		      if (previousFileName != null) {
+		         String previousFilePath = path + "\\" + previousFileName;
+		         File previousFile = new File(previousFilePath);
+		         if (previousFile.exists()) {
+		            previousFile.delete();
+		         }
+		      }
+	         
 	         service.updatelogo(e_id, fileName);
 
 	      } catch (IllegalStateException | IOException e) {
