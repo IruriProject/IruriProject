@@ -14,7 +14,7 @@ import spring.mvc.dto.EnterpriseDto;
 @Mapper
 public interface EnterpriseMapperInter {
 	public EnterpriseDto findEnterByNum(String e_num);
-
+	
 	public int EnterIdPassCheck(Map<String, String> map);
 	public EnterpriseDto findEnterById(String e_id);
 	public void joinEnterprise(EnterpriseDto dto);
@@ -40,5 +40,7 @@ public interface EnterpriseMapperInter {
 	public void authCertificate(String e_num);
 	
 	public List<Map<String, Object>> applicantByEnterprise(String e_num);
+	
+	public void updatelogo(Map<String, String> map);
 }
 

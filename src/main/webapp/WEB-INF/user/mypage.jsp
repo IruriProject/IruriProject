@@ -92,12 +92,18 @@ text-align: center;
 					</c:if><br>
 					<h4>${sessionScope.loginName }</h4>
 					
-					<h5>${dto.u_gender } /
-					<c:set var="now" value="<%=new java.util.Date()%>" />
-					<c:set var="year"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set> 
-					<c:set var="birth"><fmt:formatDate value="${dto.u_birth }" pattern="yyyy"/></c:set>
-					${year-birth+1 }세
-					</h5>
+					<c:if test="${dto.u_gender!=null && dto.u_birth!=null }">
+						<h5>${dto.u_gender } /
+						<c:set var="now" value="<%=new java.util.Date()%>" />
+						<c:set var="year"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set> 
+						<c:set var="birth"><fmt:formatDate value="${dto.u_birth }" pattern="yyyy"/></c:set>
+						${year-birth+1 }세
+						</h5>
+					</c:if>
+					
+					<c:if test="${dto.u_gender==null || dto.u_birth==null }">
+						<b style="color: red">개인정보를 수정해주세요.</b>
+					</c:if>
 					
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myPhoto">사진
 						변경</button>
@@ -141,7 +147,8 @@ text-align: center;
 							</c:if>
 							<c:if test="${rdto.r_title!=null}">
 								<h2>${rdto.r_title}</h2>
-								최종수정일 : ${rdto.r_writeday }<br>
+								<c:set var="writeday"><fmt:formatDate value="${rdto.r_writeday }" pattern="yyyy-MM-dd"/></c:set>
+								최종수정일 : ${writeday }<br>
 							</c:if>
 						</div>
 					</div>
@@ -183,14 +190,14 @@ text-align: center;
                   <span class="spanbutton" onclick="location.href='insertresume'">이력서
                      등록</span>
                   <span class="spanbutton" onclick="location.href='resumelist'">이력서 목록</span>
-                  <span type="button" onclick="location.href='applicationstate'">지원현황</span>
+                  <span class="spanbutton" onclick="location.href='applicationstate'">지원현황</span>
                   <br>
                </div>
                <br>
 
             </div>
             
-               <div class="col-sm-12 col-md-3 col-xl-4 w-15" style="float:right">
+               <div class="col-sm-12 col-md-3 col-xl-4 w-15" style="float:right;">
                	  <span class="gwansim" onclick="location.href='enterLike'">관심기업 <i class="fa-solid fa-heart"></i> ${countLikeEnter }</span><br>
                	  <br>
                	  <span class="gwansim" onclick="location.href='occupationlike'">관심직종 <i class="fa-solid fa-briefcase"></i></span><br>
@@ -250,7 +257,6 @@ text-align: center;
 						<div
 							class="d-flex align-items-center justify-content-between mb-4">
 							<h6 class="mb-0">Calender</h6>
-							<a href="">Show All</a>
 						</div>
 						<div id="calender"></div>
 					</div>

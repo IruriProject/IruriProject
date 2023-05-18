@@ -1,7 +1,11 @@
 package spring.mvc.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.EnterpriseDto;
@@ -440,4 +445,25 @@ public class EnterpriseController {
 		mview.setViewName("/enterprise/heartList");
 		return mview;
 	}
+	
+	 // 사진등록
+	   @PostMapping("/updatelogo")
+	   @ResponseBody
+	   public void photoUpload(String e_id, MultipartFile e_logo, HttpSession session) {
+	      // 업로드될 경로 구하기
+	      String path = session.getServletContext().getRealPath("/photo");
+	      // 파일명 구하기
+	      SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+	      String fileName = "f_" + sdf.format(new Date()) + e_logo.getOriginalFilename();
+
+	      try {
+	         e_logo.transferTo(new File(path + "\\" + fileName));
+
+	         service.updatelogo(e_id, fileName);
+
+	      } catch (IllegalStateException | IOException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }
+	   }
 }

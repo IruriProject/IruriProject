@@ -90,7 +90,7 @@
     padding: 10px;
     border-radius: 2px;
 }
-
+.bootstrap-datetimepicker-widget table td.active:focus,
 .bootstrap-datetimepicker-widget table td.active,
 .bootstrap-datetimepicker-widget table td.active:hover {
     background: var(--primary);

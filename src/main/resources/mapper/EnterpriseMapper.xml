@@ -81,4 +81,9 @@
     WHERE e.e_num = #{e_num};
 	</select>
 	
+	<update id="updatelogo" parameterType="Map">
+      update ENTERPRISE set
+      e_logo=#{e_logo} where e_id=#{e_id}
+   </update>
+	
 </mapper>
