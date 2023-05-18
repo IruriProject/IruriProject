@@ -92,12 +92,18 @@ text-align: center;
 					</c:if><br>
 					<h4>${sessionScope.loginName }</h4>
 					
-					<h5>${dto.u_gender } /
-					<c:set var="now" value="<%=new java.util.Date()%>" />
-					<c:set var="year"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set> 
-					<c:set var="birth"><fmt:formatDate value="${dto.u_birth }" pattern="yyyy"/></c:set>
-					${year-birth+1 }세
-					</h5>
+					<c:if test="${dto.u_gender!=null && dto.u_birth!=null }">
+						<h5>${dto.u_gender } /
+						<c:set var="now" value="<%=new java.util.Date()%>" />
+						<c:set var="year"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set> 
+						<c:set var="birth"><fmt:formatDate value="${dto.u_birth }" pattern="yyyy"/></c:set>
+						${year-birth+1 }세
+						</h5>
+					</c:if>
+					
+					<c:if test="${dto.u_gender==null || dto.u_birth==null }">
+						<b style="color: red">개인정보를 수정해주세요.</b>
+					</c:if>
 					
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myPhoto">사진
 						변경</button>
@@ -251,7 +257,6 @@ text-align: center;
 						<div
 							class="d-flex align-items-center justify-content-between mb-4">
 							<h6 class="mb-0">Calender</h6>
-							<a href="">Show All</a>
 						</div>
 						<div id="calender"></div>
 					</div>
