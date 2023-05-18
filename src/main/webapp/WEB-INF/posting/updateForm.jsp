@@ -14,10 +14,34 @@
 	href="https://fonts.googleapis.com/css2?family=Anton&family=Edu+VIC+WA+NT+Beginner:wght@600&family=Gamja+Flower&family=Single+Day&family=Jua&family=Nanum+Pen+Script&display=swap"
 	rel="stylesheet">
 </head>
+<script>
+$(function(){
+	$("#p_employtype").change(function(){
+		if($("#p_employtype").val()=="계약직"){
+			$("#p_pay").attr("placeholder","월급을 입력해주세요 (ex: 3000000)");
+			$("#p_period").val("");
+			$("#p_period").removeAttr("readonly");
+			$("#p_period").attr("placeholder","ex) 6개월");
+		}else{
+			$("#p_pay").attr("placeholder","연봉을 입력해주세요 (ex: 28000000)");
+			$("#p_period").val("-");
+			$("#p_period").attr("readonly","readonly");
+		}
+	})
+})
+
+function check(){
+	var chkcount= $("input:checkbox[name='p_workday']:checked").length;
+	if(chkcount==0){
+		  alert('근무 요일을 선택해주세요.');
+		return false;
+	}
+}
+</script>
 <body>
 	<div class="formbold-main-wrapper">
 		<div class="formbold-form-wrapper">
-			<form action="updateposting" method="POST">
+			<form action="updateposting" method="POST" onsubmit="return check();">
 				<input type="hidden" name="e_num" id="e_num" value=${enterNum }
 					class="formbold-form-input" />
 					<input type="hidden" name="p_num" id="p_num" value=${dto.p_num }
@@ -32,78 +56,136 @@
 
 					<div>
 						<input type="text" name="p_title" id="p_title"
-							value="${dto.p_title }" class="formbold-form-input" />
+							value="${dto.p_title }" class="formbold-form-input" required="required"/>
 					</div>
 				</div>
 
 				<div class="formbold-mb-3">
-					<label for="p_type" class="formbold-form-label"> 직종 </label> <input
-						type="text" name="p_type" id="p_type"
-						value="${dto.p_type }" class="formbold-form-input" />
+					<label class="formbold-form-label">직무</label>
+					<select
+						class="formbold-form-input" name="p_type" id="p_type">
+						<option value="건설/건축" ${dto.p_type=="건설/건축"?"selected":"" }>건설/건축</option>
+						<option value="공공/복지/봉사/교육" ${dto.p_type=="공공/복지/봉사/교육"?"selected":"" }>공공/복지/봉사/교육</option>
+						<option value="금융/보험" ${dto.p_type=="금융/보험"?"selected":"" }>금융/보험</option>
+						<option value="기술" ${dto.p_type=="기술"?"selected":"" }>기술</option>
+						<option value="농업/어업" ${dto.p_type=="농업/어업"?"selected":"" }>농업/어업</option>
+						<option value="법무" ${dto.p_type=="법무"?"selected":"" }>법무</option>
+						<option value="사무" ${dto.p_type=="사무"?"selected":"" }>사무</option>
+						<option value="서비스" ${dto.p_type=="서비스"?"selected":"" }>서비스</option>
+						<option value="생산/제조" ${dto.p_type=="생산/제조"?"selected":"" }>생산/제조</option>
+						<option value="운송" ${dto.p_type=="운송"?"selected":"" }>운송</option>
+						<option value="의료" ${dto.p_type=="의료"?"selected":"" }>의료</option>
+						
+					</select>
+				</div>
+				
+				<div class="formbold-mb-3">
+					<label class="formbold-form-label">고용형태</label> <select
+						class="formbold-form-input" name="p_employtype" id="p_employtype">
+						<option value="정규직" ${dto.p_employtype=="정규직"?"selected":"" }>정규직</option>
+						<option value="계약직" ${dto.p_employtype=="계약직"?"selected":"" }>계약직</option>
+					</select>
 				</div>
 
 				<div class="formbold-mb-3">
 					<label for="p_pay" class="formbold-form-label"> 급여 </label> <input
 						type="number" name="p_pay" id="p_pay" step="50"
-						value="${dto.p_pay }" class="formbold-form-input" />
+						value="${dto.p_pay }" class="formbold-form-input" required="required"/>
+				</div>
+
+				<div class="formbold-mb-3">
+					<label for="p_hirenum" class="formbold-form-label"> 채용인원 </label>
+					<input type="number" name="p_hirenum" id="p_hirenum" value="${dto.p_hirenum }"
+						placeholder="ex) 0" class="formbold-form-input" required="required" />
 				</div>
 
 				<div class="formbold-input-flex">
-					<div>
-						<label for="p_period" class="formbold-form-label"> 기간 </label> <input
-							type="text" name="p_period" id="p_period" value="${dto.p_period }"
-							class="formbold-form-input" />
+					<div style="width: 35%">
+						<label for="p_period" class="formbold-form-label"> 기간 </label>
+						<input
+							type="text" name="p_period" id="p_period" value="${dto.p_period }" readonly="readonly"
+							class="formbold-form-input" required="required" />
 					</div>
-					<div>
-						<label for="p_workday" class="formbold-form-label"> 요일 </label> <input
-							type="text" name="p_workday" id="p_workday" value="${dto.p_workday }"
-							placeholder="ex: 월/수/금" class="formbold-form-input" />
-					</div>
-					<div>
-						<label for="p_hirenum" class="formbold-form-label"> 채용인원 </label>
-						<input type="number" name="p_hirenum" id="p_hirenum" value="${dto.p_hirenum }"
-							placeholder="ex:0" class="formbold-form-input" />
+					
+					<div style="width: 65%">
+						<label for="p_workday" class="formbold-form-label" style="margin-bottom: 12px"> 요일 </label>
+							<div style="border: 1px solid #dde3ec; border-radius:5px; padding: 11px;">
+							<input type="checkbox" name="p_workday" class="chkbox" value="월"> 월&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="화"> 화&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="수"> 수&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="목"> 목&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="금"> 금&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="토"> 토&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_workday" class="chkbox" value="일"> 일
+							</div>
 					</div>
 				</div>
+				
+				<script>
+					$(function(){
+						var workdayString = '${dto.p_workday}';
+						var workdays = workdayString.split("/");
+						
+						for (var i = 0; i < workdays.length; i++) {
+					        var day = workdays[i];
+					        $(".chkbox[value='" + day + "']").prop("checked", true);
+					    }
+					})
+				</script>
 
 				<div class="formbold-input-flex">
 					<div>
 						<label for="p_starttime" class="formbold-form-label"> 시작시간
 						</label> <input type="time" name="p_starttime" id="p_starttime"
-							value="${dto.p_starttime }" class="formbold-form-input" />
+							value="${dto.p_starttime }" class="formbold-form-input" required="required"/>
 					</div>
 					<div>
 						<label for="p_endtime" class="formbold-form-label"> 끝시간 </label> <input
 							type="time" name="p_endtime" id="p_endtime" value="${dto.p_endtime }"
-							class="formbold-form-input" />
+							class="formbold-form-input" required="required"/>
 					</div>
 				</div>
 
 				<div class="formbold-mb-3">
-					<label class="formbold-form-label">고용형태</label> <select
-						class="formbold-form-input" name="p_employtype" id="p_employtype">
-						<option value="정규직">정규직</option>
-						<option value="기간제">기간제</option>
-					</select>
-				</div>
-
-				<div class="formbold-mb-3">
 					<label for="p_content" class="formbold-form-label"> 상세내용 </label>
-					<textarea name="p_content" id="p_content"
+					<textarea name="p_content" id="p_content" required="required"
 						class="pcontent-input">${dto.p_content }</textarea>
+						
+						<span class="textCount" style="float: right"></span>
 				</div>
+				
+				<script>
+					$('#p_content').keyup(function (e) {
+						var content = $(this).val();
+					    
+					    // 글자수 세기
+					    if (content.length == 0 || content == '') {
+					    	$('.textCount').text('0자 / 1000자');
+					    } else {
+					    	$('.textCount').text(content.length + '자 / 1000자');
+					    }
+					    
+					    // 글자수 제한
+					    if (content.length > 1000) {
+					    	// 1000자 부터는 타이핑 되지 않도록
+					        $(this).val($(this).val().substring(0, 1000));
+					        // 1000자 넘으면 알림창 뜨도록
+					        alert('글자수는 1000자까지 입력 가능합니다.');
+					    };
+					});
+				</script>
 
 				<div class="formbold-mb-3">
 					<label for="p_enddate" class="formbold-form-label"> 공고 마감일
 					</label> <input type="date" name="p_enddate" id="p_enddate" value="${dto.p_enddate }"
-						class="formbold-form-input" />
+						class="formbold-form-input" required="required" />
 				</div>
 				<br>
 				<div class="formbold-checkbox-wrapper">
 					<label for="supportCheckbox" class="formbold-checkbox-label">
 						<div class="formbold-relative">
 							<input type="checkbox" id="supportCheckbox"
-								class="formbold-input-checkbox" />
+								class="formbold-input-checkbox" required="required" />
 							<div class="formbold-checkbox-inner">
 								<span class="formbold-opacity-0"> <svg width="11"
 										height="8" viewBox="0 0 11 8" class="formbold-stroke-current"
@@ -122,7 +204,7 @@
 			</form>
 		</div>
 	</div>
-	<style>
+		<style>
 @import
 	url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
 	;
@@ -211,7 +293,7 @@ body {
 
 .pcontent-input {
 	width: 100%;
-	height: 500px;
+	height: 300px;
 	padding: 13px 22px;
 	border-radius: 5px;
 	border: 1px solid #dde3ec;
@@ -324,13 +406,49 @@ body {
 	float: right;
 }
 
-.formbold-btn:hover {
+.formbold-btn2 {
+	font-size: 16px;
+	border-radius: 5px;
+	padding: 14px 25px;
+	border: 1px solid #4E9F3D;
+	font-weight: 500;
+	background-color: white;
+	color: #4E9F3D;
+	cursor: pointer;
+	margin-top: 25px;
+	float: right;
+	margin-right: 10px;
+}
+
+.small-btn{
+	width: 150px;
+	padding: 5px 15px;
+	border-radius: 5px;
+	border: 1px solid #4E9F3D;
+	background-color: white;
+	color: #4E9F3D;
+	cursor: pointer;
+}
+
+.formbold-btn:hover, .formbold-btn2:hover, .small-btn:hover {
 	box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
 }
 
 .formbold-w-45 {
 	width: 45%;
 }
+
+.chkbox{
+	width: 15px;
+	height: 15px;
+	margin-right: 16px;
+	margin-top: 2px;
+	border: 0.7px solid #4E9F3D;
+	border-radius: 3px;
+	accent-color: #4E9F3D;
+}
+
+
 </style>
 </body>
 </html>

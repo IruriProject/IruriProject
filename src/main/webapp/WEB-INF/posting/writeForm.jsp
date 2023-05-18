@@ -36,13 +36,22 @@ $(function(){
 				$("#p_type").val(res.p_type);
 				$("#p_pay").val(res.p_pay);
 				$("#p_period").val(res.p_period);
-				$("#p_workday").val(res.p_workday);
 				$("#p_hirenum").val(res.p_hirenum);
 				$("#p_starttime").val(res.p_starttime);
 				$("#p_endtime").val(res.p_endtime);
 				$("#p_employtype").val(res.p_employtype);
 				$("#p_content").val(res.p_content);
 				$("#p_enddate").val(res.p_enddate);
+				
+				var workdayString = res.p_workday;
+				var workdays = workdayString.split("/");
+				
+				for (var i = 0; i < workdays.length; i++) {
+			        var day = workdays[i];
+			        $(".chkbox[value='" + day + "']").prop("checked", true);
+			    }
+				
+				
 			}, error:function(){
 				alert("최근 등록된 공고가 없습니다.");
 				
@@ -64,13 +73,17 @@ $(function(){
 				$("#p_type").val(res.p_type);
 				$("#p_pay").val(res.p_pay);
 				$("#p_period").val(res.p_period);
-				$("#p_workday").val(res.p_workday);
 				$("#p_hirenum").val(res.p_hirenum);
 				$("#p_starttime").val(res.p_starttime);
 				$("#p_endtime").val(res.p_endtime);
 				$("#p_employtype").val(res.p_employtype);
 				$("#p_content").val(res.p_content);
 				$("#p_enddate").val(res.p_enddate);
+				
+				for (var i = 0; i < res.p_workday.length; i++) {
+			        var day = res.p_workday[i];
+			        $(".chkbox[value='" + day + "']").prop("checked", true);
+			    }
 				
 			}
 			
@@ -112,16 +125,26 @@ $(function(){
 	
 	
 	$("#p_employtype").change(function(){
-		if($("#p_employtype").val()=="기간제"){
+		if($("#p_employtype").val()=="계약직"){
 			$("#p_pay").attr("placeholder","월급을 입력해주세요 (ex: 3000000)");
+			$("#p_period").val("");
+			$("#p_period").removeAttr("readonly");
 		}else{
 			$("#p_pay").attr("placeholder","연봉을 입력해주세요 (ex: 28000000)");
+			$("#p_period").val("-");
+			$("#p_period").attr("readonly","readonly");
 		}
 	})
 	
-	
-	
 })
+
+	function check(){
+		var chkcount= $("input:checkbox[name='p_workday']:checked").length;
+		if(chkcount==0){
+			  alert('근무 요일을 선택해주세요.');
+			return false;
+		}
+	}
 
 </script>
 </head>
@@ -188,7 +211,7 @@ $(function(){
 
 	<div class="formbold-main-wrapper">
 		<div class="formbold-form-wrapper">
-			<form method="POST" flag="new" id="frm" onsubmit="return submit();">
+			<form method="POST" flag="new" id="frm" onsubmit="return check();">
 				<input type="hidden" name="e_num" id="e_num" value=${enterNum }
 					class="formbold-form-input" />
 				<div id="pNum"></div>
@@ -235,7 +258,7 @@ $(function(){
 					<select
 						class="formbold-form-input" name="p_employtype" id="p_employtype">
 						<option value="정규직">정규직</option>
-						<option value="기간제">기간제</option>
+						<option value="계약직">계약직</option>
 					</select>
 				</div>
 				
@@ -256,15 +279,12 @@ $(function(){
 					<div style="width: 35%">
 						<label for="p_period" class="formbold-form-label"> 기간 </label>
 						<input
-							type="text" name="p_period" id="p_period" placeholder="ex) 6개월"
+							type="text" name="p_period" id="p_period" placeholder="ex) 6개월" value="-" readonly="readonly"
 							class="formbold-form-input" required="required" />
 					</div>
 					
 					<div style="width: 65%">
 						<label for="p_workday" class="formbold-form-label" style="margin-bottom: 12px"> 요일 </label>
-						<!-- <input
-							type="text" name="p_workday" id="p_workday"
-							placeholder="ex) 월/수/금" class="formbold-form-input" required="required" /> -->
 							<div style="border: 1px solid #dde3ec; border-radius:5px; padding: 11px;">
 							<input type="checkbox" name="p_workday" class="chkbox" value="월"> 월&nbsp;&nbsp;&nbsp;
 							<input type="checkbox" name="p_workday" class="chkbox" value="화"> 화&nbsp;&nbsp;&nbsp;
@@ -281,12 +301,12 @@ $(function(){
 					<div>
 						<label for="p_starttime" class="formbold-form-label"> 시작시간 </label>
 						<input type="time" name="p_starttime" id="p_starttime" value="09:00"
-							placeholder="ex:6개월" class="formbold-form-input" required="required" />
+							class="formbold-form-input" required="required" />
 					</div>
 					<div>
 						<label for="p_endtime" class="formbold-form-label"> 끝시간 </label>
 						<input
-							type="time" name="p_endtime" id="p_endtime" placeholder="ex:6개월" value="18:00"
+							type="time" name="p_endtime" id="p_endtime" value="18:00"
 							class="formbold-form-input" required="required" />
 					</div>
 				</div>

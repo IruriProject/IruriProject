@@ -470,6 +470,14 @@ public class EFnController {
 
 	@PostMapping("/updateposting")
 	public String updateAction(@ModelAttribute PostingDto dto) {
+		
+		String workdays[] = dto.getP_workday().split(",");
+		String workday = "";
+		for (int i = 0; i < workdays.length; i++) {
+			workday += workdays[i] + "/";
+		}
+
+		dto.setP_workday(workday.substring(0, workday.length() - 1));
 
 		service.updatePosting(dto);
 

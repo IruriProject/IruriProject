@@ -468,8 +468,8 @@ body {
       <section class="mb-4">
          <div class="postingContents">
             <div class="postingContent">
-            	<span style="font-size: 0.8em; color: #416442;"><c:if test="${dto.p_employtype=='정규직' }">연봉&nbsp;</c:if></span>
-            	<span style="font-size: 0.8em; color: #416442;"><c:if test="${dto.p_employtype=='기간제' }">월급&nbsp;</c:if></span>
+            	<span style="font-size: 0.8em; color: #416442;"><c:if test="${dto.p_employtype=='정규직' }">연&nbsp;</c:if></span>
+            	<span style="font-size: 0.8em; color: #416442;"><c:if test="${dto.p_employtype=='계약직' }">월&nbsp;</c:if></span>
                <fmt:formatNumber value="${dto.p_pay }" type="currency" />
             </div>
             <div class="postingContent">${dto.p_period }</div>
