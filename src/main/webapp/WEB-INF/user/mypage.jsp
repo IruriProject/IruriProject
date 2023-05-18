@@ -189,7 +189,7 @@ text-align: center;
                <br>
             </div>
             
-               <div class="col-sm-12 col-md-3 col-xl-4 w-15" style="float:right">
+               <div class="col-sm-12 col-md-3 col-xl-4 w-15" style="float:right;">
                	  <span class="gwansim" onclick="location.href='enterLike'">관심기업 <i class="fa-solid fa-heart"></i> ${countLikeEnter }</span><br>
                	  <br>
                	  <span class="gwansim" onclick="location.href='occupationlike'">관심직종 <i class="fa-solid fa-briefcase"></i></span><br>

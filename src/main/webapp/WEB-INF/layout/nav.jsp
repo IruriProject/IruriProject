@@ -171,7 +171,7 @@
 				</c:if>
 			</li>
 				
-			<li><a href="#" class="mainMenu">인재정보</a>
+			<li><a href="/customjob" class="mainMenu">맞춤 일자리</a>
 				<ul class="subMenu">
 					<li><a href="hi">sub메뉴</a></li>
 					<li><a href="hi">sub메뉴</a></li>

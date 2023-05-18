@@ -74,8 +74,9 @@
 		</if>
 	</select> 
 	
-	<select id="getPagingList" parameterType="Map" resultType="pdto">
-	select * from POSTING 
+	<select id="getPagingList" parameterType="Map" resultType="Map">
+	select POSTING.*, ENTERPRISE.* from POSTING 
+	inner join ENTERPRISE on POSTING.e_num = ENTERPRISE.e_num
 		<if test="searchcolumn!=null and searchword!=null">
 		where ${searchcolumn} like concat('%',#{searchword},'%')
 		</if>

@@ -206,7 +206,6 @@
    </select>
    
    <!-- 지원 현황 -->
-    
    <!-- 지원 취소 delete -->
    <delete id="deleteApply" parameterType="String">
    		delete from APPLICANT where a_num=#{a_num}
@@ -218,6 +217,18 @@
    	inner join POSTING on APPLICANT.p_num = POSTING.p_num 
     inner join RESUME on RESUME.r_num= APPLICANT.r_num
     where RESUME.u_num=#{u_num} 
+   </select>
+   
+   
+   <!-- 맞춤 일자리 -->   
+   <!-- 검색한 공고 수 -->
+   <select id="countSearchCustomJob" resultType="int" parameterType="String">
+   	select count(p_num) from POSTING where p_type like concat('%',p_type=#{p_type},'%')
+   </select>
+   
+   <!-- 검색한 공고 나오기  -->
+   <select id="searchCustomJobList" resultType="pdto" parameterType="String">
+   	select * from POSTING where p_type like concat('%',p_type=#{p_type},'%')
    </select>
    
    

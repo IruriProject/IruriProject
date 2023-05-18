@@ -178,7 +178,6 @@ public class UFnService {
    
    
    //지원현황
-      
    //지원 취소
    public void deleteApply(String a_nun) {
 	   mapper.deleteApply(a_nun);
@@ -196,6 +195,19 @@ public class UFnService {
    public List<Map<String, Object>> getApplicantList(String u_num){
 	   
 	   return mapper.getApplicantList(u_num);
+   }
+   
+   
+   //맞춤 일자리
+   //맞춤 일자리 검색한 수
+   public int countSearchCustomJob(String p_type) {
+	   return mapper.countSearchCustomJob(p_type);
+   }
+   
+   //맞춤 일자리 검색 결과
+   public List<PostingDto> searchCustomJobList(String p_type) {
+	   
+	   return mapper.searchCustomJobList(p_type);
    }
    
    

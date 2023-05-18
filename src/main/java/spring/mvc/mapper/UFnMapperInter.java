@@ -60,11 +60,13 @@ public interface UFnMapperInter {
 	public ScrapDto checkScrapPosting(Map<String, String> map);//스크랩했는지 체크
 	public List<Map<String, Object>> getMypageScrapPosting (String u_num);
 	
-	
 	//지원현황
 	public void deleteApply(String a_num);
 	public List<Map<String, Object>> getApplicantList(String u_num);//유저별 지원현황 리스트
 	
+	//맞춤 일자리
+	public int countSearchCustomJob(String p_type);//검색 된 공고 수
+	public List<PostingDto> searchCustomJobList (String p_type);//검색 된 공고
 	
 	//열람
 	public void insertViewer(ViewerDto dto);

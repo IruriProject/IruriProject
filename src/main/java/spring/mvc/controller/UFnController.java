@@ -382,13 +382,14 @@ public class UFnController {
 	}
 	
 	//지원 현황
+	//지원 취소
 	@GetMapping("/adelete")
 	@ResponseBody
 	public void deleteApply(String a_num) {
 		uservice.deleteApply(a_num);
 	}
 	
-	
+	//지원 현황 리스트
 	@GetMapping("/applicationstate")
 	public ModelAndView applicationList(HttpSession session, ResumeDto rdto, ApplicantDto adto, String num) {
 		
@@ -420,6 +421,24 @@ public class UFnController {
 		
 		
 		model.setViewName("/user/likeoccupation");
+		
+		return model;
+	}
+	
+	//맞춤 일자리
+	//맞춤 일자리 리스튼
+	@GetMapping("/customjob")
+	@ResponseBody
+	public ModelAndView customList(String num) {
+		ModelAndView model=new ModelAndView();
+		
+		
+		List<PostingDto> list=uservice.searchCustomJobList(num);
+		int countSearchCustomJob=uservice.countSearchCustomJob(num);
+		
+		model.addObject("list", list);
+		model.addObject("countSearchCustomJob",countSearchCustomJob);
+		model.setViewName("/customjob/customjob");
 		
 		return model;
 	}
