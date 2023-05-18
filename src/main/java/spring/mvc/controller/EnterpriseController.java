@@ -472,19 +472,11 @@ public class EnterpriseController {
 	@GetMapping("/findworker")
 	public ModelAndView findWorker(HttpSession session,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-			String r_laddr, String r_ltask, String r_ltype) {
-		
-		if (r_laddr == "" && r_laddr.trim().isEmpty()) {
-		    r_laddr = null;
-		}
-		
-		if (r_ltask =="" && r_ltask.trim().isEmpty()) {
-			r_ltask = null;
-		}
+			String r_larea, String r_ltask, String r_ltype) {
 		
 		ModelAndView model=new ModelAndView();
 		
-		int totalCount = service.getTotalCountOfResumeSearch(r_laddr, r_ltask, r_ltype);
+		int totalCount = service.getTotalCountOfResumeSearch(r_larea, r_ltask, r_ltype);
 		int totalPage;
 		int startPage;
 		int endPage;
@@ -505,7 +497,7 @@ public class EnterpriseController {
 		// 각 페이지에서 불러 올 시작번호
 		start = (currentPage - 1) * perPage;
 
-		List<Map<String, Object>> list = service.searchAllUserResume(start, perPage, r_laddr, r_ltask, r_ltype);
+		List<Map<String, Object>> list = service.searchAllUserResume(start, perPage, r_larea, r_ltask, r_ltype);
 
 		int no = totalCount - (currentPage - 1) * perPage;
 
@@ -519,7 +511,6 @@ public class EnterpriseController {
 		model.addObject("currentPage", currentPage);
 		model.addObject("no", no);
 
-		model.addObject("list", list);	
 		model.setViewName("/enterprise/findWorker");
 		return model;
 	}

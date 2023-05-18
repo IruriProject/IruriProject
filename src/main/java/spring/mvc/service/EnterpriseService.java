@@ -100,10 +100,10 @@ public class EnterpriseService {
 	   }
 
 	public List<Map<String, Object>> searchAllUserResume(int start, int perpage,
-			String r_laddr, String r_ltask, String r_ltype){
+			String r_larea, String r_ltask, String r_ltype){
 		
 		Map<String, Object> map=new HashMap<>();
-		map.put("r_laddr", r_laddr);
+		map.put("r_larea", r_larea);
 		map.put("r_ltask", r_ltask);
 		map.put("r_ltype", r_ltype);
 		map.put("start", start);
@@ -112,10 +112,10 @@ public class EnterpriseService {
 		return mapper.searchAllUserResume(map);
 	}
 	
-	public int getTotalCountOfResumeSearch(String r_laddr, String r_ltask, String r_ltype) {
+	public int getTotalCountOfResumeSearch(String r_larea, String r_ltask, String r_ltype) {
 		
 		Map<String, Object> map=new HashMap<>();
-		map.put("r_laddr", r_laddr);
+		map.put("r_larea", r_larea);
 		map.put("r_ltask", r_ltask);
 		map.put("r_ltype", r_ltype);
 		

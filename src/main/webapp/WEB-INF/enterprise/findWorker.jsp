@@ -19,11 +19,12 @@
 <body>
 
 <form action="/enterprise/findworker" method="get">
-	<input type="text" name="r_laddr" id="r_laddr">
-	<div class="formbold-mb-3">
+
+	<input type="text" name="r_larea">
+	<!-- <div class="formbold-mb-3">
        <label class="formbold-form-label">직종</label>
        <select
-          class="formbold-form-input" name="r_ltask" id="r_ltask">
+          class="formbold-form-input">
           <option value="">선택</option>
           <option value="건설/건축">건설/건축</option>
           <option value="공공/복지/봉사/교육">공공/복지/봉사/교육</option>
@@ -36,25 +37,29 @@
           <option value="생산/제조">생산/제조</option>
           <option value="운송">운송</option>
           <option value="의료">의료</option>
-          
        </select>
-    </div>
+    </div> -->
+	
+	<input type="input" id="r_ltask" name="r_ltask" readonly>
+	<li role="button" value="의료">의료</li>
+	<li role="button" value="개발">개발</li>
+	<li role="button" value="코딩">코딩</li>
+	<li role="button" value="광고/홍보">광고/홍보</li>
+	
+	<script type="text/javascript">
+	$("li").click(function(){
+		$("#r_ltask").val($(this).attr("value"));
+	})
+	
+	
+	</script>
+    
 	<input type="radio" name="r_ltype" value="정규직"> 정규직
 	<input type="radio" name="r_ltype" value="기간제"> 기간제
 
 	<button type="submit">검색</button>
 	<button type="button" onclick="location.href='/enterprise/findworker'">초기화</button>
 </form>
-
-	<script type="text/javascript">
-		const r_laddr=$("#r_laddr").val();
-		const r_ltask=$("#r_ltask").val();
-		
-		if(r_ltask=="null"){
-			alert("공백");
-		}
-	
-	</script>
 	
 	<c:forEach var="dto" items="${list }">
 		${dto.r_title }
