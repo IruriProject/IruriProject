@@ -547,7 +547,7 @@ $(".gu").click(function(){
 	   			//제목
 	   			s+="<td width='400'><span id='posting-title'>";
 	   			s+="<a href='detailpage?p_num="+ele.p_num+"'>"+ele.p_title+"</a></span><br>";
-	   			s+="<span id='enterprise-name'>["+ele.p_type+"] 일단회사번호"+ele.p_num+"</span></td>";
+	   			s+="<span id='enterprise-name'>["+ele.p_type+"]"+ele.e_name+"</span></td>";
 	   			//급여
 	   			if (ele.p_employtype === '정규직') {
 	   			  s += "<td width='120'>[월급] " + ele.p_pay + "</td>";
@@ -612,7 +612,7 @@ $(".gu").click(function(){
 		<a href="detailpage?p_num=${dto.p_num}&currentPage=${currentPage}">${dto.p_title }</a>
 		</span>
 		<br>
-		<span id="enterprise-name">[${dto.p_type }] 일단회사번호 ${dto.e_num }</span>
+		<span id="enterprise-name">[${dto.p_type }] | ${dto.e_name }</span>
 		</td>
 		<td width="120">
 		<c:if test="${dto.p_employtype=='정규직' }">
