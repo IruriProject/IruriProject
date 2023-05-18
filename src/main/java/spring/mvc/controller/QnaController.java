@@ -287,8 +287,8 @@ public class QnaController {
 			HttpSession session, Model model)
 	{		
 		String qnum= qc_dto.getQ_num(); 
-		//String email = qservice.getData(qnum).getQ_email();
-		String email="jungb1203@naver.com";
+		String email = qservice.getData(qnum).getQ_email();
+		//String email="jungb1203@naver.com";
 		String id= qservice.getData(qnum).getQ_loginid();
 		MailSender.mailSend(email,id);
 		int qnaCount= qservice.countqnum(qnum);
