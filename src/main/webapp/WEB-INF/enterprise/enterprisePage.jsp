@@ -189,11 +189,14 @@
 						</c:if>
 							<c:forEach var="post" items="${postings }">
 								<tr>
-									<td style="text-align: left"><a class="atag"
-										href="posting/detailpage?p_num=${post.p_num }">&nbsp;&nbsp;<b>${post.p_title }</b></a>&nbsp;&nbsp;
-										<span class="counting viewer" p_num=${post.p_num } title="열람한 인재목록 보기" onclick="location.href='/enterprise/viewerlist?p_num=${post.p_num}'"></span>
-										<span class="counting">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-										<span class="counting scrap" p_num=${post.p_num } title="스크랩한 인재목록 보기" onclick="location.href='/enterprise/scraplist?p_num=${post.p_num}'"></span>
+									<td style="text-align: left" class="title">
+										<a class="atag" href="posting/detailpage?p_num=${post.p_num }">&nbsp;&nbsp;
+											<b class="titlestatus">${post.p_title }</b>
+											<span class="titlestatusSpan" style="color: red; margin-left: 10px; font-size: 0.8em; display: none;">마감</span>
+										</a>&nbsp;&nbsp;
+											<span class="counting viewer" p_num=${post.p_num } title="열람한 인재목록 보기" onclick="location.href='/enterprise/viewerlist?p_num=${post.p_num}'"></span>
+											<span class="counting">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+											<span class="counting scrap" p_num=${post.p_num } title="스크랩한 인재목록 보기" onclick="location.href='/enterprise/scraplist?p_num=${post.p_num}'"></span>
 									</td>
 									<td>${post.p_type }</td>
 									<td><fmt:formatDate value="${post.p_writeday }"
@@ -220,6 +223,17 @@
 							                    $(".scrap[p_num='"+p_num+"']").text("스크랩 : "+res.scrapcounting+"명");
 							                }
 							            });
+							            
+							            $(".pStatus").change(function(){ 
+							            	if($(this).val()=="지원마감"){
+							            		 $(this).closest("tr").find(".titlestatus").css("text-decoration", "line-through red");
+												 $(this).closest("tr").find(".titlestatusSpan").css("display", "inline");
+							            	} else{
+							            		 $(this).closest("tr").find(".titlestatus").css("text-decoration", "");
+												 $(this).closest("tr").find(".titlestatusSpan").css("display", "none");
+							            	}
+											 
+							            })
 							        });
 							    </script>
 								
@@ -244,6 +258,7 @@
 					url:"/posting/updateStatus",
 					success:function(){
 						alert("모집상태 변경 완료");
+						
 					}
 				})
 			})

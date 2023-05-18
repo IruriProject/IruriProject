@@ -79,7 +79,7 @@
 						<b>${dto.p_title }</b>
 					</c:if>
 					<c:if test="${dto.p_status=='지원마감' }">
-						<b style="color: gray; text-decoration: line-through;">${dto.p_title }</b><span style="color: red; margin-left: 10px; font-size: 0.8em;">마감</span>
+						<b style="color: gray; text-decoration: line-through red;">${dto.p_title }</b><span style="color: red; margin-left: 10px; font-size: 0.8em;">마감</span>
 					</c:if>
 				</a>&nbsp;&nbsp;
 				
@@ -184,6 +184,7 @@
 				url:"/posting/updateStatus",
 				success:function(){
 					alert("모집상태 변경 완료");
+					location.reload();
 				}
 			})
 		})
