@@ -80,13 +80,58 @@
 			<div class="row g-4 hi">
 				<div class="col-sm-12 col-md-6 col-xl-7 w-25">
 					<div style="width: 150px; height: 100%">
-						<img src="${dto.e_logo }" width="100%">
+						<img src="/photo/${dto.e_logo }" width="100%">
 					</div>
 					<br>
+					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#entPhoto">사진
+						변경</button>
 					<br>
 					<button type="button" onclick="location.href='/enterprise/update'">회사정보
 						수정</button>
 				</div>
+				<!-- Modal -->
+						<div class="modal fade" id="entPhoto" role="dialog">
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">사진 변경</h4>
+									</div>
+									<div class="modal-body">
+										<input type="file" id="inputFile">
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" id="ePhoto"
+											loginId="${sessionScope.loginId}">등록</button>
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">닫기</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 사진 등록 Ajax -->
+						<script type="text/javascript">
+							$(document).on("click", "#ePhoto", function() {
+								var e_id = $(this).attr("loginId"); //본인의 num을 호출
+								var form = new FormData();
+								form.append("e_logo", $("#inputFile")[0].files[0]);//선택한 한 개만 반드시 추가해준다.
+								form.append("e_id", e_id);
+								$.ajax({
+									type : "post",
+									dataType : "text",
+									url : "/enterprise/updatelogo",
+									processData : false,
+									contentType : false,
+									data : form,
+									success : function() {
+										location.reload();
+									}
+								})
+							})
+						</script>
 				<div class="col-sm-12 col-md-6 col-xl-7 w-75">
 					<div class="h-100 bg-light rounded p-4">
 						기업명 : ${dto.e_name }&nbsp;&nbsp;&nbsp;

@@ -42,7 +42,7 @@
     FROM MESSAGE
     INNER JOIN ENTERPRISE
     ON MESSAGE.e_num = ENTERPRISE.e_num
-    WHERE u_num = #{u_num}
+    WHERE u_num = #{u_num} order by m_num desc
 	</select>
 
 	<!-- 이력서 detailpage -->
@@ -116,7 +116,7 @@
 	<update id="updateResume" parameterType="rdto">
 		update RESUME set r_title=#{r_title}, r_larea=#{r_larea}, r_ltask=#{r_ltask}, r_ltype=#{r_ltype},
 		r_lperiod=#{r_lperiod}, r_lday=#{r_lday}, r_content=#{r_content},
-		r_private=#{r_private},r_writeday=now() where r_num=#{r_num}
+		r_writeday=now() where r_num=#{r_num}
 	</update>
 	
 	<!-- 이력서 삭제 -->

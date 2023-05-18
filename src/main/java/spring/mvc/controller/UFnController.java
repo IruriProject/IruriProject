@@ -215,14 +215,14 @@ public class UFnController {
 	   r_content = r_content.replace("\r\n","<br>");
 	   dto.setR_content(r_content);
       uservice.insertResume(dto);
-      return "redirect:mypage";
+      return "redirect:resumelist";
    }
    @PostMapping("/updateResume")
    public String update(ResumeDto dto, String r_content) {
 	   r_content = r_content.replace("\r\n","<br>");
 	   dto.setR_content(r_content);
 	   uservice.updateResume(dto);
-	   return "redirect:mypage";
+	   return "redirect:resumelist";
    }
 
    // 유저정보 변경

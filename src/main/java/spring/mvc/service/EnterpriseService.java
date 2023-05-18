@@ -82,4 +82,14 @@ public class EnterpriseService {
 	public List<Map<String, Object>> applicantByEnterprise(String e_num) {
 		return mapper.applicantByEnterprise(e_num);
 	}
+	
+	public void updatelogo(String e_id, String e_logo) {
+	      // TODO Auto-generated method stub
+	      Map<String, String> map = new HashMap<>();
+
+	      map.put("e_id", e_id);
+	      map.put("e_logo", e_logo);
+
+	      mapper.updatelogo(map);
+	   }
 }

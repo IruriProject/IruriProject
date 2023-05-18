@@ -19,18 +19,17 @@
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 
-ul {
+#OneMinDoc ul, .introduceTab__list ul {
    list-style: none;
    margin: 0;
    padding: 0;
 }
 
-li {
+#OneMinDoc li, .introduceTab__list li {
    margin-right: 10px;
    border: 0;
    float: left;
 }
-
 td {
    font-size: 1.2em;
 }
@@ -68,7 +67,10 @@ td {
                여성
                </c:if>
                &nbsp;&nbsp;/&nbsp;&nbsp; ${dto.u_birth }
-               (나이 들어가야함) <br>
+               <c:set var="now" value="<%=new java.util.Date()%>" />
+				<c:set var="year"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set> 
+				<c:set var="birth"><fmt:formatDate value="${dto.u_birth }" pattern="yyyy"/></c:set>
+				(${year-birth+1 }세)
                <table style="border: 0px solid red;">
                   <tr>
                      <td width=100>연락처</td>
@@ -1356,6 +1358,20 @@ td {
 							<input type="checkbox" name="r_lday" class="chkbox" value="토"> 토&nbsp;&nbsp;&nbsp;
 							<input type="checkbox" name="r_lday" class="chkbox" value="일"> 일
 							</div>
+							<script type="text/javascript">
+							window.addEventListener('DOMContentLoaded', (event) => {
+							  var selectedValuesFromDB = "${rdto.r_lday}"; // DB에서 가져온 값 (콤마로 구분됨)
+							  var selectedValues = selectedValuesFromDB.split(','); // 콤마를 기준으로 문자열을 분할하여 배열로 변환
+							  
+							  // 기존에 체크되어 있던 값들을 확인하여 체크박스 선택
+							  var checkboxes = document.getElementsByClassName('chkbox');
+							  for (var i = 0; i < checkboxes.length; i++) {
+							    if (selectedValues.includes(checkboxes[i].value)) {
+							      checkboxes[i].checked = true;
+							    }
+							  }
+							});
+							</script>
 					</div>
             </div>
 
@@ -1576,8 +1592,7 @@ td {
 								placeholder="나의 강점과 특징을 등록해 보세요!"
 								class="rcontent-autoInput">${rdto.r_content }</textarea>
 							<!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
-					<br> <div class="form-inline"><input type="checkbox" name="r_private" class="checkbox">
-					<span>&nbsp;&nbsp;이력서 비공개</span>
+					<br> <div class="form-inline">
 					<span class="textCount" style="float: right">0자 / 1000자</span></div>
 					<script type="text/javascript">
 					
@@ -1600,24 +1615,10 @@ td {
 					    };
 					});
 					
-					  var r_private_checkbox = document.querySelector('input[name="r_private"]');
-					  
-					  if (${rdto.r_private}=== "1") {
-						    r_private_checkbox.checked = true;
-						  }
-					  r_private_checkbox.addEventListener('change', function() {
-					    if (this.checked) {
-					      this.value = 1;
-					    } else {
-					      this.value = 0;
-					    }
-					  });
+					
 					</script>
-					<!-- 대표이력서 체크되면 1(대표이력서), 비공개 체크되면 0(공개)되게 해야함 -->
 					
                <button id="submitBtn" type="submit" class="formbold-btn">수정</button>
-               <script type="text/javascript">
-               </script>
                <!-- 수정시 writeday가 now로 update -->
          </form>
       </div>
@@ -1626,12 +1627,6 @@ td {
 @import
    url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
    ;
-
-* {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
-}
 
 body {
    font-family: fontAwesome;

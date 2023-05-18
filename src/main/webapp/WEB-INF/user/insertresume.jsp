@@ -19,18 +19,17 @@
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 
-ul {
+#OneMinDoc ul, .introduceTab__list ul {
    list-style: none;
    margin: 0;
    padding: 0;
 }
 
-li {
+#OneMinDoc li, .introduceTab__list li {
    margin-right: 10px;
    border: 0;
    float: left;
 }
-
 td {
    font-size: 1.2em;
 }
@@ -67,7 +66,10 @@ td {
                여성
                </c:if>
                &nbsp;&nbsp;/&nbsp;&nbsp; ${dto.u_birth }
-               (나이 들어가야함) <br><br>
+               <c:set var="now" value="<%=new java.util.Date()%>" />
+				<c:set var="year"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set> 
+				<c:set var="birth"><fmt:formatDate value="${dto.u_birth }" pattern="yyyy"/></c:set>
+				(${year-birth+1 }세)
                <table style="border: 0px solid red;">
                   <tr>
                      <td width=100>연락처</td>
@@ -87,14 +89,14 @@ td {
             <div class="formbold-mb-3">
                <label for="r_title" class="formbold-form-label"> 이력서 제목 </label> <input
                   type="text" name="r_title" id="r_title" step="50"
-                  placeholder="25글자 이내로 자신을 표현해보세요." class="formbold-form-input" />
+                  placeholder="25글자 이내로 자신을 표현해보세요." class="formbold-form-input" required="required"/>
             </div>
 			</script>
             <div class="formbold-mb-3">
                <label class="formbold-form-label">희망지역</label>
                <div class="searchValue regist__item">
                   <button type="button" id="tagarea" onclick="selectLocation()">지역선택</button>
-                  <input id="areainput" name="r_larea" readonly="readonly" class="formbold-form-input">
+                  <input id="areainput" name="r_larea" readonly="readonly" required="required" class="formbold-form-input">
                </div>
                <div id="dllocal" class="searchArea"
                   style="display: none; height: 250px;">
@@ -1323,7 +1325,7 @@ td {
             <div class="formbold-mb-3">
                <label for="p_type" class="formbold-form-label"> 희망직종 </label> <input
                   type="text" name="r_ltask" id="r_ltask"
-                  placeholder="직종을 입력해주세요 (ex: 광고/홍보)" class="formbold-form-input" />
+                  placeholder="직종을 입력해주세요 (ex: 광고/홍보)" class="formbold-form-input" required="required"/>
             </div>
 
             <div class="formbold-mb-3">
@@ -1338,7 +1340,7 @@ td {
                <div style="width: 35%">
                   <label for="r_lperiod" class="formbold-form-label"> 희망기간 </label>
                   <input type="text" name="r_lperiod" id="r_lperiod"
-                     placeholder="ex:6개월" class="formbold-form-input" />
+                     placeholder="ex:6개월" class="formbold-form-input" required="required"/>
                </div>
                <div style="width: 65%">
 						<label for="r_lday" class="formbold-form-label" style="margin-bottom: 12px"> 요일 </label>
@@ -1354,6 +1356,17 @@ td {
 							<input type="checkbox" name="r_lday" class="chkbox" value="토"> 토&nbsp;&nbsp;&nbsp;
 							<input type="checkbox" name="r_lday" class="chkbox" value="일"> 일
 							</div>
+							<script type="text/javascript">
+							$(document).ready(function() {
+						        $("#submitBtn").click(function() {
+						            if ($(".chkbox:checked").length === 0) {
+						                alert("희망 요일을 체크해주세요.");
+						            } if ($("#areainput").val().trim() === '') {
+						                alert("희망 지역을 선택해주세요.");
+						            }
+						        });
+						    });
+							</script>
 					</div>
             </div>
 
@@ -1571,7 +1584,7 @@ td {
 				</div>
 								<textarea name="r_content" id="r_content" style="height: 100px;"
 								placeholder="나의 강점과 특징을 등록해 보세요!"
-								class="rcontent-autoInput"></textarea>
+								class="rcontent-autoInput" required="required"></textarea>
 							<!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
 					<br> <div class="form-inline"><input type="checkbox" name="r_private" class="checkbox">
 					<span>&nbsp;&nbsp;이력서 비공개</span>
@@ -1608,7 +1621,7 @@ td {
 					</script>
 					<!-- 대표이력서 체크되면 1(대표이력서), 비공개 체크되면 0(공개)되게 해야함 -->
 					
-               <button id="submitBtn" type="submit" class="formbold-btn">공고등록</button>
+               <button id="submitBtn" type="submit" class="formbold-btn">이력서 등록</button>
                <script type="text/javascript">
                </script>
                <!-- 수정시 writeday가 now로 update -->
@@ -1619,12 +1632,6 @@ td {
 @import
    url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
    ;
-
-* {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
-}
 
 body {
    font-family: fontAwesome;
