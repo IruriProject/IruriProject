@@ -254,5 +254,5 @@ public class EFnService {
 	
 	public List<PostingDto> getAllPostingsAllEnter(){
 		return mapper.getAllPostingsAllEnter();
-	};
+	}
 }

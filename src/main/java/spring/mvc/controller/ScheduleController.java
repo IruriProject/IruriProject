@@ -20,9 +20,8 @@ public class ScheduleController {
 	
 	@Scheduled(cron = "0 * * * * *")
     public void updatePostingStatusAuto() {
-        //System.out.println("현재 시간은 " + new Date());
         
-        List<PostingDto> postings = service.getAllPostingsAllEnter(); // 모든 포스팅을 가져오는 메서드를 PostingMapper에 추가해야 함
+        List<PostingDto> postings = service.getAllPostingsAllEnter();
 
 
         Date currentDate = new Date();

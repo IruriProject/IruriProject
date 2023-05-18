@@ -252,7 +252,7 @@
 									<td>${post.p_type }</td>
 									<td><fmt:formatDate value="${post.p_writeday }"
 											pattern="yyyy-MM-dd" /></td>
-									<td>${post.p_enddate }</td>
+									<td class="enddate">${post.p_enddate }</td>
 									<td>
 										<select class="pStatus" pnum=${post.p_num }>
 											<option value="지원가능" ${post.p_status=="지원가능"?'selected':'' }>지원가능</option>
@@ -285,8 +285,10 @@
 							            	}
 											 
 							            })
+
 							        });
 							    </script>
+							    
 								
 							</c:forEach>
 						</tbody>
@@ -301,17 +303,32 @@
 			$(".pStatus").change(function(){
 				var pStatus=$(this).val();
 				var pNum=$(this).attr("pnum");
-				//alert(pNum+","+pStatus);
-				$.ajax({
-					type:"get",
-					data:{"p_num":pNum,"p_status":pStatus},
-					dataType:"html",
-					url:"/posting/updateStatus",
-					success:function(){
-						alert("모집상태 변경 완료");
-						
-					}
-				})
+				
+				var enddate= $(this).closest("tr").find(".enddate").text();
+				
+				var now = new Date();
+		        var year = now.getFullYear();
+		        var month = ('0' + (now.getMonth() + 1)).slice(-2);
+		        var day = ('0' + now.getDate()).slice(-2);
+		        var today = year + '-' + month + '-' + day;
+		            
+		        if(enddate < today){
+		        	alert("공고마감일이 지나 모집상태를 변경할 수 없습니다.\n공고마감일을 먼저 수정해주세요.");
+		            location.reload();
+		            
+		        } else {
+		            $.ajax({
+						type:"get",
+						data:{"p_num":pNum,"p_status":pStatus},
+						dataType:"html",
+						url:"/posting/updateStatus",
+						success:function(){
+							alert("모집상태 변경 완료");
+							
+						}
+					})
+	            }
+
 			})
 		
 		</script>
