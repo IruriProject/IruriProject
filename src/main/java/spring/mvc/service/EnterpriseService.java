@@ -86,4 +86,27 @@ public class EnterpriseService {
 	public List<Map<String, Object>> applicantByEnterprise(String e_num) {
 		return mapper.applicantByEnterprise(e_num);
 	}
+	
+	public List<Map<String, Object>> searchAllUserResume(int start, int perpage,
+			String r_laddr, String r_ltask, String r_ltype){
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("r_laddr", r_laddr);
+		map.put("r_ltask", r_ltask);
+		map.put("r_ltype", r_ltype);
+		map.put("start", start);
+		map.put("perpage", perpage);
+		
+		return mapper.searchAllUserResume(map);
+	}
+	
+	public int getTotalCountOfResumeSearch(String r_laddr, String r_ltask, String r_ltype) {
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("r_laddr", r_laddr);
+		map.put("r_ltask", r_ltask);
+		map.put("r_ltype", r_ltype);
+		
+		return mapper.getTotalCountOfResumeSearch(map);
+	}
 }

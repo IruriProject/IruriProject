@@ -442,15 +442,57 @@ public class EnterpriseController {
 	}
 	
 	@GetMapping("/findworker")
-	public ModelAndView findWorker(HttpSession session) {
+	public ModelAndView findWorker(HttpSession session,
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+			String r_laddr, String r_ltask, String r_ltype) {
 		
-		ModelAndView mview=new ModelAndView();
-		String loginId=(String)session.getAttribute("loginId");
-		EnterpriseDto dto=service.findEnterdataById(loginId);
+		if (r_laddr == "" && r_laddr.trim().isEmpty()) {
+		    r_laddr = null;
+		}
 		
-		mview.addObject("dto", dto);
+		if (r_ltask =="" && r_ltask.trim().isEmpty()) {
+			r_ltask = null;
+		}
 		
-		mview.setViewName("/enterprise/findWorker");
-		return mview;
+		ModelAndView model=new ModelAndView();
+		
+		int totalCount = service.getTotalCountOfResumeSearch(r_laddr, r_ltask, r_ltype);
+		int totalPage;
+		int startPage;
+		int endPage;
+		int start;
+		int perPage = 10;
+		int perBlock = 5;
+		
+		// 총 페이지 갯수
+		totalPage = totalCount / perPage + (totalCount % perPage == 0 ? 0 : 1);
+
+		// 각 블럭의 시작 페이지
+		startPage = (currentPage - 1) / perBlock * perBlock + 1;
+		endPage = startPage + perBlock - 1;
+
+		if (endPage > totalPage)
+			endPage = totalPage;
+
+		// 각 페이지에서 불러 올 시작번호
+		start = (currentPage - 1) * perPage;
+
+		List<Map<String, Object>> list = service.searchAllUserResume(start, perPage, r_laddr, r_ltask, r_ltype);
+
+		int no = totalCount - (currentPage - 1) * perPage;
+
+		// 출력에 필요한 변수를 model에 저장
+		model.addObject("totalCount", totalCount);
+		model.addObject("list", list);
+		model.addObject("totalPage", totalPage);
+		model.addObject("startPage", startPage);
+		model.addObject("endPage", endPage);
+		model.addObject("perBlock", perBlock);
+		model.addObject("currentPage", currentPage);
+		model.addObject("no", no);
+
+		model.addObject("list", list);	
+		model.setViewName("/enterprise/findWorker");
+		return model;
 	}
 }

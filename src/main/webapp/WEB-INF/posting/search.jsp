@@ -543,7 +543,7 @@ $(".gu").click(function(){
 	   		s+="<td width='50'>근무시간</td><td width='100'>등록일</td></tr>";
 	   		$.each(res,function(i,ele){
 	   			//주소
-	   			s+="<tr><td width='60'>"+ele.p_addr+"</td>";
+	   			s+="<tr><td width='120'>"+ele.p_addr+"</td>";
 	   			//제목
 	   			s+="<td width='400'><span id='posting-title'>";
 	   			s+="<a href='detailpage?p_num="+ele.p_num+"'>"+ele.p_title+"</a></span><br>";
@@ -590,7 +590,7 @@ $(".gu").click(function(){
    		</caption>
 
    		<tr align="center">
-   		  <td width="60">지역</td>
+   		  <td width="120">지역</td>
    		  <td width="400">모집내용/기업명</td>
    		  <td width="120">급여</td>
    		  <td width="150">근무시간</td>

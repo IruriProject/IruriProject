@@ -41,6 +41,7 @@ public interface EnterpriseMapperInter {
 	public void authCertificate(String e_num);
 	
 	public List<Map<String, Object>> applicantByEnterprise(String e_num);
-	public List<Map<String, Object>> searchAllUserResume(Map<String, String> map);
+	public List<Map<String, Object>> searchAllUserResume(Map<String, Object> map);
+	public int getTotalCountOfResumeSearch(Map<String, Object> map);
 }
 
