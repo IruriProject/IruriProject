@@ -39,6 +39,10 @@ public class EnterpriseService {
 		mapper.joinEnterprise(dto);
 	}
 	
+	public int getSearchEnterId(String e_id) {
+		return mapper.getSearchEnterId(e_id);
+	}
+	
 	public void withdrawEnterprise(String e_num,String e_pw) {
 		Map<String, String> map=new HashMap<>();
 		map.put("e_num", e_num);

@@ -160,6 +160,10 @@
   .formbold-w-45 {
     width: 45%;
   }
+  
+  #idcheck,#pwcheck{
+    color: red;
+  }
 </style>
 	
 <title>Insert title here</title>
@@ -178,6 +182,7 @@
           <input
             type="text"
             name="e_id"
+            id="e_id"
             placeholder="영문, 숫자로 구성된 6-12자의 아이디를 입력해주세요"
             minlength="6" maxlength="12" required
             onkeyup="characterCheck(this);idcheckClean();" onkeydown="characterCheck(this);idcheckClean();"
@@ -203,19 +208,19 @@
       
 	    //중복체크 버튼 클릭시
       	$("#btn-idcheck").click(function(){
+
+      		const e_id=$("#e_id").val();
       		
-      		const u_id=$("#u_id").val();
-      		
-      		if(u_id.length<6 || u_id.length>12){
+      		if(e_id.length<6 || e_id.length>12){
       			$("#idcheck").text("아이디는 6자 이상 12자 이하만 가능합니다.");
       			return false;
       		}
       		
 	  		$.ajax({
 	  			type:"get",
-	  			url:"/user/idcheck",
+	  			url:"/enterprise/idcheck",
 	  			dataType:"json",
-	  			data:{"u_id":u_id},
+	  			data:{"e_id":e_id},
 	  			success:function(res){
 	  				if(res.count==0){
 	  					$("#idcheck").text("가입이 가능한 아이디입니다.");
@@ -264,30 +269,45 @@
           placeholder="비밀번호를 동일하게 입력해주세요"
           class="formbold-form-input"
         />
+        <div id="pwcheck"></div>
+        <input type="hidden" id="pwChecked" value="ok">
       </div>
       
       <script type="text/javascript">
-	
-        $("#pw1").onkeyup(function(){
 
+      $("#pw1").keyup(function(){
+
+		    pw1=$("#pw1").val();
+		    pw2=$("#pw2").val();
+		    
 	    	$('#pwcheck').html('');
 	    	$("#pwChecked").val("no");
-        })
-      
-	    $("#pw2").onkeyup(function(){
 	    	
-		      pw1=$("#pw1").val();
-		      pw2=$("#pw2").val();
+	    	if(pw2.length!=0){
+				if(pw1!=pw2){
+				 $("#pwcheck").html("비밀번호가 일치하지 않습니다.").css("color","red");
+				 $("#pwChecked").val("no");
+				}else{
+				 $("#pwcheck").html("유효한 비밀번호입니다.").css("color","green");
+				 $("#pwChecked").val("ok");
+				}
+	    	}
+      })
+    
+	    $("#pw2").keyup(function(){
+
+		    pw1=$("#pw1").val();
+		    pw2=$("#pw2").val();
 		      
 		      if(pw1!=pw2){
-	    		  $("#pwcheck").html("비밀번호가 일치하지 않습니다.");
-	    	  }else{
-	    		  $("#pwcheck").html("유효한 비밀번호입니다.");
-	    		  $("#pwcheck").css("color","green");
+		    	  $("#pwcheck").html("비밀번호가 일치하지 않습니다.").css("color","red");
 	    		  $("#pwChecked").val("no");
+	    	  }else{
+	    		  $("#pwcheck").html("유효한 비밀번호입니다.").css("color","green");
+	    		  $("#pwChecked").val("ok");
 	    	  }
 	      })
-            
+          
       </script>
       
 

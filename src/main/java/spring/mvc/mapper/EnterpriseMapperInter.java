@@ -18,6 +18,7 @@ public interface EnterpriseMapperInter {
 	public int EnterIdPassCheck(Map<String, String> map);
 	public EnterpriseDto findEnterById(String e_id);
 	public void joinEnterprise(EnterpriseDto dto);
+	public int getSearchEnterId(String e_id);
 	public void withdrawEnterprise(Map<String, String> map);
 	public void updateResAccessStatus(Map<String, String> map);
 	
@@ -40,5 +41,6 @@ public interface EnterpriseMapperInter {
 	public void authCertificate(String e_num);
 	
 	public List<Map<String, Object>> applicantByEnterprise(String e_num);
+	public List<Map<String, Object>> searchAllUserResume(Map<String, String> map);
 }
 
