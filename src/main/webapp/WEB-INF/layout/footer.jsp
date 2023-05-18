@@ -13,22 +13,21 @@
 <style type="text/css">
 .footer{
 	float:left;
-	padding:10px;
+	margin: 0 auto;
+	padding: 0 3%;
 }
 </style>
 </head>
 <body>
-<div class="footer">
-
-<span>이루리(유)</span><br>
-
-대표 : 이루리 ㅣ 사업자등록번호 : 000-00-00000 <br>
-
-주소 : 서울특별시 강남구 역삼동 테헤란로 132 한독약품빌딩 8층 <br>
-통신판매업 신고번호 : 2023-서울강남-9003호 ㅣ 직업정보제공사업 신고번호 : 서울청 제2023호-23호 ㅣ 유료직업소개업 등록번호 : 제2002-3210195-14-5-00035호ㅣ사업자정보확인
-<br>
-Ⓒ IRULI LLC. All rights reserved.
-
+<div class="footer" style="font-size:13px; color:gray; line-height:20px;">
+	<div>
+	<b style="color:#000; font-weight:700;">이루리(유)</b><br>
+	대표 : 이루리 ㅣ 사업자등록번호 : 000-00-00000 <br>
+	주소 : 서울특별시 강남구 역삼동 테헤란로 132 한독약품빌딩 8층 <br>
+	통신판매업 신고번호 : 2023-서울강남-9003호 ㅣ 직업정보제공사업 신고번호 : 서울청 제2023호-23호 ㅣ 유료직업소개업 등록번호 : 제2002-3210195-14-5-00035호ㅣ사업자정보확인
+	<br>
+	Ⓒ IRULI LLC. All rights reserved.
+	</div>
 </div>
 </body>
 </html>

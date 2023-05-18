@@ -57,6 +57,10 @@ public class BoardController {
        
 		ModelAndView model=new ModelAndView();
 
+		
+		boolean noticeFirst = true; // 공지사항 우선 여부 설정
+		
+		
         int totalCount =bservice.getTotalCount(keyword); //총 글의 개수 //keyword 갯수
         int totalPage; //총 페이지수
         int startPage; //각 블럭의 시작페이지
@@ -79,8 +83,12 @@ public class BoardController {
         //각 페이지에서 불러올 시작번호
         start=(currentPage-1)*perPage;
 
+        
+        
+        List<BoardDto> noticeList=bservice.getNoticeList(keyword, start, perPage);
+        
         //각 페이지에서 필요한 게시글 가져오기
-        List<BoardDto> list=bservice.getList(sort,keyword,start, perPage);
+        List<BoardDto> list=bservice.getList(sort,keyword,start, perPage,noticeFirst);
         
         //new표시
         // 게시물의 작성일자와 현재 날짜 비교하여 "뉴" 아이콘 표시 여부 결정
@@ -154,10 +162,12 @@ public class BoardController {
         
         String queryString= String.format("currentPage=%d&keyword=%s&sort=%s", currentPage, keyword, sort);
         String url=queryString;
+
         
         //출력에 필요한 변수들을 model에 저장
         model.addObject("totalCount", totalCount);
         model.addObject("list", list);
+        model.addObject("noticeList", noticeList);
         model.addObject("totalPage", totalPage);
         model.addObject("startPage", startPage);
         model.addObject("endPage", endPage);
@@ -339,6 +349,12 @@ public class BoardController {
 		}
 		
 		
+		
+		// 이전 글 번호와 다음 글 번호를 가져옴
+	    int prevNum = bservice.getPrevNum(b_num);
+	    int nextNum = bservice.getNextNum(b_num);
+	    
+		
 		//업로드파일의 확장자
 		int dotLoc =bdto.getB_photo().lastIndexOf('.'); //마지막 .의 위치
 		String ext= bdto.getB_photo().substring(dotLoc+1); //현재위치 다음부터 끝까지 // . 의 다음글자부터 끝까지 추출 (.은 포함되면 안되기때문)
@@ -350,6 +366,8 @@ public class BoardController {
 		else
 			mview.addObject("b_photo", false); // 이미지 인지 아닌지를 보고 출력하기 위해서
 		
+		mview.addObject("prevNum",prevNum);
+		mview.addObject("nextNum",nextNum);
 		mview.addObject("bdto",bdto);
 		mview.addObject("photoUrls", photoUrls); // 이미지 URL 리스트 추가
 		//mview.addObject("photoList", photoList); // 이미지 파일명 리스트 추가

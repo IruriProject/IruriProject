@@ -164,6 +164,7 @@
 <script>
 $(document).ready(function(){
     // 버튼 클릭 시 메뉴 보이기/숨기기
+    
     document.getElementById('menu-button').addEventListener('click', function() {
       var menuList = document.getElementById('menu-list');
       if (menuList.classList.contains('show')) {
@@ -174,72 +175,78 @@ $(document).ready(function(){
     });
     
     // 스위치 버튼 초기 상태 설정
+    
     var toggleSwitch = document.querySelector('.toggleSwitch');
-    if (toggleSwitch.classList.contains('active')) {
-      toggleSwitch.nextSibling.textContent = "ON";
-    } else {
-      toggleSwitch.nextSibling.textContent = "OFF";
-    }
-    
-    // 스위치 버튼 클릭 이벤트 처리
-    toggleSwitch.onclick = function() {
-      toggleSwitch.classList.toggle('active');
-      
-      // 스위치 버튼이 클릭될 때마다 자동완성 기능 활성화/비활성화
-      if (toggleSwitch.classList.contains('active')) {
-        $("#allkeyword").on("input", function(){
-          var allkeyword= $("#allkeyword").val();
-            
-          if(allkeyword!=""){
-            $.ajax({
-              type: "get",
-              dataType: "json",
-              url: "../search/wordSearchShow",
-              data:{"allkeyword":allkeyword},
-              success:function(res){
-                var s= "";
-                
-                $.each(res, function(i, ele) {
-                  var regex = new RegExp(allkeyword, "ig"); // 대소문자 구분 없이 일치하는 문자열 찾기 위해 "ig" 플래그 사용
-                  var matches = ele.p_title.match(regex); // 일치하는 문자열 찾기
-                  var title = ele.p_title;
-                  if (matches) {
-                    // 일치하는 문자열이 있을 경우 해당 부분에 스타일 적용
-                    for (var j = 0; j < matches.length; j++) {
-                      title = title.replace(matches[j], '<span style="font-weight:bold; color:green;">' 
-                      + matches[j] + '</span>');
+    var toggleButton = document.querySelector('.toggleButton');
+    toggleSwitch.classList.add('active'); // 토글 스위치를 활성화 상태로 설정
+    toggleButton.classList.add('active'); // 토글 버튼을 활성화 상태로 설정
+ 
+    // 자동완성 기능 활성화 함수
+    function activateAutocomplete() {
+        $("#allkeyword").on("input", function() {
+            var allkeyword = $("#allkeyword").val();
+
+            if (allkeyword !== "") {
+                $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    url: "../search/wordSearchShow",
+                    data: {"allkeyword": allkeyword},
+                    success: function(res) {
+                        var s = "";
+
+                        $.each(res, function(i, ele) {
+                            var regex = new RegExp(allkeyword, "ig"); // 대소문자 구분 없이 일치하는 문자열 찾기 위해 "ig" 플래그 사용
+                            var matches = ele.p_title.match(regex); // 일치하는 문자열 찾기
+                            var title = ele.p_title;
+                            if (matches) {
+                                // 일치하는 문자열이 있을 경우 해당 부분에 스타일 적용
+                                for (var j = 0; j < matches.length; j++) {
+                                    title = title.replace(matches[j], '<span style="font-weight:bold; color:green;">' + matches[j] + '</span>');
+                                }
+                            }
+                            s += "<a href='../search/allsearchlist?allkeyword=" + ele.p_title + "'>" + title + "</a><br>";
+                        });
+
+                        if (s !== "") {
+                            $("#displayList").show();
+                        } else {
+                            $("#displayList").hide();
+                        }
+
+                        $("#displayList").html(s);
                     }
-                  }
-                  s += "<a href='../search/allsearchlist?allkeyword=" + ele.p_title + "'>" + title + "</a><br>";
+
                 });
-                
-                if(s!=""){
-                  $("#displayList").show();
-                } else {
-                  $("#displayList").hide();
-                }
-                
-                $("#displayList").html(s);
-              }
-              
-            }); 
-          } else {
-            $("#displayList").hide();
-          }  
+            } else {
+                $("#displayList").hide();
+            }
         });
-        
-        // 스위치 버튼이 on일 때
-        toggleSwitch.nextSibling.textContent = "ON";
-  
-      } else {
-        $("#allkeyword").off("input");
-        $("#displayList").hide();
-        
-        // 스위치 버튼이 off일 때
-        toggleSwitch.nextSibling.textContent = "OFF";
-      }
-    };
-    
+    }
+		    // 페이지가 로드될 때 자동완성 기능 활성화
+		    activateAutocomplete();
+
+			 // 스위치 버튼 클릭 이벤트 처리
+	   		toggleSwitch.onclick = function() {
+	        toggleSwitch.classList.toggle('active');
+	        toggleButton.classList.toggle('active');
+	
+	        // 스위치 버튼이 클릭될 때마다 자동완성 기능 활성화/비활성화
+	        if (toggleSwitch.classList.contains('active')) {
+	            activateAutocomplete();
+	
+	            // 스위치 버튼이 on일 때
+	            toggleSwitch.nextSibling.textContent = "ON";
+	        } else {
+	            $("#allkeyword").off("input");
+	            $("#displayList").hide();
+	
+	            // 스위치 버튼이 off일 때
+	            toggleSwitch.nextSibling.textContent = "OFF";
+	        }
+	    };
+
+
     // 페이지가 로드될 때 displayList를 숨깁니다.
     $("#displayList").hide();
 });
@@ -269,7 +276,7 @@ $(document).ready(function(){
 			<li>
 			<div style="float:left;  margin-top:-6px; margin-left: -100px; width:100%; height: 30px; padding:4px; border-radius: 10px; position: absolute;">
 			<span style="float:left; margin-left:-42px; width:80%;">자동검색 끄기/켜기</span>
-			<label for="toggle" class="toggleSwitch" style=" width:10%; float: right;  margin: 0 auto;"> 
+			<label for="toggle" class="toggleSwitch active" style=" width:10%; float: right;  margin: 0 auto;"> 
 				<span class="toggleButton" style="font-size:larger;"></span>
 			</label>
 			</div>

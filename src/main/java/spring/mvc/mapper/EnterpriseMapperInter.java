@@ -1,5 +1,6 @@
 package spring.mvc.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,11 +11,12 @@ import org.apache.ibatis.annotations.Select;
 
 import spring.mvc.dto.ApplicantDto;
 import spring.mvc.dto.EnterpriseDto;
+import spring.mvc.dto.UserDto;
 
 @Mapper
 public interface EnterpriseMapperInter {
-	public EnterpriseDto findEnterByNum(String e_num);
 	
+	public EnterpriseDto findEnterByNum(String e_num);
 	public int EnterIdPassCheck(Map<String, String> map);
 	public EnterpriseDto findEnterById(String e_id);
 	public void joinEnterprise(EnterpriseDto dto);
@@ -47,5 +49,10 @@ public interface EnterpriseMapperInter {
 	public List<Map<String, Object>> searchAllUserResume(Map<String, Object> map);
 	public int getTotalCountOfResumeSearch(Map<String, Object> map);
 
+	//기업회원관리
+	public int getTotalCount();
+	public List<EnterpriseDto> getAllEnters(HashMap<String, Object> map);
+	public void deleteEnter(String e_num);
+	public UserDto getDataByNum(String e_num);
 }
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import spring.mvc.dto.ApplicantDto;
 import spring.mvc.dto.EnterpriseDto;
+import spring.mvc.dto.UserDto;
 import spring.mvc.mapper.EnterpriseMapperInter;
 
 @Service
@@ -121,4 +122,33 @@ public class EnterpriseService {
 		return mapper.getTotalCountOfResumeSearch(map);
 	}
 
+	
+
+	//기업회원관리
+	
+	public int getTotalCount() {
+		// TODO Auto-generated method stub
+		return mapper.getTotalCount();
+	}
+	
+	
+	public List<EnterpriseDto> getAllEnters(int start, int perpage) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> map= new HashMap<>();
+		map.put("start", start);
+		map.put("perpage", perpage);
+
+		return mapper.getAllEnters(map);
+	}	
+	
+	public void deleteEnter(String e_num) {
+		
+		mapper.deleteEnter(e_num);
+	}
+	
+	public UserDto getDataByNum(String e_num) {
+		
+		return mapper.getDataByNum(e_num);
+		
+	}
 }

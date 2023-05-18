@@ -209,10 +209,9 @@ $(function(){
 			url: "commentinsert",
 			data: {"q_num": num, "qc_num":"0","qc_content": qc_content},
 			success: function(){
-				//alert("인서트 성공");
 				$("#qc_content").val("");
-					list();
-					 location.reload();
+				location.reload();
+				list();
 			}
 		});  
 		
@@ -223,15 +222,6 @@ $(function(){
 		}
 		
 	});
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 	//수정창 띄우기
@@ -444,9 +434,21 @@ function list() {
 		
 		<tr>
 			<td style="margin: 10%; width:80%; display:flex; justify-content:space-between; text-align:center;">
+				
+				
+				<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
 				<button type="button" class="btn btn-default"
 					onclick="location.href='adminqnalist?currentPage=${currentPage}'"
 					style="margin: 0 auto; width: 30%;">목록</button>
+				</c:if>
+				
+				
+				<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId!='admin'}">
+				<button type="button" class="btn btn-default"
+					onclick="location.href='qnawriteform?currentPage=${currentPage}'"
+					style="margin: 0 auto; width: 30%;">목록</button>
+				</c:if>
+				
 			</td>
 		</tr>
 	

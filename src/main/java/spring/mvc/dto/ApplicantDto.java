@@ -23,5 +23,10 @@ public class ApplicantDto {
 	public void setPosting(PostingDto posting) {
 	    this.posting = posting;
 	}
+	
+	
+	private String p_title;
+	private int p_pay;
+	private String p_addr;
 }
 

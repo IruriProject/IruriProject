@@ -192,6 +192,15 @@
 </style>
 
 <script type="text/javascript">
+
+
+function confirmDelete(b_num, currentPage) {
+	  if (confirm("정말로 삭제하시겠습니까?")) {
+	    location.href="delete?b_num=${bdto.b_num}&currentPage=${currentPage }";
+	  }
+	}
+
+
 $(function(){
 	
 	//num값은 전역변수로 선언..
@@ -385,6 +394,16 @@ function list() {
                     s += "</div></div>";
                 }
                 
+                else if (loginok !='' && myid == 'admin') {
+                    s += "<div class='dropdown' style='float:right;'>";
+                    s += "<span class='glyphicon glyphicon-option-vertical' style='color: gray; font-size: 17px;'></span>";
+                    s += "<div class='dropdown-content'>";
+                    s += "<button type='button' style='text-align:center;' id='commentdeletebtn'>삭제</button>";
+                    s += "<button type='button' style='text-align:center;' id='btncomment'>댓글</button>";
+                    s += "</div></div>";
+                }
+                
+                
                 else if (loginok !='' && myid != dto.bc_loginid) {
                     s += "<div class='dropdown' style='float:right;'>";
                     s += "<span class='glyphicon glyphicon-option-vertical' style='color: gray; font-size: 17px;'></span>";
@@ -445,15 +464,24 @@ function list() {
 		<tr>
 		<td style="display: flex; height: 90px; justify-content: space-between; align-items: center;">
     <h2 style="margin: 0; font-weight: bold;">${bdto.b_title}</h2>
-    <c:if test="${sessionScope.loginStatus!=null}">
+   <c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId!='admin'}">
         <div class="dropdown">
             <span class="glyphicon glyphicon-option-vertical" style="color: gray; font-size: 17px;"></span>
             <div class="dropdown-content">
                 <button type="button" style="text-align:center;" onclick="location.href='form'">글쓰기</button>
                 <c:if test="${sessionScope.loginId==bdto.b_loginid}">
                     <button type="button" style="text-align:center;" onclick="location.href='updateform?b_num=${bdto.b_num}&currentPage=${currentPage }'">수정</button>
-                    <button type="button" style="text-align:center;" onclick="location.href='delete?b_num=${bdto.b_num}&currentPage=${currentPage }'">삭제</button>
+                    <button type="button" style="text-align:center;" onclick="confirmDelete('${bdto.b_num}', '${currentPage}')">삭제</button>
                 </c:if>
+            </div>
+        </div>
+    </c:if>
+    
+      <c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
+        <div class="dropdown">
+            <span class="glyphicon glyphicon-option-vertical" style="color: gray; font-size: 17px;"></span>
+            <div class="dropdown-content">
+                    <button type="button" style="text-align:center;" onclick="confirmDelete('${bdto.b_num}', '${currentPage}')">삭제</button> 
             </div>
         </div>
     </c:if>
@@ -473,7 +501,7 @@ function list() {
 					<i class="glyphicon glyphicon-comment"></i> <span class="acount" style="color:gray;"></span>
 			</span> <span
 				style="color: gray; float: right; font-size: 14px; padding: 10px;">
-					<i class="	glyphicon glyphicon-eye-open"></i> ${bdto.b_readcount }
+					<i class="glyphicon glyphicon-eye-open"></i> ${bdto.b_readcount }
 			</span> <br>
 				<hr>
 				</td>
@@ -541,8 +569,13 @@ function list() {
 		
 		<tr>
 			<td style="margin: 10%; width:80%; display:flex; justify-content:space-between; text-align:center;">
-				<button type="button" class="formbold-before-btn">이전게시물</button>
-				<button type="button" class="formbold-next-btn" >다음게시물</button>
+			<c:if test="${prevNum != 0 }">
+				<button type="button" class="formbold-before-btn" onclick="location.href='detailboard?b_num=${prevNum }&currentPage=${currentPage}'">이전게시물</button>
+			</c:if>	
+			
+			<c:if test="${nextNum != 0 }">
+				<button type="button" class="formbold-next-btn" onclick="location.href='detailboard?b_num=${nextNum }&currentPage=${currentPage}'">다음게시물</button>
+			</c:if>
 			</td>
 		</tr>
 

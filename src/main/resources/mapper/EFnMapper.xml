@@ -3,17 +3,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="spring.mvc.mapper.EFnMapperInter">
-
-	<!--인기있는 포스팅4개 -->
-	<select id="bestPosting" resultType="adto">
-	select * from APPLICIANT order by p_num desc limit 4;
-	</select>
 	
-	<!--최근업로드된 포스팅4개 -->
+	<!--인기업로드 포스팅4개 -->
+<!-- 	<select id="bestPosting" resultType="adto">
+		select * from (
+	    select APPLICANT.p_num, count(*) AS num_count from APPLICANT
+	    inner join POSTING on APPLICANT.p_num = POSTING.p_num
+	  	group by APPLICANT.p_num order by num_count DESC
+	    limit 4 ) as subquery
+	    inner join POSTING on subquery.p_num = POSTING.p_num;
+	</select> -->
+	
+	
+	<select id="bestPosting" resultType="adto">
+	  SELECT *
+	  FROM (
+	    SELECT APPLICANT.p_num, COUNT(*) AS num_count
+	    FROM APPLICANT
+	    INNER JOIN POSTING ON APPLICANT.p_num = POSTING.p_num
+	    GROUP BY APPLICANT.p_num
+	    ORDER BY num_count DESC
+	    LIMIT 4
+	  ) AS subquery
+	  INNER JOIN POSTING ON subquery.p_num = POSTING.p_num
+	  INNER JOIN ENTERPRISE ON POSTING.e_num = ENTERPRISE.e_num;
+</select>
+	
+	
+	
+	<!--최근업로드 포스팅8개 -->
 	<select id="recentPosting" resultType="pdto">
-		select * from POSTING order by p_writeday desc limit 4;
+		select * from POSTING order by p_writeday desc limit 8;
 	</select>
-
+		
+	
 	<!-- 디테일페이지 출력용(enter 조인) -->
 	<select id="getPosting" parameterType="String" resultType="Map">
 		select POSTING.*, ENTERPRISE.* from POSTING inner join ENTERPRISE on POSTING.e_num = ENTERPRISE.e_num where POSTING.p_num = #{p_num}
@@ -31,10 +54,9 @@
 	
 	<!-- 공고별 스크랩한 유저 -->
 	<select id="scrapUserByPosting" parameterType="Map" resultType="Map">
-		SELECT POSTING.*, SCRAP.*, USER.*, RESUME.* FROM SCRAP
+		SELECT POSTING.*, SCRAP.*, USER.* FROM SCRAP
 		JOIN USER ON SCRAP.u_num = USER.u_num
 		JOIN POSTING ON SCRAP.p_num = POSTING.p_num
-		left join RESUME on SCRAP.u_num = RESUME.u_num and RESUME.r_presume = 1
 		WHERE SCRAP.p_num = #{p_num}
 		order by s_num desc limit #{start},#{perpage}
 	</select>
@@ -46,10 +68,9 @@
 	
 	<!-- 공고별 열람한 유저 -->
 	<select id="viewerUserByPosting" parameterType="Map" resultType="Map">
-		SELECT POSTING.*, VIEWER.*, USER.*, RESUME.* FROM VIEWER
+		SELECT POSTING.*, VIEWER.*, USER.* FROM VIEWER
 		JOIN USER ON VIEWER.u_num = USER.u_num
 		JOIN POSTING ON VIEWER.p_num = POSTING.p_num
-		left join RESUME on VIEWER.u_num = RESUME.u_num and RESUME.r_presume = 1
 		WHERE VIEWER.p_num = #{p_num}
 		order by v_num desc limit #{start},#{perpage}
 	</select>
@@ -178,6 +199,7 @@
 	<!-- 지역별 검색 -->
 	<select id="getAddrPostings" parameterType="Map" resultType="pdto">
 	select * from POSTING where p_addr like CONCAT('%', #{p_addr}, '%')
+    	and p_employtype=#{employtype}
 	order by p_num desc
 	</select>
 	
@@ -209,20 +231,14 @@
 		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num} order by m_num desc limit 0,3
 	</select>
 	
-	<!-- 기업별 쪽지 페이징 검색 이력서 확인 추가 -->	
+	<!-- 기업별 쪽지 페이징 검색 추가 -->
 	<select id="getAllMessageWithPagingSearch" parameterType="Map" resultType="Map">
-		  select MESSAGE.*, USER.*, RESUME.*
-		  from MESSAGE
-		  inner join USER on MESSAGE.u_num = USER.u_num
-		  left join RESUME on MESSAGE.u_num = RESUME.u_num and RESUME.r_presume = 1
-		  where MESSAGE.e_num = #{e_num}
-		  <if test="searchcolumn != null and searchword != null">
-		    and ${searchcolumn} like concat('%', #{searchword}, '%')
-		  </if>
-		  order by MESSAGE.m_num desc
-		  limit #{start}, #{perpage}
+		select MESSAGE.*, USER.* from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num}
+		<if test="searchcolumn!=null and searchword!=null">
+			 and ${searchcolumn} like concat('%',#{searchword},'%')
+		</if>
+		order by m_num desc limit #{start},#{perpage}
 	</select>
-	
 	
 	<select id="getMessageSearchCountWithPagingSearch" parameterType="Map" resultType="int">
 		select count(*) from MESSAGE inner join USER on MESSAGE.u_num = USER.u_num where e_num=#{e_num}

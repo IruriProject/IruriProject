@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import spring.mvc.dto.BCommentDto;
 import spring.mvc.dto.BoardDto;
+import spring.mvc.dto.PostingDto;
 import spring.mvc.mapper.BoardMapperInter;
 
 @Service
@@ -18,6 +19,23 @@ public class BoardService {
 	@Autowired
 	BoardMapperInter mapperInter;
 	
+	//출력
+	public List<BoardDto> recentBoard(){
+		return mapperInter.recentBoard();
+		
+	}
+	
+	
+	//pre,next
+	public Integer getPrevNum(String b_num) {
+	    Integer prevNum = mapperInter.getPrevNum(b_num);
+	    return prevNum != null ? prevNum : 0;
+	}
+
+	public Integer getNextNum(String b_num) {
+	    Integer nextNum = mapperInter.getNextNum(b_num);
+	    return nextNum != null ? nextNum : 0;
+	}
 	
 	public int getTotalCount(String keyword) {
 		// TODO Auto-generated method stub
@@ -47,7 +65,16 @@ public class BoardService {
 	}
 
 
-	public List<BoardDto> getList(String sort, String keyword, int start, int perpage) {
+	//추가
+	public List<BoardDto> getNoticeList(String keyword, int start, int perPage) {
+	    HashMap<String, Object> map = new HashMap<>();
+	    map.put("keyword", keyword);
+	    map.put("start", start);
+	    map.put("perPage", perPage);
+	    return mapperInter.getNoticeList(map);
+	}
+	
+	public List<BoardDto> getList(String sort, String keyword, int start, int perpage,boolean noticeFirst) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> map= new HashMap<>();
 		map.put("sort", sort);

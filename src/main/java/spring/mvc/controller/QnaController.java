@@ -24,6 +24,7 @@ import spring.mvc.dto.BCommentDto;
 import spring.mvc.dto.BoardDto;
 import spring.mvc.dto.QCommentDto;
 import spring.mvc.dto.QnaDto;
+import spring.mvc.mail.MailSender;
 import spring.mvc.mapper.QnaMapperInter;
 import spring.mvc.service.QnaService;
 import spring.mvc.service.UserService;
@@ -55,7 +56,7 @@ public class QnaController {
 		//String usernum = uservice.findUserdataById(myid).getU_num();
 
 		qdto.setQ_loginid(myid);
-		
+	
 		String path= session.getServletContext().getRealPath("/photo");
 
 		//System.out.println(path);
@@ -286,7 +287,10 @@ public class QnaController {
 			HttpSession session, Model model)
 	{		
 		String qnum= qc_dto.getQ_num(); 
-		
+		//String email = qservice.getData(qnum).getQ_email();
+		String email="jungb1203@naver.com";
+		String id= qservice.getData(qnum).getQ_loginid();
+		MailSender.mailSend(email,id);
 		int qnaCount= qservice.countqnum(qnum);
 		
 		model.addAttribute("qnaCount", qnaCount);
@@ -340,6 +344,21 @@ public class QnaController {
 		return "redirect:detailqna";
 	}
 
+	
+	/*
+	 * @GetMapping("/qna/completeMailSender")
+	 * 
+	 * @ResponseBody //ajax로 유저의 이메일이 존재하는지 값을 보내야 했기 때문에 사용했다 public int
+	 * completeMailSender(@RequestParam String email) { //System.out.println(email);
+	 * //유저가 입력한 이메일이 DB에 존재하는지 확인 //int checkEmail=service.isUserEmail(email);
+	 * 
+	 * int checkEmail=qservice.getDat //System.out.println(checkEmail);
+	 * if(checkEmail==1) { //만약 존재하면 MailSender.mailSend(email); //유저가 입력한 이메일로 임시
+	 * 비밀번호를 보낸다 //String randompass=MailSender.getRandompass(); //생성된 임시 비밀번호를 가져온다
+	 * //System.out.println(randompass);
+	 * //service.updateTemporarilyPass(randompass,email); //임시 비밀번호를 db에 업데이트 시켜준다.
+	 * } return checkEmail; }
+	 */
 	
 	
 	

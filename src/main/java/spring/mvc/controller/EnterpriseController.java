@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.PostingDto;
+import spring.mvc.dto.UserDto;
 import spring.mvc.service.EFnService;
 import spring.mvc.service.EnterpriseService;
 import spring.mvc.service.UFnService;
@@ -446,6 +447,7 @@ public class EnterpriseController {
 		return mview;
 	}
 
+
 	 // 사진등록
 	   @PostMapping("/updatelogo")
 	   @ResponseBody
@@ -521,5 +523,6 @@ public class EnterpriseController {
 		model.setViewName("/enterprise/findWorker");
 		return model;
 	}
+
 
 }

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.mvc.dto.ApplicantDto;
+import spring.mvc.dto.BoardDto;
 import spring.mvc.dto.PostingDto;
+import spring.mvc.service.BoardService;
 import spring.mvc.service.EFnService;
 import spring.mvc.service.TestService;
 
@@ -26,14 +28,28 @@ public class TestController {
 	@Autowired
 	EFnService eservice;
 	
+	@Autowired
+	BoardService bservice;
+	
 	@GetMapping("/")
-	public String start(Model model) {
+	public String start(@RequestParam (value="currentPage", defaultValue = "1")int currentPage,Model model) {
 		
 		 List<PostingDto> recentPostings = eservice.recentPosting();
+		 List<ApplicantDto> bestPostings = eservice.bestPosting();
+		 List<BoardDto> recentboards = bservice.recentBoard();
 		
+		   for (BoardDto board : recentboards) {
+		        String bNum = board.getB_num();
+		        int commentCount = bservice.getAllComments(bNum).size();
+		        board.setB_acount(commentCount);
+		    }
+		   
 		 
 	     model.addAttribute("recentPostings", recentPostings);
-
+	     model.addAttribute("bestPostings", bestPostings);
+	     model.addAttribute("recentboards", recentboards);
+	     model.addAttribute("currentPage",currentPage);
+	
 		
 		return "/layout/main";
 	}

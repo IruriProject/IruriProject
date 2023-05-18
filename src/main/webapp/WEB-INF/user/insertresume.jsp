@@ -30,6 +30,7 @@
    border: 0;
    float: left;
 }
+
 td {
    font-size: 1.2em;
 }

@@ -197,8 +197,10 @@
 			<a href="/qna/adminqnalist"  class="mainMenu">관리자일대일</a>
 			</c:if>
 				<ul class="subMenu">
-					
-					<li><a href="hi">sub메뉴</a></li>
+						<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
+						<li><a href="/member/usermemberlist">일반회원관리</a></li>
+						<li><a href="/member/entermemberlist">기업회원관리</a></li>
+						</c:if>
 					<li><a href="hi">sub메뉴</a></li>
 					<li><a href="hi">sub메뉴</a></li>
 					<li><a href="hi">sub메뉴</a></li>

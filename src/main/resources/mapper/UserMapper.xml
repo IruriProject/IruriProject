@@ -4,6 +4,24 @@
 
 <mapper namespace="spring.mvc.mapper.UserMapperInter">
 
+	<!--전체회원 -->
+	<select id="getAllUsers" parameterType="HashMap" resultType="udto">
+		select * from USER order by u_num desc limit #{start},#{perpage}
+	</select>
+		
+	<!--회원삭제 -->
+	<delete id="deleteUser" parameterType="String">
+		delete from USER where u_num=#{u_num}
+	</delete>
+	
+	<select id="getDataByNum" parameterType="String" resultType="udto">
+		select * from USER where u_num=#{u_num}
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*) from USER	
+	</select>
+		
 	<!-- 로그인 -->
 	<select id="userIdPassCheck" parameterType="Map" resultType="int">
 	select count(*) from USER where u_id=#{u_id} and u_pw=#{u_pw}
