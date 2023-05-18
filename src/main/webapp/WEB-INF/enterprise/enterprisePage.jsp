@@ -236,8 +236,14 @@
 								<tr>
 									<td style="text-align: left" class="title">
 										<a class="atag" href="posting/detailpage?p_num=${post.p_num }">&nbsp;&nbsp;
-											<b class="titlestatus">${post.p_title }</b>
-											<span class="titlestatusSpan" style="color: red; margin-left: 10px; font-size: 0.8em; display: none;">마감</span>
+											<c:if test="${post.p_status=='지원가능' }">
+												<b class="titlestatus">${post.p_title }</b>
+												<span class="titlestatusSpan" style="color: red; margin-left: 10px; font-size: 0.8em; display: none;">마감</span>
+											</c:if>
+											<c:if test="${post.p_status=='지원마감' }">
+												<b class="titlestatus" style="text-decoration: line-through red">${post.p_title }</b>
+												<span class="titlestatusSpan" style="color: red; margin-left: 10px; font-size: 0.8em;">마감</span>
+											</c:if>
 										</a>&nbsp;&nbsp;
 											<span class="counting viewer" p_num=${post.p_num } title="열람한 인재목록 보기" onclick="location.href='/enterprise/viewerlist?p_num=${post.p_num}'"></span>
 											<span class="counting">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
