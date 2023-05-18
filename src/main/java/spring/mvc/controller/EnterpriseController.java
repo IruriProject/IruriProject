@@ -440,4 +440,17 @@ public class EnterpriseController {
 		mview.setViewName("/enterprise/heartList");
 		return mview;
 	}
+	
+	@GetMapping("/findworker")
+	public ModelAndView findWorker(HttpSession session) {
+		
+		ModelAndView mview=new ModelAndView();
+		String loginId=(String)session.getAttribute("loginId");
+		EnterpriseDto dto=service.findEnterdataById(loginId);
+		
+		mview.addObject("dto", dto);
+		
+		mview.setViewName("/enterprise/findWorker");
+		return mview;
+	}
 }

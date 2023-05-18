@@ -257,7 +257,7 @@
 					<h4 class="mb-5 link" onclick="location.href='/enterprise/applicant'"><b>${applicant_size }명의 지원자 보러가기</b></h4>
 				</div>
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h4 class="mb-5 link" onclick="location.href='/enterprise/applicant'"><b>더 많은 지원자 찾기</b></h4>
+					<h4 class="mb-5 link" onclick="findWorkers(${dto.e_res_access})"><b>더 많은 지원자 찾기</b></h4>
 				</div>
 				
 			</div>
@@ -265,10 +265,10 @@
 		
 		<!-- Recent Sales End -->
 		<br>
-		<button type="button" style="width: 100%; height: 50px;" onclick="location.href='/enterprise/applyaccess'">열람권신청</button>
-		<br>
-		<br>
 		<button type="button" style="width: 100%; height: 50px;" onclick="location.href='enterprise/certificate'">기업인증</button>
+		<br>
+		<br>
+		<button type="button" style="width: 100%; height: 50px;" onclick="applyAccess(${dto.e_auth})">열람권신청</button>
 		<br>
 		<br>
 		<button type="button" style="width: 100%; height: 50px;"
@@ -277,6 +277,35 @@
 	</div>
 	<!-- Content End -->
 	</div>
+	
+	<script type="text/javascript">
+	
+		function applyAccess(auth){
+			if (auth==0){
+				const a=confirm("기업인증을 하셔야 열람권을 신청하실 수 있습니다.\n인증신청 페이지로 이동하시겠습니까?");
+				
+				if(a){
+					location.href='enterprise/certificate';
+				}else{
+					return;
+				}
+			} else {
+				location.href='/enterprise/applyaccess';
+			}
+		}
+		
+		function findWorkers(access){
+			
+			if(access==0){
+				alert("하단의 열람권을 신청해주세요.")
+				return;
+			}else{
+				location.href='/enterprise/findworker';
+			}
+		}
+	
+	
+	</script>
 
 	<!-- JavaScript Libraries -->
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

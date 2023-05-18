@@ -24,6 +24,11 @@
 	insert into ENTERPRISE values(null,#{e_id},#{e_pw},#{e_name},#{e_registnum},null,#{e_tel},#{e_addr},#{e_email},0,0)
 	</insert>
 	
+	<!-- id중복체크 -->
+	<select id="getSearchEnterId" parameterType="String" resultType="int">
+	select count(*) from ENTERPRISE where e_id=#{e_id}
+	</select>
+	
 	<!-- 기업탈퇴 -->
 	<delete id="withdrawEnterprise" parameterType="Map">
 		delete from ENTERPRISE where e_num=#{e_num} and e_pw=#{e_pw}
@@ -79,6 +84,13 @@
     JOIN POSTING AS p ON a.p_num = p.p_num
     JOIN ENTERPRISE AS e ON p.e_num = e.e_num
     WHERE e.e_num = #{e_num};
+	</select>
+	
+	<!-- 인재검색 -->
+	<select id="searchAllUserResume" parameterType="Map" resultType="Map">
+	select r.*,u.* from USER u join RESUME r on u.u_num=r.u_num
+	<if test="searchcolumn!=null">where ${searchcolumn} like #{searchword}</if>
+	 limit #{start}, #{perpage}
 	</select>
 	
 </mapper>
