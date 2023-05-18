@@ -446,7 +446,6 @@
 
 	$("#btnjoin").click(function(){
 		
-		alert($("#emailcheck").attr("chk"));
 		//아이디 중복확인 버튼 클릭 여부 확인
 		if(document.joinform.isDuplication.value!='isChecked'){
 			alert("아이디 중복확인을 해주세요");
