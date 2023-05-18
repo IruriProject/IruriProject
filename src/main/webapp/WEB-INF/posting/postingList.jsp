@@ -75,7 +75,12 @@
 			<c:set value="${no-1 }" var="no"/>
 			<td style="text-align: left">
 				<a class="atag" href="/posting/detailpage?p_num=${dto.p_num }&currentPage=${currentPage}">&nbsp;&nbsp;
-					<b>${dto.p_title }</b>
+					<c:if test="${dto.p_status=='지원가능' }">
+						<b>${dto.p_title }</b>
+					</c:if>
+					<c:if test="${dto.p_status=='지원마감' }">
+						<b style="color: gray; text-decoration: line-through;">${dto.p_title }</b><span style="color: red; margin-left: 10px; font-size: 0.8em;">마감</span>
+					</c:if>
 				</a>&nbsp;&nbsp;
 				
 				<span class="counting viewer" p_num=${dto.p_num } title="열람한 인재목록 보기" onclick="location.href='/enterprise/viewerlist?p_num=${dto.p_num}'"></span>
