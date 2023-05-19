@@ -40,24 +40,17 @@ div {
 <body>
 
 	
-	<c:if test="${countScrapPosting==0 }">
-		<h3 class="alert alert-info">관심 공고가 없습니다</h3>
-	</c:if>
-	<c:if test="${countScrapPosting>0 }">
-		<h3 class="alert alert-info">총 ${countScrapPosting }개의 관심 공고</h3>
-	</c:if>
-	
 		<!-- Recent Sales Start -->
 			<div class="container-fluid pt-4 px-4">
 				<div class="bg-light text-center rounded p-4">
 					<div class="d-flex align-items-center justify-content-between mb-4">
-						<h6 class="mb-0">나의 관심 공고</h6>
 					</div>
 					<div class="table-responsive">
-						<table
-							class="table text-start align-middle table-bordered table-hover mb-0"
-							style="width: 1000px;">
+						
+							<c:if test="${countScrapPosting>0 }">
+							<table class="table" id="basic-list">
 							<thead>
+							<caption>총 ${countScrapPosting }개의 관심 공고</caption>
 								<tr class="text-dark">
 									<th scope="col" style="text-align: center;"><input class="form-check-input"
 										type="checkbox" id="allcheck"></th>
@@ -106,9 +99,19 @@ div {
 								<button id="btnScrapDel">스크랩 해제</button>
 								</td>							
 							</tr>
-							
-							</tbody>
+								</tbody>
 						</table>
+							</c:if>
+							
+							<c:if test="${countScrapPosting==0 }">
+							<tr>
+									<h3>관심 공고가 없습니다. 관심 공고를 추가해보세요! :)</h3>
+							</tr>
+							
+							</c:if>
+							
+							
+						
 					</div>
 				</div>
 			</div>
