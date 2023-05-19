@@ -1589,16 +1589,22 @@ td {
 							<!-- 간편입력시 list와 테이블 나타나게 하여 간편입력 생성 -->
 					<br> <div class="form-inline"><input type="checkbox" name="r_private" class="checkbox">
 					<span>&nbsp;&nbsp;이력서 비공개</span>
-					<span class="textCount" style="float: right">0자 / 1000자</span></div>
+					<span class="textCount" style="float: right">공백포함 총 0자 / 1000자</span><br>
+					<span class="textCount2" style="float: right">공백제외 총 0자 / 1000자</span><br>				
+									
+					</div>
 					<script type="text/javascript">
 					$('#r_content').keyup(function (e) {
 						var content = $(this).val();
+						var characterCount = content.replace(/\s/g, '').length;
 					    
 					    // 글자수 세기
 					    if (content.length == 0 || content == '') {
 					    	$('.textCount').text('0자 / 1000자');
+					    	$('.textCount2').text('0자 / 1000자');
 					    } else {
-					    	$('.textCount').text(content.length + '자 / 1000자');
+					    	$('.textCount').text('공백포함 총 ' + content.length + '자 / 1000자');
+					    	$('.textCount2').text('공백제외 총 ' + characterCount + '자 / 1000자');
 					    }
 					    
 					    // 글자수 제한
