@@ -306,6 +306,7 @@ $(function(){
 			return;
 		}
 		
+		
 		$.ajax({
 			type: "post",
 			dataType: "text",
@@ -366,10 +367,18 @@ function list() {
                 return a.bc_regroup - b.bc_regroup;
             });
 
+            // 미로그인시 표시
+            if (loginok=='') {
+           	s += "<div class='answer' style='text-align:center;'>";
+	            s += "<span style='color:#4E9F3D; font-size:18px;text-align:center;'>로그인 후<br>댓글을 남겨보세요!</span>";
+	            s += "</div><br><hr>";
+           } 	
+            
             $.each(res, function (i, dto) {
             	
             	var indent = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".repeat(dto.bc_relevel);
             	 
+            	
             	if(dto.bc_relevel != 0){
 	                s += "<div class='reply-item' data-bc_num='" + dto.bc_num + "'>";
 	                s += indent+indent;
@@ -418,15 +427,15 @@ function list() {
                 if (dto.bc_relevel != 0) {
                 	var indent = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".repeat(dto.bc_relevel);
                 	
-                    s += "<br><br><span class='content'><p style='padding:0 24px;'>"+indent+indent+ dto.bc_content + "</p></span><br>";
+                    s += "<pre style='border:none; background-color:#fff; margin-bottom:-10px;'><p style='padding:0 16px;'>"+indent+indent+ dto.bc_content + "</p></pre>";
                 } else {
-                    s += "<br><br><span class='content'><p style='padding:0 24px;'>"+indent+indent+ dto.bc_content + "</p></span><br>";
+                    s += "<pre style='border:none; background-color:#fff; margin-bottom:-10px;'><p>"+indent+indent+ dto.bc_content + "</p></pre>";
                 }
               
                 
                 s += "<div class='reply-form' style='width:100%; display:none; margin-top:20px; margin-bottom:80px;'><textarea class='bcontent-commentreply-input reply-content' placeholder='댓글을 입력해주세요'></textarea>";
                 s += "<button type='button' class='formbold-reply-btn comment-answerbtn'>등록</button></div>";
-                s += "</div><hr><br>";
+                s += "</div><hr>";
 
                 // 새로운 댓글 아래에 댓글이 보이도록 처리
                 if (i === res.length - 1) {
@@ -437,19 +446,12 @@ function list() {
                 }
             });
 			    // 등록된 댓글이 없는 경우에 대한 처리
-	            if (res.length === 0) {
+	            if (res.length === 0 && loginok!='') {
 	                s += "<div class='answer' style='text-align:center;'>";
-	                s += "<span style='font-size:18px;text-align:center;'>등록된 댓글이 없습니다.<br>댓글을 남겨보세요!</span>";
+	                s += "<span style=' color:#4E9F3D; font-size:18px;text-align:center;'>등록된 댓글이 없습니다.<br>댓글을 남겨보세요!</span>";
 	                s += "</div><br>";
 	            }
-			 
-	            // 등록된 댓글 있는 경우에 대한 처리
-	            /* if (res.length > 0) {
-	                s += "<div class='answer' style='text-align:center;'>";
-	                s += "<span style='text-align:center;'>로그인 후 <br>댓글을 남겨보세요!</span>";
-	                s += "</div>";
-	            } */
-			 
+			  
 	            console.log(s);	
 			$("div.alist").html(s);
 		}
@@ -465,11 +467,10 @@ function list() {
 		<td style="display: flex; height: 90px; justify-content: space-between; align-items: center;">
     <h2 style="margin: 0; font-weight: bold;">${bdto.b_title}</h2>
    <c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId!='admin'}">
+        <c:if test="${sessionScope.loginId==bdto.b_loginid}">
         <div class="dropdown">
             <span class="glyphicon glyphicon-option-vertical" style="color: gray; font-size: 17px;"></span>
             <div class="dropdown-content">
-                <button type="button" style="text-align:center;" onclick="location.href='form'">글쓰기</button>
-                <c:if test="${sessionScope.loginId==bdto.b_loginid}">
                     <button type="button" style="text-align:center;" onclick="location.href='updateform?b_num=${bdto.b_num}&currentPage=${currentPage }'">수정</button>
                     <button type="button" style="text-align:center;" onclick="confirmDelete('${bdto.b_num}', '${currentPage}')">삭제</button>
                 </c:if>
@@ -534,8 +535,6 @@ function list() {
 		
 		<tr>
 			<td>
-			
-			
 					<input type="hidden" name="b_num" id="b_num" value="${bdto.b_num }"> 
 					<c:if test="${sessionScope.loginStatus!=null }">
 					
@@ -550,38 +549,70 @@ function list() {
 				<hr>
 				</c:if>
 				
-			
 				<!-- 댓글출력 -->
 				<div class="alist">
-				
 				</div>
 				
 			</td>
 		</tr>
 		
-		<tr>
-			<td style="margin: 10%; width:80%; display:flex; justify-content:space-between; text-align:center;">
-				<button type="button" class="btn btn-default"
-					onclick="location.href='boardlist?currentPage=${currentPage}'"
-					style="margin: 0 auto; width: 30%;">목록</button>
-			</td>
-		</tr>
-		
-		<tr>
-			<td style="margin: 10%; width:80%; display:flex; justify-content:space-between; text-align:center;">
-			<c:if test="${prevNum != 0 }">
-				<button type="button" class="formbold-before-btn" onclick="location.href='detailboard?b_num=${prevNum }&currentPage=${currentPage}'">이전게시물</button>
-			</c:if>	
-			
-			<c:if test="${nextNum != 0 }">
-				<button type="button" class="formbold-next-btn" onclick="location.href='detailboard?b_num=${nextNum }&currentPage=${currentPage}'">다음게시물</button>
-			</c:if>
-			</td>
-		</tr>
-
-	
 	</table>
 			
+			
+			
+		<%-- 	<c:if test="${'admin'!=bdto.b_loginid}">
+			<div style="width:60%; height:50px; margin:0 auto; text-align:center; line-height:50px;  border-radius:10px;  border:1px solid gray;">
+				<c:if test="${prevNum == 0 }">
+				이전게시물이 없습니다.
+				</c:if>
+				
+				<c:if test="${prevNum != 0 }">
+				<a href="detailboard?b_num=${prevNum }&currentPage=${currentPage}" style="float:left; padding-left:20px;">이전 ${prevTitle}</a>
+				</c:if>
+				
+				
+				<c:if test="${nextNum != 0 }">
+				<a href="detailboard?b_num=${nextNum }&currentPage=${currentPage}" style="float:right; padding-right:20px;">${nextTitle} 다음</a>
+				</c:if>
+				
+				<c:if test="${nextNum == 0 }">
+				다음게시물이 없습니다.
+				</c:if>
+			</div>
+			</c:if> --%>
+			
+			
+			<c:if test="${'admin'!=bdto.b_loginid}">
+			<br><br><br><br>
+			
+			<div style="width:80%; height:50px; margin:0 auto; text-align:center; line-height:50px;  border-top:1px solid lightgray;  border-bottom:1px solid lightgray;">
+				<c:if test="${prevNum == 0 }">
+				이전게시물이 없습니다.
+				</c:if>
+				
+				<c:if test="${prevNum != 0 }">
+				<a href="detailboard?b_num=${prevNum }&currentPage=${currentPage}" style="float:left; padding-left:20px; color:black; text-decoration:none;">이전글
+				&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-up" style="font-size:8px;"></i>&nbsp;&nbsp;&nbsp;&nbsp;<b>${prevTitle}</b></a>
+				</c:if>
+				
+				</div>
+				<div style="width:80%; height:50px; margin:0 auto; text-align:center; line-height:50px;  border-bottom:1px solid lightgray;">
+				<c:if test="${nextNum != 0 }">
+				<a href="detailboard?b_num=${nextNum }&currentPage=${currentPage}" style="float:left; padding-left:20px; color:black; text-decoration:none;">다음글
+				&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-down" style="font-size:8px;"></i>&nbsp;&nbsp;&nbsp;&nbsp;<b>${nextTitle}</b></a>
+				</c:if>
+				
+				<c:if test="${nextNum == 0 }">
+				다음게시물이 없습니다.
+				</c:if>
+			</div>
+			</c:if>
+			
+			
+			<br><br><br><br>
+			<div style="margin:0 auto;">
+			<button type="button" class="btn btn-default" onclick="location.href='boardlist?currentPage=${currentPage}'" style="margin: 0 auto;">목록</button>
+			</div>
 			
 			
 

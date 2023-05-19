@@ -20,6 +20,9 @@ public interface BoardMapperInter {
 	public Integer getPrevNum(String b_num);
 	public Integer getNextNum(String b_num);
 	
+	public String getPrevTitle(String b_num);
+	public String getNextTitle(String b_num);	
+	
 	//board
 	public int getTotalCount(Map<String, String>map);
 	public void updateReadCount(String b_num);
@@ -32,7 +35,7 @@ public interface BoardMapperInter {
 	public void deleteBoard(String b_num);
 	
 	
-	public List<BoardDto> getNoticeList(HashMap<String, Object> map);
+	public List<BoardDto> getNoticeList(String keyword);
 	
 	
 	//comment

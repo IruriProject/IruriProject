@@ -65,7 +65,7 @@ function updateUrl() {
 				</b>
 			</c:if>
 
-			<div style="width: 12%; float: right;">
+			<div style="width: 12%; line-height:50px; float: right;">
 				<form action="allsearchlist" method="get" class="form-inline">
 					<select class="formbold-form-select" name="sort" id="sort"
 						onchange="updateUrl()">
@@ -73,6 +73,10 @@ function updateUrl() {
 						<option value="p_pay" ${sort=="p_pay"?"selected":""}>급여높은순</option>
 					</select>
 				</form>
+			</div>
+			
+			<div style="width:10%; float:right; line-height:35px; text-align:center;">
+			<button type="button" class="btn btn-default"  style="padding:7px;"onclick="location.href='/search/allsearchlist'">초기화</button>
 			</div>
 		</div>
 

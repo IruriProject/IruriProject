@@ -317,39 +317,39 @@
 						<tr>
 							<td colspan="5" align="center">
 								<h3>
-									<b>최근 작성한 문의 내역이 없습니다.</b>
+									<b>문의내역이 없습니다.</b>
 								</h3>
 							</td>
 						</tr>
 					</c:if>
 
-<c:if test="${totalCount > 0}">
-  <c:forEach var="a" items="${list}">
-    <c:if test="${sessionScope.loginStatus != null and sessionScope.loginId == 'admin'}">
-      <tr>
-        <c:set var="no" value="${no-1}" />
-        <td align="center">${no+1}</td>
-        <td align="center">${a.q_loginid}</td>
-        <td style="width:100%; height:30px; float:left; line-height:30px; color:gray; overflow: hidden;">
-          <a href="detailqna?q_num=${a.q_num}&currentPage=${currentPage}" style="color:#000;">
-            ${a.q_title}
-          </a>
-        </td>
-       <td align="center">
-            <c:if test="${a.qnaCount == 0}">
-                <b style="font-weight:500; color:red;">대기중</b>
-            </c:if>
-            <c:if test="${a.qnaCount != 0}">
-                <b style="font-weight:500; color:green;">답변완료</b>
-            </c:if>
-        </td>
-        <td align="center">
-          <fmt:formatDate value="${a.q_writeday}" pattern="yyyy-MM-dd" />
-        </td>
-      </tr>
-    </c:if>
-  </c:forEach>
-</c:if>
+					<c:if test="${totalCount > 0}">
+					  <c:forEach var="a" items="${list}">
+					    <c:if test="${sessionScope.loginStatus != null and sessionScope.loginId == 'admin'}">
+					      <tr>
+					        <c:set var="no" value="${no-1}" />
+					        <td align="center">${no+1}</td>
+					        <td align="center">${a.q_loginid}</td>
+					        <td style="width:100%; height:30px; float:left; line-height:30px; color:gray; overflow: hidden;">
+					          <a href="detailqna?q_num=${a.q_num}&currentPage=${currentPage}" style="color:#000;">
+					            ${a.q_title}
+					          </a>
+					        </td>
+					       <td align="center">
+					            <c:if test="${a.qnaCount == 0}">
+					                <b style="font-weight:500; color:red;">대기중</b>
+					            </c:if>
+					            <c:if test="${a.qnaCount != 0}">
+					                <b style="font-weight:500; color:green;">답변완료</b>
+					            </c:if>
+					        </td>
+					        <td align="center">
+					          <fmt:formatDate value="${a.q_writeday}" pattern="yyyy-MM-dd" />
+					        </td>
+					      </tr>
+					    </c:if>
+					  </c:forEach>
+					</c:if>
 
 				</table>
 				

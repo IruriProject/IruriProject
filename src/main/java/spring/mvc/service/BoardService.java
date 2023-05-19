@@ -37,6 +37,18 @@ public class BoardService {
 	    return nextNum != null ? nextNum : 0;
 	}
 	
+	
+	public String getPrevTitle(String b_num) {
+		
+		return mapperInter.getPrevTitle(b_num);
+	}
+	
+	public String getNextTitle(String b_num) {
+		
+		return mapperInter.getNextTitle(b_num);
+	}
+
+	
 	public int getTotalCount(String keyword) {
 		// TODO Auto-generated method stub
 		
@@ -66,12 +78,10 @@ public class BoardService {
 
 
 	//추가
-	public List<BoardDto> getNoticeList(String keyword, int start, int perPage) {
-	    HashMap<String, Object> map = new HashMap<>();
-	    map.put("keyword", keyword);
-	    map.put("start", start);
-	    map.put("perPage", perPage);
-	    return mapperInter.getNoticeList(map);
+	public List<BoardDto> getNoticeList(String keyword) {
+	
+
+	    return mapperInter.getNoticeList(keyword);
 	}
 	
 	public List<BoardDto> getList(String sort, String keyword, int start, int perpage,boolean noticeFirst) {

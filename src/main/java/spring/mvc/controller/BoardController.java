@@ -60,6 +60,10 @@ public class BoardController {
 		
 		boolean noticeFirst = true; // 공지사항 우선 여부 설정
 		
+		List<BoardDto> noticeList = new ArrayList<>();
+		noticeList = bservice.getNoticeList(keyword);
+		
+		int noticeCount=noticeList.size();
 		
         int totalCount =bservice.getTotalCount(keyword); //총 글의 개수 //keyword 갯수
         int totalPage; //총 페이지수
@@ -71,7 +75,7 @@ public class BoardController {
        
 
         //총 페이지 갯수     
-        totalPage=totalCount/perPage+(totalCount%perPage==0?0:1);
+        totalPage=(totalCount-noticeCount)/perPage+((totalCount-noticeCount)%perPage==0?0:1);
         //각 블럭의 시작페이지
         startPage=(currentPage-1)/perBlock*perBlock+1;
         endPage=startPage+perBlock-1;
@@ -82,12 +86,13 @@ public class BoardController {
 
         //각 페이지에서 불러올 시작번호
         start=(currentPage-1)*perPage;
-
+    
         
+        //List<BoardDto> noticeList=bservice.getNoticeList(keyword, start, perPage);
         
-        List<BoardDto> noticeList=bservice.getNoticeList(keyword, start, perPage);
         
         //각 페이지에서 필요한 게시글 가져오기
+       
         List<BoardDto> list=bservice.getList(sort,keyword,start, perPage,noticeFirst);
         
         //new표시
@@ -205,6 +210,10 @@ public class BoardController {
 
 		String uploadName="";
 
+	    String b_content = bdto.getB_content().replace("\r\n","<br>");
+	    bdto.setB_content(b_content);
+	    
+	    
 		int idx=1;
 
 		if(upload.get(0).getOriginalFilename().equals("")) 
@@ -243,6 +252,9 @@ public class BoardController {
 		
 		BoardDto bdto= mapper.getData(b_num);
 		
+	    String b_content = bdto.getB_content().replace("<br>","\r\n");
+	    bdto.setB_content(b_content);
+		
 		model.addObject("bdto",bdto);
 		model.setViewName("/board/updateboardform");
 		return model;
@@ -269,6 +281,11 @@ public class BoardController {
 		//System.out.println(path);
 
 		String uploadName="";
+		
+
+	    String b_content = bdto.getB_content().replace("\r\n","<br>");
+	    bdto.setB_content(b_content);
+	    
 
 		int idx=1;
 
@@ -354,7 +371,9 @@ public class BoardController {
 	    int prevNum = bservice.getPrevNum(b_num);
 	    int nextNum = bservice.getNextNum(b_num);
 	    
-		
+	    String prevTitle= bservice.getPrevTitle(b_num);
+	    String nextTitle= bservice.getNextTitle(b_num);
+	    
 		//업로드파일의 확장자
 		int dotLoc =bdto.getB_photo().lastIndexOf('.'); //마지막 .의 위치
 		String ext= bdto.getB_photo().substring(dotLoc+1); //현재위치 다음부터 끝까지 // . 의 다음글자부터 끝까지 추출 (.은 포함되면 안되기때문)
@@ -366,6 +385,8 @@ public class BoardController {
 		else
 			mview.addObject("b_photo", false); // 이미지 인지 아닌지를 보고 출력하기 위해서
 		
+		mview.addObject("prevTitle",prevTitle);
+		mview.addObject("nextTitle",nextTitle);
 		mview.addObject("prevNum",prevNum);
 		mview.addObject("nextNum",nextNum);
 		mview.addObject("bdto",bdto);
@@ -385,8 +406,11 @@ public class BoardController {
 	{
 		//세션에 로그인한 아이디 얻기 
 		String myid=(String)session.getAttribute("loginId");
-
-	
+		/*
+		 * String bc_content = bc_dto.getBc_content().replace("\r\n","<br>");
+		 * bc_dto.setBc_content(bc_content);
+		 */
+	    
 		//dto에 넣기
 		bc_dto.setBc_loginid(myid);
 		
@@ -419,7 +443,11 @@ public class BoardController {
 		//세션에 로그인한 아이디 얻기 
 		String myid=(String)session.getAttribute("loginId");
 
-	
+		/*
+		 * String bc_content = bc_dto.getBc_content().replace("<br>","\r\n");
+		 * bc_dto.setBc_content(bc_content);
+		 */
+		
 		//dto에 넣기
 		bc_dto.setBc_loginid(myid);
 		
@@ -438,6 +466,13 @@ public class BoardController {
 	@GetMapping("/board/answerupdateform")
 	public BCommentDto getComment(String bc_num) //data
 	{
+		
+		BCommentDto bc_dto= mapper.getComment(bc_num);
+		/*
+		 * String bc_content = bc_dto.getBc_content().replace("\r\n","<br>");
+		 * bc_dto.setBc_content(bc_content);
+		 */
+		
 		return bservice.getComment(bc_num);
 	}
 	

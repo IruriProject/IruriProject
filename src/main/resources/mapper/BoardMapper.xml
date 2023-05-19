@@ -4,12 +4,20 @@
 
 <mapper namespace="spring.mvc.mapper.BoardMapperInter">
 
-	<select id="getPrevNum" parameterType="String" resultType="java.lang.Integer">
-	    SELECT b_num FROM BOARD WHERE #{b_num} > b_num ORDER BY b_num DESC LIMIT 1;
+ 	<select id="getPrevNum" parameterType="String" resultType="java.lang.Integer">
+	    SELECT b_num FROM BOARD WHERE #{b_num} > b_num and b_notice=0 ORDER BY b_num DESC LIMIT 1;
 	</select>
 	
 	<select id="getNextNum" parameterType="String"  resultType="java.lang.Integer">
-	    SELECT b_num FROM BOARD WHERE b_num > #{b_num} ORDER BY b_num ASC LIMIT 1;
+	    SELECT b_num FROM BOARD WHERE b_num > #{b_num} and b_notice=0 ORDER BY b_num ASC LIMIT 1;
+	</select>
+	
+	<select id="getPrevTitle" parameterType="String" resultType="String">
+	    SELECT b_title FROM BOARD WHERE #{b_num} > b_num and b_notice=0 ORDER BY b_num DESC LIMIT 1;
+	</select>
+	
+	<select id="getNextTitle" parameterType="String"  resultType="String">
+	    SELECT b_title FROM BOARD WHERE b_num > #{b_num} and b_notice=0 ORDER BY b_num ASC LIMIT 1;
 	</select>
 	
 	<!--최근업로드 게시물3개 -->
@@ -36,74 +44,49 @@
 		select ifnull(max(b_num),0) from BOARD
 	</select>
 	
-<!-- 	<select id="getList" parameterType="HashMap" resultType="bdto">
-		select * from BOARD 
-		 <if test="keyword!=null">
-        where b_title like concat('%',#{keyword},'%') or b_content like concat('%',#{keyword},'%') 
-	    </if>
-	    
-	    <if test="sort=='b_num'">
-	      order by b_num asc
-	    </if>
-	    
-	    <if test="sort=='b_writeday'">
-	        order by b_writeday desc
-	    </if>
-	    <if test="sort=='b_readcount'">
-	        order by b_readcount desc
-	    </if>
-	    limit #{start},#{perpage}
-	</select> -->
+	<select id="getNoticeList" parameterType="String" resultType="bdto">
+	  SELECT * FROM BOARD WHERE b_notice = 1
+	  <if test="keyword != null">
+	    AND (b_title LIKE CONCAT('%', #{keyword}, '%') OR b_content LIKE CONCAT('%', #{keyword}, '%'))
+	  </if>
+	  ORDER BY b_num ASC
+	</select>
 	
-<select id="getNoticeList" parameterType="HashMap" resultType="bdto">
-  SELECT * FROM BOARD WHERE b_notice = 1
-  <if test="keyword != null">
-    AND (b_title LIKE CONCAT('%', #{keyword}, '%') OR b_content LIKE CONCAT('%', #{keyword}, '%'))
-  </if>
-  ORDER BY b_num ASC
-  <if test="start != null and perpage != null">
-    LIMIT #{start}, #{perpage}
-  </if>
-</select>
-
-<select id="getList" parameterType="HashMap" resultType="bdto">
-  SELECT * FROM BOARD WHERE b_notice = 0
-  <if test="keyword != null">
-    AND (b_title LIKE CONCAT('%', #{keyword}, '%') OR b_content LIKE CONCAT('%', #{keyword}, '%'))
-  </if>
-  <if test="sort == 'b_num'">
-    ORDER BY b_num ASC
-  </if>
-  <if test="sort == 'b_writeday'">
-    ORDER BY b_writeday DESC
-  </if>
-  <if test="sort == 'b_readcount'">
-    ORDER BY b_readcount DESC
-  </if>
-  <if test="start != null and perpage != null">
-    LIMIT #{start}, #{perpage}
-  </if>
-</select>
+	
+	<select id="getList" parameterType="HashMap" resultType="bdto">
+	  SELECT * FROM BOARD WHERE b_notice = 0
+	  <if test="keyword != null">
+	    AND (b_title LIKE CONCAT('%', #{keyword}, '%') OR b_content LIKE CONCAT('%', #{keyword}, '%'))
+	  </if>
+	  <if test="sort == 'b_num'">
+	    ORDER BY b_num ASC
+	  </if>
+	  <if test="sort == 'b_writeday'">
+	    ORDER BY b_writeday DESC
+	  </if>
+	  <if test="sort == 'b_readcount'">
+	    ORDER BY b_readcount DESC
+	  </if>
+	  <if test="start != null and perpage != null">
+	    LIMIT #{start}, #{perpage}
+	  </if>
+	</select>
 
 		
 	<select id="getAllphotos"  parameterType="String" resultType="bdto">	
 	select b_photo from BOARD  where b_num=#{b_num} order by b_num
 	</select>
-<!-- 		
-	<insert id="insertBoard" parameterType="bdto">
-	insert into BOARD (b_loginid ,b_title, b_content, b_photo, b_readcount,b_writeday) values(#{b_loginid},#{b_title},#{b_content},#{b_photo},0,now())
-	</insert> -->
 	
 	<insert id="insertBoard" parameterType="bdto">
-  <if test="b_loginid == 'admin'">
-    INSERT INTO BOARD (b_loginid, b_title, b_content, b_photo, b_readcount, b_writeday, b_notice)
-    VALUES (#{b_loginid}, #{b_title}, #{b_content}, #{b_photo}, 0, now(), 1)
-  </if>
-  <if test="b_loginid != 'admin'">
-    INSERT INTO BOARD (b_loginid, b_title, b_content, b_photo, b_readcount, b_writeday, b_notice)
-    VALUES (#{b_loginid}, #{b_title}, #{b_content}, #{b_photo}, 0, now(), 0)
-  </if>
-</insert>
+	  <if test="b_loginid == 'admin'">
+	    INSERT INTO BOARD (b_loginid, b_title, b_content, b_photo, b_readcount, b_writeday, b_notice)
+	    VALUES (#{b_loginid}, #{b_title}, #{b_content}, #{b_photo}, 0, now(), 1)
+	  </if>
+	  <if test="b_loginid != 'admin'">
+	    INSERT INTO BOARD (b_loginid, b_title, b_content, b_photo, b_readcount, b_writeday, b_notice)
+	    VALUES (#{b_loginid}, #{b_title}, #{b_content}, #{b_photo}, 0, now(), 0)
+	  </if>
+	</insert>
 	
 	<update id="updateBoard" parameterType="bdto">
 		update BOARD set b_title=#{b_title}, b_content=#{b_content}
