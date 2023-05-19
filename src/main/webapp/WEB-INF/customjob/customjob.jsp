@@ -282,9 +282,18 @@ body {
 
 	<script type="text/javascript">
 		
+	/* 	$(".chkbox").click(function(){
+			
+			
+			alert("체크됨");
 		
-	
-	
+		});
+		 */
+		 
+		 
+		 if($(".p_type").is(":checked")==true){
+			 alert("체크됨");
+		 }
 	
 	
 	
@@ -295,42 +304,39 @@ body {
 	<div class="formbold-main-wrapper">
 		<div class="">
 			<form method="POST" flag="new" id="frm" onsubmit="return submit();">
-				<input type="hidden" name="u_num" id="u_num" value=${enterNum }
+				<input type="hidden" name="u_num" id="u_num" value=${p_num }
 					class="formbold-form-input" />
-				
-					
-					<div class="formbold-mb-3">
+			<div class="formbold-mb-3">
                <label class="formbold-form-label">직무</label>
                <div style="border: 1px solid #dde3ec; border-radius:5px; padding: 11px; width: 1000px;">
-							<input type="checkbox" name="p_workday" class="chkbox serach" value="건설/건축"> 건설/건축&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_workday" class="chkbox serach" value="공공/복지/봉사/교육"> 공공/복지/봉사/교육&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_workday" class="chkbox serach" value="금융/보험"> 금융/보험&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_workday" class="chkbox serach" value="기술"> 기술&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_workday" class="chkbox serach" value="농업/어업"> 농업/어업&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_workday" class="chkbox serach" value="법무"> 법무&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_workday" class="chkbox serach" value="사무"> 사무&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_workday" class="chkbox serach" value="서비스"> 서비스&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_workday" class="chkbox serach" value="생산/제조"> 생산/제조&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_workday" class="chkbox serach" value="운송"> 운송&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_workday" class="chkbox serach" value="의료"> 의료
-							</div>
+							<input type="checkbox" name="p_type" p_type="p_type" class="chkbox serach" value="건설/건축"> 건설/건축&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" class="chkbox serach" value="공공/복지/봉사/교육"> 공공/복지/봉사/교육&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" class="chkbox serach" value="금융/보험"> 금융/보험&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" class="chkbox serach" value="기술"> 기술&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" class="chkbox serach" value="농업/어업"> 농업/어업&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" class="chkbox serach" value="법무"> 법무&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" class="chkbox serach" value="사무"> 사무&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" class="chkbox serach" value="서비스"> 서비스&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" class="chkbox serach" value="생산/제조"> 생산/제조&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" class="chkbox serach" value="운송"> 운송&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" class="chkbox serach" value="의료"> 의료
+				</div>
             </div>
 
 			</form>
 		</div>
 	</div>
+	
 	<div style="margin: 30px 30px;">
  
- 
-     	<!-- 지역별 필터링 후 테이블 나오는 부분 -->
-     	<div id="addr-box"></div>
+
+  	<!-- 지역별 필터링 후 테이블 나오는 부분 -->
+  	<div id="addr-box"></div>
    	
    	<table class="table" id="basic-list">
    		<caption>
-   		<c:if test="${countLikeEnter>0}">총 ${countLikeEnter }개의 글이 있습니다.</c:if>
-   		<c:if test="${sessionScope.loginStatus=='enterprise' }">
-   		<span style="float: right;"><button type="button"
-   		onclick="location.href='insertForm'">글쓰기</button></span>
+   		<c:if test="${countSearchCustomJob>0}">
+   		총 ${countSearchCustomJob }개의 글이 있습니다.
    		</c:if>
    		</caption>
 
@@ -376,7 +382,15 @@ body {
    		</c:forEach>
 		</c:if>
 		
-		
+
+
+
+
+
+   		<%-- <c:if test="${countSearchCustomJo==0}">
+   		맞춤 일자리가 없습니다.
+   		</c:if>
+		 --%>
 		
    		<%-- <!-- 페이징 처리 -->
    		

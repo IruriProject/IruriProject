@@ -45,58 +45,58 @@ div {
 	
 	
 	
-	<c:if test="${countLikeEnter==0 }">
-		<h3 class="alert alert-info">관심 기업이 없습니다</h3>
-	</c:if>
-	<c:if test="${countLikeEnter>0 }">
-		<h3 class="alert alert-info">총 ${countLikeEnter }개의 관심 기업</h3>
-	</c:if>
+	
 
 	<!-- Recent Sales Start -->
-	<!-- <form action="getEnter" method="get" ></form> -->
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h6 class="mb-0">나의 관심 기업</h6>
 				</div>
 				<div class="table-responsive">
-					<table
-						class="table text-start align-middle table-bordered table-hover mb-0" 
-						style="width: 1000px;">
+				<c:if test="${countLikeEnter>0 }">
+				<table class="table" id="basic-list">
 						<thead>
-							<tr class="text-dark">
-								<th scope="col" style="text-align: center;"><input class="form-check-input"
-									type="checkbox" id="allcheck"></th>
-								<th scope="col" style="text-align: center;">No.</th>
-								<th scope="col" style="text-align: center;">기업명</th>
-								<th scope="col" style="text-align: center;">주소</th>
-								<th scope="col" style="text-align: center;">전화번호</th>
-								<th scope="col" style="text-align: center;">이메일</th>
-								
-							</tr>
+						<caption>총 ${countLikeEnter }개의 관심 기업</caption>
+						<tr class="text-dark">
+							<th scope="col" style="text-align: center;">
+								<input class="form-check-input" type="checkbox" id="allcheck">
+							</th>
+							<th scope="col" style="text-align: center;">No.</th>
+							<th scope="col" style="text-align: center;">기업명</th>
+							<th scope="col" style="text-align: center;">주소</th>
+							<th scope="col" style="text-align: center;">전화번호</th>
+							<th scope="col" style="text-align: center;">이메일</th>
+
+						</tr>
 						</thead>
 						<tbody>
-						<c:forEach var="dto" items="${list }" varStatus="i">
-							<tr>
-								<input type="hidden" class="h_num" value="${dto.h_num }">
-								<td style="text-align: center;"><input class="form-check-input del" type="checkbox"></td>
-								<td style="text-align: center;">${i.count}</td>
-								<td style="text-align: center;"><a href="/enterprise/enterprisepage?e_num=${dto.e_num }">${dto.e_name }</a></td>
-								<td style="text-align: center;">${dto.e_addr }</td>
-								<td style="text-align: center;">${dto.e_tel }</td>
-								<td style="text-align: center;">${dto.e_email }</td> 
-							</tr>
-							
+							<c:forEach var="dto" items="${list }" varStatus="i">
+								<tr>
+									<input type="hidden" class="h_num" value="${dto.h_num }">
+									<td style="text-align: center;"><input class="form-check-input del" type="checkbox"></td>
+									<td style="text-align: center;">${i.count}</td>
+									<td style="text-align: center;"><a href="/enterprise/enterprisepage?e_num=${dto.e_num }">${dto.e_name }</a></td>
+									<td style="text-align: center;">${dto.e_addr }</td>
+									<td style="text-align: center;">${dto.e_tel }</td>
+									<td style="text-align: center;">${dto.e_email }</td>
+								</tr>
+
 							</c:forEach>
-							
+
 							<tr>
-								<td colspan="7" >
-								<button id="btnEnterDel">관심 기업 해제</button>
-								</td>							
+								<td colspan="7">
+									<button id="btnEnterDel">관심 기업 해제</button>
+								</td>
 							</tr>
-							
 						</tbody>
-					</table>
+				</table>
+				</c:if>
+				
+						<c:if test="${countLikeEnter==0 }">
+						<h3>관심 기업이 없습니다. 관심 기업을 추가해보세요! :)</h3>
+						</c:if>
+						
+
 				</div>
 			</div>
 		</div>

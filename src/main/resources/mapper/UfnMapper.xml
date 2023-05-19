@@ -223,12 +223,12 @@
    <!-- 맞춤 일자리 -->   
    <!-- 검색한 공고 수 -->
    <select id="countSearchCustomJob" resultType="int" parameterType="String">
-   	select count(p_num) from POSTING where p_type like concat('%',p_type=#{p_type},'%')
+   	select count(p_num) from POSTING where p_type like concat('%',#{p_type},'%')
    </select>
    
    <!-- 검색한 공고 나오기  -->
    <select id="searchCustomJobList" resultType="pdto" parameterType="String">
-   	select * from POSTING where p_type like concat('%',p_type=#{p_type},'%')
+   	select * from POSTING where p_type like concat('%',#{p_type},'%') 
    </select>
    
    
