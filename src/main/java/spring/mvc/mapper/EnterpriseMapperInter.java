@@ -54,5 +54,7 @@ public interface EnterpriseMapperInter {
 	public List<EnterpriseDto> getAllEnters(HashMap<String, Object> map);
 	public void deleteEnter(String e_num);
 	public UserDto getDataByNum(String e_num);
+	
+	public void updateRegistnum(Map<String, String> map);
 }
 

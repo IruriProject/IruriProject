@@ -151,4 +151,13 @@ public class EnterpriseService {
 		return mapper.getDataByNum(e_num);
 		
 	}
+	
+	public void updateRegistnum(String e_registnum,String e_num) {
+		Map<String, String> map =new HashMap<>();
+		
+		map.put("e_registnum", e_registnum);
+		map.put("e_num", e_num);
+		
+		mapper.updateRegistnum(map);
+	}
 }

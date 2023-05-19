@@ -147,5 +147,9 @@
         </if>
     </if>
 </select>
+
+	<update id="updateRegistnum" parameterType="Map">
+		update ENTERPRISE set e_registnum=#{e_registnum} where e_num=#{e_num}
+	</update>
 	
 </mapper>

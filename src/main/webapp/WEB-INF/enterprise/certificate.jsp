@@ -19,6 +19,8 @@ $(function(){
 	var data = {
 		    "b_no": [replace_num] // 사업자번호 "xxxxxxx" 로 조회 시,
 	}; 
+	
+	$(".update").hide();
 		 
 	$("#certificate").click(function(){
 		if(${dto.e_auth}==1){
@@ -34,7 +36,7 @@ $(function(){
 				  success: function(result) {
 					  console.log(result);
 				      if(result.data[0].tax_type=='국세청에 등록되지 않은 사업자등록번호입니다.'){
-				    	  alert("기업인증에 실패했습니다.");
+				    	  alert("기업인증에 실패했습니다.\n사업자등록번호를 확인해주세요.");
 				      }else{
 				    	  alert("기업인증이 완료되었습니다.");
 				    	  var e_num=${dto.e_num};
@@ -82,7 +84,8 @@ $(function(){
 					<div>
 						<input type="text" style="width: 80%" name="e_registnum" id=e_registnum disabled="disabled" readonly="readonly"
 							value="${dto.e_registnum }" class="formbold-form-input" />
-						<button class='small-btn' type='button' style='height: 45px; vertical-align: middle; text-align: center;'>변경</button>
+						<button class="small-btn" type="button" style="height: 45px; vertical-align: middle; text-align: center;">변경</button>
+						<button class="small-btn update" type="button" style="height: 45px; vertical-align: middle; text-align: center;">변경완료</button>
 					</div>
 				</div>
 
@@ -90,6 +93,34 @@ $(function(){
 
 		</div>
 	</div>
+	<script>
+		$(".small-btn").click(function(){
+			$("#certificate").hide();
+			$("#e_registnum").attr({
+				"disabled":false,
+				"readonly":false
+			})
+			$("#e_registnum").focus();
+			$(this).hide();
+			$(".update").show();
+		})
+		
+		$(".update").click(function(){
+			var uRegistnum=$("#e_registnum").val();
+			
+			$.ajax({
+				type:"post",
+				dataType:"html",
+				data:{"e_registnum":uRegistnum},
+				url:"/enterprise/updateregistnum",
+				success:function(){
+					alert("사업자 등록번호 수정 성공");
+					location.reload();
+				}
+			})
+			
+		})
+	</script>
 	<style>
 @import
 	url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')

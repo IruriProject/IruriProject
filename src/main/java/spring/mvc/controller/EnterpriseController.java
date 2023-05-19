@@ -527,6 +527,18 @@ public class EnterpriseController {
 		model.setViewName("/enterprise/findWorker");
 		return model;
 	}
+	
+	@PostMapping("/updateregistnum")
+	public String updateRegistnum(HttpSession session, @RequestParam String e_registnum) {
+		
+		String loginId=(String)session.getAttribute("loginId");
+		EnterpriseDto dto=service.findEnterdataById(loginId);
+		
+		service.updateRegistnum(e_registnum, dto.getE_num());
+		
+		return "redirect:/enterprise/certificate";
+
+	}
 
 
 }
