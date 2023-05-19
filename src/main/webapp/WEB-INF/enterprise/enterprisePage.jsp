@@ -74,21 +74,26 @@
 
 <body>
 	<div>
-
 		<!-- Content Start -->
 		<div class="container-fluid pt-4 px-4">
-			<div class="row g-4 hi">
-				<div class="col-sm-12 col-md-6 col-xl-7 w-25">
-					<div style="width: 150px; height: 100%">
-						<img src="/photo/${dto.e_logo }" width="100%">
-					</div>
-					<br>
+			<div class="row g-4" style="border: 1px solid green; border-radius: 10px; padding:20px 0px 20px 10px;">
+				<div class="col-sm-12 col-md-3 col-xl-4 w-25" style="text-align: center">
+					<c:if test="${dto.e_logo==null }">
+						<img src="/image/nophoto.png"
+						style="width: 170px; height: 170px; border-radius: 500px;">
+					</c:if>
+					<c:if test="${dto.e_logo!=null }">
+							<img alt="" src="/photo/${dto.e_logo}"
+							style="width: 170px; height: 170px; border-radius: 500px;">
+					</c:if><br>
+					
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#entPhoto">사진
 						변경</button>
-					<br>
-					<button type="button" onclick="location.href='/enterprise/update'">회사정보
+					<button type="button" class="btn btn-default" onclick="location.href='/enterprise/update'">기업정보
 						수정</button>
 				</div>
+					
+					
 				<!-- Modal -->
 						<div class="modal fade" id="entPhoto" role="dialog">
 							<div class="modal-dialog">
@@ -134,24 +139,29 @@
 						</script>
 				<div class="col-sm-12 col-md-6 col-xl-7 w-75">
 					<div class="h-100 bg-light rounded p-4">
-						기업명 : ${dto.e_name }&nbsp;&nbsp;&nbsp;
+						<span style="font-size: 2em; font-weight: 600">${dto.e_name }</span>&nbsp;&nbsp;&nbsp;
 						<c:if test="${dto.e_auth==0 }">
-							<span style="color: red; font-weight: 600; font-size: 0.8em;">기업미인증</span>
+							<span style="color: red; font-weight: 600; font-size: 1em;">기업미인증</span>
 						</c:if>
 						<c:if test="${dto.e_auth==1 }">
-							<span style="color: green; font-weight: 600; font-size: 0.8em;">기업인증완료</span>
+							<span style="color: green; font-weight: 600; font-size: 1em;">기업인증완료</span>
 						</c:if>
 						
 						<br>
 					</div>
-					<br>
-					<div class="h-100 bg-light rounded p-4">
-						전화번호 : ${dto.e_tel } <br>
+					<div class="bg-light rounded p-4">
+						<span style="font-size: 1.2em; font-weight: 600">Tel.&nbsp;&nbsp;${dto.e_tel }</span>
 					</div>
-					<br>
-					<div class="h-100 bg-light rounded p-4">위치 : ${dto.e_addr }</div>
-					<br>
-					<div class="h-100 bg-light rounded p-4">관심기업으로 선정한 인재 : <span id="heartList" style="cursor: pointer;" onclick="location.href='/enterprise/heartlist'">${heartCount } 명</span></div>
+					<div class="bg-light rounded p-4">
+						<span style="font-size: 1.2em; font-weight: 600">Addr.&nbsp;&nbsp;${dto.e_addr }</span>
+					</div>
+					<div class="bg-light rounded p-4">
+						<span style="font-size: 1.2em; font-weight: 600">E-mail.&nbsp;&nbsp;${dto.e_email }</span>
+					</div>
+					<div class="bg-light rounded p-4">
+						<span style="font-size: 1.2em; font-weight: 600">관심기업으로 선정한 인재 : <span id="heartList" style="cursor: pointer; color: #416442;" onclick="location.href='/enterprise/heartlist'">&nbsp;${heartCount } 명</span></span>
+					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -294,8 +304,7 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
-		</div>
+	
 		<!-- Recent Sales End -->
 		
 		<script>
