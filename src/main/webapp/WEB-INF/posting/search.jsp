@@ -539,8 +539,8 @@ $(".gu").click(function(){
 			let s="";
 			s+="<table class='table'>";
 			s+="<caption>"+gu_name+"에 해당하는 "+res.length+"개의 검색 결과가 있습니다.</caption>";
-			s+="<tr align='center'><td width='60'>지역</td><td width='400'>모집내용/기업명</td><td width='120'>급여</td>";
-	   		s+="<td width='50'>근무시간</td><td width='100'>등록일</td></tr>";
+			s+="<tr align='center'><td width='120'>지역</td><td width='400'>모집내용/기업명</td><td width='120'>급여</td>";
+	   		s+="<td width='150'>근무시간</td><td width='100'>등록일</td></tr>";
 	   		$.each(res,function(i,ele){
 	   			//주소
 	   			s+="<tr><td width='120'>"+ele.p_addr+"</td>";
@@ -585,7 +585,7 @@ $(".gu").click(function(){
    		<c:if test="${searchCount>0}">총 ${searchCount }개의 글이 있습니다.</c:if>
    		<c:if test="${sessionScope.loginStatus=='enterprise' }">
    		<span style="float: right;"><button type="button"
-   		onclick="location.href='insertForm'">글쓰기</button></span>
+   		onclick="location.href='/posting/write'">글쓰기</button></span>
    		</c:if>
    		</caption>
 

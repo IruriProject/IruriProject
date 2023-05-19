@@ -136,6 +136,10 @@ body {
  	cursor: pointer;
 }
 
+tr,td{
+	text-align: center;
+}
+
 </style>
 <script type="text/javascript">
    /* 성별 분포도 */
@@ -385,13 +389,12 @@ body {
                <div class="modal-content">
                   <div class="modal-header">
                   
-                     <h4 class="modal-title">${dto.p_title }- ${dto.e_name }
-                        회사에 지원하기 &nbsp;</h4>
+                     <h4 class="modal-title">${dto.p_title }- ${dto.e_name } &nbsp;</h4>
                      <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                         <div class="modal-body">
                            <form action="/apply" method="post">
-                              <table class="table table-bordered" style="width: 700px;">
+                              <table class="table" style="width: 700px;">
                                  <tr>
                                     <td>선택</td>
                                     <td>제목</td>
@@ -414,7 +417,10 @@ body {
                                     </tr>
                                  </c:forEach>
                                  <tr>
-                                    <td colspan="4" align="center"><button type="submit">제출</button></td>
+                                    <td colspan="4" align="center"> ${checkApply }
+                                    <button type="submit" class="btn btn-default btn-sm"
+                                     onclick="checkApply(${checkApply})">제출</button>
+                                    </td>
                                  </tr>
                               </table>
                            </form>
@@ -451,6 +457,20 @@ body {
               alert("주소가 복사되었습니다");
             })
          }
+         
+         function checkApply(check){
+        	 if(check>0){
+        		 const a=confirm("이미 지원한 공고입니다. 재지원하시겠습니까?");
+        		 
+        		 if(a){
+        			 alert("지원이 완료되었습니다.");
+        		 }else{
+        			 //location.href="/posting/detailpage?p_num="+pnum+"&currentPage="+currentPage;
+        			 event.preventDefault();
+        		 }
+        	 }
+        	 
+     	 }
                   
       </script>
 
