@@ -130,6 +130,7 @@ public class EFnController {
 
 		model.addAttribute("draftCount", service.draftList(e_dto.getE_num()).size());
 		model.addAttribute("enterNum", e_dto.getE_num());
+		model.addAttribute("eAuth", e_dto.getE_auth());
 		model.addAttribute("draftList", service.draftList(e_dto.getE_num()));
 
 		model.addAttribute("phraseList", f_service.phrasesList(e_dto.getE_num()));

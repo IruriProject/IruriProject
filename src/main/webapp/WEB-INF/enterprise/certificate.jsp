@@ -76,12 +76,13 @@ $(function(){
 					</div>
 				</div>
 							
-				<div class="formbold-input-wrapp formbold-mb-3">
+				<div class="formbold-input-wrapp formbold-mb-3 form-inline">
 					<label for="e_registnum" class="formbold-form-label"> 사업자등록번호 </label>
 
 					<div>
-						<input type="text" name="e_registnum" id=e_registnum disabled="disabled" readonly="readonly"
+						<input type="text" style="width: 80%" name="e_registnum" id=e_registnum disabled="disabled" readonly="readonly"
 							value="${dto.e_registnum }" class="formbold-form-input" />
+						<button class='small-btn' type='button' style='height: 45px; vertical-align: middle; text-align: center;'>변경</button>
 					</div>
 				</div>
 
@@ -297,6 +298,18 @@ body {
 
 .formbold-w-45 {
 	width: 45%;
+}
+
+.small-btn {
+	margin-top:3px;
+	margin-left: 10px;
+	width: 100px;
+	padding: 5px 15px;
+	border-radius: 5px;
+	border: 1px solid #4E9F3D;
+	background-color: white;
+	color: #4E9F3D;
+	cursor: pointer;
 }
 </style>
 

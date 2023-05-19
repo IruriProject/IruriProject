@@ -16,6 +16,11 @@
 	rel="stylesheet"/>
 <script>
 $(function(){
+	if(${eAuth}==0){
+		alert("공고등록은 기업인증이 필요합니다.");
+		history.back();
+	}
+	
 	if(${draftCount}!=0){
 		var a=confirm("임시저장된 글이 있습니다. 임시 저장된 글을 불러올까요?");
 	
@@ -144,6 +149,21 @@ $(function(){
 			  alert('근무 요일을 선택해주세요.');
 			return false;
 		}
+		
+		
+		var today=new Date();
+		var now = new Date();
+	    var year = now.getFullYear();
+	    var month = ('0' + (now.getMonth() + 1)).slice(-2);
+	    var day = ('0' + now.getDate()).slice(-2);
+	    var today = year + '-' + month + '-' + day;
+		
+	    if($("#p_enddate").val()<today){
+			alert("공고 마감일은 금일부터 설정 가능합니다.");
+			$("#p_enddate").focus();
+			return false;
+		}
+		
 	}
 
 </script>
@@ -348,6 +368,7 @@ $(function(){
 						class="formbold-form-input" required="required" />
 				</div>
 				<br>
+				
 				<div class="formbold-checkbox-wrapper">
 					<label for="supportCheckbox" class="formbold-checkbox-label">
 						<div class="formbold-relative">
