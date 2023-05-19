@@ -59,6 +59,10 @@ public class QnaController {
 	
 		String path= session.getServletContext().getRealPath("/photo");
 
+		
+		  String q_content = qdto.getQ_content().replace("\r\n","<br>");
+		  qdto.setQ_content(q_content);
+		    
 		//System.out.println(path);
 
 		String uploadName="";
