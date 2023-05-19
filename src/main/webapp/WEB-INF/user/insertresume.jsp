@@ -19,13 +19,13 @@
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 
-#OneMinDoc ul, .introduceTab__list ul {
+#OneMinDoc ul, .introduceTab__list ul, #dllocal ul {
    list-style: none;
    margin: 0;
    padding: 0;
 }
 
-#OneMinDoc li, .introduceTab__list li {
+#OneMinDoc li, .introduceTab__list li, #dllocal li {
    margin-right: 10px;
    border: 0;
    float: left;
@@ -1323,17 +1323,30 @@ td {
                    }
                }
             </script>
-            <div class="formbold-mb-3">
-               <label for="p_type" class="formbold-form-label"> 희망직종 </label> <input
-                  type="text" name="r_ltask" id="r_ltask"
-                  placeholder="직종을 입력해주세요 (ex: 광고/홍보)" class="formbold-form-input" required="required"/>
-            </div>
+           <div class="formbold-mb-3">
+					<label class="formbold-form-label">직무</label>
+					<select
+						class="formbold-form-input" name="r_ltask" id="r_ltask">
+						<option value="건설/건축">건설/건축</option>
+						<option value="공공/복지/봉사/교육">공공/복지/봉사/교육</option>
+						<option value="금융/보험">금융/보험</option>
+						<option value="기술">기술</option>
+						<option value="농업/어업">농업/어업</option>
+						<option value="법무">법무</option>
+						<option value="사무">사무</option>
+						<option value="서비스">서비스</option>
+						<option value="생산/제조">생산/제조</option>
+						<option value="운송">운송</option>
+						<option value="의료">의료</option>
+						
+					</select>
+				</div>
 
             <div class="formbold-mb-3">
-               <label class="formbold-form-label">희망고용형태</label> <select
+               <label for="r_ltype" class="formbold-form-label">희망고용형태</label> <select
                   class="formbold-form-input" name="r_ltype" id="r_ltype">
                   <option value="정규직">정규직</option>
-                  <option value="기간제">기간제</option>
+                  <option value="계약직">계약직</option>
                </select>
             </div>
 
@@ -1341,7 +1354,8 @@ td {
                <div style="width: 35%">
                   <label for="r_lperiod" class="formbold-form-label"> 희망기간 </label>
                   <input type="text" name="r_lperiod" id="r_lperiod"
-                     placeholder="ex:6개월" class="formbold-form-input" required="required"/>
+                     placeholder="ex) 6개월" value="-" readonly="readonly"
+                     class="formbold-form-input" required="required"/>
                </div>
                <div style="width: 65%">
 						<label for="r_lday" class="formbold-form-label" style="margin-bottom: 12px"> 요일 </label>
@@ -1380,6 +1394,17 @@ td {
                </ul>
 				<br><br>
                <script type="text/javascript">
+               
+	               $("#r_ltype").change(function(){
+	           		if($("#r_ltype").val()=="계약직"){
+	           			$("#r_lperiod").val("");
+	           			$("#r_lperiod").removeAttr("readonly");
+	           		}else{
+	           			$("#r_lperiod").val("-");
+	           			$("#r_lperiod").attr("readonly","readonly");
+	           		}
+	           		
+	           		})
                $(document).ready(function() {
                     // 직접입력 버튼 클릭 시
                     $("#direct").click(function() {
@@ -1390,8 +1415,10 @@ td {
                       $("#directBtn").addClass("on");
                       // 1분 자동완성 버튼에서 on 클래스 제거
                       $("#autoBtn").removeClass("on");
-                      $('.textCount').text('0자 / 1000자');
+                      $('.textCount').text('공백포함 총 0자 / 1000자');
+                      $('.textCount2').text('공백제외 총 0자 / 1000자');
                       $(".textCount").show();
+                      $(".textCount2").show();
                     });
                      
                     // 1분 자동완성 버튼 클릭 시
@@ -1406,6 +1433,7 @@ td {
                       $("#personality").show();
                       $("#personality").siblings().hide();
                       $(".textCount").hide();
+                      $(".textCount2").hide();
                     });
                   });
                //웹 브라우저 내부에서만 적용되는 변경, 실제로 서버로 전송되는 데이터는 바뀌지않음
