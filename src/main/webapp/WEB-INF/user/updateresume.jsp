@@ -34,6 +34,10 @@ td {
    font-size: 1.2em;
 }
 
+#personality td{
+cursor:pointer;
+}
+
 .autoResume td {
    font-size: 1em;
 }
@@ -55,10 +59,16 @@ td {
                style="height: 250px;">
                <label for="p_title" class="formbold-form-label"> 기본정보 </label> <span
                   style="font-size: 2em">${sessionScope.loginName }</span>
-               <div style="float: left; width: 150px; height: 200px; margin-right: 20px;">
-                  <img alt="" src="/photo/${dto.u_photo}"
-                     style="width: 150px; height: 200px;">
-               </div>
+                 <div style="float: left; width: 150px; height: 200px; margin-right:20px;">
+               		<c:if test="${dto.u_photo==null }">
+						<img src="/image/nophoto.png"
+						style="width: 150px; height: 200px;">
+					</c:if>
+					<c:if test="${dto.u_photo!=null }">
+							<img alt="" src="/photo/${dto.u_photo}"
+							style="width: 150px; height: 200px;">
+					</c:if>
+				</div>
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                <c:if test="${dto.u_gender=='남' }">
                남성
@@ -89,10 +99,33 @@ td {
 
             <div class="formbold-mb-3">
                <label for="r_title" class="formbold-form-label"> 이력서 제목 </label> <input
-                  type="text" name="r_title" id="r_title" step="50" value="${rdto.r_title }"
-                  placeholder="25글자 이내로 자신을 표현해보세요." class="formbold-form-input" />
+                  type="text" name="r_title" id="r_title" step="50"
+                  placeholder="25글자 이내로 자신을 표현해보세요." class="formbold-form-input" required="required"/>
+                  <span class="rtitle" style="float:right">0자 / 25자</span>
             </div>
-
+			<script type="text/javascript">
+            $('#r_title').keyup(function (e) {
+				var title = $(this).val();
+				var characterCount = title.replace(/\s/g, '').length;
+			    
+			    // 글자수 세기
+			    if (title.length == 0 || title == '') {
+			    	$('.rtitle').text('0자 / 25자');
+			    } else if(title.length <= 25){
+			    	$('.rtitle').text(title.length + '자 / 25자');
+			    }else{
+			    	$('.rtitle').text('25자 / 25자');
+			    }
+			    
+			    // 글자수 제한
+			    if (title.length > 25) {
+			    	// 1000자 부터는 타이핑 되지 않도록
+			        $(this).val($(this).val().substring(0, 25));
+			        // 1000자 넘으면 알림창 뜨도록
+			        alert('제목은 25자까지 입력 가능합니다.');
+			    };
+			});
+            </script>
             <div class="formbold-mb-3">
                <label class="formbold-form-label">희망지역</label>
                <div class="searchValue regist__item">
@@ -1417,10 +1450,8 @@ td {
                       $("#directBtn").addClass("on");
                       // 1분 자동완성 버튼에서 on 클래스 제거
                       $("#autoBtn").removeClass("on");
-                      $('.textCount').text('공백포함 총 0자 / 1000자');
-                      $('.textCount2').text('공백제외 총 0자 / 1000자');
+                      $('.textCount').text('총 0자 / 1000자');
                       $(".textCount").show();
-                      $(".textCount2").show();
                     });
                      
                     // 1분 자동완성 버튼 클릭 시
@@ -1435,7 +1466,6 @@ td {
                       $("#personality").show();
                       $("#personality").siblings().hide();
                       $(".textCount").hide();
-                      $(".textCount2").hide();
                     });
                   });
                //웹 브라우저 내부에서만 적용되는 변경, 실제로 서버로 전송되는 데이터는 바뀌지않음
@@ -1629,11 +1659,11 @@ td {
 					    
 					    // 글자수 세기
 					    if (content.length == 0 || content == '') {
-					    	$('.textCount').text('0자 / 1000자');
-					    	$('.textCount2').text('0자 / 1000자');
-					    } else {
-					    	$('.textCount').text('공백포함 총 ' + content.length + '자 / 1000자');
-					    	$('.textCount2').text('공백제외 총 ' + characterCount + '자 / 1000자');
+					    	$('.textCount').text('총 0자 / 1000자');
+					    } else if(content.length<=1000){
+					    	$('.textCount').text('총 ' + content.length + '자 / 1000자');
+					    }else{
+					    	$('.textCount').text('총 1000자 / 1000자');
 					    }
 					    
 					    // 글자수 제한

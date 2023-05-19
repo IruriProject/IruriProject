@@ -33,7 +33,7 @@
 <link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style type="text/css">
 div {
-	border: 1px solid gray;
+	border: 0px solid gray;
 }
 
 .gwansim {
@@ -72,6 +72,13 @@ cursor: pointer;
 }
 .text-dark th{
 text-align: center;
+}
+div a{
+color:black;
+}
+div a:hover{
+color:black;
+text-decoration: none;
 }
 </style>
 </head>
@@ -146,7 +153,7 @@ text-align: center;
 								<!-- 이력서 목록 페이지로 -->
 							</c:if>
 							<c:if test="${rdto.r_title!=null}">
-								<h2>${rdto.r_title}</h2>
+								<h2 style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${rdto.r_title}</h2>
 								<c:set var="writeday"><fmt:formatDate value="${rdto.r_writeday }" pattern="yyyy-MM-dd"/></c:set>
 								최종수정일 : ${writeday }<br>
 							</c:if>
