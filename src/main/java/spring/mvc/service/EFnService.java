@@ -227,12 +227,10 @@ public class EFnService {
 		return mapper.getTotalCountOfSearch(map);
 	}
 
-	public List<PostingDto> getAddrSearch(String p_addr, String employtype) {
+	public List<PostingDto> getAddrSearch(String p_addr) {
 		Map<String, String> map = new HashMap<>();
 		map.put("p_addr", p_addr);
-		if (employtype != null && !employtype.isEmpty()) { // employtype에 대한 null 체크와 빈 문자열 체크를 모두 수행하도록 수정
-			map.put("employtype", employtype);
-		}
+		
 		return mapper.getAddrPostings(map);
 	}
 

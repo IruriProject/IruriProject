@@ -431,9 +431,8 @@ public class EFnController {
 
 	@ResponseBody
 	@GetMapping("/addrsearch")
-	public List<PostingDto> addrSearch(@RequestParam(name = "p_addr") String p_addr,
-			@RequestParam(name = "employtype", required = false, defaultValue = "") String employtype) {
-		return service.getAddrSearch(p_addr, employtype);
+	public List<PostingDto> addrSearch(@RequestParam(name = "p_addr") String p_addr) {
+		return service.getAddrSearch(p_addr);
 	}
 
 	@GetMapping("/confirmpw")
