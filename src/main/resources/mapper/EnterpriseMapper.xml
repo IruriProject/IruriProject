@@ -114,17 +114,15 @@
 	<select id="searchAllUserResume" parameterType="Map" resultType="Map">
     select r.*, u.* from USER u join RESUME r on u.u_num=r.u_num
     <if test="r_larea != null or r_ltask != null or r_ltype != null">
-        where 
+        where r_private==0
         <if test="r_larea!=null">
-            r_larea like concat('%',#{r_larea, jdbcType=VARCHAR},'%')
+            and r_larea like concat('%',#{r_larea, jdbcType=VARCHAR},'%')
         </if>
         <if test="r_ltask!=null">
-            <if test="r_larea!=null">and </if>
-            r_ltask like concat('%',#{r_ltask, jdbcType=VARCHAR},'%')
+            and r_ltask like concat('%',#{r_ltask, jdbcType=VARCHAR},'%')
         </if>
         <if test="r_ltype!=null">
-            <if test="r_larea!=null or r_ltask!=null">and </if>
-            r_ltype like concat('%',#{r_ltype, jdbcType=VARCHAR},'%')
+            and r_ltype like concat('%',#{r_ltype, jdbcType=VARCHAR},'%')
         </if>
     </if>
 	    limit #{start}, #{perpage}

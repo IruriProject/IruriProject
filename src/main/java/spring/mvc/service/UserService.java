@@ -48,6 +48,15 @@ public class UserService {
 		mapper.insertResume(dto);
 	}
 	
+	public int checkApply(String p_num,String u_num) {
+		
+		Map<String, String> map=new HashMap<>();
+		map.put("p_num", p_num);
+		map.put("u_num", u_num);		
+		
+		return mapper.checkApply(map);
+	}
+	
 	public UserDto findUserByNum(String u_num) {
 		return mapper.findUserByNum(u_num);
 	}

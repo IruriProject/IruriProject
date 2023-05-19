@@ -50,20 +50,6 @@
 	text-decoration: none;
 }
 
-html {
-  block-size: 100%;
-  inline-size: 100%;
-}
-
-body {
-  min-block-size: 100%;
-  min-inline-size: 100%;
-  margin: 0;
-  box-sizing: border-box;
-  display: grid;
-  place-content: center;
-}
-
 @media (orientation: landscape) {
   body {
     grid-auto-flow: column;

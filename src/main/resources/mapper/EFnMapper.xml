@@ -202,7 +202,6 @@
 	<!-- 지역별 검색 -->
 	<select id="getAddrPostings" parameterType="Map" resultType="pdto">
 	select * from POSTING where p_addr like CONCAT('%', #{p_addr}, '%')
-    	and p_employtype=#{employtype}
 	order by p_num desc
 	</select>
 	

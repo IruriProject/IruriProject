@@ -47,10 +47,17 @@
 	select count(*) from USER where u_id=#{u_id}
 	</select>
 	
-	<!-- 이력서 등록 -->
+	<!-- 지원하기 -->
 	<insert id="insertResume" parameterType="adto">
 	insert into APPLICANT values(null,#{p_num},#{r_num},now())
 	</insert>
+	
+	<!-- 지원 여부 확인 -->
+	<select id="checkApply" parameterType="Map" resultType="int">
+	  SELECT COUNT(*) FROM APPLICANT a
+	  INNER JOIN RESUME r ON a.r_num = r.r_num
+	  WHERE a.p_num = #{p_num} AND r.u_num = #{u_num}
+	</select>
 	
 	<!-- 카카오 이메일로 회원등록여부 확인 -->
 	<select id="findUserByEmail" parameterType="String" resultType="udto">

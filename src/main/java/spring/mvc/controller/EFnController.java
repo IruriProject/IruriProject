@@ -225,6 +225,7 @@ public class EFnController {
 			String u_num = user_service.findUserdataById(myId).getU_num();
 			mview.addObject("rlist", ufn_service.getMyResume(u_num));
 			mview.addObject("rsize", ufn_service.getMyResume(u_num).size());
+			mview.addObject("checkApply", u_service.checkApply(p_num, u_num));
 		}
 
 		if (session.getAttribute("loginStatus") == "user") {
@@ -432,9 +433,8 @@ public class EFnController {
 
 	@ResponseBody
 	@GetMapping("/addrsearch")
-	public List<PostingDto> addrSearch(@RequestParam(name = "p_addr") String p_addr,
-			@RequestParam(name = "employtype", required = false, defaultValue = "") String employtype) {
-		return service.getAddrSearch(p_addr, employtype);
+	public List<PostingDto> addrSearch(@RequestParam(name = "p_addr") String p_addr) {
+		return service.getAddrSearch(p_addr);
 	}
 
 	@GetMapping("/confirmpw")
