@@ -287,9 +287,42 @@ body {
              var p_types = [];
                $("input:checkbox[name='p_type']:checked").each(function() {
                  p_types.push($(this).val());
+                 
+                 $.ajax({
+                	 
+                	 type:"post",
+                	 dataType:"json",
+                	 url:"customjob",
+                	 data:{
+                		 "p_types": p_types
+                	 },
+                	 success: function(res){
+                		 $('#advertisement-list').html(response);
+                		 
+                	 },
+                	 error: function() {
+                	      // 에러 처리
+                	      alert('오류가 발생했습니다.');
+                	    }
+                 })
+                 
+                 
                });
               
-               alert(p_types);
+               //alert(p_types);
+               
+              /*  $.ajax({
+                    
+                    type:"post",
+                    dataType:"json",
+                    url:"customjob",
+                    data:{
+                       "p_types":p_type
+                    },
+                    success: function(res){
+                       
+                    }
+                 }) */
           });
       })
 
