@@ -19,19 +19,23 @@
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 
-#OneMinDoc ul, .introduceTab__list ul {
+#OneMinDoc ul, .introduceTab__list ul, #dllocal ul {
    list-style: none;
    margin: 0;
    padding: 0;
 }
 
-#OneMinDoc li, .introduceTab__list li {
+#OneMinDoc li, .introduceTab__list li, #dllocal li {
    margin-right: 10px;
    border: 0;
    float: left;
 }
 td {
    font-size: 1.2em;
+}
+
+#personality td{
+cursor:pointer;
 }
 
 .autoResume td {
@@ -55,10 +59,16 @@ td {
                style="height: 250px;">
                <label for="p_title" class="formbold-form-label"> 기본정보 </label> <span
                   style="font-size: 2em">${sessionScope.loginName }</span>
-               <div style="float: left; width: 150px; height: 200px; margin-right: 20px;">
-                  <img alt="" src="/photo/${dto.u_photo}"
-                     style="width: 150px; height: 200px;">
-               </div>
+                 <div style="float: left; width: 150px; height: 200px; margin-right:20px;">
+               		<c:if test="${dto.u_photo==null }">
+						<img src="/image/nophoto.png"
+						style="width: 150px; height: 200px;">
+					</c:if>
+					<c:if test="${dto.u_photo!=null }">
+							<img alt="" src="/photo/${dto.u_photo}"
+							style="width: 150px; height: 200px;">
+					</c:if>
+				</div>
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                <c:if test="${dto.u_gender=='남' }">
                남성
@@ -89,10 +99,33 @@ td {
 
             <div class="formbold-mb-3">
                <label for="r_title" class="formbold-form-label"> 이력서 제목 </label> <input
-                  type="text" name="r_title" id="r_title" step="50" value="${rdto.r_title }"
-                  placeholder="25글자 이내로 자신을 표현해보세요." class="formbold-form-input" />
+                  type="text" name="r_title" id="r_title" step="50"
+                  placeholder="25글자 이내로 자신을 표현해보세요." class="formbold-form-input" required="required"/>
+                  <span class="rtitle" style="float:right">0자 / 25자</span>
             </div>
-
+			<script type="text/javascript">
+            $('#r_title').keyup(function (e) {
+				var title = $(this).val();
+				var characterCount = title.replace(/\s/g, '').length;
+			    
+			    // 글자수 세기
+			    if (title.length == 0 || title == '') {
+			    	$('.rtitle').text('0자 / 25자');
+			    } else if(title.length <= 25){
+			    	$('.rtitle').text(title.length + '자 / 25자');
+			    }else{
+			    	$('.rtitle').text('25자 / 25자');
+			    }
+			    
+			    // 글자수 제한
+			    if (title.length > 25) {
+			    	// 1000자 부터는 타이핑 되지 않도록
+			        $(this).val($(this).val().substring(0, 25));
+			        // 1000자 넘으면 알림창 뜨도록
+			        alert('제목은 25자까지 입력 가능합니다.');
+			    };
+			});
+            </script>
             <div class="formbold-mb-3">
                <label class="formbold-form-label">희망지역</label>
                <div class="searchValue regist__item">
@@ -1325,16 +1358,29 @@ td {
                }
             </script>
             <div class="formbold-mb-3">
-               <label for="p_type" class="formbold-form-label"> 희망직종 </label> <input
-                  type="text" name="r_ltask" id="r_ltask" value="${rdto.r_ltask }"
-                  placeholder="직종을 입력해주세요 (ex: 광고/홍보)" class="formbold-form-input" />
-            </div>
+					<label class="formbold-form-label">직무</label>
+					<select
+						class="formbold-form-input" name="r_ltask" id="r_ltask">
+						<option value="건설/건축" ${rdto.r_ltask=="건설/건축"?"selected":"" }>건설/건축</option>
+						<option value="공공/복지/봉사/교육" ${rdto.r_ltask=="공공/복지/봉사/교육"?"selected":"" }>공공/복지/봉사/교육</option>
+						<option value="금융/보험" ${rdto.r_ltask=="금융/보험"?"selected":"" }>금융/보험</option>
+						<option value="기술" ${rdto.r_ltask=="기술"?"selected":"" }>기술</option>
+						<option value="농업/어업" ${rdto.r_ltask=="농업/어업"?"selected":"" }>농업/어업</option>
+						<option value="법무" ${rdto.r_ltask=="법무"?"selected":"" }>법무</option>
+						<option value="사무" ${rdto.r_ltask=="사무"?"selected":"" }>사무</option>
+						<option value="서비스" ${rdto.r_ltask=="서비스"?"selected":"" }>서비스</option>
+						<option value="생산/제조" ${rdto.r_ltask=="생산/제조"?"selected":"" }>생산/제조</option>
+						<option value="운송" ${rdto.r_ltask=="운송"?"selected":"" }>운송</option>
+						<option value="의료" ${rdto.r_ltask=="의료"?"selected":"" }>의료</option>
+						
+					</select>
+				</div>
 
             <div class="formbold-mb-3">
                <label class="formbold-form-label">희망고용형태</label> <select
-                  class="formbold-form-input" name="r_ltype" id="r_ltype" value="${rdto.r_ltype }">
-                  <option value="정규직">정규직</option>
-                  <option value="기간제">기간제</option>
+                  class="formbold-form-input" name="r_ltype" id="r_ltype">
+                  <option value="정규직" ${rdto.r_ltype=="정규직"?"selected":"" }>정규직</option>
+                  <option value="계약직" ${rdto.r_ltype=="계약직"?"selected":"" }>계약직</option>
                </select>
             </div>
 
@@ -1384,6 +1430,16 @@ td {
                </ul>
 				<br><br>
                <script type="text/javascript">
+               $("#r_ltype").change(function(){
+	           		if($("#r_ltype").val()=="계약직"){
+	           			$("#r_lperiod").val("");
+	           			$("#r_lperiod").removeAttr("readonly");
+	           		}else{
+	           			$("#r_lperiod").val("-");
+	           			$("#r_lperiod").attr("readonly","readonly");
+	           		}
+	           		
+	           		})
                $(document).ready(function() {
                     // 직접입력 버튼 클릭 시
                     $("#direct").click(function() {
@@ -1394,7 +1450,7 @@ td {
                       $("#directBtn").addClass("on");
                       // 1분 자동완성 버튼에서 on 클래스 제거
                       $("#autoBtn").removeClass("on");
-                      $('.textCount').text('0자 / 1000자');
+                      $('.textCount').text('총 0자 / 1000자');
                       $(".textCount").show();
                     });
                      
@@ -1603,11 +1659,11 @@ td {
 					    
 					    // 글자수 세기
 					    if (content.length == 0 || content == '') {
-					    	$('.textCount').text('0자 / 1000자');
-					    	$('.textCount2').text('0자 / 1000자');
-					    } else {
-					    	$('.textCount').text('공백포함 총 ' + content.length + '자 / 1000자');
-					    	$('.textCount2').text('공백제외 총 ' + characterCount + '자 / 1000자');
+					    	$('.textCount').text('총 0자 / 1000자');
+					    } else if(content.length<=1000){
+					    	$('.textCount').text('총 ' + content.length + '자 / 1000자');
+					    }else{
+					    	$('.textCount').text('총 1000자 / 1000자');
 					    }
 					    
 					    // 글자수 제한

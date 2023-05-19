@@ -41,7 +41,7 @@ text-align: center;
 </head>
 <body>
 	
-	<h3>내 이력서 목록</h3>
+	<h3>내 이력서 목록 (${list.size() }/5)</h3>
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="table-responsive">

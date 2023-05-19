@@ -77,7 +77,11 @@ img{
 
 <!-- set -->
 <c:set var="birthYear"><fmt:formatDate value="${user.u_birth }" pattern="yyyy"/></c:set>
-<c:set var="age" value="${2023-birthYear }"/>
+
+<c:set var="now" value="<%=new java.util.Date()%>" />
+<c:set var="year"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set> 
+<c:set var="birth"><fmt:formatDate value="${user.u_birth }" pattern="yyyy"/></c:set>
+						
 <button type="button" id="printResume">인쇄</button>
 <script type="text/javascript">
 	$("#printResume").click(function(){
@@ -99,7 +103,7 @@ img{
 	</div>
 		<div id="title-right">
 		<div>
-		<span id="name">${user.u_name }</span><span id="desc">${user.u_gender } ${age}세 / ${birthYear }년생</span>
+		<span id="name">${user.u_name }</span><span id="desc">${user.u_gender } ${year-birth+1 }세 / ${birthYear }년생</span>
 		<br>
 		</div>
 		<div class="title-content">

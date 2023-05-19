@@ -19,11 +19,6 @@
 	;
 
 
-body {
-	font-family: 'Inter', sans-serif;
-	flex-direction: row;
-	display: flex;
-}
 
 .formbold-mb-3 {
 	margin-bottom: 15px;
@@ -113,7 +108,7 @@ body {
 		<br>
 	</div>
 	<div class="formbold-mb-3" style="text-align: center">
-		<input type="password" id="inputPw" class="formbold-form-input"	
+		<input type="password" id="inputPw" class="formbold-form-input"	onkeydown="if(event.keyCode===13){checkPw();}"
 			placeholder="비밀번호 입력" style="width:345px; height:45px; margin-bottom: 20px;">
 		<i class="glyphicon glyphicon-eye-open" id="i"></i><br>
 	<button onclick="checkPw()" class="formbold-btn" style="width:380px; height:45px; line-height: 0px;" >비밀번호 확인</button>

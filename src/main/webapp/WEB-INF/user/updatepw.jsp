@@ -207,20 +207,22 @@ text-decoration: none;
 			<div class="pwcheck" style="width:600px; margin-left: 120px; float:right;">
 
 				<input id="presentPw" type="password" placeholder="기존 비밀번호"
-					style="margin-bottom: 10px; width: 380px; height: 45px; margin-bottom: 20px;"
-					class="formbold-form-input"> <span id="pwError1"></span><br>
+					style=" width: 380px; height: 45px;"
+					class="formbold-form-input"><br> <span id="pwError1"></span><br>
 
-				<input id="newPw" type="password" placeholder="새 비밀번호"
-					style="margin-bottom: 10px; width: 380px; height: 45px; margin-bottom: 20px;"
-					class="formbold-form-input"> <span id="pwError2"></span><br>
+				<input id="newPw" type="password" placeholder="영문, 숫자가 포함된 6-12자의 비밀번호를 입력해주세요(특수문자 가능)"
+					minlength="6" maxlength="12" required
+					style="width: 380px; height: 45px; margin-top: 10px;"
+					class="formbold-form-input"><br><span id="pwError2"></span><br>
 
 				<input id="pwCheck" type="password" placeholder="비밀번호 확인"
-					style="margin-bottom: 10px; width: 380px; height: 45px; margin-bottom: 20px;"
-					class="formbold-form-input" name="u_pw"> <span
+					minlength="6" maxlength="12" required
+					style=" width: 380px; height: 45px; margin-top: 10px;"
+					class="formbold-form-input" name="u_pw"><br> <span
 					id="pwError3"></span><br>
 
 				<button id="updatePw" type="submit" class="formbold-btn"
-					style="width: 380px; height: 45px; line-height: 0px;">변경</button>
+					style="width: 380px; height: 45px; margin-top: 10px; line-height: 0px;">변경</button>
 			</div>
 	</form>
 	</div>
@@ -255,11 +257,7 @@ text-decoration: none;
 				//오류 메세지가 출력되었을 시 이동 불가
 				if ($("#pwError1").text() != "" || $("#pwError2").text() != ""
 						|| $("#pwError3").text() != "") {
-					return false;
-				} else if ($("#pwError1").text() == ""
-						&& $("#pwError2").text() == ""
-						&& $("#pwError3").text() == "") {
-					$('form').submit(); // submit() 메서드 호출
+					event.preventDefault();
 				}
 			})
 </script>
