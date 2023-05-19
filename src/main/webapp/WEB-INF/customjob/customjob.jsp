@@ -281,25 +281,19 @@ body {
 <body>
 
 	<script type="text/javascript">
-		
-	/* 	$(".chkbox").click(function(){
-			
-			
-			alert("체크됨");
-		
-		});
-		 */
-		 
-		 
-		 if($(".p_type").is(":checked")==true){
-			 alert("체크됨");
-		 }
-	
-	
-	
-	
-	
-	</script>
+
+      $(function(){
+          $("input:checkbox[name='p_type']").click(function() {
+             var p_types = [];
+               $("input:checkbox[name='p_type']:checked").each(function() {
+                 p_types.push($(this).val());
+               });
+              
+               alert(p_types);
+          });
+      })
+
+   </script>
 	
 	<div class="formbold-main-wrapper">
 		<div class="">
