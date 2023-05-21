@@ -535,6 +535,7 @@ public class EnterpriseController {
 		EnterpriseDto dto=service.findEnterdataById(loginId);
 		
 		service.updateRegistnum(e_registnum, dto.getE_num());
+		service.authCertificateCancel(dto.getE_num());
 		
 		return "redirect:/enterprise/certificate";
 

@@ -17,5 +17,15 @@
 	<definition name="/*/*" extends="layout">
 	  <put-attribute name="main" value="/WEB-INF/{1}/{2}.jsp"></put-attribute>
 	</definition>
+	
+	<!-- layout2 -->
+	<definition name="layout2" template="/WEB-INF/layout/layout2.jsp">
+	 <put-attribute name="main" value="/WEB-INF/layout/main.jsp"/>
+	</definition>
+	
+	<!-- wildcard_macro 설정 기본 -->
+	<definition name="/newpage/*/*" extends="layout2">
+	  <put-attribute name="main" value="/WEB-INF/{1}/{2}.jsp"></put-attribute>
+	</definition>
 
 </tiles-definitions>

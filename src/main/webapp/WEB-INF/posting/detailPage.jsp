@@ -16,7 +16,7 @@
 <link
    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
    rel="stylesheet" />
-<script
+<script확
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <c:set var="root" value="<%=request.getContextPath()%>" />
 <script
@@ -153,7 +153,7 @@ tr,td{
        dataType: "JSON",
        success: function(result){
           if(result[0].count==0&&result[1].count==0){
-             $("#genderChart").html("<span style='font-size:1.5em;'>해당 공고의 지원자가 없습니다.</span>");
+             $("#genderChart").html("<span style='font-size:1.3em; color:lightgray;'>해당 공고의 지원자가 없습니다.</span>");
           } else
              drawGenderChart(result);
        }
@@ -192,7 +192,7 @@ tr,td{
           dataType: "JSON",
           success: function(result){
              if(result[0].count==0&&result[1].count==0){
-                $("#ageChart").html("<span style='font-size:1.5em;'>해당 공고의 지원자가 없습니다.</span>");
+                $("#ageChart").html("<span style='font-size:1.3em; color:lightgray;'>해당 공고의 지원자가 없습니다.</span>");
              } else
                 drawGenderChart(result);
           }
@@ -545,7 +545,7 @@ tr,td{
             <div class="withbtn">
                <div class="withbtnTitle">상세내용</div>
                <div>
-                  <button type="button" class="btn btn-info">확대하기 +</button>
+                  <button type="button" class="btn btn-info" onclick="window.open('detaillarge?p_num=${dto.p_num}','detailLarge', 'width=800,height=500')">확대하기 +</button>
                </div>
             </div>
 

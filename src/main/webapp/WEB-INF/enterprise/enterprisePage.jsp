@@ -87,7 +87,7 @@
 							style="width: 170px; height: 170px; border-radius: 500px;">
 					</c:if><br>
 					
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#entPhoto">사진
+					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#entPhoto">로고
 						변경</button>
 					<button type="button" class="btn btn-default" onclick="location.href='/enterprise/update'">기업정보
 						수정</button>
@@ -102,7 +102,7 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title">사진 변경</h4>
+										<h4 class="modal-title">로고 변경</h4>
 									</div>
 									<div class="modal-body">
 										<input type="file" id="inputFile">
@@ -159,7 +159,7 @@
 						<span style="font-size: 1.2em; font-weight: 600">E-mail.&nbsp;&nbsp;${dto.e_email }</span>
 					</div>
 					<div class="bg-light rounded p-4">
-						<span style="font-size: 1.2em; font-weight: 600">관심기업으로 선정한 인재 : <span id="heartList" style="cursor: pointer; color: #416442;" onclick="location.href='/enterprise/heartlist'">&nbsp;${heartCount } 명</span></span>
+						<span style="font-size: 1.2em; font-weight: 600">관심기업으로 선정한 인재 : <span id="heartList" title="인재목록보기" style="cursor: pointer; color: #4E9F3D;" onclick="location.href='/enterprise/heartlist'">&nbsp;${heartCount } 명</span></span>
 					</div>
 					
 				</div>

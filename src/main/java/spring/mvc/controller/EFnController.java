@@ -250,6 +250,14 @@ public class EFnController {
 		mview.setViewName("/posting/detailPage");
 		return mview;
 	}
+	
+	@GetMapping("/detaillarge")
+	public String detailLarge(String p_num,Model model) {
+
+		model.addAttribute("content", service.getPosting(p_num));
+		
+		return "/newpage/posting/detailLarge";
+	}
 
 	@GetMapping("/gendergraph")
 	@ResponseBody

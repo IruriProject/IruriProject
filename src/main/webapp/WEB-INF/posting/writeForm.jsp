@@ -206,7 +206,7 @@ $(function(){
 	      <!-- Modal content-->
 	      <div class="modal-content">
 	        <div class="modal-header">
-	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <button type="button" id="closePhraseModal" class="close" data-dismiss="modal">&times;</button>
 	          <h4 class="modal-title">자주쓰는 문구 목록</h4>
 	        </div>
 	        <div class="modal-body">
@@ -333,7 +333,8 @@ $(function(){
 
 				<div class="formbold-mb-3">
 					<label for="p_content" class="formbold-form-label"> 상세내용
-						<button type="button" id="phrases" class="btn-sm small-btn" style="width: 100px; margin-left: 410px;" data-toggle="modal" data-target="#phrasesModal">자주쓰는 문구</button>
+						<button type="button" id="phrases" class="btn-sm small-btn" style="width: 100px; margin-left: 410px;">자주쓰는 문구</button>
+						<button type="button" id="openPhrases" style="display: none" data-toggle="modal" data-target="#phrasesModal"></button>
 					</label>
 					<textarea name="p_content" id="p_content"
 						placeholder="상세내용을 입력해주세요." class="pcontent-input" required="required"></textarea>
@@ -360,6 +361,20 @@ $(function(){
 					        alert('글자수는 1000자까지 입력 가능합니다.');
 					    };
 					});
+					
+					
+					$(function(){
+						$("#phrases").click(function(){
+							if(${phraseList.size()==0 }){
+								var nophrase=confirm("자주 쓰는 문구가 없습니다. 등록하러 가시겠습니까?\n(이동 시 작성 중이던 공고는 저장되지 않습니다.)");
+								if(nophrase==true) location.href="/phrases/write";
+							} else{
+								$('#openPhrases').trigger("click");
+							}
+							
+						})
+					})
+					
 				</script>
 
 				<div class="formbold-mb-3">

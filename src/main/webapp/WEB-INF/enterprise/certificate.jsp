@@ -46,7 +46,8 @@ $(function(){
 							  data: {"e_num":e_num},
 							  dataType: "html",
 							  success: function(result) {
-								  location.reload();
+								 location.href="/enterprise";
+								  
 							  }
 				    	  })
 				      }
@@ -89,7 +90,7 @@ $(function(){
 					</div>
 				</div>
 
-				<button type="button" class="formbold-btn" id="certificate">사업자 등록번호 확인</button>
+				<button type="button" class="formbold-btn" id="certificate">&nbsp;&nbsp;기업인증&nbsp;&nbsp;</button>
 
 		</div>
 	</div>
@@ -114,7 +115,7 @@ $(function(){
 				data:{"e_registnum":uRegistnum},
 				url:"/enterprise/updateregistnum",
 				success:function(){
-					alert("사업자 등록번호 수정 성공");
+					alert("사업자 등록번호를 수정하였습니다.\n기업인증 버튼을 눌러 확인해주세요.");
 					location.reload();
 				}
 			})

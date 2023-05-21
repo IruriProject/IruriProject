@@ -146,10 +146,17 @@
 					<li><a href="hi">sub메뉴</a></li>
 					<li><a href="hi">sub메뉴</a></li>
 				</ul></li>
-			<li><c:if test="${sessionScope.loginStatus=='enterprise' }">
+			<li>
+				<c:if test="${sessionScope.loginStatus=='enterprise' }">
 					<a href="/enterprise" class="mainMenu">기업서비스</a>
-				</c:if> <c:if test="${sessionScope.loginStatus!='enterprise' }">
-					
+					<ul class="subMenu">
+						<li><a href="/posting/postinglist">공고관리</a></li>
+						<li><a href="/enterprise/applicant">지원자관리</a></li>
+						<li><a href="/posting/messagelist/">쪽지관리</a></li>
+						<li><a href="/phrases/list">자주쓰는문구관리</a></li>
+					</ul>
+				</c:if>
+				<c:if test="${sessionScope.loginStatus!='enterprise' }">
 					<a style="cursor: pointer" class="mainMenu" onclick="checkLogin()">회원서비스</a>
 					<ul class="subMenu">
 						<li><a href="/update">개인정보 관리</a></li>
