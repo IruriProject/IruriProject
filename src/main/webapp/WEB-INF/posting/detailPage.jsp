@@ -113,6 +113,18 @@ body {
    justify-content: flex-end;
 }
 
+#e_name{
+	color: gray;
+	font-size: 12px;
+}
+
+.highlight{
+	margin-right:5px; 
+	padding:3px 10px; 
+	background-color:#e3f2c9; 
+	border-radius:16px;
+}
+
 .heart {
    cursor: pointer;
    font-weight: 500px;
@@ -389,12 +401,12 @@ tr,td{
                <div class="modal-content">
                   <div class="modal-header">
                   
-                     <h4 class="modal-title">${dto.p_title }- ${dto.e_name } &nbsp;</h4>
+                     <h4 class="modal-title">${dto.p_title } <span id="e_name">${dto.e_name } </span>&nbsp;</h4>
                      <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                         <div class="modal-body">
                            <form action="/apply" method="post">
-                              <table class="table" style="width: 700px;">
+                              <table class="table table-borderless" style="width: 700px; margin: 0 auto;">
                                  <tr>
                                     <td>선택</td>
                                     <td>제목</td>
@@ -408,25 +420,26 @@ tr,td{
                                     <tr>
                                        <td width="50"><input type="radio" name="r_num"
                                           value="${udto.r_num }" required></td>
-                                       <td><c:if test="${udto.r_presume==1 }">[대표]</c:if>
+                                       <td><c:if test="${udto.r_presume==1 }">
+                                       <b class="highlight">대표</b></c:if>
                                           ${udto.r_title } <br></td>
-                                       <td><c:if test="${udto.r_private==0 }">X</c:if> <c:if
-                                             test="${udto.r_private==1 }">O</c:if></td>
+                                       <td><c:if test="${udto.r_private==0 }"><b class="highlight">X</b></c:if> <c:if
+                                             test="${udto.r_private==1 }"><b class="highlight">O</b></c:if></td>
                                        <td><fmt:formatDate value="${udto.r_writeday}"
                                              pattern="yyyy.MM.dd" /></td>
                                     </tr>
                                  </c:forEach>
                                  <tr>
-                                    <td colspan="4" align="center"> ${checkApply }
+                                    <td colspan="4" align="center">
                                     <button type="submit" class="btn btn-default btn-sm"
-                                     onclick="checkApply(${checkApply})">제출</button>
+                                     onclick="checkApply(${checkApply})">지원</button>
                                     </td>
                                  </tr>
                               </table>
                            </form>
                         </div>
                         <div class="modal-footer">
-                           <button type="button" class="btn btn-default"
+                           <button type="button" class="btn btn-default btn-sm"
                               data-dismiss="modal">닫기</button>
                         </div>
                      </div>
@@ -468,6 +481,8 @@ tr,td{
         			 //location.href="/posting/detailpage?p_num="+pnum+"&currentPage="+currentPage;
         			 event.preventDefault();
         		 }
+        	 }else{
+        		 alert("지원이 완료되었습니다.");
         	 }
         	 
      	 }

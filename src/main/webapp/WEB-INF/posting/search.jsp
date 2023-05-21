@@ -11,15 +11,27 @@
 
 <style type="text/css">
 
+	.alink{
+		color: black;
+	}
+	
+	.alink:hover{
+		color: #416442;
+		text-decoration: none;
+	}
+
 	.searcharea{
 		padding: 10px 20px;
-		border: 1px solid gray;
+		border: 1px solid lightgray;
 		display: flex;
     	justify-content: flex-start;
 	}
 	
 	#enterprise-name{
 		color: gray;
+		margin-top: 5px;
+		margin-left: 10px;
+		display: block;
 	}
 	
 	#posting-title{
@@ -63,7 +75,7 @@
 	#nosearch{
 		font-size: 1.1em;
 		display: block;
-		padding: 20px;
+		width: 100%;
 	}
 	
 	.formbold-form-input {
@@ -103,6 +115,40 @@
 	option {
 	  padding: 4px;
 	  font-size: 14px;
+	}
+	
+	.sub{
+		margin-right:5px; 
+		padding:3px 10px; 
+		background-color:#e3f2c9; 
+		border-radius:16px;
+	}
+	
+	.w-btn {
+	    position: relative;
+	    border: none;
+	    display: inline-block;
+	    padding: 5px 15px;
+	    border-radius: 15px;
+	    text-decoration: none;
+	    font-weight: 600;
+	    transition: 0.15s;
+	    margin-right: 5px;
+	}
+
+	.w-btn-indigo {
+	    background-color: #e3f2c9;
+	    color: #416442;
+	}
+	
+	.w-btn:hover {
+	    letter-spacing: 2px;
+	    transform: scale(1.1);
+	    cursor: pointer;
+	}
+	
+	.w-btn:active {
+	    transform: scale(1.2);
 	}
 </style>
 
@@ -443,16 +489,16 @@
 <div class="sub-wrapper">
 <h4>검색어로 검색하기</h4><br>
 <form action="/posting/search" method="get">
-	<div class="form-inline">
+	<div class="form-inline" >
 		<select class="form-control" style="width: 150px;" name="searchcolumn">
 		  <option value="p_title">제목</option>
 		  <option value="p_content">내용</option>
-		  <option value="e_num">일단회사번호</option>
 		</select>
 		&nbsp;&nbsp;&nbsp;
 		<input type="text" name="searchword" class="formbold-form-input formbold-mb-3" style="width: 200px;" placeholder="검색어를 입력하세요">
-		<button type="submit">검색</button>
-		<button type="button" onclick="location.href='/posting/search'">초기화</button>
+		<button type="submit" class="w-btn w-btn-indigo" >검색</button>
+		<button type="button" onclick="location.href='/posting/search'"
+		class="w-btn w-btn-indigo">초기화</button>
 	</div>
 </form>
 </div>
@@ -546,13 +592,13 @@ $(".gu").click(function(){
 	   			s+="<tr><td width='120'>"+ele.p_addr+"</td>";
 	   			//제목
 	   			s+="<td width='400'><span id='posting-title'>";
-	   			s+="<a href='detailpage?p_num="+ele.p_num+"'>"+ele.p_title+"</a></span><br>";
-	   			s+="<span id='enterprise-name'>["+ele.p_type+"]"+ele.e_name+"</span></td>";
+	   			s+="<a href='detailpage?p_num="+ele.p_num+"' class='alink'>"+ele.p_title+"</a></span><br>";
+	   			s+="<span id='enterprise-name'><span class='sub'>"+ele.p_type+"</span>"+ele.e_name+"</span></td>";
 	   			//급여
 	   			if (ele.p_employtype === '정규직') {
-	   			  s += "<td width='120'>[월급] " + ele.p_pay + "</td>";
-	   			} else if (ele.p_employtype === '기간제') {
-	   			  s += "<td width='120'>[시급] " + ele.p_pay + "</td>";
+	   			  s += "<td width='120'><span class='sub'>월급</span>" + ele.p_pay + "</td>";
+	   			} else if (ele.p_employtype === '계약직') {
+	   			  s += "<td width='120'><span class='sub'>시급</span>" + ele.p_pay + "</td>";
 	   			} 
 	   			//업무시간
 	   			s+="<td width='160'>"+moment('2000-01-01 '+ele.p_starttime).format('HH:mm')+"-"+moment('2000-01-01 '+ele.p_endtime).format('HH:mm')+"</td>";
@@ -580,15 +626,20 @@ $(".gu").click(function(){
      	<!-- 지역별 필터링 후 테이블 나오는 부분 -->
      	<div id="addr-box"></div>
    	
+  		<c:if test="${searchCount==0 }">
+  		<span id="nosearch">검색된 공고가 없습니다.</span>
+  		</c:if>
+   		
    	<table class="table" id="basic-list">
    		<caption>
-   		<c:if test="${searchCount>0}">총 ${searchCount }개의 글이 있습니다.</c:if>
+   		<c:if test="${searchCount>0}">총 ${searchCount }개의 공고가 있습니다.</c:if>
    		<c:if test="${sessionScope.loginStatus=='enterprise' }">
    		<span style="float: right;"><button type="button"
-   		onclick="location.href='/posting/write'">글쓰기</button></span>
+   		onclick="location.href='/posting/write'">공고 등록</button></span>
    		</c:if>
    		</caption>
-
+   		
+   		<c:if test="${searchCount>0}">
    		<tr align="center">
    		  <td width="120">지역</td>
    		  <td width="400">모집내용/기업명</td>
@@ -596,33 +647,28 @@ $(".gu").click(function(){
    		  <td width="150">근무시간</td>
    		  <td width="100">등록일</td>
    		</tr>
-   		
-   		<c:if test="${searchCount==0 }">
-   		<tr><td colspan="5" align="center">
-   		<span id="nosearch">검색된 게시글이 없습니다.</span>
-   		</td></tr>
-   		</c:if>
-   		
-   		<c:if test="${searchCount>0}">
    		<c:forEach var="dto" items="${list }">
    		<tr>
    		<td width="60">${dto.p_addr }</td>
 		<td width="400">
 		<span id="posting-title">
-		<a href="detailpage?p_num=${dto.p_num}&currentPage=${currentPage}">${dto.p_title }</a>
+		<a href="detailpage?p_num=${dto.p_num}&currentPage=${currentPage}" class="alink">${dto.p_title }</a>
 		</span>
 		<br>
-		<span id="enterprise-name">[${dto.p_type }] | ${dto.e_name }</span>
+		<span id="enterprise-name"><span class="sub">${dto.p_type }</span>${dto.e_name }</span>
 		</td>
-		<td width="120">
+		<td width="200">
 		<c:if test="${dto.p_employtype=='정규직' }">
-		[월급]</c:if>
-		<c:if test="${dto.p_employtype=='기간제' }">
-		[시급]</c:if>
-		${dto.p_pay }
+		<span class="sub">월급</span>
+		</c:if>
+		<c:if test="${dto.p_employtype=='계약직' }">
+		<span class="sub">시급</span>
+		</c:if>
+		<fmt:formatNumber value="${dto.p_pay }" type="number"/>
 		</td>
 		<td width="150">
-		${dto.p_starttime } - ${dto.p_endtime }
+		<fmt:formatDate value="${dto.p_starttime }" pattern="HH:mm"/> - 
+		<fmt:formatDate value="${dto.p_endtime }" pattern="HH:mm"/>
 		</td>
 		<td width="100"><fmt:formatDate value="${dto.p_writeday }" pattern="yyyy-MM-dd"/></td>
    		</tr>
