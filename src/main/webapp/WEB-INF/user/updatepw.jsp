@@ -228,6 +228,13 @@ text-decoration: none;
 	</div>
 </body>
 <script type="text/javascript">
+	$(document).on("submit", "form", function(event){
+	    window.onbeforeunload = null;
+	});
+	window.onbeforeunload = function() {
+		return "브라우저를 종료하시겠습니까?";
+	};	
+
 	$("#updatePw").click(
 			function() {
 				//기존 비밀번호 입력 오류 시

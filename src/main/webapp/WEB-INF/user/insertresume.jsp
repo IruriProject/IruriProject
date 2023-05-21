@@ -109,6 +109,14 @@ cursor:pointer;
                   <span class="rtitle" style="float:right">0자 / 25자</span>
             </div>
             <script type="text/javascript">
+            window.onbeforeunload = function() {
+        		return "브라우저를 종료하시겠습니까?";
+        	};	
+        	
+            $(document).on("submit", "form", function(event){
+                window.onbeforeunload = null;
+        	});
+          
             $('#r_title').keyup(function (e) {
 				var title = $(this).val();
 				var characterCount = title.replace(/\s/g, '').length;
@@ -1414,8 +1422,10 @@ cursor:pointer;
 						        $("#submitBtn").click(function() {
 						            if ($(".chkbox:checked").length === 0) {
 						                alert("희망 요일을 체크해주세요.");
+						                return false;
 						            } if ($("#areainput").val().trim() === '') {
 						                alert("희망 지역을 선택해주세요.");
+						                return false;
 						            }
 						        });
 						    });
@@ -1452,7 +1462,6 @@ cursor:pointer;
                       $("#directBtn").addClass("on");
                       // 1분 자동완성 버튼에서 on 클래스 제거
                       $("#autoBtn").removeClass("on");
-                      $('.textCount').text('총 0자 / 1000자');
                       $(".textCount").show();
                     });
                      
@@ -1595,31 +1604,16 @@ cursor:pointer;
                      </div>
                      
                      <script type="text/javascript">
-                     var selectedPersonality = "";
-                     var selectedCareer = "";
-                     var selectedMotivation = "";
+                     document.addEventListener("DOMContentLoaded", function() {
+                   	  var tds = document.querySelectorAll(".autoResume table td");
+                   	  var textarea = document.getElementById("r_content");
 
-                        $("#personality td").click(function() {
-                           var selectedText = $(this).text();
-                           selectedPersonality = selectedText;
-                            updateTextarea();
-                        })
-                        $("#career td").click(function() {
-                           var selectedText = $(this).text();
-                           selectedCareer = selectedText;
-                            updateTextarea();
-                        })
-                        $("#motivation td").click(function() {
-                           var selectedText = $(this).text();
-                            selectedMotivation = selectedText;
-                            updateTextarea();
-                        })
-                        
-                        function updateTextarea() {
-                           var selectedText = selectedPersonality + "\n" + selectedCareer + "\n" + selectedMotivation;
-                           $(".rcontent-autoInput").val(selectedText);
-						}
-
+                   	  tds.forEach(function(td) {
+                   		    td.addEventListener("click", function() {
+                   		      textarea.value += td.innerText + "\n";
+                   		    });
+                   		  });
+                   		});
                         $(".resizable-textarea li").click(
                               function() {
 

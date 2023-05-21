@@ -324,6 +324,13 @@ text-decoration: none;
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+$(document).on("submit", "form", function(event){
+    window.onbeforeunload = null;
+});
+window.onbeforeunload = function() {
+	return "브라우저를 종료하시겠습니까?";
+};	
+
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
