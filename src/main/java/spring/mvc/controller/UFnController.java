@@ -2,8 +2,11 @@ package spring.mvc.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -441,20 +444,30 @@ public class UFnController {
 	}
 	
 	//맞춤 일자리
-	//맞춤 일자리 리스튼
+	//맞춤 일자리 리스트
 	@GetMapping("/customjob")
+	public String customList() {
+		return "/customjob/customjob";
+	}
+	
+	
+	@GetMapping("/customjobaction")
 	@ResponseBody
-	public ModelAndView customList(String num) {
-		ModelAndView model=new ModelAndView();
+	public List<Map<String, Object>> customListAction(@RequestParam(value = "p_type", required = false) String p_type) {
+		String [] p_types=p_type.split(",");
+
+		List<Map<String, Object>> list=new ArrayList<>();
+		Map<String, Object> map=new HashMap<>();
 		
-		List<PostingDto> list=uservice.searchCustomJobList(num);
-		int countSearchCustomJob=uservice.countSearchCustomJob(num);
-		
-		model.addObject("list", list);
-		model.addObject("countSearchCustomJob",countSearchCustomJob);
-		model.setViewName("/customjob/customjob");
-		
-		return model;
+		  for(String a:p_types) {
+			  map.put("list",uservice.searchCustomJobList(a));
+			  list.add(map);
+		  }
+
+		  System.out.println(list);
+		 
+
+		return list;
 	}
 		
 

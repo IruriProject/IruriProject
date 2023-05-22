@@ -220,17 +220,12 @@
    </select>
    
    
-   <!-- 맞춤 일자리 -->   
-   <!-- 검색한 공고 수 -->
-   <select id="countSearchCustomJob" resultType="int" parameterType="String">
-   	select count(p_num) from POSTING where p_type like concat('%',#{p_type},'%')
-   </select>
-   
+   <!-- 맞춤 일자리 -->
    <!-- 검색한 공고 나오기  -->
-   <select id="searchCustomJobList" resultType="pdto" parameterType="String">
-   	select * from POSTING where p_type like concat('%',#{p_type},'%') 
+   <select id="searchCustomJobList" resultType="Map" parameterType="String">
+   		select POSTING.*, ENTERPRISE.* from POSTING
+   		inner join ENTERPRISE on POSTING.e_num = ENTERPRISE.e_num
+   		where p_published=1 and p_type like concat('%',#{p_type},'%')
    </select>
-   
-   
 
 </mapper>

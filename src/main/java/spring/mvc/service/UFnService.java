@@ -198,15 +198,9 @@ public class UFnService {
    }
    
    
-   //맞춤 일자리
-   //맞춤 일자리 검색한 수
-   public int countSearchCustomJob(String p_type) {
-	   return mapper.countSearchCustomJob(p_type);
-   }
-   
+   //맞춤 일자리   
    //맞춤 일자리 검색 결과
-   public List<PostingDto> searchCustomJobList(String p_type) {
-	   
+   public List<Map<String, Object>> searchCustomJobList(String p_type) {
 	   return mapper.searchCustomJobList(p_type);
    }
    

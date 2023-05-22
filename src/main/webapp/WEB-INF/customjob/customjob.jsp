@@ -31,10 +31,33 @@
 
 <!-- Template Stylesheet -->
 <link href="${root }/css/usercss/style.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <style>
 @import
 	url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
 	;
+.alink{
+   color: black;
+}
+
+.alink:hover{
+   color: #416442;
+   text-decoration: none;
+}
+   
+.sub{
+      margin-right:5px; 
+      padding:3px 10px; 
+      background-color:#e3f2c9; 
+      border-radius:16px;
+   }
+   
+#enterprise-name{
+      color: gray;
+      margin-top: 5px;
+      margin-left: 10px;
+      display: block;
+   }
 
 body {
 	font-family: fontAwesome;
@@ -279,203 +302,79 @@ body {
       $(function(){
           $("input:checkbox[name='p_type']").click(function() {
              var p_types = [];
-               $("input:checkbox[name='p_type']:checked").each(function() {
-                 p_types.push($(this).val());
+             $("input:checkbox[name='p_type']:checked").each(function() {
+             	p_types.push($(this).val());
+                var p_type=p_types.join(",");
                  
                  $.ajax({
-                	 
-                	 type:"post",
-                	 dataType:"json",
-                	 url:"customjob",
-                	 data:{
-                		 "p_types": p_types
-                	 },
-                	 success: function(res){
-                		 $('#advertisement-list').html(response);
-                		 
-                	 },
-                	 error: function() {
-                	      // 에러 처리
-                	      alert('오류가 발생했습니다.');
-                	    }
+                 	type:"get",
+                 	url:"/customjobaction",
+                 	dataType:"json",
+                 	data:{"p_type":p_type},
+                 	success:function(res){
+                 		let s="";
+            			s+="<table class='table'>";
+            			s+="<caption>"+res.length+"개의 검색 결과가 있습니다.</caption>";
+            			s+="<tr align='center'><td width='120'>지역</td><td width='400'>모집내용/기업명</td><td width='120'>급여</td>";
+            	   		s+="<td width='150'>근무시간</td><td width='100'>등록일</td></tr>";
+	            	   		$.each(res,function(i,ele){
+	            	   			//주소
+	            	   			s+="<tr><td width='120'>"+ele.p_addr+"</td>";
+	            	   			//제목
+	            	   			s+="<td width='400'><span id='posting-title'>";
+	            	   			s+="<a href='detailpage?p_num="+ele.p_num+"' class='alink'>"+ele.p_title+"</a></span><br>";
+	            	   			s+="<span id='enterprise-name'><span class='sub'>"+ele.p_type+"</span>"+ele.e_name+"</span></td>";
+	            	   			//급여
+	            	   			if (ele.p_employtype === '정규직') {
+	            	   			  s += "<td width='120'><span class='sub'>월급</span>" + ele.p_pay + "</td>";
+	            	   			} else if (ele.p_employtype === '계약직') {
+	            	   			  s += "<td width='120'><span class='sub'>시급</span>" + ele.p_pay + "</td>";
+	            	   			} 
+	            	   			//업무시간
+	            	   			s+="<td width='160'>"+moment('2000-01-01 '+ele.p_starttime).format('HH:mm')+"-"+moment('2000-01-01 '+ele.p_endtime).format('HH:mm')+"</td>";
+	            				//공고등록일	   			
+	            	   			s+="<td width='100'>"+moment(ele.p_writeday).format('YYYY-MM-DD')+"</td></tr>";
+	            	   			
+	            			})
+            			
+            			s+="</table>";
+            			
+            			$("#result").html(s);
+
+                 	}
+                 
                  })
-                 
-                 
+
                });
               
-               //alert(p_types);
                
-              /*  $.ajax({
-                    
-                    type:"post",
-                    dataType:"json",
-                    url:"customjob",
-                    data:{
-                       "p_types":p_type
-                    },
-                    success: function(res){
-                       
-                    }
-                 }) */
           });
       })
 
    </script>
 	
-	<div class="formbold-main-wrapper">
-			<form method="POST" flag="new" id="frm" onsubmit="return submit();">
-				<input type="hidden" name="num" id="num" value=${num }
-					class="formbold-form-input" />
-			<div class="formbold-mb-3">
-               <label class="formbold-form-label">직무</label>
-               <div style="border: 1px solid #dde3ec; border-radius:5px; padding: 11px; width: 1000px;">
-							<input type="checkbox" name="p_type" p_type="p_type" class="chkbox serach" value="건설/건축"> 건설/건축&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="공공/복지/봉사/교육"> 공공/복지/봉사/교육&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="금융/보험"> 금융/보험&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="기술"> 기술&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="농업/어업"> 농업/어업&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="법무"> 법무&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="사무"> 사무&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="서비스"> 서비스&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="생산/제조"> 생산/제조&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="운송"> 운송&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="의료"> 의료
-				</div>
-            </div>
-
+	<div class="formbold-main-wrapper" id="advertisement-list" >
+			<form method="get" action="/customjob">
+				<div class="formbold-mb-3">
+	               <label class="formbold-form-label">직무</label>
+	               <div style="border: 1px solid #dde3ec; border-radius:5px; padding: 11px; width: 1000px;">
+						<input type="checkbox" name="p_type" class="chkbox serach" value="건설/건축"> 건설/건축&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="공공/복지/봉사/교육"> 공공/복지/봉사/교육&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="금융/보험"> 금융/보험&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="기술"> 기술&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="농업/어업"> 농업/어업&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="법무"> 법무&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="사무"> 사무&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="서비스"> 서비스&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="생산/제조"> 생산/제조&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type"class="chkbox serach" value="운송"> 운송&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="의료"> 의료
+					</div>
+	            </div>
 			</form>
 	</div>
 	
-	<div style="margin: 30px 30px;">
- 
-
-  	<!-- 지역별 필터링 후 테이블 나오는 부분 -->
-  	<div id="addr-box"></div>
-   	
-   	<table class="table" id="response">
-   		<caption>
-   		<c:if test="${countSearchCustomJob>0}">
-   		총 ${countSearchCustomJob }개의 글이 있습니다.
-   		</c:if>
-   		</caption>
-
-   		<tr align="center">
-   		  <td width="60">지역</td>
-   		  <td width="400">모집내용/기업명</td>
-   		  <td width="120">급여</td>
-   		  <td width="150">근무시간</td>
-   		  <td width="100">등록일</td>
-   		</tr>
-   		
-   		<c:if test="${countLikeEnter==0 }">
-   		<tr><td colspan="5" align="center">
-   		<span id="nosearch">조건을 설정해주세요.</span>
-   		</td></tr>
-   		</c:if>
-   		
-   		<c:if test="${countLikeEnter>0}">
-   		<c:forEach var="dto" items="${list }">
-   		<tr>
-   		<td width="60">${dto.p_addr }</td>
-		<td width="400">
-		<span id="posting-title">
-		<a href="detailpage?p_num=${dto.p_num}&currentPage=${currentPage}">${dto.p_title }</a>
-		</span>
-		<br>
-		<span id="enterprise-name">[${dto.p_type }] | ${dto.e_name }</span>
-		</td>
-		<td width="120">
-		<c:if test="${dto.p_employtype=='정규직' }">
-		[월급]</c:if>
-		<c:if test="${dto.p_employtype=='기간제' }">
-		[시급]</c:if>
-		${dto.p_pay }
-		</td>
-		<td width="120">${dto.p_type }</td>
-		<td width="150">
-		${dto.p_starttime } - ${dto.p_endtime }
-		</td>
-		<td width="100"><fmt:formatDate value="${dto.p_writeday }" pattern="yyyy-MM-dd"/></td>
-   		</tr>
-   		</c:forEach>
-		</c:if>
-		
-
-   		<c:if test="${countSearchCustomJob==0}">
-   		맞춤 일자리가 없습니다.
-   		</c:if>
-		
-		
-   		<%-- <!-- 페이징 처리 -->
-   		
-		<div style="width: 800px; text-align: center;" class="container">
-		<ul class="pagination">
-			<!-- 이전 -->
-			<c:if test="${startPage>1}">
-			<li>
-				<c:if test="${keyword!=null }">
-					<a href="search?currentPage=${startPage-1 }&searchcolumn=${column}&searchword=${keyword}">이전</a>
-				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="search?currentPage=${startPage-1 }">이전</a>
-				</c:if>
-			</li>
-			</c:if>
-			
-			<c:forEach var="pp" begin="${startPage}" end="${endPage}">
-			  <c:if test="${pp==currentPage }">
-				<li class="active">
-				 <c:if test="${keyword!=null }">
-			    <a href="search?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
-				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="search?currentPage=${pp}">${pp}</a>
-				</c:if>
-				</li>  
-			  </c:if>
-			  <c:if test="${pp!=currentPage }">
-			    <li>
-			    <c:if test="${keyword!=null }">
-			    <a href="search?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
-				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="search?currentPage=${pp}">${pp}</a>
-				</c:if>
-				 
-				</li>
-			  </c:if>
-			</c:forEach>
-
-			<!-- 다음 -->
-			<c:if test="${endPage<totalPage }">
-				<li>
-				<c:if test="${keyword!=null }">
-					<a href="search?currentPage=${endPage+1}&searchcolumn=${column}&searchword=${keyword}">다음</a>
-				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="search?currentPage=${endPage+1}">다음</a>
-				</c:if>
-				</li>
-			</c:if>
-		</ul>
-		</div> --%>
-		
-		
-		
-		
-   	</table>
-   </div>
-	
-	
-   		
-   		
-
-     	
-   		
-	
-	
-
-	
+	<div id="result"></div>
 	
 </body>
 </html>

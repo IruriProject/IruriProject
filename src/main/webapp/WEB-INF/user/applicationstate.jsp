@@ -35,29 +35,20 @@
 div {
 	border: 0px solid gray;
 }
+
+
 </style>
 </head>
 <body>
-
-	
-	<c:if test="${countApply==0 }">
-		<h3 class="alert alert-info">지원 현황이 없습니다</h3>
-	</c:if>
-	<c:if test="${countApply>0 }">
-		<h3 class="alert alert-info">총 ${countApply }개의 지원</h3>
-	</c:if>
-	
-	
-		<!-- Recent Sales Start -->
-			<div class="container-fluid pt-4 px-4">
-				<div class="bg-light text-center rounded p-4">
-					<div class="d-flex align-items-center justify-content-between mb-4">
-						<h6 class="mb-0">나의 채용 현황</h6>
-					</div>
-					<div class="table-responsive">
-						<table
-							class="table text-start align-middle table-bordered table-hover mb-0"
-							style="width: 1000px;">
+			
+					
+					<div id="addr-box"></div>
+						<table class="table" id="response">
+						<caption>
+							<c:if test="${countApply>0}">
+					   		총 ${countApply }개의 글이 있습니다.
+					   		</c:if>
+					   	</caption>
 							<thead>
 								<tr class="text-dark">
 									<th scope="col" style="text-align: center;"><input class="form-check-input"
@@ -100,17 +91,13 @@ div {
 							</c:forEach>
 							
 							<tr>
-								<td colspan="11" >
+								<td colspan="11" style="text-align: center;">
 								<button id="btnAppDel">지원 취소</button>
 								</td>							
 							</tr>
 							
 							</tbody>
 						</table>
-					</div>
-				</div>
-			</div>
-			<!-- Recent Sales End -->
 			
 			<script type="text/javascript">
 			
