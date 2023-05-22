@@ -97,13 +97,13 @@
 		</if>
 	</select> 
 	
+	<!-- search page 공고 리스트 불러오기 -->
 	<select id="getPagingList" parameterType="Map" resultType="Map">
 	select POSTING.*, ENTERPRISE.* from POSTING 
 	inner join ENTERPRISE on POSTING.e_num = ENTERPRISE.e_num
 		<if test="searchcolumn!=null and searchword!=null">
 		where ${searchcolumn} like concat('%',#{searchword},'%')
 		</if>
-		
 			order by p_num desc limit #{start},#{perpage}
 	</select>
 	
@@ -204,7 +204,6 @@
 	select * from POSTING where p_addr like CONCAT('%', #{p_addr}, '%')
 	order by p_num desc
 	</select>
-	
 	
 	<delete id="deletePosting" parameterType="String">
 		delete from POSTING where p_num=#{p_num}
