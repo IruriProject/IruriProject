@@ -105,12 +105,23 @@
 	padding: 14px 25px;
 	border: none;
 	font-weight: 500;
-	background-color: #cce891;
+	background-color: #f0f9de;
 	color: #416442;
 	cursor: pointer;
 	margin-top: 25px;
 	float: right;
 	font-weight: 600;
+}
+
+.formbold-btn2 {
+	margin-left:10px;
+	font-size: 10px;
+	border-radius: 5px;
+	padding: 5px;
+	border: 1px solid #f0f9de;
+	background-color: white;
+	color: #416442;
+	cursor: pointer;
 }
 
 </style>
@@ -127,9 +138,11 @@
 						<span style="font-size: 2em; font-weight: 600; color: #416442; background-color:#f9ffef;">&nbsp;&nbsp;${dto.e_name }&nbsp;&nbsp;</span>
 						<c:if test="${dto.e_auth==0 }">
 							<span style="color: #E74646; font-weight: 600; font-size: 1em;">기업미인증</span>
+							<button type="button" style="border: 1px solid #E74646; color: #E74646;" class="formbold-btn2" onclick="location.href='enterprise/certificate'">기업인증</button>
 						</c:if>
 						<c:if test="${dto.e_auth==1 }">
 							<span style="color: #3E54AC; font-weight: 600; font-size: 1em;">기업인증완료</span>
+							<button type="button" class="formbold-btn2" onclick="location.href='enterprise/certificate'">사업자등록번호 수정</button>
 						</c:if>
 					</div>
 					<div>
@@ -201,13 +214,22 @@
 						</script>
 				<div class="col-sm-12 col-md-6 col-xl-7 w-75" style="padding-left: 70px;">
 					<div class="rounded p-4" style="background-color:#f9ffef;">
-						<span style="font-size: 1.3em; font-weight: 600; color: #416442;">Tel.</span><span style="font-size: 1.3em;">&nbsp;&nbsp;${dto.e_tel }</span>
+						<span style="font-size: 1.2em; font-weight: 600; color: #416442;">Tel.</span><span style="font-size: 1.2em;">&nbsp;&nbsp;${dto.e_tel }</span>
 					</div>
 					<div class="rounded p-4" style="background-color:#f9ffef;">
-						<span style="font-size: 1.2em; font-weight: 600; color: #416442;">Addr.</span><span style="font-size: 1.3em;">&nbsp;&nbsp;${dto.e_addr }</span>
+						<span style="font-size: 1.2em; font-weight: 600; color: #416442;">Addr.</span><span style="font-size: 1.2em;">&nbsp;&nbsp;${dto.e_addr }</span>
 					</div>
 					<div class="rounded p-4" style="background-color:#f9ffef;">
-						<span style="font-size: 1.2em; font-weight: 600; color: #416442;">E-mail.</span><span style="font-size: 1.3em;">&nbsp;&nbsp;${dto.e_email }</span>
+						<span style="font-size: 1.2em; font-weight: 600; color: #416442;">E-mail.</span><span style="font-size: 1.2em;">&nbsp;&nbsp;${dto.e_email }</span>
+					</div>
+					<div class="rounded p-4" style="background-color:#f9ffef;">
+						<span style="font-size: 1.2em; font-weight: 600; color: #416442;">열람권 유무 :</span><span style="font-size: 1.2em;">&nbsp;&nbsp;${dto.e_res_access==1?"O":"X" }</span>&nbsp;&nbsp;
+						<c:if test="${dto.e_res_access==1 }">
+							<button type="button" class="formbold-btn2" onclick="applyAccess(${dto.e_auth})">열람권해지</button>
+						</c:if>
+						<c:if test="${dto.e_res_access==0 }">
+							<button type="button" style="border: 1px solid #E74646; color: #E74646;" class="formbold-btn2" onclick="applyAccess(${dto.e_auth})">열람권신청</button>
+						</c:if>
 					</div>
 					<div class="rounded p-4" style="background-color:#f9ffef;">
 						<span style="font-size: 1.2em; font-weight: 600; color: #416442;">관심기업으로 선정한 인재 : <span id="heartList" title="인재목록보기" style="cursor: pointer; color: #4E9F3D;" onclick="location.href='/enterprise/heartlist'">&nbsp;${heartCount } 명</span></span>
@@ -407,13 +429,6 @@
 		</div>
 		
 		<!-- Recent Sales End -->
-		<br>
-		<button type="button" class="formbold-btn" style="width: 100%; height: 50px; margin-top: 0px;" onclick="location.href='enterprise/certificate'">기업인증</button>
-		<br>
-		<br>
-		<button type="button" class="formbold-btn" style="width: 100%; height: 50px;" onclick="applyAccess(${dto.e_auth})">열람권신청</button>
-		<br>
-		<br>
 		<button type="button" class="formbold-btn" style="width: 100%; height: 50px;"
 			onclick="location.href='enterprise/confirmpw?e_num=${dto.e_num}'">기업회원탈퇴</button>
 
