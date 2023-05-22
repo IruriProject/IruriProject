@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DownloadController {
 
 	//외부서버의 파일을 내 컴퓨터로 다운로드하는소스
-	@GetMapping("/board/download")
+	@GetMapping("/qna/download")
 	public void download(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam String clip)

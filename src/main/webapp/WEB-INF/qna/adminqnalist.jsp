@@ -334,6 +334,9 @@
 					          <a href="detailqna?q_num=${a.q_num}&currentPage=${currentPage}" style="color:#000;">
 					            ${a.q_title}
 					          </a>
+					          <c:if test="${a.q_file!='no'}">
+					           <span class="glyphicon glyphicon-download-alt" style="margin-left:1px; font-size:12px;"></span>
+					          </c:if>
 					        </td>
 					       <td align="center">
 					            <c:if test="${a.qnaCount == 0}">
