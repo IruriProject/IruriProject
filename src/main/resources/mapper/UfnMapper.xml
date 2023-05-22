@@ -139,8 +139,11 @@
    
    <!-- 관심기업 -->
    <select id="getLikeEnterprise" resultType="Map"
-      parameterType="String">
-      select HEART.*, ENTERPRISE.* from HEART inner join ENTERPRISE on HEART.e_num = ENTERPRISE.e_num where HEART.u_num=#{u_num} 
+      parameterType="Map">
+      select HEART.*, ENTERPRISE.* from HEART 
+      inner join ENTERPRISE on HEART.e_num = ENTERPRISE.e_num 
+      where HEART.u_num=#{u_num}
+      order by h_num desc limit #{start},#{perpage} 
    </select>
 
 
@@ -174,11 +177,12 @@
 
 	<!-- 공고 리스트 -->
 	 <select id="getScrapPosting" resultType="Map"
-      parameterType="String">
+      parameterType="Map">
       select SCRAP.*, POSTING.*, ENTERPRISE.* from SCRAP  
       inner join POSTING on SCRAP.p_num = POSTING.p_num 
       inner join ENTERPRISE on ENTERPRISE.e_num= POSTING.e_num
       where SCRAP.u_num=#{u_num} 
+      order by s_num desc limit #{start},#{perpage} 
    </select>
 
 	<!-- 스크랩버튼 누르면 데이터 저장됨 -->
@@ -206,17 +210,25 @@
    </select>
    
    <!-- 지원 현황 -->
+   <!-- 지원 현황 count -->
+	<select id="countApplicantList" resultType="int" parameterType="String">
+		select count(a_num) from APPLICANT 
+		inner join RESUME on APPLICANT.r_num = RESUME.r_num
+		where RESUME.u_num=#{u_num}
+	</select>
+   
    <!-- 지원 취소 delete -->
    <delete id="deleteApply" parameterType="String">
    		delete from APPLICANT where a_num=#{a_num}
    </delete>
    
    <!-- 지원현황 리스트 출력 -->
-   <select id="getApplicantList" resultType="Map" parameterType="String">
+   <select id="getApplicantList" resultType="Map" parameterType="Map">
    	select RESUME.*, APPLICANT.*, POSTING.* from APPLICANT
    	inner join POSTING on APPLICANT.p_num = POSTING.p_num 
     inner join RESUME on RESUME.r_num= APPLICANT.r_num
     where RESUME.u_num=#{u_num} 
+    order by a_num desc limit #{start},#{perpage} 
    </select>
    
    

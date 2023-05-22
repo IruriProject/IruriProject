@@ -60,7 +60,7 @@ public class UFnController {
       UserDto dto = service.findUserdataById(u_id);
       ResumeDto rdto = uservice.getResume(dto.getU_num());
       List<ResumeDto> list=uservice.getMyResume(dto.getU_num());
-      List<Map<String, Object>> getEnterlist =uservice.getLikeEnterprise(u_id); //기업데이터
+      //List<Map<String, Object>> getEnterlist =uservice.getLikeEnterprise(u_id); //기업데이터
       List<EnterpriseDto> getMypageLikeEnter=uservice.getMypageLikeEnter(dto.getU_num());//세션의 아이디 통해 dto를 갖고오고 그 dto통해 U_num갖고오기, U_num통해 관심 기업과 관심 공고 갖고옴
       List<Map<String, Object>> getMypageScrapPosting=uservice.getMypageScrapPosting(dto.getU_num());
      
@@ -317,7 +317,8 @@ public class UFnController {
    
    // 관심기업페이지
    @GetMapping("/enterLike")
-   public ModelAndView likeEnterList(HttpSession session, HeartDto hdto, EnterpriseDto edto) {
+   public ModelAndView likeEnterList(HttpSession session, 
+		   @RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
 
       ModelAndView model = new ModelAndView();
       String myId = (String) session.getAttribute("loginId");
@@ -326,16 +327,55 @@ public class UFnController {
 	  if(myId!=null && loginStatus.equals("user")) {
 		  
 		  String u_num=service.findUserdataById(myId).getU_num();
-		  List<Map<String, Object>> list =uservice.getLikeEnterprise(u_num); //기업데이터
-	      int countLikeEnter = uservice.countLikeEnterprise(u_num);
 	      
-	      model.addObject("countLikeEnter", countLikeEnter);
-	      model.addObject("list", list);
-	      model.setViewName("/user/likeenterprise");
+	      	int totalCount = uservice.countLikeEnterprise(u_num);
+
+			int totalPage; // 총 페이지수
+			int startPage; // 각 블럭(1,2,3..)의 시작페이지
+			int endPage;
+			
+			// 각 블럭의 마지막 페이지
+			int start; // 각 페이지의 시작번호
+			int perpage = 5; // 한 페이지당 보여질 글 개수
+			int perBlock = 5; // 한 블럭당 보여지는 페이지 개수
+
+			// 총 페이지 개수
+			totalPage = totalCount / perpage + (totalCount % perpage == 0 ? 0 : 1);
+
+			// 각 블럭의 시작페이지 -> 현재페이지가 3 -> s:1, e:5 / 6 -> s:6, e:10
+			startPage = (currentPage - 1) / perBlock * perBlock + 1;
+			endPage = startPage + perBlock - 1;
+
+			// 총 페이지가 8이면 (6~10 -> end페이지를 8로 수정)
+			if (endPage > totalPage)
+				endPage = totalPage;
+
+			// 각페이지에서 불러올 시작번호
+			start = (currentPage - 1) * perpage;
+
+			// 메서드 불러오기
+			List<Map<String, Object>> list =uservice.getLikeEnterprise(u_num, start, perpage); //기업데이터
+
+			// 게시글 앞에 붙을 번호
+			int no = totalCount - (currentPage - 1) * perpage;
+			
+			// 출력에 필요한 변수들 model에 저장
+			model.addObject("u_num", u_num);
+			model.addObject("totalCount", totalCount);
+			model.addObject("list", list);
+			model.addObject("totalPage", totalPage);
+			model.addObject("startPage", startPage);
+			model.addObject("endPage", endPage);
+			model.addObject("perBlock", perBlock);
+			model.addObject("currentPage", currentPage);
+			model.addObject("no", no);
+			model.setViewName("/user/likeenterprise");
 	      
 	      uservice.deleteLikeEnter(u_num);
 	  }
 	  
+	  
+	  //System.out.println(u_num);
       return model;
    
    }
@@ -360,7 +400,8 @@ public class UFnController {
 	
 	//관심 공고(스크랩)페이지
 	@GetMapping("/scrap")
-	public ModelAndView ScrapList(HttpSession session, ScrapDto sdto, PostingDto pdto, String num) {
+	public ModelAndView ScrapList(HttpSession session,
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
 		
 		  ModelAndView model=new ModelAndView();
 		  String myId=(String) session.getAttribute("loginId"); 
@@ -370,16 +411,50 @@ public class UFnController {
 		  if(myId!=null && loginStatus.equals("user")) {
 		  
 		  String u_num=service.findUserdataById(myId).getU_num();
-		  List<Map<String, Object>> list =uservice.getScrapPosting(u_num); //기업데이터
-		  int countScrapPosting = uservice.countScrapPosting(u_num);
+		  int totalCount  = uservice.countScrapPosting(u_num);
 		  
-		  
-		  model.addObject("countScrapPosting", countScrapPosting); //
-		  model.addObject("list", list);
-		  model.setViewName("/user/likescrap");
+		  	int totalPage; // 총 페이지수
+			int startPage; // 각 블럭(1,2,3..)의 시작페이지
+			int endPage;
+			
+			// 각 블럭의 마지막 페이지
+			int start; // 각 페이지의 시작번호
+			int perpage = 5; // 한 페이지당 보여질 글 개수
+			int perBlock = 5; // 한 블럭당 보여지는 페이지 개수
+
+			// 총 페이지 개수
+			totalPage = totalCount / perpage + (totalCount % perpage == 0 ? 0 : 1);
+
+			// 각 블럭의 시작페이지 -> 현재페이지가 3 -> s:1, e:5 / 6 -> s:6, e:10
+			startPage = (currentPage - 1) / perBlock * perBlock + 1;
+			endPage = startPage + perBlock - 1;
+
+			// 총 페이지가 8이면 (6~10 -> end페이지를 8로 수정)
+			if (endPage > totalPage)
+				endPage = totalPage;
+
+			// 각페이지에서 불러올 시작번호
+			start = (currentPage - 1) * perpage;
+			
+			// 메서드 불러오기
+			List<Map<String, Object>> list =uservice.getScrapPosting(u_num, start, perpage); //기업데이터
+			
+			// 게시글 앞에 붙을 번호
+			int no = totalCount - (currentPage - 1) * perpage;
+			
+			// 출력에 필요한 변수들 model에 저장
+			model.addObject("u_num", u_num);
+			model.addObject("totalCount", totalCount);
+			model.addObject("list", list);
+			model.addObject("totalPage", totalPage);
+			model.addObject("startPage", startPage);
+			model.addObject("endPage", endPage);
+			model.addObject("perBlock", perBlock);
+			model.addObject("currentPage", currentPage);
+			model.addObject("no", no);
+			model.setViewName("/user/likescrap");
 		  }
-		 
-		
+		  
 		return model;
 	}
 	
@@ -409,7 +484,7 @@ public class UFnController {
 	
 	//지원 현황 리스트
 	@GetMapping("/applicationstate")
-	public ModelAndView applicationList(HttpSession session, ResumeDto rdto, ApplicantDto adto, String num) {
+	public ModelAndView applicationList(HttpSession session, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
 		
 		ModelAndView model=new ModelAndView();
 		String myId = (String) session.getAttribute("loginId");
@@ -418,30 +493,54 @@ public class UFnController {
 		if (myId!=null && loginStatus.equals("user")) {
 			
 			String u_num = service.findUserdataById(myId).getU_num();
-			List<Map<String, Object>> list =uservice.getApplicantList(u_num);
-			int countApply = uservice.getApplicantList(u_num).size();
+			int totalCount = uservice.countApplicantList(u_num);
+
+			int totalPage; // 총 페이지수
+			int startPage; // 각 블럭(1,2,3..)의 시작페이지
+			int endPage;
 			
+			// 각 블럭의 마지막 페이지
+			int start; // 각 페이지의 시작번호
+			int perpage = 5; // 한 페이지당 보여질 글 개수
+			int perBlock = 5; // 한 블럭당 보여지는 페이지 개수
+
+			// 총 페이지 개수
+			totalPage = totalCount / perpage + (totalCount % perpage == 0 ? 0 : 1);
+
+			// 각 블럭의 시작페이지 -> 현재페이지가 3 -> s:1, e:5 / 6 -> s:6, e:10
+			startPage = (currentPage - 1) / perBlock * perBlock + 1;
+			endPage = startPage + perBlock - 1;
+
+			// 총 페이지가 8이면 (6~10 -> end페이지를 8로 수정)
+			if (endPage > totalPage)
+				endPage = totalPage;
+
+			// 각페이지에서 불러올 시작번호
+			start = (currentPage - 1) * perpage;
+
+			// 메서드 불러오기
+			List<Map<String, Object>> list =uservice.getApplicantList(u_num, start, perpage);
 			
+			// 게시글 앞에 붙을 번호
+			int no = totalCount - (currentPage - 1) * perpage;
+			
+			// 출력에 필요한 변수들 model에 저장
+			model.addObject("u_num", u_num);
+			model.addObject("totalCount", totalCount);
 			model.addObject("list", list);
-			model.addObject("countApply", countApply);
+			model.addObject("totalPage", totalPage);
+			model.addObject("startPage", startPage);
+			model.addObject("endPage", endPage);
+			model.addObject("perBlock", perBlock);
+			model.addObject("currentPage", currentPage);
+			model.addObject("no", no);
 			model.setViewName("/user/applicationstate");
 		}
-		
-		
 		
 		return model;
 	}
 	
-	//관심 직종
-	@GetMapping("/occupationlike")
-	public ModelAndView occupationList(HttpSession session ,String num) {
-		ModelAndView model= new ModelAndView();
-		
-		
-		model.setViewName("/user/likeoccupation");
-		
-		return model;
-	}
+	
 	
 	//맞춤 일자리
 	//맞춤 일자리 리스트

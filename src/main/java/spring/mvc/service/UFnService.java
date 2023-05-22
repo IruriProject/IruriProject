@@ -112,9 +112,15 @@ public class UFnService {
    }
    
    //기업 데이터 가져오기
-   public List<Map<String, Object>> getLikeEnterprise(String e_num) {
+   public List<Map<String, Object>> getLikeEnterprise(String u_num, int start, int perpage) {
 	   
-	   return mapper.getLikeEnterprise(e_num);
+	   Map<String, Object> map = new HashMap<>(); 
+	   
+	   map.put("u_num", u_num);
+	   map.put("start", start);
+	   map.put("perpage", perpage);
+	   
+	   return mapper.getLikeEnterprise(map);
    }
    
    // 좋아요 한 회원과 기업 데이터 추가
@@ -147,14 +153,20 @@ public class UFnService {
    
    //관심 공고(스크랩)
    //관심 공고 수
-   public int countScrapPosting(String s_num) {
+   public int countScrapPosting(String u_num) {
 	   
-	  return mapper.countScrapPosting(s_num);
+	  return mapper.countScrapPosting(u_num);
    }
    
-   public List<Map<String, Object>> getScrapPosting(String u_num){
+   public List<Map<String, Object>> getScrapPosting(String u_num, int start, int perpage){
 	   
-	   return mapper.getScrapPosting(u_num);
+	   Map<String, Object> map =new HashMap<>();
+	   
+	   map.put("u_num", u_num);
+	   map.put("start", start);
+	   map.put("perpage", perpage);
+	   
+	   return mapper.getScrapPosting(map);
    }
    
    //관심 공고 insert
@@ -178,6 +190,11 @@ public class UFnService {
    
    
    //지원현황
+   //지원 수
+   public int countApplicantList(String u_num) {
+	   
+	    return mapper.countApplicantList(u_num);
+   }
    //지원 취소
    public void deleteApply(String a_nun) {
 	   mapper.deleteApply(a_nun);
@@ -192,9 +209,15 @@ public class UFnService {
    
    
    //지원현황 리스트 가져오기
-   public List<Map<String, Object>> getApplicantList(String u_num){
+   public List<Map<String, Object>> getApplicantList(String u_num, int start, int perpage){
 	   
-	   return mapper.getApplicantList(u_num);
+	   Map<String, Object> map = new HashMap<>();
+	   
+	   map.put("u_num", u_num);
+	   map.put("start", start);
+	   map.put("perpage", perpage);
+	   
+	   return mapper.getApplicantList(map);
    }
    
    

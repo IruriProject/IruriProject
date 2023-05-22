@@ -36,6 +36,38 @@ div {
 	border: 0px solid gray;
 }
 
+.no{
+
+	color: gray; 
+	background-color: #f9ffef; 
+	padding: 20px; 
+	margin-top: 50px;
+	border-radius: 20px;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: #4E9F3D;
+  color: white;
+  text-decoration: none;
+}
+
+.pagination a:hover:not(.active) {
+	text-decoration: none; 
+	color:#416442; 
+	background-color:#e3f2c9;
+} 
 
 </style>
 </head>
@@ -45,9 +77,8 @@ div {
 					<div id="addr-box"></div>
 						<table class="table" id="response">
 						<caption>
-							<c:if test="${countApply>0}">
-					   		총 ${countApply }개의 글이 있습니다.
-					   		</c:if>
+							<c:if test="${totalCount>0}">
+					   		총 ${totalCount }개의 글이 있습니다.
 					   	</caption>
 							<thead>
 								<tr class="text-dark">
@@ -98,6 +129,34 @@ div {
 							
 							</tbody>
 						</table>
+			
+			
+				<!-- 페이징 -->
+				<div class="pagination" style="display: flex; justify-content: center; width: 100%; text-align: center;">
+			
+					<!-- 이전 -->
+					<c:if test="${startPage > 1 }">
+						<a href="/applicationstate?p_num=${p_num }&currentPage=${startPage - 1 }">&laquo;</a>
+					</c:if>
+			
+					<c:forEach var="pp" begin="${startPage }" end="${endPage }">
+						<c:if test="${pp == currentPage }">
+							<a class="active" href="/applicationstate?p_num=${p_num }&currentPage=${pp }">${pp }</a>
+						</c:if>
+						<c:if test="${pp != currentPage }">
+							<a href="/applicationstate?p_num=${p_num }&currentPage=${pp }">${pp }</a>
+						</c:if>
+					</c:forEach>
+			
+					<!-- 다음 -->
+					<c:if test="${endPage < totalPage }">
+						<a href="/applicationstate?p_num=${p_num }&currentPage=${endPage + 1 }">&raquo;</a>
+					</c:if>
+			
+				</div>
+			  
+			   </c:if>
+			
 			
 			<script type="text/javascript">
 			
