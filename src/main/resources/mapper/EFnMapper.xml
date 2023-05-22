@@ -201,7 +201,9 @@
 	
 	<!-- 지역별 검색 -->
 	<select id="getAddrPostings" parameterType="Map" resultType="pdto">
-	select * from POSTING where p_published=true and p_addr like CONCAT('%', #{p_addr}, '%')
+	select POSTING.*,ENTERPRISE.* from POSTING
+	inner join ENTERPRISE on POSTING.e_num = ENTERPRISE.e_num
+	where p_published=true and p_addr like CONCAT('%', #{p_addr}, '%')
 	order by p_num desc
 	</select>
 	
