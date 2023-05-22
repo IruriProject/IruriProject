@@ -87,12 +87,7 @@ public class BoardController {
         //각 페이지에서 불러올 시작번호
         start=(currentPage-1)*perPage;
     
-        
-        //List<BoardDto> noticeList=bservice.getNoticeList(keyword, start, perPage);
-        
-        
-        //각 페이지에서 필요한 게시글 가져오기
-       
+        //각 페이지에서 필요한 게시글 가져오기   
         List<BoardDto> list=bservice.getList(sort,keyword,start, perPage,noticeFirst);
         
         //new표시

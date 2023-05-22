@@ -40,8 +40,13 @@
 <script>
 function updateUrl() {
   var sort = document.getElementById("sort").value;
+ // var allkeyword = document.getElementById("allkeyword").value.trim();
   var url = "allsearchlist?";
-
+  
+  if (allkeyword != "") {
+    url += "allkeyword=" + encodeURIComponent(allkeyword) + "&";
+  }
+   
   if (sort != "") {
     url += "sort=" + encodeURIComponent(sort);
   }
@@ -144,25 +149,25 @@ function updateUrl() {
 					<!-- 이전 -->
 					<c:if test="${startPage>1 }">
 						<li>
-						<a href="allsearchlist?currentPage=${startPage-1}&amp;sort=${param.sort}">이전</a>
+						<a href="allsearchlist?currentPage=${startPage-1}&amp;allkeyword=${param.allkeyword}&amp;sort=${param.sort}">이전</a>
 						</li>
 					</c:if>
 
 					<c:forEach var="pp" begin="${startPage }" end="${endPage }">
 						<c:if test="${currentPage==pp }">
-							<li class="active"><a href="allsearchlist?currentPage=${pp}&amp;sort=${param.sort}">${pp}</a>
+							<li class="active"><a href="allsearchlist?currentPage=${pp}&amp;allkeyword=${param.allkeyword}&amp;sort=${param.sort}">${pp}</a>
 							</li>
 						</c:if>
 
 						<c:if test="${currentPage!=pp }">
-							<li><a href="allsearchlist?currentPage=${pp}&amp;sort=${param.sort}">${pp}</a></li>
+							<li><a href="allsearchlist?currentPage=${pp}&amp;allkeyword=${param.allkeyword}&amp;sort=${param.sort}">${pp}</a></li>
 						</c:if>
 					</c:forEach>
 					
 					<!--다음 -->
 					<c:if test="${endPage<totalPage }">
 						<li>
-						<a href="allsearchlist?currentPage=${endPage+1}&amp;sort=${param.sort}">다음</a>
+						<a href="allsearchlist?currentPage=${endPage+1}&amp;allkeyword=${param.allkeyword}&amp;sort=${param.sort}">다음</a>
 						</li>
 					</c:if>
 				</ul>
