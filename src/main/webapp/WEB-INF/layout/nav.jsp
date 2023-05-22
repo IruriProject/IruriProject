@@ -159,21 +159,87 @@
 				<c:if test="${sessionScope.loginStatus!='enterprise' }">
 					<a style="cursor: pointer" class="mainMenu" onclick="checkLogin()">회원서비스</a>
 					<ul class="subMenu">
-						<li><a href="/update">개인정보 관리</a></li>
-						<li><a href="/resumelist">이력서 관리</a></li>
-						<li><a href="/enterLike">관심 기업</a></li>
-						<li><a href="/applicationstate">지원현황</a></li>
+						<li><a style="cursor: pointer" onclick="checkLogin2()">개인정보 관리</a></li>
+						<li><a style="cursor: pointer" onclick="checkLogin3()">이력서 관리</a></li>
+						<li><a style="cursor: pointer" onclick="checkLogin4()">관심 기업</a></li>
+						<li><a style="cursor: pointer" onclick="checkLogin5()">지원현황</a></li>
 					</ul>
 					
 					<script type="text/javascript">
 					function checkLogin() {
-					  <c:if test="${empty sessionScope.loginStatus}">
-					    alert("로그인 후 이용 가능합니다.");
-					    location.href = "/login";
-					    return false;
-					  </c:if>
-					  location.href = "/mypage";
-					}
+						  // 세션에서 로그인 상태 가져오기
+						  var loginStatus = '<%= session.getAttribute("loginStatus") %>';
+						  // 로그인 상태 확인
+						  if (loginStatus === "user") {
+						    // 로그인된 상태이므로 원하는 작업 수행
+						    // 마이페이지
+						    window.location.href = "/mypage";
+						  } else {
+						    // 로그인되지 않은 상태이므로 알림창 표시 후 로그인 페이지로 이동
+						    alert("로그인이 필요합니다.");
+						    window.location.href = "/login";
+						  }
+						}
+					
+					function checkLogin2() {
+						  // 세션에서 로그인 상태 가져오기
+						  var loginStatus = '<%= session.getAttribute("loginStatus") %>';
+						  // 로그인 상태 확인
+						  if (loginStatus === "user") {
+						    // 로그인된 상태이므로 원하는 작업 수행
+						    // 개인정보수정
+						    window.location.href = "/update";
+						  } else {
+						    // 로그인되지 않은 상태이므로 알림창 표시 후 로그인 페이지로 이동
+						    alert("로그인이 필요합니다.");
+						    window.location.href = "/login";
+						  }
+						}
+					
+					function checkLogin3() {
+						  // 세션에서 로그인 상태 가져오기
+						  var loginStatus = '<%= session.getAttribute("loginStatus") %>';
+						  // 로그인 상태 확인
+						  if (loginStatus === "user") {
+						    // 로그인된 상태이므로 원하는 작업 수행
+						    // 이력서목록
+						    window.location.href = "/resumelist";
+						  } else {
+						    // 로그인되지 않은 상태이므로 알림창 표시 후 로그인 페이지로 이동
+						    alert("로그인이 필요합니다.");
+						    window.location.href = "/login";
+						  }
+						}
+					
+					function checkLogin4() {
+						  // 세션에서 로그인 상태 가져오기
+						  var loginStatus = '<%= session.getAttribute("loginStatus") %>';
+						  // 로그인 상태 확인
+						  if (loginStatus === "user") {
+						    // 로그인된 상태이므로 원하는 작업 수행
+						    // 관심기업
+						    window.location.href = "/enterlike";
+						  } else {
+						    // 로그인되지 않은 상태이므로 알림창 표시 후 로그인 페이지로 이동
+						    alert("로그인이 필요합니다.");
+						    window.location.href = "/login";
+						  }
+						}
+					
+					function checkLogin5() {
+						  // 세션에서 로그인 상태 가져오기
+						  var loginStatus = '<%= session.getAttribute("loginStatus") %>';
+						  // 로그인 상태 확인
+						  if (loginStatus === "user") {
+						    // 로그인된 상태이므로 원하는 작업 수행
+						    // 지원현황
+						    window.location.href = "/applicationstate";
+						  } else {
+						    // 로그인되지 않은 상태이므로 알림창 표시 후 로그인 페이지로 이동
+						    alert("로그인이 필요합니다.");
+						    window.location.href = "/login";
+						  }
+						}
 					</script>
 				</c:if>
 			</li>
@@ -230,9 +296,25 @@
 		</c:if>
 		
 		<c:if test="${sessionScope.loginStatus!='user' }">
-			<li><a href="${root }/posting/write">공고등록</a></li>
+			<li><a onclick="checkLoginEnt()">공고등록</a></li>
 		</c:if>
 		</ul>
 	</nav>
+	<script type="text/javascript">
+	function checkLoginEnt() {
+		  // 세션에서 로그인 상태 가져오기
+		  var loginStatus = '<%= session.getAttribute("loginStatus") %>';
+		  // 로그인 상태 확인
+		  if (loginStatus === "enterprise") {
+		    // 로그인된 상태이므로 원하는 작업 수행
+		    // 지원현황
+		    window.location.href = "/posting/write";
+		  } else {
+		    // 로그인되지 않은 상태이므로 알림창 표시 후 로그인 페이지로 이동
+		    alert("로그인이 필요합니다.");
+		    window.location.href = "/login";
+		  }
+		}
+	</script>
 </body>
 </html>

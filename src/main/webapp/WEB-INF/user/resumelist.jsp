@@ -37,6 +37,13 @@ div {
 text-align: center;
    border: 1px solid gray;
 }
+div a{
+	color:black;
+}
+div a:hover{
+	color:black;
+	text-decoration: none;
+}
 </style>
 </head>
 <body>

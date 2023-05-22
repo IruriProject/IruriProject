@@ -25,6 +25,7 @@
 <link href="${root }/css/usercss/owl.carousel.min.css" rel="stylesheet">
 <link href="${root }/css/usercss/tempusdominus-bootstrap-4.min.css"
 	rel="stylesheet" />
+<script src="https://kit.fontawesome.com/b80cb5e2d1.js" crossorigin="anonymous"></script>
 
 <!-- Customized Bootstrap Stylesheet -->
 <link href="${root }/css/usercss/bootstrap.min.css" rel="stylesheet">
@@ -65,7 +66,7 @@ div {
 	border-radius: 10px;
 }
 .myresume{
-font-size:1.2em; display:flex; flex-direction: row; justify-content: space-around;
+ display:flex; flex-direction: row; justify-content: space-around;
 }
 .spanbutton{
 cursor: pointer;
@@ -88,7 +89,7 @@ text-decoration: none;
 		<!-- Content Start -->
 		<div class="container-fluid pt-4 px-4">
 			<div class="row g-4" style="border: 1px solid green; border-radius: 10px; padding:20px 0px 20px 10px;">
-				<div class="col-sm-12 col-md-3 col-xl-4 w-25" style="text-align: center">
+				<div class="col-sm-12 col-md-3 col-xl-4 w-25" style="text-align: center; border-right: 1px solid green;">
 					<c:if test="${dto.u_photo==null }">
 						<img src="/image/nophoto.png"
 						style="width: 170px; height: 170px; border-radius: 500px;">
@@ -143,7 +144,7 @@ text-decoration: none;
 					</div>
 				</div>
 
-				<div class="col-sm-12 col-md-6 col-xl-7 w-60">
+				<div class="col-sm-12 col-md-6 col-xl-7 w-50"  style="border-right: 1px solid green;">
 					<div class="h-100 bg-light rounded p-4">
 						<div data-rnum="${rdto.r_num}">
 							<c:if test="${rdto.r_title==null}">
@@ -153,9 +154,9 @@ text-decoration: none;
 								<!-- 이력서 목록 페이지로 -->
 							</c:if>
 							<c:if test="${rdto.r_title!=null}">
-								<h2 style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${rdto.r_title}</h2>
+							<span style="font-size: 2em; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${rdto.r_title}</span><br>
 								<c:set var="writeday"><fmt:formatDate value="${rdto.r_writeday }" pattern="yyyy-MM-dd"/></c:set>
-								최종수정일 : ${writeday }<br>
+								<span style="font-size: 1.2em; font-weight: 600;">최종수정일 : ${writeday }</span><br>
 							</c:if>
 						</div>
 					</div>
@@ -192,23 +193,23 @@ text-decoration: none;
                   })
                </script>
                <br>
-               <br><br>
+               <br><br><br><br>
                <div class="h-100 bg-light rounded p-4 myresume">
-                  <span class="spanbutton" onclick="location.href='insertresume'">이력서
+                  <span class="spanbutton" onclick="location.href='insertresume'" style="font-size: 1.2em; font-weight: 600;">이력서
                      등록</span>
-                  <span class="spanbutton" onclick="location.href='resumelist'">이력서 목록</span>
-                  <span class="spanbutton" onclick="location.href='applicationstate'">지원현황</span>
+                  <span class="spanbutton" onclick="location.href='resumelist'" style="font-size: 1.2em; font-weight: 600;">이력서 목록</span>
+                  <span class="spanbutton" onclick="location.href='applicationstate'" style="font-size: 1.2em; font-weight: 600;">지원현황</span>
                   <br>
                </div>
                <br>
             </div>
             
-               <div class="col-sm-12 col-md-3 col-xl-4 w-15" style="float:right;">
-               	  <span class="gwansim" onclick="location.href='enterLike'">관심기업 <i class="fa-solid fa-heart"></i> ${countLikeEnter }</span><br>
-               	  <br>
-               	  <span class="gwansim" onclick="location.href='occupationlike'">관심직종 <i class="fa-solid fa-briefcase"></i></span><br>
-               	  <br>
-               	  <span class="gwansim" onclick="location.href='scrap'">관심공고 <i class="fa-solid fa-star"></i> ${countPosting }</span>
+               <div class="col-sm-12 col-md-3 col-xl-4 w-30" style="float:right;">
+               	  <span class="gwansim" onclick="location.href='enterLike'" style="font-size: 1.2em; font-weight: 600;">관심기업 <i class="fa-solid fa-heart"></i> ${countLikeEnter }</span><br>
+               	  <br><br><br>
+               	  <span class="gwansim" onclick="location.href='occupationlike'" style="font-size: 1.2em; font-weight: 600;">관심직종 <i class="fa-solid fa-briefcase"></i></span><br>
+               	  <br><br><br>
+               	  <span class="gwansim" onclick="location.href='scrap'" style="font-size: 1.2em; font-weight: 600;">관심공고 <i class="fa-solid fa-star"></i> ${countPosting }</span>
                   <br>
                </div>
          </div>

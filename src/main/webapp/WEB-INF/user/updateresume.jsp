@@ -99,11 +99,18 @@ cursor:pointer;
 
             <div class="formbold-mb-3">
                <label for="r_title" class="formbold-form-label"> 이력서 제목 </label> <input
-                  type="text" name="r_title" id="r_title" step="50"
+                  type="text" name="r_title" id="r_title" step="50" value="${rdto.r_title }"
                   placeholder="25글자 이내로 자신을 표현해보세요." class="formbold-form-input" required="required"/>
-                  <span class="rtitle" style="float:right">0자 / 25자</span>
+                  <span class="rtitle" style="float:right" >0자 / 25자</span>
             </div>
 			<script type="text/javascript">
+			 $(document).on("submit", "form", function(event){
+	                window.onbeforeunload = null;
+	        	});
+	            window.onbeforeunload = function() {
+	        		return "브라우저를 종료하시겠습니까?";
+	        	};	
+	        	
             $('#r_title').keyup(function (e) {
 				var title = $(this).val();
 				var characterCount = title.replace(/\s/g, '').length;
@@ -1445,12 +1452,10 @@ cursor:pointer;
                     $("#direct").click(function() {
                       // OneMinDoc div 숨기기
                       $("#OneMinDoc").css("display", "none");
-                      $(".rcontent-autoInput").val('');
                       // 직접입력 버튼에 on 클래스 추가
                       $("#directBtn").addClass("on");
                       // 1분 자동완성 버튼에서 on 클래스 제거
                       $("#autoBtn").removeClass("on");
-                      $('.textCount').text('총 0자 / 1000자');
                       $(".textCount").show();
                     });
                      
@@ -1458,7 +1463,6 @@ cursor:pointer;
                     $("#auto").click(function() {
                       // OneMinDoc div 보여주기
                       $("#OneMinDoc").css("display", "block");
-                      $(".rcontent-autoInput").val('');
                       // 1분 자동완성 버튼에 on 클래스 추가
                       $("#autoBtn").addClass("on");
                       // 직접입력 버튼에서 on 클래스 제거
@@ -1594,32 +1598,16 @@ cursor:pointer;
                      </div>
                      
                      <script type="text/javascript">
-                     var selectedPersonality = "";
-                     var selectedCareer = "";
-                     var selectedMotivation = "";
+                     document.addEventListener("DOMContentLoaded", function() {
+                   	  var tds = document.querySelectorAll(".autoResume table td");
+                   	  var textarea = document.getElementById("r_content");
 
-                        $("#personality td").click(function() {
-                           var selectedText = $(this).text();
-                           selectedPersonality = selectedText;
-                            updateTextarea();
-                        })
-                        $("#career td").click(function() {
-                           var selectedText = $(this).text();
-                           selectedCareer = selectedText;
-                            updateTextarea();
-                        })
-                        $("#motivation td").click(function() {
-                           var selectedText = $(this).text();
-                            selectedMotivation = selectedText;
-                            updateTextarea();
-                        })
-                        
-                        function updateTextarea() {
-                           var selectedText = selectedPersonality + "\n" + selectedCareer + "\n" + selectedMotivation;
-                           
-                           $(".rcontent-autoInput").val(selectedText);
-}
-
+                   	  tds.forEach(function(td) {
+                   		    td.addEventListener("click", function() {
+                   		      textarea.value += td.innerText + "\n";
+                   		    });
+                   		  });
+                   		});
                         $(".resizable-textarea li").click(
                               function() {
 
