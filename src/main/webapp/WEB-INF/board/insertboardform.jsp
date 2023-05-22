@@ -93,7 +93,7 @@
 
 .bcontent-input {
 	width: 100%;
-	height:300px;
+	height:250px;
 	padding: 13px 22px;
 	border-radius: 5px;
 	border: 1px solid #dde3ec;
@@ -227,8 +227,71 @@
 .formbold-w-45 {
 	width: 45%;
 }
-</style>
 
+
+
+
+
+
+
+
+
+/*미리보기 */
+.preview-image-container {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2px 5px;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.preview-image {
+  width: 100px;
+}
+</style>
+<script>
+    function checkFileCount(event) {
+    	
+    	//5개제한
+        var files = event.target.files;
+        if (files.length > 5) {
+            event.target.value = ""; // 선택한 파일 초기화
+            alert("이미지는 최대 5개까지 업로드할 수 있습니다.");
+        }
+	
+        //미리보기
+        var files = event.target.files;
+        var previewContainer = document.getElementById("image-preview");
+        previewContainer.innerHTML = ""; // 기존 미리보기 초기화
+
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            var image = document.createElement("img");
+            image.src = e.target.result;
+            image.classList.add("preview-image");
+            image.style.width = "100px"; // 이미지 크기 설정
+            image.style.padding = "15px";
+
+            previewContainer.appendChild(image);
+          };
+
+          reader.readAsDataURL(file);
+        }
+        
+    }
+</script>
 </head>
 <body>
 <div class="formbold-main-wrapper">
@@ -255,8 +318,9 @@
 
 				<div class="formbold-mb-3">
 					<label for="p_enddate" class="formbold-form-label" > 이미지 </label>
-					 <input type="file" name="upload" id="b_photo" multiple="multiple"
+					 <input type="file" name="upload" id="b_photo" multiple="multiple" onchange="checkFileCount(event)"
 						class="formbold-form-input" />
+					<div id="image-preview"></div>
 				</div>
 				
 				<button type="button" class="formbold-cancel-btn" onclick="location.href='boardlist?currentPage=${currentPage}'" style="margin-left:10px;">취소</button>

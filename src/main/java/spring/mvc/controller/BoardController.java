@@ -209,6 +209,12 @@ public class BoardController {
 	    bdto.setB_content(b_content);
 	    
 	    
+	    // 이미지 개수 제한
+	    if (upload.size() > 5) {
+	     return "redirect:boardlist";
+	    }
+
+	    
 		int idx=1;
 
 		if(upload.get(0).getOriginalFilename().equals("")) 
@@ -250,6 +256,21 @@ public class BoardController {
 	    String b_content = bdto.getB_content().replace("<br>","\r\n");
 	    bdto.setB_content(b_content);
 		
+	    
+		List<BoardDto> photoList= mapper.getAllphotos(b_num);
+		List<String> photoUrls = new ArrayList<>(); // 이미지 URL을 담을 리스트
+	
+		for(BoardDto dto:photoList)
+		{
+			String [] photos=dto.getB_photo().split(",");
+			for(String photo : photos) {
+		        photoUrls.add(photo); // URL을 리스트에 추가
+		    }
+			//dto.setB_photo(photos[0]);
+		}
+		
+		model.addObject("photoUrls",photoUrls);
+		
 		model.addObject("bdto",bdto);
 		model.setViewName("/board/updateboardform");
 		return model;
@@ -281,6 +302,11 @@ public class BoardController {
 	    String b_content = bdto.getB_content().replace("\r\n","<br>");
 	    bdto.setB_content(b_content);
 	    
+	    // 이미지 개수 제한
+	    if (upload.size() > 5) {
+	     return "redirect:boardlist";
+	    }
+
 
 		int idx=1;
 
