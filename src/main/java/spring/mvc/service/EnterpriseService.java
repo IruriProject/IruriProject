@@ -61,8 +61,8 @@ public class EnterpriseService {
 		mapper.updateResAccessStatus(map);
 	}
 	
-	public List<ApplicantDto> getAllResumeOfEnter(String e_num){
-		return mapper.getApplicantsByEnterprise(e_num);
+	public List<Map<String, Object>> getAllResumeOfEnter(String e_num){
+		return mapper.getAllResumeOfEnter(e_num);
 	}
 	
 	public int heartByEnter(String e_num) {
