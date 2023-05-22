@@ -17,6 +17,7 @@
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   <link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style type="text/css">
 
 #OneMinDoc ul, .introduceTab__list ul, #dllocal ul {
@@ -55,17 +56,17 @@ cursor:pointer;
             </div>
             <br>
             <div class="formbold-input-wrapp formbold-mb-3"
-               style="height: 250px; border: 2px solid green;">
+               style="height: 270px; background-color:#f9ffef; border-radius: 10px; padding:20px 0px 20px 25px;">
                <label for="p_title" class="formbold-form-label"> 기본정보 </label> <span
                   style="font-size: 2em">${sessionScope.loginName }</span>
-               <div style="float: left; width: 150px; height: 200px; margin-right:20px;">
+               <div style="float: left; width: 150px; height:200px; margin-right:20px;">
                		<c:if test="${dto.u_photo==null }">
 						<img src="/image/nophoto.png"
-						style="width: 150px; height: 200px;">
+						style="width: 150px; height: 200px; border-radius:10px;">
 					</c:if>
 					<c:if test="${dto.u_photo!=null }">
 							<img alt="" src="/photo/${dto.u_photo}"
-							style="width: 150px; height: 200px;">
+							style="width: 150px; height: 200px; border-radius:10px;">
 					</c:if>
                </div>
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -85,18 +86,18 @@ cursor:pointer;
 				<c:if test="${year-birth+1 ==2024}">
 				( - 세)
 				</c:if>
-				
+				<br><br>
                <table style="border: 0px solid red;">
                   <tr>
-                     <td width=100>연락처</td>
+                     <td width="100" height="40">연락처</td>
                      <td>${dto.u_hp }</td>
                   </tr>
                   <tr>
-                     <td>이메일</td>
+                     <td height="40">이메일</td>
                      <td>${dto.u_email }</td>
                   </tr>
                   <tr>
-                     <td>주소</td>
+                     <td height="40">주소</td>
                      <td>${dto.u_addr }</td>
                   </tr>
                </table>
@@ -142,7 +143,7 @@ cursor:pointer;
             <div class="formbold-mb-3">
                <label class="formbold-form-label">희망지역</label>
                <div class="searchValue regist__item">
-                  <button type="button" id="tagarea" onclick="selectLocation()">지역선택</button>
+                  <button type="button" id="tagarea" class="sm-border-btn" onclick="selectLocation()">지역선택</button>
                   <input id="areainput" name="r_larea" readonly="readonly" required="required" class="formbold-form-input">
                </div>
                <div id="dllocal" class="searchArea"
