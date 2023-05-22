@@ -207,8 +207,6 @@ text-decoration: none;
                <div class="col-sm-12 col-md-3 col-xl-4 w-30" style="float:right;">
                	  <span class="gwansim" onclick="location.href='enterLike'" style="font-size: 1.2em; font-weight: 600;">관심기업 <i class="fa-solid fa-heart"></i> ${countLikeEnter }</span><br>
                	  <br><br><br>
-               	  <span class="gwansim" onclick="location.href='occupationlike'" style="font-size: 1.2em; font-weight: 600;">관심직종 <i class="fa-solid fa-briefcase"></i></span><br>
-               	  <br><br><br>
                	  <span class="gwansim" onclick="location.href='scrap'" style="font-size: 1.2em; font-weight: 600;">관심공고 <i class="fa-solid fa-star"></i> ${countPosting }</span>
                   <br>
                </div>
@@ -368,18 +366,16 @@ text-decoration: none;
 								<th scope="col" style="text-align: center;">주소</th>
 								<th scope="col" style="text-align: center;">전화번호</th>
 								<th scope="col" style="text-align: center;">이메일</th>
-								<th scope="col" style="text-align: center;">상세보기</th>
 							</tr>
 						</thead>
 						<tbody>
 						<c:forEach var="edto" items="${getMypageLikeEnter }">
 							<tr>
 								<td style="text-align: center;"><input class="form-check-input" type="checkbox"></td>
-								<td style="text-align: center;">${edto.e_name}</td>
+								<td style="text-align: center;"><a href="/enterprise/enterprisepage?e_num=${edto.e_num }">${edto.e_name}</a></td>
 								<td style="text-align: center;">${edto.e_addr}</td>
 								<td style="text-align: center;">${edto.e_tel}</td>
 								<td style="text-align: center;">${edto.e_email}</td>
-								<td style="text-align: center;"><a class="btn btn-sm btn-primary glyphicon glyphicon-search" href="/enterprise/enterprisepage?e_num=${edto.e_num }">기업페이지</a></td>
 							</tr>
 						</c:forEach>
 							
@@ -389,65 +385,6 @@ text-decoration: none;
 			</div>
 		</div>
 		<!-- Recent Sales End -->
-
-
-		<!-- Recent Sales Start -->
-		<div class="container-fluid pt-4 px-4">
-			<div class="bg-light text-center rounded p-4">
-				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h6 class="mb-0">관심 직종</h6>
-					<a href="/occupationlike">더보기</a>
-				</div>
-				<div class="table-responsive">
-					<table
-						class="table text-start align-middle table-bordered table-hover mb-0">
-						<thead>
-							<tr class="text-dark">
-								<th scope="col" style="text-align: center;"><input
-									class="form-check-input" type="checkbox"></th>
-								<th scope="col" style="text-align: center;">Date</th>
-								<th scope="col" style="text-align: center;">Invoice</th>
-								<th scope="col" style="text-align: center;">Customer</th>
-								<th scope="col" style="text-align: center;">Amount</th>
-								<th scope="col" style="text-align: center;">Status</th>
-								<th scope="col" style="text-align: center;">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">상세보기</a></td>
-							</tr>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-							</tr>
-							<tr>
-								<td><input class="form-check-input" type="checkbox"></td>
-								<td>01 Jan 2045</td>
-								<td>INV-0123</td>
-								<td>Jhon Doe</td>
-								<td>$123</td>
-								<td>Paid</td>
-								<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<!-- Recent Sales End -->
-
 
 		<!-- Recent Sales Start -->
 		<div class="container-fluid pt-4 px-4">
@@ -471,7 +408,6 @@ text-decoration: none;
 									<th scope="col" style="text-align: center;">근무요일</th>
 									<th scope="col" style="text-align: center;">근무시간</th>
 									<th scope="col" style="text-align: center;">고용형태</th>
-									<th scope="col" style="text-align: center;">상세보기</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -479,14 +415,13 @@ text-decoration: none;
 							<tr>
 								<td style="text-align: center;"><input class="form-check-input" type="checkbox"></td>
 								<td style="text-align: center;">${pdto.e_name }</td>
-								<td style="text-align: center;">${pdto.p_title}</td>
+								<td style="text-align: center;"><a href="posting/detailpage?p_num=${pdto.p_num}">${pdto.p_title}</a></td>
 								<td style="text-align: center;">${pdto.p_type }</td>
 								<td style="text-align: center;">${pdto.p_pay }</td>
 								<td style="text-align: center;">${pdto.p_period }</td>
 								<td style="text-align: center;">${pdto.p_workday}</td>
 								<td style="text-align: center;">${pdto.p_starttime } ~ ${pdto.p_endtime }</td>
 								<td style="text-align: center;">${pdto.p_employtype}</td>
-								<td style="text-align: center;"><a class="btn btn-sm btn-primary" href="posting/detailpage?p_num=${pdto.p_num}">공고페이지</a></td>
 							</tr>	
 							</c:forEach>
 						</tbody>
