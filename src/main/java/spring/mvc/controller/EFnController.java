@@ -441,7 +441,7 @@ public class EFnController {
 
 	@ResponseBody
 	@GetMapping("/addrsearch")
-	public List<PostingDto> addrSearch(@RequestParam(name = "p_addr") String p_addr) {
+	public List<Map<String, Object>> addrSearch(@RequestParam(name = "p_addr") String p_addr) {
 		return service.getAddrSearch(p_addr);
 	}
 
