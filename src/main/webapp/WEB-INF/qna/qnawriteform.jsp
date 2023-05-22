@@ -315,6 +315,28 @@ $(document).ready(function() {
 .formbold-w-45 {
 	width: 45%;
 }
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: #4E9F3D;
+  color: white;
+  text-decoration: none;
+}
+
+.pagination a:hover:not(.active) {text-decoration: none; color:#416442; background-color:#e3f2c9;}
+
+
 </style>
 <script>
     function checkFileSize(event) {
@@ -422,33 +444,33 @@ $(document).ready(function() {
 				
 				<!-- 페이징 -->
 		<c:if test="${usertotalCount>0}">
-			<div style="width: 800px; text-align: center;">
-				<ul class="pagination">
+			<div class="pagination" style=" display: flex; justify-content: center; width:100%; text-align: center;">
+				
 					<!-- 이전 -->
 					<c:if test="${startPage>1 }">
-						<li>
-						<a href="qnawriteform?currentPage=${startPage-1}">이전</a>
-						</li>
+						
+						<a href="qnawriteform?currentPage=${startPage-1}">&laquo;</a>
+						
 					</c:if>
 
 					<c:forEach var="pp" begin="${startPage }" end="${endPage }">
 						<c:if test="${currentPage==pp }">
-							<li class="active"><a href="qnawriteform?currentPage=${pp}">${pp}</a>
-							</li>
+							<a class="active" href="qnawriteform?currentPage=${pp}">${pp}</a>
+							
 						</c:if>
 
 						<c:if test="${currentPage!=pp }">
-							<li><a href="qnawriteform?currentPage=${pp}">${pp}</a></li>
+							<a href="qnawriteform?currentPage=${pp}">${pp}</a>
 						</c:if>
 					</c:forEach>
 					
 					<!--다음 -->
 					<c:if test="${endPage<totalPage }">
-						<li>
-						<a href="qnawriteform?currentPage=${endPage+1}">다음</a>
-						</li>
+						
+						<a href="qnawriteform?currentPage=${endPage+1}">&raquo;</a>
+						
 					</c:if>
-				</ul>
+				
 			</div>
 		</c:if>
 			</div>
