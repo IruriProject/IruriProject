@@ -457,15 +457,12 @@ public class UFnController {
 		String [] p_types=p_type.split(",");
 
 		List<Map<String, Object>> list=new ArrayList<>();
-		Map<String, Object> map=new HashMap<>();
-		
-		  for(String a:p_types) {
-			  map.put("list",uservice.searchCustomJobList(a));
-			  list.add(map);
-		  }
-
-		  System.out.println(list);
-		 
+			
+		for(String a:p_types) {
+			Map<String, Object> map=new HashMap<>();
+		  	map.put("list", uservice.searchCustomJobList(a));
+		  	list.add(map);
+		}
 
 		return list;
 	}
