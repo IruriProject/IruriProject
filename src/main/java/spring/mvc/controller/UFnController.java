@@ -122,7 +122,7 @@ public class UFnController {
 	    List<ResumeDto> list=uservice.getResumeByUserId(u_id);
 	    
 	    if(loginStatus==null) {
-	    	String loginmessage = "로그이 필요합니다.";
+	    	String loginmessage = "로그인이 필요합니다.";
 	    	model.addObject("loginmessage", loginmessage);
 	    }
 	    if (list.size()> 4) {
