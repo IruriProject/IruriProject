@@ -218,7 +218,7 @@
 						  if (loginStatus === "user") {
 						    // 로그인된 상태이므로 원하는 작업 수행
 						    // 관심기업
-						    window.location.href = "/enterlike";
+						    window.location.href = "/enterLike";
 						  } else {
 						    // 로그인되지 않은 상태이므로 알림창 표시 후 로그인 페이지로 이동
 						    alert("로그인이 필요합니다.");
