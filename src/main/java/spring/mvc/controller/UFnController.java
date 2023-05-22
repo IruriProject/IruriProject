@@ -546,6 +546,7 @@ public class UFnController {
 	//맞춤 일자리 리스트
 	@GetMapping("/customjob")
 	public String customList() {
+		
 		return "/customjob/customjob";
 	}
 	

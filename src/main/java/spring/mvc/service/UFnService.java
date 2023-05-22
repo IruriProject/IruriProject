@@ -222,6 +222,12 @@ public class UFnService {
    
    
    //맞춤 일자리   
+   //맞춤 일자리 검색 결과 수
+   public int countCustomJobList(String p_num) {
+	   
+	   return mapper.countCustomJobList(p_num);
+   }
+   
    //맞춤 일자리 검색 결과
    public List<Map<String, Object>> searchCustomJobList(String p_type) {
 	   return mapper.searchCustomJobList(p_type);
