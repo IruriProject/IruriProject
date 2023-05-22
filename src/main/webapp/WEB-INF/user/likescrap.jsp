@@ -35,6 +35,15 @@
 div {
 	border: 0px solid gray;
 }
+
+.no{
+
+	color: gray; 
+	background-color: #f9ffef; 
+	padding: 20px; 
+	margin-top: 50px;
+	border-radius: 20px;
+}
 </style>
 </head>
 <body>
@@ -105,7 +114,7 @@ div {
 							
 							<c:if test="${countScrapPosting==0 }">
 							<tr>
-									<h3>관심 공고가 없습니다. 관심 공고를 추가해보세요! :)</h3>
+									<h3 class="no">관심 공고가 없습니다. 관심 공고를 추가해보세요! :)</h3>
 							</tr>
 							
 							</c:if>

@@ -314,27 +314,29 @@ body {
                  	success:function(res){
                  		let s="";
             			s+="<table class='table'>";
-            			s+="<caption>"+res.length+"개의 검색 결과가 있습니다.</caption>";
+            			/* s+="<caption>"+res.length+"개의 검색 결과가 있습니다.</caption>"; */
             			s+="<tr align='center'><td width='120'>지역</td><td width='400'>모집내용/기업명</td><td width='120'>급여</td>";
             	   		s+="<td width='150'>근무시간</td><td width='100'>등록일</td></tr>";
 	            	   		$.each(res,function(i,ele){
-	            	   			//주소
-	            	   			s+="<tr><td width='120'>"+ele.p_addr+"</td>";
-	            	   			//제목
-	            	   			s+="<td width='400'><span id='posting-title'>";
-	            	   			s+="<a href='detailpage?p_num="+ele.p_num+"' class='alink'>"+ele.p_title+"</a></span><br>";
-	            	   			s+="<span id='enterprise-name'><span class='sub'>"+ele.p_type+"</span>"+ele.e_name+"</span></td>";
-	            	   			//급여
-	            	   			if (ele.p_employtype === '정규직') {
-	            	   			  s += "<td width='120'><span class='sub'>월급</span>" + ele.p_pay + "</td>";
-	            	   			} else if (ele.p_employtype === '계약직') {
-	            	   			  s += "<td width='120'><span class='sub'>시급</span>" + ele.p_pay + "</td>";
-	            	   			} 
-	            	   			//업무시간
-	            	   			s+="<td width='160'>"+moment('2000-01-01 '+ele.p_starttime).format('HH:mm')+"-"+moment('2000-01-01 '+ele.p_endtime).format('HH:mm')+"</td>";
-	            				//공고등록일	   			
-	            	   			s+="<td width='100'>"+moment(ele.p_writeday).format('YYYY-MM-DD')+"</td></tr>";
-	            	   			
+	            	   			$.each(ele.list, function(j, obj) {
+		            	   			//주소
+		            	   			s+="<tr><td width='120'>"+obj.p_addr+"</td>";
+		            	   			//제목
+		            	   			s+="<td width='400'><span id='posting-title'>";
+		            	   			s+="<a href='/posting/detailpage?p_num="+obj.p_num+"' class='alink'>"+obj.p_title+"</a></span><br>";
+		            	   			s+="<span id='enterprise-name'><span class='sub'>"+obj.p_type+"</span>"+obj.e_name+"</span></td>";
+		            	   			//급여
+		            	   			if (obj.p_employtype === '정규직') {
+		            	   			  s += "<td width='120'><span class='sub'>월급</span>" + obj.p_pay + "</td>";
+		            	   			} else if (obj.p_employtype === '계약직') {
+		            	   			  s += "<td width='120'><span class='sub'>시급</span>" + obj.p_pay + "</td>";
+		            	   			} 
+		            	   			//업무시간
+		            	   			s+="<td width='160'>"+moment('2000-01-01 '+obj.p_starttime).format('HH:mm')+"-"+moment('2000-01-01 '+obj.p_endtime).format('HH:mm')+"</td>";
+		            				//공고등록일	   			
+		            	   			s+="<td width='100'>"+moment(obj.p_writeday).format('YYYY-MM-DD')+"</td></tr>";
+		            	   			
+		            	   		});
 	            			})
             			
             			s+="</table>";
