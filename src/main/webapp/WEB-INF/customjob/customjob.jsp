@@ -36,12 +36,6 @@
 	url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
 	;
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
 body {
 	font-family: fontAwesome;
 }
@@ -329,9 +323,8 @@ body {
    </script>
 	
 	<div class="formbold-main-wrapper">
-		<div class="">
 			<form method="POST" flag="new" id="frm" onsubmit="return submit();">
-				<input type="hidden" name="u_num" id="u_num" value=${p_num }
+				<input type="hidden" name="num" id="num" value=${num }
 					class="formbold-form-input" />
 			<div class="formbold-mb-3">
                <label class="formbold-form-label">직무</label>
@@ -351,7 +344,6 @@ body {
             </div>
 
 			</form>
-		</div>
 	</div>
 	
 	<div style="margin: 30px 30px;">
@@ -360,7 +352,7 @@ body {
   	<!-- 지역별 필터링 후 테이블 나오는 부분 -->
   	<div id="addr-box"></div>
    	
-   	<table class="table" id="basic-list">
+   	<table class="table" id="response">
    		<caption>
    		<c:if test="${countSearchCustomJob>0}">
    		총 ${countSearchCustomJob }개의 글이 있습니다.
@@ -371,7 +363,6 @@ body {
    		  <td width="60">지역</td>
    		  <td width="400">모집내용/기업명</td>
    		  <td width="120">급여</td>
-   		  <td width="120">직무</td>
    		  <td width="150">근무시간</td>
    		  <td width="100">등록일</td>
    		</tr>
@@ -410,14 +401,10 @@ body {
 		</c:if>
 		
 
-
-
-
-
-   		<%-- <c:if test="${countSearchCustomJo==0}">
+   		<c:if test="${countSearchCustomJob==0}">
    		맞춤 일자리가 없습니다.
    		</c:if>
-		 --%>
+		
 		
    		<%-- <!-- 페이징 처리 -->
    		
