@@ -88,8 +88,8 @@ text-decoration: none;
 	<div>
 		<!-- Content Start -->
 		<div class="container-fluid pt-4 px-4">
-			<div class="row g-4" style="border: 1px solid green; border-radius: 10px; padding:20px 0px 20px 10px;">
-				<div class="col-sm-12 col-md-3 col-xl-4 w-25" style="text-align: center; border-right: 1px solid green;">
+			<div class="row g-4"style="border: 1px solid #f0f9de; background-color:#f9ffef; border-radius: 10px; padding:20px 0px 20px 25px;">
+				<div class="col-sm-12 col-md-3 col-xl-4 w-25" style="text-align: center;">
 					<c:if test="${dto.u_photo==null }">
 						<img src="/image/nophoto.png"
 						style="width: 170px; height: 170px; border-radius: 500px;">
@@ -144,8 +144,8 @@ text-decoration: none;
 					</div>
 				</div>
 
-				<div class="col-sm-12 col-md-6 col-xl-7 w-50"  style="border-right: 1px solid green;">
-					<div class="h-100 bg-light rounded p-4">
+				<div class="col-sm-12 col-md-6 col-xl-7 w-50" >
+					<div class="h-100 rounded p-4">
 						<div data-rnum="${rdto.r_num}">
 							<c:if test="${rdto.r_title==null}">
 								<h3>대표이력서가 없습니다.</h3>
@@ -194,7 +194,7 @@ text-decoration: none;
                </script>
                <br>
                <br><br><br><br>
-               <div class="h-100 bg-light rounded p-4 myresume">
+               <div class="h-100 rounded p-4 myresume">
                   <span class="spanbutton" onclick="location.href='insertresume'" style="font-size: 1.2em; font-weight: 600;">이력서
                      등록</span>
                   <span class="spanbutton" onclick="location.href='resumelist'" style="font-size: 1.2em; font-weight: 600;">이력서 목록</span>
@@ -204,12 +204,12 @@ text-decoration: none;
                <br>
             </div>
             
-               <div class="col-sm-12 col-md-3 col-xl-4 w-30" style="float:right;">
-               	  <span class="gwansim" onclick="location.href='enterLike'" style="font-size: 1.2em; font-weight: 600;">관심기업 <i class="fa-solid fa-heart"></i> ${countLikeEnter }</span><br>
-               	  <br><br><br>
-               	  <span class="gwansim" onclick="location.href='occupationlike'" style="font-size: 1.2em; font-weight: 600;">관심직종 <i class="fa-solid fa-briefcase"></i></span><br>
-               	  <br><br><br>
-               	  <span class="gwansim" onclick="location.href='scrap'" style="font-size: 1.2em; font-weight: 600;">관심공고 <i class="fa-solid fa-star"></i> ${countPosting }</span>
+               <div class="col-sm-12 col-md-3 col-xl-4 w-30" style="float:right; text-align:center;">
+               	  <span class="gwansim" onclick="location.href='enterLike'" style="font-size: 1.2em; font-weight: 600; line-height:60px;">관심기업 <i class="fa-solid fa-heart"></i> ${countLikeEnter }</span><br>
+               	  
+               	  <span class="gwansim" onclick="location.href='occupationlike'" style="font-size: 1.2em; font-weight: 600; line-height:60px;">관심직종 <i class="fa-solid fa-briefcase"></i></span><br>
+               	  
+               	  <span class="gwansim" onclick="location.href='scrap'" style="font-size: 1.2em; font-weight: 600; line-height:60px;">관심공고 <i class="fa-solid fa-star"></i> ${countPosting }</span>
                   <br>
                </div>
          </div>
@@ -282,7 +282,7 @@ text-decoration: none;
 				</div>
 				<div class="table-responsive">
 					<table
-						class="table text-start align-middle table-bordered table-hover mb-0"
+						class="table"
 						style="table-layout: fixed">
 						<thead>
 							<tr class="text-dark">

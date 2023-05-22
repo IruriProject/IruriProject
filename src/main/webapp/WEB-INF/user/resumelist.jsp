@@ -31,11 +31,11 @@
 <link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style type="text/css">
 div {
-	border: 1px solid gray;
+	border: 0px solid gray;
 }
 .text-dark th{
 text-align: center;
-   border: 1px solid gray;
+   border: 0px solid gray;
 }
 div a{
 	color:black;
@@ -53,7 +53,7 @@ div a:hover{
 			<div class="bg-light text-center rounded p-4">
 				<div class="table-responsive">
 					<table 
-						class="table text-start align-middle table-bordered table-hover mb-0"
+						class="table"
 						style="width: 800px; table-layout: fixed" >
 						<thead>
 							<tr class="text-dark">
