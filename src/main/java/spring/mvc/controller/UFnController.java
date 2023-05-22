@@ -451,7 +451,6 @@ public class UFnController {
 	public ModelAndView customList(String num) {
 		ModelAndView model=new ModelAndView();
 		
-		
 		List<PostingDto> list=uservice.searchCustomJobList(num);
 		int countSearchCustomJob=uservice.countSearchCustomJob(num);
 		
