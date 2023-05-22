@@ -2,6 +2,7 @@ package spring.mvc.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -444,15 +445,19 @@ public class UFnController {
 	//맞춤 일자리 리스튼
 	@GetMapping("/customjob")
 	@ResponseBody
-	public ModelAndView customList(String num) {
+	public ModelAndView customList(String[] p_type) {
 		ModelAndView model=new ModelAndView();
 		
-		List<PostingDto> list=uservice.searchCustomJobList(num);
-		int countSearchCustomJob=uservice.countSearchCustomJob(num);
+		//List<PostingDto> list=uservice.searchCustomJobList(p_type);
+		//int countSearchCustomJob=uservice.countSearchCustomJob(p_type);
 		
-		model.addObject("list", list);
-		model.addObject("countSearchCustomJob",countSearchCustomJob);
+		
+		
+	//	model.addObject("list", list);
+//		/model.addObject("countSearchCustomJob",countSearchCustomJob);
 		model.setViewName("/customjob/customjob");
+		
+		System.out.println(p_type);
 		
 		return model;
 	}

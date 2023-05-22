@@ -284,62 +284,46 @@ body {
                  
                  $.ajax({
                 	 
-                	 type:"post",
-                	 dataType:"json",
-                	 url:"customjob",
-                	 data:{
-                		 "p_types": p_types
-                	 },
-                	 success: function(res){
-                		 $('#advertisement-list').html(response);
-                		 
-                	 },
-                	 error: function() {
-                	      // 에러 처리
-                	      alert('오류가 발생했습니다.');
-                	    }
+                 	type:"post",
+                 	url:"customjob",
+                 	dataType:"json",
+                 	data:{
+                 		"p_type":p_types
+                 	},
+                 	success:function(){
+                 		
+                 		
+                 	}
+                 
+                 
                  })
+                 
                  
                  
                });
               
-               //alert(p_types);
-               
-              /*  $.ajax({
-                    
-                    type:"post",
-                    dataType:"json",
-                    url:"customjob",
-                    data:{
-                       "p_types":p_type
-                    },
-                    success: function(res){
-                       
-                    }
-                 }) */
+               alert(p_types);
           });
       })
 
    </script>
 	
-	<div class="formbold-main-wrapper">
+	<div class="formbold-main-wrapper" id="advertisement-list" >
 			<form method="POST" flag="new" id="frm" onsubmit="return submit();">
-				<input type="hidden" name="num" id="num" value=${num }
-					class="formbold-form-input" />
 			<div class="formbold-mb-3">
                <label class="formbold-form-label">직무</label>
                <div style="border: 1px solid #dde3ec; border-radius:5px; padding: 11px; width: 1000px;">
 							<input type="checkbox" name="p_type" p_type="p_type" class="chkbox serach" value="건설/건축"> 건설/건축&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="공공/복지/봉사/교육"> 공공/복지/봉사/교육&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="금융/보험"> 금융/보험&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="기술"> 기술&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="농업/어업"> 농업/어업&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="법무"> 법무&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="사무"> 사무&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="서비스"> 서비스&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="생산/제조"> 생산/제조&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="운송"> 운송&nbsp;&nbsp;&nbsp;
-							<input type="checkbox" name="p_type" class="chkbox serach" value="의료"> 의료
+							<input type="checkbox" name="p_type" p_type="p_type" class="chkbox serach" value="공공/복지/봉사/교육"> 공공/복지/봉사/교육&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" p_type="p_type" class="chkbox serach" value="금융/보험"> 금융/보험&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" p_type="p_type" class="chkbox serach" value="기술"> 기술&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" p_type="p_type" class="chkbox serach" value="농업/어업"> 농업/어업&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" p_type="p_type" class="chkbox serach" value="법무"> 법무&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" p_type="p_type" class="chkbox serach" value="사무"> 사무&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" p_type="p_type" class="chkbox serach" value="서비스"> 서비스&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" p_type="p_type" class="chkbox serach" value="생산/제조"> 생산/제조&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" p_type="p_type" class="chkbox serach" value="운송"> 운송&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="p_type" p_type="p_type" class="chkbox serach" value="의료"> 의료
 				</div>
             </div>
 
@@ -350,7 +334,14 @@ body {
  
 
   	<!-- 지역별 필터링 후 테이블 나오는 부분 -->
+  	
   	<div id="addr-box"></div>
+   	
+   	<div class="advertisement-list">
+   		검색 결과<br><br><br><br>
+   	</div>
+   	
+   	
    	
    	<table class="table" id="response">
    		<caption>
@@ -367,13 +358,14 @@ body {
    		  <td width="100">등록일</td>
    		</tr>
    		
-   		<c:if test="${countLikeEnter==0 }">
+   		<c:if test="${countSearchCustomJob==0 }">
+   		<caption>총 ${countSearchCustomJob }개의 글이 있습니다. </caption>
    		<tr><td colspan="5" align="center">
    		<span id="nosearch">조건을 설정해주세요.</span>
    		</td></tr>
    		</c:if>
    		
-   		<c:if test="${countLikeEnter>0}">
+   		<c:if test="${countSearchCustomJob>0}">
    		<c:forEach var="dto" items="${list }">
    		<tr>
    		<td width="60">${dto.p_addr }</td>
@@ -400,10 +392,6 @@ body {
    		</c:forEach>
 		</c:if>
 		
-
-   		<c:if test="${countSearchCustomJob==0}">
-   		맞춤 일자리가 없습니다.
-   		</c:if>
 		
 		
    		<%-- <!-- 페이징 처리 -->
