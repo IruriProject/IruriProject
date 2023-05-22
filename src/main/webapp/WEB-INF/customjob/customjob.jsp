@@ -279,30 +279,24 @@ body {
       $(function(){
           $("input:checkbox[name='p_type']").click(function() {
              var p_types = [];
-               $("input:checkbox[name='p_type']:checked").each(function() {
-                 p_types.push($(this).val());
+             $("input:checkbox[name='p_type']:checked").each(function() {
+             	p_types.push($(this).val());
+                var p_type=p_types.join();
                  
                  $.ajax({
-                	 
-                 	type:"post",
-                 	url:"customjob",
+                 	type:"get",
+                 	url:"/customjobaction",
                  	dataType:"json",
-                 	data:{
-                 		"p_type":p_types
-                 	},
+                 	data:{"p_type":p_type},
                  	success:function(){
-                 		
-                 		
+						alert("ji");
                  	}
                  
-                 
                  })
-                 
-                 
-                 
+
                });
               
-               alert(p_types);
+               
           });
       })
 

@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -444,22 +446,19 @@ public class UFnController {
 	//맞춤 일자리
 	//맞춤 일자리 리스튼
 	@GetMapping("/customjob")
+	public String customList() {
+		return "/customjob/customjob";
+	}
+	
 	@ResponseBody
-	public ModelAndView customList(String[] p_type) {
-		ModelAndView model=new ModelAndView();
+	@GetMapping("/customjobaction")
+	public List<PostingDto> customListAction(@RequestParam String p_type) {
 		
-		//List<PostingDto> list=uservice.searchCustomJobList(p_type);
-		//int countSearchCustomJob=uservice.countSearchCustomJob(p_type);
+		System.out.println(uservice.searchCustomJobList(p_type));
+		
+		return uservice.searchCustomJobList(p_type);
 		
 		
-		
-	//	model.addObject("list", list);
-//		/model.addObject("countSearchCustomJob",countSearchCustomJob);
-		model.setViewName("/customjob/customjob");
-		
-		System.out.println(p_type);
-		
-		return model;
 	}
 		
 
