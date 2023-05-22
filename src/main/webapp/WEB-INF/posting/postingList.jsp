@@ -10,6 +10,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link href="${root }/css/usercss/style.css" rel="stylesheet">
 </head>
 <style>
 .atag {
@@ -65,9 +66,9 @@
 		</select>
 		<input type="text"
 			placeholder="검색어 입력" class="form-control" name="searchword">
-		<button type="submit" class="btn btn-info">검색</button>
-		<button type="button" class="btn btn-info" onclick="location.href='/posting/postinglist'">초기화</button>
-		<button style="float: right" type="button" class="btn btn-info" onclick="location.href='/phrases/list'">자주쓰는문구 목록</button>
+		<button type="submit" style="width: 70px;" class="sm-border-btn setMainOff">검색</button>
+		<button type="button" style="width: 80px;" class="sm-border-btn setMainOff" onclick="location.href='/posting/postinglist'">초기화</button>
+		<button style="float: right; width: 130px;" type="button" class="sm-color-btn setMainOff" onclick="location.href='/phrases/list'">자주쓰는문구 목록</button>
 	</form>
 	<br>
 	<table class="table" style="width: 100%; margin: 0 auto;">

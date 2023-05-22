@@ -10,6 +10,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link href="${root }/css/usercss/style.css" rel="stylesheet">
 </head>
 <style>
 .pagination {
@@ -75,7 +76,7 @@
 				<td>${dto.u_gender }</td>
 				<td>${dto.u_hp }</td>
 				<td>${dto.u_addr }</td>
-				<td><button type="button" class="btn btn-info"
+				<td><button type="button" class="sm-color-btn setMainOff"
 						onclick="location.href='../posting/writemessage?u_id=${dto.u_id}'">쪽지보내기</button></td>
 			</tr>
 		</c:forEach>

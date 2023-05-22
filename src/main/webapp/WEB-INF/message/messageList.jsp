@@ -10,6 +10,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style type="text/css">
 .longsentence{
 	word-break: break-all;
@@ -67,8 +68,8 @@ $(function(){
 		</select>
 		<input type="text"
 			placeholder="검색어 입력" class="form-control" name="searchword">
-		<button type="submit" class="btn btn-info">검색</button>
-		<button type="button" class="btn btn-info" onclick="location.href='/posting/messagelist'">초기화</button>
+		<button type="submit" style="width: 70px;" class="sm-border-btn setMainOff">검색</button>
+		<button type="button" style="width: 80px;" class="sm-border-btn setMainOff" onclick="location.href='/posting/messagelist'">초기화</button>
 	</form>
 	<br>
 	<table class="table" style="width: 80%; margin: 0 auto;">
