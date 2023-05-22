@@ -11,6 +11,31 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
+<style>
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: #4E9F3D;
+  color: white;
+  text-decoration: none;
+}
+
+.pagination a:hover:not(.active) {
+	text-decoration: none;
+	color:#416442;
+	background-color:#e3f2c9;
+}
+</style>
 <body>
 	<table class="table" style="width: 100%; margin: 0 auto;">
 		<tr>
@@ -49,30 +74,27 @@
 	</table>
 	
 	<!-- 페이징 -->
-		<div style="width: 800px; text-align: center;">
-			<ul class="pagination">
+		<div class="pagination" style=" display: flex; justify-content: center; width:100%; text-align: center;">
 
-				<!-- 이전 -->
-				<c:if test="${startPage > 1 }">
-					<li><a href="/enterprise/heartlist?e_num=${e_num }&currentPage=${startPage - 1 }">이전</a></li>
+			<!-- 이전 -->
+			<c:if test="${startPage > 1 }">
+				<a href="/enterprise/heartlist?e_num=${e_num }&currentPage=${startPage - 1 }">&laquo;</a>
+			</c:if>
+			
+			<c:forEach var="pp" begin="${startPage }" end="${endPage }">
+				<c:if test="${pp == currentPage }">
+					<a class="active" href="/enterprise/heartlist?e_num=${e_num }&currentPage=${pp }">${pp }</a>
 				</c:if>
-				<c:forEach var="pp" begin="${startPage }" end="${endPage }">
-
-					<c:if test="${pp == currentPage }">
-						<li class="active"><a href="/enterprise/heartlist?e_num=${e_num }&currentPage=${pp }">${pp }</a></li>
-					</c:if>
-					<c:if test="${pp != currentPage }">
-						<li><a href="/enterprise/heartlist?e_num=${e_num }&currentPage=${pp }">${pp }</a></li>
-					</c:if>
-
-				</c:forEach>
-
-				<!-- 다음 -->
-				<c:if test="${endPage < totalPage }">
-					<li><a href="/enterprise/heartlist?e_num=${e_num }&currentPage=${endPage + 1 }">다음</a></li>
+				<c:if test="${pp != currentPage }">
+					<a href="/enterprise/heartlist?e_num=${e_num }&currentPage=${pp }">${pp }</a>
 				</c:if>
+			</c:forEach>
 
-			</ul>
-		</div>
+			<!-- 다음 -->
+			<c:if test="${endPage < totalPage }">
+				<a href="/enterprise/heartlist?e_num=${e_num }&currentPage=${endPage + 1 }">&raquo;</a>
+			</c:if>
+
+	  </div>
 </body>
 </html>

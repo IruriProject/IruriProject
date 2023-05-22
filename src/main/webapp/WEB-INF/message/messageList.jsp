@@ -18,6 +18,30 @@
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
 }
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: #4E9F3D;
+  color: white;
+  text-decoration: none;
+}
+
+.pagination a:hover:not(.active) {
+	text-decoration: none;
+	color:#416442;
+	background-color:#e3f2c9;
+}
 </style>
 <script>
 $(function(){
@@ -89,59 +113,50 @@ $(function(){
 	</table>
 	
 	<c:if test="${searchCount>0 }">
-	<!-- 페이징 -->
-	<div style="width: 800px; text-align: center;" class="container">
-		<ul class="pagination">
-			<!-- 이전 -->
-			<c:if test="${startPage>1}">
-			<li>
-				<c:if test="${keyword!=null }">
-					<a href="messagelist?currentPage=${startPage-1 }&searchcolumn=${column}&searchword=${keyword}">이전</a>
+		<!-- 페이징 -->
+		<div class="pagination" style=" display: flex; justify-content: center; width:100%; text-align: center;">
+	
+				<!-- 이전 -->
+				<c:if test="${startPage>1}">
+					<c:if test="${keyword!=null }">
+						<a href="messagelist?currentPage=${startPage-1 }&searchcolumn=${column}&searchword=${keyword}">&laquo;</a>
+					</c:if>
+					<c:if test="${keyword==null }">
+						<a href="messagelist?currentPage=${startPage-1 }">&laquo;</a>
+					</c:if>
 				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="messagelist?currentPage=${startPage-1 }">이전</a>
+				
+				<c:forEach var="pp" begin="${startPage}" end="${endPage}">
+				  <c:if test="${pp==currentPage }">
+					 <c:if test="${keyword!=null }">
+				    	<a class="active" href="messagelist?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
+					</c:if>
+					<c:if test="${keyword==null }">
+						<a class="active" href="messagelist?currentPage=${pp}">${pp}</a>
+					</c:if> 
+				  </c:if>
+				  
+				  <c:if test="${pp!=currentPage }">
+				    <c:if test="${keyword!=null }">
+				   		<a href="messagelist?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
+					</c:if>
+					<c:if test="${keyword==null }">
+						<a href="messagelist?currentPage=${pp}">${pp}</a>
+					</c:if>
+				  </c:if>
+				</c:forEach>
+	
+				<!-- 다음 -->
+				<c:if test="${endPage<totalPage }">
+					<c:if test="${keyword!=null }">
+						<a href="messagelist?currentPage=${endPage+1}&searchcolumn=${column}&searchword=${keyword}">&raquo;</a>
+					</c:if>
+					<c:if test="${keyword==null }">
+						<a href="messagelist?currentPage=${endPage+1}">&raquo;</a>
+					</c:if>
 				</c:if>
-			</li>
-			</c:if>
+			</div>
 			
-			<c:forEach var="pp" begin="${startPage}" end="${endPage}">
-			  <c:if test="${pp==currentPage }">
-				<li class="active">
-				 <c:if test="${keyword!=null }">
-			    <a href="messagelist?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
-				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="messagelist?currentPage=${pp}">${pp}</a>
-				</c:if>
-				</li>  
-			  </c:if>
-			  <c:if test="${pp!=currentPage }">
-			    <li>
-			    <c:if test="${keyword!=null }">
-			    <a href="messagelist?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
-				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="messagelist?currentPage=${pp}">${pp}</a>
-				</c:if>
-				 
-				</li>
-			  </c:if>
-			</c:forEach>
-
-			<!-- 다음 -->
-			<c:if test="${endPage<totalPage }">
-				<li>
-				<c:if test="${keyword!=null }">
-					<a href="messagelistt?currentPage=${endPage+1}&searchcolumn=${column}&searchword=${keyword}">다음</a>
-				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="messagelist?currentPage=${endPage+1}">다음</a>
-				</c:if>
-				</li>
-			</c:if>
-		</ul>
-		</div>
-		
 		</c:if>
 	
 </body>
