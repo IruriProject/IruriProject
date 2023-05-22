@@ -28,5 +28,7 @@ public class ApplicantDto {
 	private String p_title;
 	private int p_pay;
 	private String p_addr;
+	private String e_logo;
+	private String p_employtype;
 }
 
