@@ -455,17 +455,19 @@ public class UFnController {
 	@ResponseBody
 	public List<Map<String, Object>> customListAction(@RequestParam(value = "p_type", required = false) String p_type) {
 		String [] p_types=p_type.split(",");
-		/*
-		 * System.out.println(p_type);
-		 * 
-		 * 
-		 * 
-		 * List<PostingDto> list=new ArrayList<>();
-		 * 
-		 * for(String a:p_types) { list=(a); }
-		 */
 
-		return uservice.searchCustomJobList(p_types[0]);
+		List<Map<String, Object>> list=new ArrayList<>();
+		Map<String, Object> map=new HashMap<>();
+		
+		  for(String a:p_types) {
+			  map.put("list",uservice.searchCustomJobList(a));
+			  list.add(map);
+		  }
+
+		  System.out.println(list);
+		 
+
+		return list;
 	}
 		
 

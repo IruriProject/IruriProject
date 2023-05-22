@@ -65,7 +65,6 @@ public interface UFnMapperInter {
 	public List<Map<String, Object>> getApplicantList(String u_num);//유저별 지원현황 리스트
 	
 	//맞춤 일자리
-	public int countSearchCustomJob(String p_type);//검색 된 공고 수
 	public List<Map<String, Object>> searchCustomJobList (String p_type);//검색 된 공고
 	
 	//열람
