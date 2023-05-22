@@ -65,7 +65,7 @@
 	border: solid 1px #4E9F3D;
 	width: 98%;
 	padding: 30px;
-	display: flex;
+	display: none;
 	flex-direction: column;
 	align-items: flex-start;
 	float: left;
@@ -73,11 +73,15 @@
 	margin-left: 5px;
 	margin-top: -10px;
 	border-radius: 10px;
+	max-height: 300px;
+    text-align: left;
 }
 
 #displayList a {
 	font-size: 16px;
 	color: gray;
+	text-align: left;
+	line-height: 32px;
 }
 
 .searchipput:focus {

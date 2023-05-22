@@ -13,6 +13,26 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style type="text/css">
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: #4E9F3D;
+  color: white;
+  text-decoration: none;
+}
+
+.pagination a:hover:not(.active) {text-decoration: none; color:#416442; background-color:#e3f2c9;}
+
 .countst {
 	font-weight: 500;
 	color: gray;
@@ -121,9 +141,9 @@ function updateUrl() {
 			 <!-- 공지사항 -->
 			 <c:if test="${currentPage==1 }">
 			  <c:forEach var="dto" items="${noticeList}">
-			    <tr style="vertical-align: middle; height: 80px; line-height: 80px; font-size: 14px; background-color:#e3f2c9;">
+			    <tr style="vertical-align: middle; height: 60px; line-height: 60px; font-size: 14px; background-color:#e3f2c9;">
 			      <!-- 내용 출력 -->
-			      <td style="height: 80px; line-height: 80px;">
+			      <td style="height: 60px; line-height: 60px;">
 			        <!-- 게시물 제목과 내용 출력 -->
 			        <a href="detailboard?b_num=${dto.b_num}&currentPage=${currentPage}" style="color:#000; text-decoration:none;">
 			        <b style="margin-left:20px; padding:10px 20px; background-color:#fff; border-radius:16px;">공지</b>
@@ -134,7 +154,7 @@ function updateUrl() {
 			          </c:if>
 			        </a>
 			      </td>
-			      <td style="height:80px; line-height:80px;" align="center">
+			      <td style="height:60px; line-height:60px;" align="center">
 			      <span style="color:gray;"><fmt:formatDate value="${dto.b_writeday }" pattern="yyyy-MM-dd" /></span>
 			      </td>
 			    </tr>
@@ -189,40 +209,29 @@ function updateUrl() {
 			</c:if>
 			
 	</table>
-
+	
   <c:if test="${totalCount>0}">
-  <div style="width: 800px; text-align: center;">
-    <ul class="pagination">
+  <div class="pagination" style=" display: flex; justify-content: center; width:100%; text-align: center;">
       <!-- 이전 -->
       <c:if test="${startPage>1 }">
-        <li>
-          <a href="boardlist?currentPage=${startPage-1}&amp;keyword=${param.keyword}&amp;sort=${param.sort}">이전</a>
-        </li>
+          <a href="boardlist?currentPage=${startPage-1}&amp;keyword=${param.keyword}&amp;sort=${param.sort}">&laquo;</a>
       </c:if>
 
       <c:forEach var="pp" begin="${startPage }" end="${endPage }">
         <c:if test="${currentPage==pp }">
-          <li class="active">
-            <a href="boardlist?currentPage=${pp}&amp;keyword=${param.keyword}&amp;sort=${param.sort}">${pp}</a>
-          </li>
+            <a class="active" href="boardlist?currentPage=${pp}&amp;keyword=${param.keyword}&amp;sort=${param.sort}">${pp}</a>
         </c:if>
 
         <c:if test="${currentPage!=pp }">
-          <li>
             <a href="boardlist?currentPage=${pp}&amp;keyword=${param.keyword}&amp;sort=${param.sort}">${pp}</a>
-          </li>
         </c:if>
       </c:forEach>
 
       <!--다음 -->
       <c:if test="${endPage<totalPage }">
-        <li>
-          <a href="boardlist?currentPage=${endPage+1}&amp;keyword=${param.keyword}&amp;sort=${param.sort}">다음</a>
-        </li>
+          <a href="boardlist?currentPage=${endPage+1}&amp;keyword=${param.keyword}&amp;sort=${param.sort}">&raquo;</a>  
       </c:if>
-    </ul>
   </div>
-</c:if>
-		
+</c:if>	
 </body>
 </html>

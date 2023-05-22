@@ -339,6 +339,22 @@ function list() {
 
 </script>
 
+<script>
+    function toggleFileList() {
+        var fileList = document.getElementById("file-list");
+        var toggleButton = document.querySelector(".toggle-button");
+
+        if (fileList.style.display === "none") {
+            fileList.style.display = "block";
+            toggleButton.classList.remove("glyphicon-triangle-right");
+            toggleButton.classList.add("glyphicon-triangle-bottom");
+        } else {
+            fileList.style.display = "none";
+            toggleButton.classList.remove("glyphicon-triangle-bottom");
+            toggleButton.classList.add("glyphicon-triangle-right");
+        }
+    }
+</script>
 
 </head>
 <body>
@@ -380,6 +396,22 @@ function list() {
 			</c:if>
 			</span> 
 			
+		<c:if test="${qdto.q_file != 'no' }">
+		    <br><br>
+		    <span style="float:right; padding:10px;">
+		        파일<span class="glyphicon glyphicon-triangle-right toggle-button" onclick="toggleFileList()"></span>
+		    </span>
+		    <br>
+		    <div id="file-list" style="float:right; display:none;">
+		        <c:forEach var="fileUrl" items="${fileUrls}">
+		            <a href="download?clip=${fileUrl}" style="color:gray; font-size:12px;">
+		                <span class="glyphicon glyphicon-download-alt"></span>
+		                <b>${fileUrl}</b>
+		            </a><br>
+		        </c:forEach>
+		    </div>
+		</c:if>
+				
 			<br>
 				<hr>
 				</td>
@@ -388,16 +420,19 @@ function list() {
 
 		<tr>
 			<td style="padding:10px;">
-				<c:if test="${q_file==true}">
-				<c:forEach var="fileUrl" items="${fileUrls}">
-				    <img  alt="이미지" src="/photo/${fileUrl}" style="max-width:100%; margin:10px;"><br>
-				</c:forEach>
-				</c:if>				
-				<br><br>
 				<div style="padding:20px;">
 				 ${qdto.q_content }
 				</div>
 				<br><br>
+				<c:if test="${qdto.q_file!='no'}">
+					<c:forEach var="fileUrl" items="${fileUrls}">
+				   <c:if test="${fileUrl.endsWith('.jpg') || fileUrl.endsWith('.jpeg') || fileUrl.endsWith('.png') || fileUrl.endsWith('.gif')}">
+					    <img  alt="이미지" src="/photo/${fileUrl}" style="max-width:100%; margin:10px;"><br>
+					</c:if>
+					</c:forEach>
+				</c:if>				
+				<br><br>
+			
 				
 				
 			<br><hr>

@@ -21,6 +21,7 @@
 						class="table text-start align-middle table-bordered mb-0" >
 						<thead>
 							<tr class="text-dark">
+								<th scope="col" style="text-align: center">번호</th>
 								<th scope="col" style="text-align: center">지원자명</th>
 								<th scope="col" style="text-align: center">지원공고</th>
 								<th scope="col" style="text-align: center">이력서보기</th>
@@ -31,8 +32,9 @@
 							<c:forEach var="adto" items="${adto }" varStatus="i">
 							<tr>
 								<td>${i.count }</td>
-								<td><a href="/posting/detailpage?p_num=${adto.p_num }">${adto.posting.p_title}</a></td>
-								<td><a href="/resume/detail?r_num=${adto.r_num }" onclick="window.open(this.href, '_blank', 'menubar=no, toolbar=no'); return false;">${adto.r_num }번째 이력서보기</a></td>
+								<td>${adto.u_name}</td>
+								<td><a href="/posting/detailpage?p_num=${adto.p_num }">${adto.p_title}</a></td>
+								<td><a href="/resume/detail?r_num=${adto.r_num }" onclick="window.open(this.href, '_blank', 'menubar=no, toolbar=no'); return false;">${adto.r_title }</a></td>
 								<td><fmt:formatDate value="${adto.a_writeday }" pattern="yyyy.MM.dd"/></td>
 								
 							</tr>

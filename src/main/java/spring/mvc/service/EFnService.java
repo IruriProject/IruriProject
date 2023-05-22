@@ -227,11 +227,9 @@ public class EFnService {
 		return mapper.getTotalCountOfSearch(map);
 	}
 
-	public List<PostingDto> getAddrSearch(String p_addr) {
-		Map<String, String> map = new HashMap<>();
-		map.put("p_addr", p_addr);
+	public List<Map<String, Object>> getAddrSearch(String p_addr) {
 		
-		return mapper.getAddrPostings(map);
+		return mapper.getAddrPostings(p_addr);
 	}
 
 	public void reposting(String p_num) {

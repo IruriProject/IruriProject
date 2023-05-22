@@ -315,7 +315,58 @@ $(document).ready(function() {
 .formbold-w-45 {
 	width: 45%;
 }
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: #4E9F3D;
+  color: white;
+  text-decoration: none;
+}
+
+.pagination a:hover:not(.active) {text-decoration: none; color:#416442; background-color:#e3f2c9;}
+
+
 </style>
+<script>
+    function checkFileSize(event) {
+        var files = event.target.files;
+        var maxSize = 5 * 1024 * 1024; // 5MB 제한 크기
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.size > maxSize) {
+                event.target.value = ""; // 선택한 파일 초기화
+                alert("파일 크기는 최대 5MB까지 업로드할 수 있습니다.");
+                return;
+            }
+        }
+        
+        
+        var files = event.target.files;
+        var fileSizeLabel = document.getElementById("file-size-label");
+
+        var totalSize = 0;
+        for (var i = 0; i < files.length; i++) {
+            totalSize += files[i].size;
+        }
+
+        // 파일 크기 표시
+        var fileSizeInMB = (totalSize / (1024 * 1024)).toFixed(2);
+        fileSizeLabel.textContent = "총 파일 크기: " + fileSizeInMB + "MB";
+    }
+</script>
+
 
 </head>
 </head>
@@ -359,17 +410,18 @@ $(document).ready(function() {
 						<c:forEach var="a" items="${list }">
 						 <c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId==a.q_loginid }">
 							<tr>
-								<%-- <td align="center">${no }</td> --%>
 								<c:set var="no" value="${no-1 }" />
 								<td align="center">${no+1 }</td>
-								<%-- 
-					<td align="center">${a.num }</td> --%>
 								<td align="center">${a.q_title }</td>
 
 								<td style="width:100%; height:30px; float:left; line-height:30px; color:gray; overflow: hidden;" >
 								<a href="detailqna?q_num=${a.q_num }&currentPage=${currentPage}" style="color:#000;">
 								${a.q_content }
 								</a>
+							   <c:if test="${a.q_file!='no'}">
+					           <span class="glyphicon glyphicon-download-alt" style="margin-left:1px; font-size:12px;"></span>
+					          	</c:if>
+					          
 								</td>
 								<td align="center">
 								            <c:if test="${a.qnaCount == 0}">
@@ -392,33 +444,33 @@ $(document).ready(function() {
 				
 				<!-- 페이징 -->
 		<c:if test="${usertotalCount>0}">
-			<div style="width: 800px; text-align: center;">
-				<ul class="pagination">
+			<div class="pagination" style=" display: flex; justify-content: center; width:100%; text-align: center;">
+				
 					<!-- 이전 -->
 					<c:if test="${startPage>1 }">
-						<li>
-						<a href="qnawriteform?currentPage=${startPage-1}">이전</a>
-						</li>
+						
+						<a href="qnawriteform?currentPage=${startPage-1}">&laquo;</a>
+						
 					</c:if>
 
 					<c:forEach var="pp" begin="${startPage }" end="${endPage }">
 						<c:if test="${currentPage==pp }">
-							<li class="active"><a href="qnawriteform?currentPage=${pp}">${pp}</a>
-							</li>
+							<a class="active" href="qnawriteform?currentPage=${pp}">${pp}</a>
+							
 						</c:if>
 
 						<c:if test="${currentPage!=pp }">
-							<li><a href="qnawriteform?currentPage=${pp}">${pp}</a></li>
+							<a href="qnawriteform?currentPage=${pp}">${pp}</a>
 						</c:if>
 					</c:forEach>
 					
 					<!--다음 -->
 					<c:if test="${endPage<totalPage }">
-						<li>
-						<a href="qnawriteform?currentPage=${endPage+1}">다음</a>
-						</li>
+						
+						<a href="qnawriteform?currentPage=${endPage+1}">&raquo;</a>
+						
 					</c:if>
-				</ul>
+				
 			</div>
 		</c:if>
 			</div>
@@ -459,8 +511,11 @@ $(document).ready(function() {
 
 
 				<div class="formbold-mb-3">
-					<label for="q_file" class="formbold-form-label" > 첨부파일 </label>
-					 <input type="file" name="upload" id="q_file" multiple="multiple"
+					<label for="q_file" class="formbold-form-label" > 첨부파일 (최대 5MB 가능)
+					<div id="file-size-label"></div>
+					</label> 
+					
+					 <input type="file" name="upload" id="q_file" multiple="multiple" onchange="checkFileSize(event)"
 						class="formbold-form-input" />
 				</div>
 

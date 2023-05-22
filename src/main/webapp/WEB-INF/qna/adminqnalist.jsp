@@ -293,6 +293,27 @@
 .formbold-w-45 {
 	width: 45%;
 }
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: #4E9F3D;
+  color: white;
+  text-decoration: none;
+}
+
+.pagination a:hover:not(.active) {text-decoration: none; color:#416442; background-color:#e3f2c9;}
+
 </style>
 
 </head>
@@ -330,10 +351,13 @@
 					        <c:set var="no" value="${no-1}" />
 					        <td align="center">${no+1}</td>
 					        <td align="center">${a.q_loginid}</td>
-					        <td style="width:100%; height:30px; float:left; line-height:30px; color:gray; overflow: hidden;">
+					        <td style="width:100%; height:40px; float:left; color:gray; overflow: hidden;">
 					          <a href="detailqna?q_num=${a.q_num}&currentPage=${currentPage}" style="color:#000;">
 					            ${a.q_title}
 					          </a>
+					          <c:if test="${a.q_file!='no'}">
+					           <span class="glyphicon glyphicon-download-alt" style="margin-left:1px; font-size:10px;"></span>
+					          </c:if>
 					        </td>
 					       <td align="center">
 					            <c:if test="${a.qnaCount == 0}">
@@ -350,38 +374,29 @@
 					    </c:if>
 					  </c:forEach>
 					</c:if>
-
 				</table>
 				
 				<!-- 페이징 -->
 		<c:if test="${totalCount>0}">
-			<div style="width: 800px; text-align: center;">
-				<ul class="pagination">
+			 <div class="pagination" style=" display: flex; justify-content: center; width:100%; text-align: center;">
 					<!-- 이전 -->
 					<c:if test="${startPage>1 }">
-						<li>
-						<a href="adminqnalist?currentPage=${startPage-1}">이전</a>
-						</li>
+						<a href="adminqnalist?currentPage=${startPage-1}">&laquo;</a>		
 					</c:if>
 
 					<c:forEach var="pp" begin="${startPage }" end="${endPage }">
 						<c:if test="${currentPage==pp }">
-							<li class="active"><a href="adminqnalist?currentPage=${pp}">${pp}</a>
-							</li>
+						<a class="active" href="adminqnalist?currentPage=${pp}">${pp}</a>	
 						</c:if>
-
 						<c:if test="${currentPage!=pp }">
-							<li><a href="adminqnalist?currentPage=${pp}">${pp}</a></li>
+							<a href="adminqnalist?currentPage=${pp}">${pp}</a>
 						</c:if>
 					</c:forEach>
 					
 					<!--다음 -->
 					<c:if test="${endPage<totalPage }">
-						<li>
-						<a href="adminqnalist?currentPage=${endPage+1}">다음</a>
-						</li>
-					</c:if>
-				</ul>
+						<a href="adminqnalist?currentPage=${endPage+1}">&raquo;</a>		
+					</c:if>		
 			</div>
 		</c:if>
 	</div>

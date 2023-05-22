@@ -261,7 +261,7 @@
 			<li>
 			
 			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId!='admin'}">
-			<a href="/qna/qnawriteform" class="mainMenu">일대일문의</a>
+			<a href="/qna/qnawriteform" class="mainMenu">1:1문의</a>
 			</c:if>
 			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
 			<a href="/qna/adminqnalist"  class="mainMenu">관리자일대일</a>

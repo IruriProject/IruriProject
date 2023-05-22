@@ -31,11 +31,11 @@
 <link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style type="text/css">
 div {
-	border: 1px solid gray;
+	border: 0px solid gray;
 }
 .text-dark th{
 text-align: center;
-   border: 1px solid gray;
+   border: 0px solid gray;
 }
 div a{
 	color:black;
@@ -44,19 +44,22 @@ div a:hover{
 	color:black;
 	text-decoration: none;
 }
+
 </style>
 </head>
 <body>
 	
 	<h3>내 이력서 목록 (${list.size() }/5)</h3>
 		<div class="container-fluid pt-4 px-4">
-			<div class="bg-light text-center rounded p-4">
+			<div class="bg-light rounded p-4">
 				<div class="table-responsive">
 					<table 
-						class="table text-start align-middle table-bordered table-hover mb-0"
+						class="table"
 						style="width: 800px; table-layout: fixed" >
 						<thead>
 							<tr class="text-dark">
+								<th scope="col" style=" width:30px; text-align: center;">
+								<input class="form-check-input" type="checkbox" id="allcheck"></th>
 								<th scope="col" style="width:50px;">번호</th>
 								<th scope="col" style="width:200px;">제목</th>
 								<th scope="col" style="width:110px;">설정관리</th>
@@ -72,75 +75,99 @@ div a:hover{
 						</c:if>
 						<c:forEach var="dto" items="${list }" varStatus="i">
 							<tr data-rnum="${dto.r_num}", data-rpresume="${dto.r_presume }", data-rprivate="${dto.r_private }">
-								<td>${i.count}</td>
+								<td style="text-align: center; height:32px; line-height:32px;"><input class="form-check-input del" type="checkbox"></td>
+								<td style="text-align: center; height:32px;
+								line-height:32px;">${i.count}</td>
 								
 								
-								<td style="white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">
+								<td style="white-space:nowrap; text-overflow:ellipsis; overflow:hidden; height:32px;
+								line-height:32px;">
+								
+								<c:if test="${dto.r_private==1}">
+								<a href="resume/detail?r_num=${dto.r_num }">[비공개]${dto.r_title}</a>
+								</c:if>
 								
 								<c:if test="${dto.r_presume==1 && dto.r_private==0}">
-								[대표] [공개]
-								</c:if>
-								
-								<c:if test="${dto.r_presume==1 && dto.r_private==1}">
-								[대표] [비공개]
-								</c:if>
-								
-								<c:if test="${dto.r_presume==0 && dto.r_private==1}">
-								[비공개]
+								<a href="resume/detail?r_num=${dto.r_num }"><b>[대표][공개]${dto.r_title}</b></a>
 								</c:if>
 								
 								<c:if test="${dto.r_presume==0 && dto.r_private==0}">
-								[공개]
+								<a href="resume/detail?r_num=${dto.r_num }">[공개]${dto.r_title}</a>
 								</c:if>
-								
-								<a href="resume/detail?r_num=${dto.r_num }">${dto.r_title}</a></td>
-								<td>
+								</td>
+								<td style="text-align:center;">
 								
 								<!-- if문 -->
 								<c:if test="${dto.r_private==1}">
-									<button type="button" class="setPublic">공개 전환</button>
+									<button type="button" class="sm-color-btn setPublic">공개 전환</button>
 								</c:if>
 								<c:if test="${dto.r_private==0}">
-									<button type="button" class="setPrivate">비공개 전환</button>
+									<button type="button" class="sm-border-btn setPrivate">비공개 전환</button>
 								</c:if>
 								</td>
 								
-								<td>
+								<td  style="text-align:center;">
 								<c:if test="${dto.r_presume==0}">
-								<button type="button" class="setMainOn">대표 설정</button>							
+								<button type="button" class="sm-border-btn setMainOn">대표 설정</button>							
 								</c:if>
 								<c:if test="${dto.r_presume==1}">
-								<button type="button" class="setMainOff">대표 해제</button>	
+								<button type="button" class="sm-color-btn setMainOff">대표 해제</button>	
 								</c:if>								
 								</td>	
 								
-								<td><button type="button" onclick="location.href='updateresume?r_num=${dto.r_num}'">수정</button>
-									<button type="button" class="deleteRes">삭제</button></td>
+								<td style="text-align:center;">
+								<button type="button" class="sm-border-btn" onclick="location.href='updateresume?r_num=${dto.r_num}'">수정</button>
+								</td>
 							</tr>
 						</c:forEach>
+							<tr>
+								<td colspan="6">
+									<button style="float:right; margin-top:10px; margin-right:22px;" class="sm-delete-btn" id="btnEnterDel">삭제</button>
+								</td>
+							</tr>
 					</table>
 				</div>
 			</div>
 		</div>
 	<script type="text/javascript">
-	$(".deleteRes").click(function(){
-		var r_num = $(this).closest("tr").data("rnum");
-		var result = confirm("정말 삭제하시겠습니까?");
-		if(result==true){
-			$.ajax({
-				data:{"r_num":r_num},
-				dataType:"html",
-				url:"deleteResume",
-				success:function(){
-					alert("삭제되었습니다.");
-					location.reload();
-				},error: function() {
-			        alert("에러!");
-			    }
-			})
+	$("#allcheck").click(function(){
+		
+		//체크 값 없음
+		var chk=$(this).is(":checked");
+		console.log(chk);//true, false로 나옴
+		
+		//전체 체크값을 아래의 체크에 일괄전달
+		$(".del").prop("checked",chk);
+		
+	});
+	$("#btnEnterDel").click(function(){
+		//체크한 기업 개수 구하기
+		var cnt=$(".del:checked").length;
+		//alert(cnt);
+		if (cnt==0) {
+			alert("삭제할 이력서를 선택해주세요 :)");
+			return;//종료
 		}
-	})
-	
+		var result = confirm("총 "+cnt+"개의 이력서를 삭제합니다.");
+		if(result==true){
+		
+		$(".del:checked").each(function(i,elt){
+			var r_num = $(this).closest("tr").data("rnum");
+			//삭제 할 ajax(진짜 삭제 되는 것)
+			$.ajax({
+				
+				type:"get",
+				url:"deleteResume",
+				dataType:"html",
+				data:{"r_num":r_num},
+				success:function(){
+					
+					location.reload();
+				}
+			})
+		})
+		}
+	});
 	$(".setMainOff").click(function(){
 		 var r_num = $(this).closest("tr").data("rnum");
 		 $.ajax({

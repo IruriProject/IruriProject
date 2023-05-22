@@ -91,7 +91,7 @@
 
 .bcontent-input {
 	width: 100%;
-	height:500px;
+	height:250px;
 	padding: 13px 22px;
 	border-radius: 5px;
 	border: 1px solid #dde3ec;
@@ -226,7 +226,59 @@
 	width: 45%;
 }
 </style>
+<script>
+    function checkFileCount(event) {
+    	
+    	//5개제한
+        var files = event.target.files;
+        if (files.length > 5) {
+            event.target.value = ""; // 선택한 파일 초기화
+            alert("이미지는 최대 5개까지 업로드할 수 있습니다.");
+        }
+	
+        //미리보기
+        var files = event.target.files;
+        var previewContainer = document.getElementById("image-preview");
+        previewContainer.innerHTML = ""; // 기존 미리보기 초기화
 
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            var image = document.createElement("img");
+            image.src = e.target.result;
+            image.classList.add("preview-image");
+            image.style.width = "100px"; // 이미지 크기 설정
+            image.style.padding = "15px";
+
+            previewContainer.appendChild(image);
+          };
+
+          reader.readAsDataURL(file);
+        }
+        
+        
+        // 기존에 선택한 이미지 미리보기
+        var existingImages = document.getElementById("existing-images").value;
+        var existingImagesArray = existingImages.split(",");
+        var existingPreviewContainer = document.getElementById("existing-image-preview");
+
+        for (var j = 0; j < existingImagesArray.length; j++) {
+            var existingImage = document.createElement("img");
+            existingImage.src = existingImagesArray[j];
+            existingImage.classList.add("preview-image");
+            existingImage.style.width = "100px"; // 이미지 크기 설정
+            existingImage.style.padding = "15px";
+
+            var existingImageContainer = document.createElement("div");
+            existingImageContainer.classList.add("image-container");
+            existingImageContainer.appendChild(existingImage);
+            existingPreviewContainer.appendChild(existingImageContainer);
+        }
+        
+    }
+</script>
 </head>
 <body>
 <div class="formbold-main-wrapper">
@@ -247,15 +299,20 @@
 				</div>
 
 				<div class="formbold-mb-3">
-					<label for="p_content" class="formbold-form-label"> 내용 </label>
+					<label for="b_content" class="formbold-form-label"> 내용 </label>
 						<textarea name="b_content" id="b_content" placeholder="내용을 입력해주세요.(500자 이하)" 
 						class="bcontent-input" required="required" maxlength="500" >${bdto.b_content }</textarea>
 				</div>
 
 				<div class="formbold-mb-3">
-					<label for="p_enddate" class="formbold-form-label" > 이미지 </label>
-					 <input type="file" name="upload" id="b_photo" multiple="multiple" 
-						class="formbold-form-input" />
+					<label for="b_file" class="formbold-form-label" > 이미지 </label>
+					 <input type="file" name="upload" id="b_photo" multiple="multiple"  onchange="checkFileCount(event)"
+						class="formbold-form-input"/>
+						<div id="image-preview">
+						<c:forEach var="photoUrls" items="${photoUrls}">
+							<img alt="" src="/photo/${photoUrls}" style="width:100px; padding:15px;">
+							</c:forEach>
+						</div>
 				</div>
 				
 				<button type="button" class="formbold-cancel-btn" onclick="location.href='boardlist?currentPage=${currentPage}'" style="margin-left:10px;">취소</button>

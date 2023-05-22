@@ -31,7 +31,7 @@ public interface EFnMapperInter {
 	public int getPostingSearchCountWithPagingSearch(Map<String, Object> map);
 	
 	public void updatePostingStatus(Map<String, String> map);
-	public List<PostingDto> getAddrPostings(Map<String, String> map);
+	public List<Map<String, Object>> getAddrPostings(String p_addr);
 	public List<PostingDto> getPreviewPostings(String e_num);
 	public void deletePosting(String p_num);
 	public void updatePosting(PostingDto dto);

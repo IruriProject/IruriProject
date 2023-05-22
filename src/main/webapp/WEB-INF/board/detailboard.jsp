@@ -511,20 +511,17 @@ function list() {
 
 		<tr>
 			<td style="padding:10px;">
+				<div style="padding:20px;">
+				 ${bdto.b_content }
+				</div>
+				<br><br>
 				<c:if test="${b_photo==true}">
 				<c:forEach var="photoUrl" items="${photoUrls}">
 				    <img  alt="이미지" src="/photo/${photoUrl}" style="max-width:100%; margin:10px;"><br>
 				</c:forEach>
 				 
 				</c:if>
-
-				
 				<br><br>
-				<div style="padding:20px;">
-				 ${bdto.b_content }
-				</div>
-				<br><br>
-				
 				 <span
 				style="color: gray; float: left; font-size: 14px; padding: 10px;">
 					<i class="glyphicon glyphicon-comment"></i>&nbsp;&nbsp;댓글 <b><span class="acount"></span></b>개

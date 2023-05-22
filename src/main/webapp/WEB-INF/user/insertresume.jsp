@@ -17,6 +17,7 @@
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   <link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style type="text/css">
 
 #OneMinDoc ul, .introduceTab__list ul, #dllocal ul {
@@ -55,17 +56,17 @@ cursor:pointer;
             </div>
             <br>
             <div class="formbold-input-wrapp formbold-mb-3"
-               style="height: 250px; border: 2px solid green;">
+               style="height: 270px; background-color:#f9ffef; border-radius: 10px; padding:20px 0px 20px 25px;">
                <label for="p_title" class="formbold-form-label"> 기본정보 </label> <span
                   style="font-size: 2em">${sessionScope.loginName }</span>
-               <div style="float: left; width: 150px; height: 200px; margin-right:20px;">
+               <div style="float: left; width: 150px; height:200px; margin-right:20px;">
                		<c:if test="${dto.u_photo==null }">
 						<img src="/image/nophoto.png"
-						style="width: 150px; height: 200px;">
+						style="width: 150px; height: 200px; border-radius:10px;">
 					</c:if>
 					<c:if test="${dto.u_photo!=null }">
 							<img alt="" src="/photo/${dto.u_photo}"
-							style="width: 150px; height: 200px;">
+							style="width: 150px; height: 200px; border-radius:10px;">
 					</c:if>
                </div>
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -85,18 +86,18 @@ cursor:pointer;
 				<c:if test="${year-birth+1 ==2024}">
 				( - 세)
 				</c:if>
-				
+				<br><br>
                <table style="border: 0px solid red;">
                   <tr>
-                     <td width=100>연락처</td>
+                     <td width="100" height="40">연락처</td>
                      <td>${dto.u_hp }</td>
                   </tr>
                   <tr>
-                     <td>이메일</td>
+                     <td height="40">이메일</td>
                      <td>${dto.u_email }</td>
                   </tr>
                   <tr>
-                     <td>주소</td>
+                     <td height="40">주소</td>
                      <td>${dto.u_addr }</td>
                   </tr>
                </table>
@@ -142,62 +143,62 @@ cursor:pointer;
             <div class="formbold-mb-3">
                <label class="formbold-form-label">희망지역</label>
                <div class="searchValue regist__item">
-                  <button type="button" id="tagarea" onclick="selectLocation()">지역선택</button>
+                  <button type="button" id="tagarea" class="sm-border-btn" onclick="selectLocation()">지역선택</button>
                   <input id="areainput" name="r_larea" readonly="readonly" required="required" class="formbold-form-input">
                </div>
                <div id="dllocal" class="searchArea"
                   style="display: none; height: 250px;">
                   <ul id="ulAreacd" class="tabForm">
                      <li id="10" class="  ">
-                        <button type="button" onclick="setSido(10);">서울</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(10);">서울</button>
                      </li>
                      <li id="13" class="  ">
-                        <button type="button" onclick="setSido(13);">부산</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(13);">부산</button>
                      </li>
                      <li id="14" class="  ">
-                        <button type="button" onclick="setSido(14);">대구</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(14);">대구</button>
                      </li>
                      <li id="11" class="  ">
-                        <button type="button" onclick="setSido(11);">인천</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(11);">인천</button>
                      </li>
                      <li id="18" class="  ">
-                        <button type="button" onclick="setSido(18);">광주</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(18);">광주</button>
                      </li>
                      <li id="15" class="  ">
-                        <button type="button" onclick="setSido(15);">대전</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(15);">대전</button>
                      </li>
                      <li id="19" class="  ">
-                        <button type="button" onclick="setSido(19);">울산</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(19);">울산</button>
                      </li>
                      <li id="26" class="  ">
-                        <button type="button" onclick="setSido(26);">세종</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(26);">세종</button>
                      </li>
                      <li id="12" class="  ">
-                        <button type="button" onclick="setSido(12);">경기</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(12);">경기</button>
                      </li>
                      <li id="16" class="   ">
-                        <button type="button" onclick="setSido(16);">경남</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(16);">경남</button>
                      </li>
                      <li id="20" class="  ">
-                        <button type="button" onclick="setSido(20);">경북</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(20);">경북</button>
                      </li>
                      <li id="17" class="  ">
-                        <button type="button" onclick="setSido(17);">충남</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(17);">충남</button>
                      </li>
                      <li id="22" class="  ">
-                        <button type="button" onclick="setSido(22);">충북</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(22);">충북</button>
                      </li>
                      <li id="24" class="  ">
-                        <button type="button" onclick="setSido(24);">전남</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(24);">전남</button>
                      </li>
                      <li id="21" class="  ">
-                        <button type="button" onclick="setSido(21);">전북</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(21);">전북</button>
                      </li>
                      <li id="23" class="  ">
-                        <button type="button" onclick="setSido(23);">강원</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(23);">강원</button>
                      </li>
                      <li id="25" class="  ">
-                        <button type="button" onclick="setSido(25);">제주</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(25);">제주</button>
                      </li>
                   </ul>
                   <br> <br> <br>

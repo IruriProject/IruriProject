@@ -37,9 +37,6 @@ div {
 	border: 0px solid gray;
 }
 
-.gwansim {
-	cursor: pointer;
-}
 .fa-heart {
    color: red;
 }
@@ -65,9 +62,6 @@ div {
 	background-color: #e3f2c9;
 	border-radius: 10px;
 }
-.myresume{
- display:flex; flex-direction: row; justify-content: space-around;
-}
 .spanbutton{
 cursor: pointer;
 }
@@ -81,6 +75,11 @@ div a:hover{
 color:black;
 text-decoration: none;
 }
+.myresume{
+font-size: 1.2em;
+font-weight: 600;
+line-height:60px;
+}
 </style>
 </head>
 
@@ -88,8 +87,8 @@ text-decoration: none;
 	<div>
 		<!-- Content Start -->
 		<div class="container-fluid pt-4 px-4">
-			<div class="row g-4" style="border: 1px solid green; border-radius: 10px; padding:20px 0px 20px 10px;">
-				<div class="col-sm-12 col-md-3 col-xl-4 w-25" style="text-align: center; border-right: 1px solid green;">
+			<div class="row g-4"style="border: 1px solid #f0f9de; background-color:#f9ffef; border-radius: 10px; padding:20px 0px 20px 25px;">
+				<div class="col-sm-12 col-md-3 col-xl-4 w-25" style="text-align: center;">
 					<c:if test="${dto.u_photo==null }">
 						<img src="/image/nophoto.png"
 						style="width: 170px; height: 170px; border-radius: 500px;">
@@ -144,8 +143,8 @@ text-decoration: none;
 					</div>
 				</div>
 
-				<div class="col-sm-12 col-md-6 col-xl-7 w-50"  style="border-right: 1px solid green;">
-					<div class="h-100 bg-light rounded p-4">
+				<div class="col-sm-12 col-md-6 col-xl-7 w-50" >
+					<div class="h-100 rounded p-4">
 						<div data-rnum="${rdto.r_num}">
 							<c:if test="${rdto.r_title==null}">
 								<h3>대표이력서가 없습니다.</h3>
@@ -194,22 +193,14 @@ text-decoration: none;
                </script>
                <br>
                <br><br><br><br>
-               <div class="h-100 bg-light rounded p-4 myresume">
-                  <span class="spanbutton" onclick="location.href='insertresume'" style="font-size: 1.2em; font-weight: 600;">이력서
-                     등록</span>
-                  <span class="spanbutton" onclick="location.href='resumelist'" style="font-size: 1.2em; font-weight: 600;">이력서 목록</span>
-                  <span class="spanbutton" onclick="location.href='applicationstate'" style="font-size: 1.2em; font-weight: 600;">지원현황</span>
-                  <br>
+               <div class="myresume" style="border: 1px solid gray;">
+                  <span class="spanbutton" onclick="location.href='insertresume'">이력서 등록</span>
+                  <span class="spanbutton" onclick="location.href='resumelist'" >이력서 목록</span>
+                  <span class="spanbutton" onclick="location.href='applicationstate'">지원현황</span>
+                  <span class="spanbutton" onclick="location.href='enterLike'">관심기업 ${countLikeEnter }</span>
+               	  <span class="spanbutton" onclick="location.href='scrap'">관심공고 ${countPosting }</span>
                </div>
-               <br>
             </div>
-            
-               <div class="col-sm-12 col-md-3 col-xl-4 w-30" style="float:right;">
-               	  <span class="gwansim" onclick="location.href='enterLike'" style="font-size: 1.2em; font-weight: 600;">관심기업 <i class="fa-solid fa-heart"></i> ${countLikeEnter }</span><br>
-               	  <br><br><br>
-               	  <span class="gwansim" onclick="location.href='scrap'" style="font-size: 1.2em; font-weight: 600;">관심공고 <i class="fa-solid fa-star"></i> ${countPosting }</span>
-                  <br>
-               </div>
          </div>
       </div>
       <script src="https://kit.fontawesome.com/2663817d27.js"
@@ -259,10 +250,6 @@ text-decoration: none;
 				
 				<div class="col-sm-12 col-md-6 col-xl-4">
 					<div class="h-100 bg-light rounded p-4">
-						<div
-							class="d-flex align-items-center justify-content-between mb-4">
-							<h6 class="mb-0">Calender</h6>
-						</div>
 						<div id="calender"></div>
 					</div>
 				</div>
@@ -275,12 +262,12 @@ text-decoration: none;
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h6 class="mb-0">이력서 목록</h6>
+					<h4 class="mb-5"><b>이력서 목록</b></h4>
 					<a href="resumelist">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table
-						class="table text-start align-middle table-bordered table-hover mb-0"
+						class="table"
 						style="table-layout: fixed">
 						<thead>
 							<tr class="text-dark">
@@ -288,7 +275,6 @@ text-decoration: none;
 								<th scope="col" style="width: 200px;">제목</th>
 								<th scope="col" style="width: 110px;">설정관리</th>
 								<th scope="col" style="width: 90px;">대표 설정</th>
-								<th scope="col" style="width: 110px;">이력서 관리</th>
 							</tr>
 						</thead>
 						<c:if test="${list.size()==0 }">
@@ -300,45 +286,37 @@ text-decoration: none;
 						<c:forEach var="dto" items="${list }" varStatus="i">
 							<c:if test="${i.count<=3 }">
 								<tr data-rnum="${dto.r_num}", data-rpresume="${dto.r_presume }", data-rprivate="${dto.r_private }">
-									<td>${i.count}</td>
-									<td
-										style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+									<td style="text-align: center; height:32px; line-height:32px;">${i.count}</td>
+									<td style="white-space:nowrap; text-overflow:ellipsis; overflow:hidden; height:32px; line-height:32px;">
 										
+											<c:if test="${dto.r_private==1}">
+											<a href="resume/detail?r_num=${dto.r_num }">[비공개]${dto.r_title}</a>
+											</c:if>
+											
 											<c:if test="${dto.r_presume==1 && dto.r_private==0}">
-											[대표] [공개]
-											</c:if>
-											
-											<c:if test="${dto.r_presume==1 && dto.r_private==1}">
-											[대표] [비공개]
-											</c:if>
-											
-											<c:if test="${dto.r_presume==0 && dto.r_private==1}">
-											[비공개]
+											<a href="resume/detail?r_num=${dto.r_num }"><b>[대표][공개]${dto.r_title}</b></a>
 											</c:if>
 											
 											<c:if test="${dto.r_presume==0 && dto.r_private==0}">
-											[공개]
+											<a href="resume/detail?r_num=${dto.r_num }">[공개]${dto.r_title}</a>
 											</c:if>
-										<a href="resume/detail?r_num=${dto.r_num }">${dto.r_title}</a>
 									</td>
 
-									<td>
+									<td style="text-align:center;">
 										<!-- if문 --> <c:if test="${dto.r_private==1}">
-											<button type="button" class="setPublic">공개 전환</button>
+											<button type="button" class="sm-color-btn setPublic">공개 전환</button>
 										</c:if> <c:if test="${dto.r_private==0}">
-											<button type="button" class="setPrivate">비공개 전환</button>
+											<button type="button" class="sm-border-btn setPrivate">비공개 전환</button>
 										</c:if>
 									</td>
 
-									<td><c:if test="${dto.r_presume==0}">
-											<button type="button" class="setMainOn">대표 설정</button>
+									<td style="text-align:center;">
+										<c:if test="${dto.r_presume==0}">
+											<button type="button" class="sm-border-btn setMainOn">대표 설정</button>
 										</c:if> <c:if test="${dto.r_presume==1}">
-											<button type="button" class="setMainOff">대표 해제</button>
-										</c:if></td>
-
-									<td><button type="button" onclick="location.href='updateresume?r_num=${dto.r_num}'">수정</button>
-										<button type="button" class="deleteRes">삭제</button></td>
-
+											<button type="button" class="sm-color-btn setMainOff">대표 해제</button>
+										</c:if>
+									</td>
 								</tr>
 							</c:if>
 						</c:forEach>

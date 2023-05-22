@@ -67,13 +67,14 @@
 	</update>
 	
 	<!-- 기업에서 이력서 열람하기 -->
-	<!-- <select id="getApplicantsByEnterprise" parameterType="String" resultType="Map">
-	  SELECT a.*, a.*, r.*
+	<select id="getAllResumeOfEnter" parameterType="String" resultType="Map">
+	  SELECT a.*, p.*, r.*, u.*
 	  FROM APPLICANT a
 	  INNER JOIN POSTING p ON a.p_num = p.p_num
 	  INNER JOIN RESUME r ON r.r_num = a.r_num
+	  INNER JOIN USER u ON u.u_num = r.u_num
 	  WHERE p.e_num = #{e_num}
-	</select> -->
+	</select>
 
   
 	<!-- 기업별 관심기업 수 -->
