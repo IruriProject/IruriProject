@@ -150,55 +150,55 @@ cursor:pointer;
                   style="display: none; height: 250px;">
                   <ul id="ulAreacd" class="tabForm">
                      <li id="10" class="  ">
-                        <button type="button" onclick="setSido(10);">서울</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(10);">서울</button>
                      </li>
                      <li id="13" class="  ">
-                        <button type="button" onclick="setSido(13);">부산</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(13);">부산</button>
                      </li>
                      <li id="14" class="  ">
-                        <button type="button" onclick="setSido(14);">대구</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(14);">대구</button>
                      </li>
                      <li id="11" class="  ">
-                        <button type="button" onclick="setSido(11);">인천</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(11);">인천</button>
                      </li>
                      <li id="18" class="  ">
-                        <button type="button" onclick="setSido(18);">광주</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(18);">광주</button>
                      </li>
                      <li id="15" class="  ">
-                        <button type="button" onclick="setSido(15);">대전</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(15);">대전</button>
                      </li>
                      <li id="19" class="  ">
-                        <button type="button" onclick="setSido(19);">울산</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(19);">울산</button>
                      </li>
                      <li id="26" class="  ">
-                        <button type="button" onclick="setSido(26);">세종</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(26);">세종</button>
                      </li>
                      <li id="12" class="  ">
-                        <button type="button" onclick="setSido(12);">경기</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(12);">경기</button>
                      </li>
                      <li id="16" class="   ">
-                        <button type="button" onclick="setSido(16);">경남</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(16);">경남</button>
                      </li>
                      <li id="20" class="  ">
-                        <button type="button" onclick="setSido(20);">경북</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(20);">경북</button>
                      </li>
                      <li id="17" class="  ">
-                        <button type="button" onclick="setSido(17);">충남</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(17);">충남</button>
                      </li>
                      <li id="22" class="  ">
-                        <button type="button" onclick="setSido(22);">충북</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(22);">충북</button>
                      </li>
                      <li id="24" class="  ">
-                        <button type="button" onclick="setSido(24);">전남</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(24);">전남</button>
                      </li>
                      <li id="21" class="  ">
-                        <button type="button" onclick="setSido(21);">전북</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(21);">전북</button>
                      </li>
                      <li id="23" class="  ">
-                        <button type="button" onclick="setSido(23);">강원</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(23);">강원</button>
                      </li>
                      <li id="25" class="  ">
-                        <button type="button" onclick="setSido(25);">제주</button>
+                        <button type="button" class="xs-border-btn" onclick="setSido(25);">제주</button>
                      </li>
                   </ul>
                   <br> <br> <br>

@@ -125,6 +125,15 @@
 	line-height:29px;
 	border-radius: 3px;
 }
+.xs-border-btn{
+	border: 1px solid #4e9f3d;
+	color:#4e9f3d;
+	width:42px;
+	height:26px;
+	line-height:23px;
+	background-color:#fff;
+	border-radius: 3px;
+}
 .sm-delete-btn{
 	border: 1px solid #E74646;
 	color: #E74646;
