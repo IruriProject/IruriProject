@@ -180,11 +180,8 @@
 				</ul></li>
 			<li><a href="/board/boardlist" class="mainMenu">일자리이야기</a>
 				<ul class="subMenu">
-					<li><a href="/board/form">입력폼</a></li>
-					<li><a href="hi">sub메뉴</a></li>
-					<li><a href="hi">sub메뉴</a></li>
-					<li><a href="hi">sub메뉴</a></li>
-				</ul></li>
+				</ul>
+			</li>
 				
 				
 			<c:if test="${sessionScope.loginStatus!=null}">
@@ -201,9 +198,6 @@
 						<li><a href="/member/usermemberlist">일반회원관리</a></li>
 						<li><a href="/member/entermemberlist">기업회원관리</a></li>
 						</c:if>
-					<li><a href="hi">sub메뉴</a></li>
-					<li><a href="hi">sub메뉴</a></li>
-					<li><a href="hi">sub메뉴</a></li>
 				</ul>
 				</li>
 				</c:if>

@@ -252,6 +252,12 @@ $(document).ready(function(){
 });
 </script>
 
+<script>
+var allkeyword = "<%= request.getParameter("allkeyword") %>";
+if (allkeyword === "null") {
+	  allkeyword = ""; // "null" 문자열이면 공백으로 설정
+	}
+</script>
 
 
 </head>

@@ -72,6 +72,9 @@ public class HomeController {
 		//출력에 필요한 변수들을 model에 저장
 		/* model.addObject("searchtotalCount", searchtotalCount); */
 		
+        String queryString= String.format("currentPage=%d&allkeyword=%s&sort=%s", currentPage, allkeyword, sort);
+        String url=queryString;
+        
         model.addObject("totalCount", totalCount);
         model.addObject("list", list);
         model.addObject("totalPage", totalPage);
@@ -81,7 +84,7 @@ public class HomeController {
         model.addObject("currentPage", currentPage);
         model.addObject("no", no);
         model.addObject("sort",sort);  
-
+        model.addObject("url",url); 
 		model.setViewName("/search/allsearchlist");
 
 		return model;
