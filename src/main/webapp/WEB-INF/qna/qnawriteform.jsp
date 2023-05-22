@@ -316,6 +316,35 @@ $(document).ready(function() {
 	width: 45%;
 }
 </style>
+<script>
+    function checkFileSize(event) {
+        var files = event.target.files;
+        var maxSize = 5 * 1024 * 1024; // 5MB 제한 크기
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.size > maxSize) {
+                event.target.value = ""; // 선택한 파일 초기화
+                alert("파일 크기는 최대 5MB까지 업로드할 수 있습니다.");
+                return;
+            }
+        }
+        
+        
+        var files = event.target.files;
+        var fileSizeLabel = document.getElementById("file-size-label");
+
+        var totalSize = 0;
+        for (var i = 0; i < files.length; i++) {
+            totalSize += files[i].size;
+        }
+
+        // 파일 크기 표시
+        var fileSizeInMB = (totalSize / (1024 * 1024)).toFixed(2);
+        fileSizeLabel.textContent = "총 파일 크기: " + fileSizeInMB + "MB";
+    }
+</script>
+
 
 </head>
 </head>
@@ -359,17 +388,18 @@ $(document).ready(function() {
 						<c:forEach var="a" items="${list }">
 						 <c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId==a.q_loginid }">
 							<tr>
-								<%-- <td align="center">${no }</td> --%>
 								<c:set var="no" value="${no-1 }" />
 								<td align="center">${no+1 }</td>
-								<%-- 
-					<td align="center">${a.num }</td> --%>
 								<td align="center">${a.q_title }</td>
 
 								<td style="width:100%; height:30px; float:left; line-height:30px; color:gray; overflow: hidden;" >
 								<a href="detailqna?q_num=${a.q_num }&currentPage=${currentPage}" style="color:#000;">
 								${a.q_content }
 								</a>
+							   <c:if test="${a.q_file!='no'}">
+					           <span class="glyphicon glyphicon-download-alt" style="margin-left:1px; font-size:12px;"></span>
+					          	</c:if>
+					          
 								</td>
 								<td align="center">
 								            <c:if test="${a.qnaCount == 0}">
@@ -459,8 +489,11 @@ $(document).ready(function() {
 
 
 				<div class="formbold-mb-3">
-					<label for="q_file" class="formbold-form-label" > 첨부파일 </label>
-					 <input type="file" name="upload" id="q_file" multiple="multiple"
+					<label for="q_file" class="formbold-form-label" > 첨부파일 (최대 5MB 가능)
+					<div id="file-size-label"></div>
+					</label> 
+					
+					 <input type="file" name="upload" id="q_file" multiple="multiple" onchange="checkFileSize(event)"
 						class="formbold-form-input" />
 				</div>
 

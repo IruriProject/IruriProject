@@ -5,16 +5,6 @@
 <mapper namespace="spring.mvc.mapper.EFnMapperInter">
 	
 	<!--인기업로드 포스팅4개 -->
-<!-- 	<select id="bestPosting" resultType="adto">
-		select * from (
-	    select APPLICANT.p_num, count(*) AS num_count from APPLICANT
-	    inner join POSTING on APPLICANT.p_num = POSTING.p_num
-	  	group by APPLICANT.p_num order by num_count DESC
-	    limit 4 ) as subquery
-	    inner join POSTING on subquery.p_num = POSTING.p_num;
-	</select> -->
-	
-	
 	<select id="bestPosting" resultType="adto">
 	  SELECT *
 	  FROM (
@@ -90,13 +80,6 @@
 	select count(*) from POSTING
 	</select> 
 	
-	<select id="getsearchTotalCount" resultType="int" parameterType="Map">
-	select count(*) from POSTING
-		<if test="allkeyword!=null">
-		where p_title like concat('%',#{allkeyword},'%')
-		</if>
-	</select> 
-	
 	<!-- search page 공고 리스트 불러오기 -->
 	<select id="getPagingList" parameterType="Map" resultType="Map">
 	select POSTING.*, ENTERPRISE.* from POSTING 
@@ -110,7 +93,7 @@
 	<select id="getTotalCountOfSearch" parameterType="Map" resultType="int">
 	select count(*) from POSTING 
 		<if test="searchcolumn!=null and searchword!=null">
-		where ${searchcolumn} like concat('%',#{searchword},'%')
+		where ${searchcolumn} like concat('%',#{searchword},'%') 
 		</if>
 	</select>
 
@@ -118,7 +101,7 @@
 	<select id="getSearchList" parameterType="Map" resultType="pdto">
 		select * from POSTING
 		<if test="allkeyword!=null">
-			where p_title like concat('%',#{allkeyword},'%')
+			where p_title like concat('%',#{allkeyword},'%') and p_published=1 
 		</if>
 		
 		<if test="sort=='p_writeday'">
@@ -131,9 +114,18 @@
 		limit #{start},#{perpage}
 	</select>
 	
+	<!--헤더 totalCount -->
+	<select id="getsearchTotalCount" resultType="int" parameterType="Map">
+	select count(*) from POSTING
+		<if test="allkeyword!=null">
+		where p_title like concat('%',#{allkeyword},'%') and p_published=1 
+		</if>
+	</select> 
+	
+	<!--헤더 자동완성  -->
 	<select id="autoSearchTitle" parameterType="String" resultType="pdto">
 	select * from POSTING 
-	where p_title like concat('%',#{allkeyword},'%')
+	where p_title like concat('%',#{allkeyword},'%') and p_published=1 
 	</select>
 
 	
