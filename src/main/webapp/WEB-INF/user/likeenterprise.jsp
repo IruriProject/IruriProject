@@ -39,6 +39,16 @@ div {
 .btndel{
 	cursor: pointer;
 }
+
+
+.no{
+
+	color: gray; 
+	background-color: #f9ffef; 
+	padding: 20px; 
+	margin-top: 50px;
+	border-radius: 20px;
+}
 </style>
 </head>
 <body>
@@ -93,7 +103,7 @@ div {
 				</c:if>
 				
 						<c:if test="${countLikeEnter==0 }">
-						<h3>관심 기업이 없습니다. 관심 기업을 추가해보세요! :)</h3>
+							<h3 class="no" style="">관심 기업이 없습니다. 관심 기업을 추가해보세요! :)</h3>
 						</c:if>
 						
 

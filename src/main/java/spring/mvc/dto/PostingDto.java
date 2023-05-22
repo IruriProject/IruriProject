@@ -28,4 +28,6 @@ public class PostingDto {
 	private int p_hirenum;
 	private Timestamp p_startdate;
 	private String p_enddate;
+	
+	private String e_name;
 }
