@@ -141,8 +141,16 @@
     font-size: 16px;
     border-radius: 5px;
     border: none;
-    background-color: #cce891;
+    background-color: #4E9F3D;
     color: white;
+    cursor: pointer;
+  }
+  .formbold-border-btn{
+  	font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #4E9F3D;
+    background-color: white;
+    color:#4E9F3D;
     cursor: pointer;
   }
   
@@ -314,7 +322,7 @@ text-decoration: none;
       </div>
 
       <button class="formbold-btn btn-m">변경하기</button>
-      <button class="formbold-btn btn-m" type="button" onclick="location.href='../mypage'">변경 취소</button>
+      <button class="formbold-border-btn btn-m" type="button" onclick="location.href='../mypage'">변경 취소</button>
     </form>
   </div>
   </div>

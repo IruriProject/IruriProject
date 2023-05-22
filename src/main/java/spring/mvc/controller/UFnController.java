@@ -204,9 +204,9 @@ public class UFnController {
    }
    //이력서 삭제
    @GetMapping("/deleteResume")
-   public String deleteResume(String r_num) {
+   @ResponseBody
+   public void deleteResume(String r_num) {
 	   uservice.deleteResume(r_num);
-	   return "redirect:resumelist";
    }
    
    @PostMapping("/insertResume")

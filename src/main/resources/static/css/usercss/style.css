@@ -106,3 +106,40 @@
     width: 0px;
     transition: 2s;
 }
+
+.sm-border-btn{
+	border: 1px solid #4e9f3d;
+	color:#4e9f3d;
+	width:90px;
+	background-color:#fff;
+	height:32px;
+	line-height:29px;
+	border-radius: 3px;
+}
+.sm-color-btn{
+	border: none;
+	color:#fff;
+	width:90px;
+	background-color:#4e9f3d;
+	height:32px;
+	line-height:29px;
+	border-radius: 3px;
+}
+.xs-border-btn{
+	border: 1px solid #4e9f3d;
+	color:#4e9f3d;
+	width:42px;
+	height:26px;
+	line-height:23px;
+	background-color:#fff;
+	border-radius: 3px;
+}
+.sm-delete-btn{
+	border: 1px solid #E74646;
+	color: #E74646;
+	width:90px;
+	background-color:#fff;
+	height:32px;
+	line-height:29px;
+	border-radius: 3px;
+}
