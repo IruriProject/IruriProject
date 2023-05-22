@@ -444,21 +444,28 @@ public class UFnController {
 	}
 	
 	//맞춤 일자리
-	//맞춤 일자리 리스튼
+	//맞춤 일자리 리스트
 	@GetMapping("/customjob")
 	public String customList() {
 		return "/customjob/customjob";
 	}
 	
-	@ResponseBody
+	
 	@GetMapping("/customjobaction")
-	public List<PostingDto> customListAction(@RequestParam String p_type) {
-		
-		System.out.println(uservice.searchCustomJobList(p_type));
-		
-		return uservice.searchCustomJobList(p_type);
-		
-		
+	@ResponseBody
+	public List<PostingDto> customListAction(@RequestParam(value = "p_type", required = false) String p_type) {
+		String [] p_types=p_type.split(",");
+		/*
+		 * System.out.println(p_type);
+		 * 
+		 * 
+		 * 
+		 * List<PostingDto> list=new ArrayList<>();
+		 * 
+		 * for(String a:p_types) { list=(a); }
+		 */
+
+		return uservice.searchCustomJobList(p_types[0]);
 	}
 		
 

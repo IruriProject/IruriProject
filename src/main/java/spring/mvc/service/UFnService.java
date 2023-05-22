@@ -206,7 +206,6 @@ public class UFnService {
    
    //맞춤 일자리 검색 결과
    public List<PostingDto> searchCustomJobList(String p_type) {
-	   
 	   return mapper.searchCustomJobList(p_type);
    }
    
