@@ -36,6 +36,28 @@
 @import
 	url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
 	;
+.alink{
+   color: black;
+}
+
+.alink:hover{
+   color: #416442;
+   text-decoration: none;
+}
+   
+.sub{
+      margin-right:5px; 
+      padding:3px 10px; 
+      background-color:#e3f2c9; 
+      border-radius:16px;
+   }
+   
+#enterprise-name{
+      color: gray;
+      margin-top: 5px;
+      margin-left: 10px;
+      display: block;
+   }
 
 body {
 	font-family: fontAwesome;
@@ -301,7 +323,7 @@ body {
             	   			//제목
             	   			s+="<td width='400'><span id='posting-title'>";
             	   			s+="<a href='detailpage?p_num="+ele.p_num+"' class='alink'>"+ele.p_title+"</a></span><br>";
-            	   			/* s+="<span id='enterprise-name'><span class='sub'>"+ele.p_type+"</span>"+ele.e_name+"</span></td>"; */
+            	   			s+="<span id='enterprise-name'><span class='sub'>"+ele.p_type+"</span>"+ele.e_name+"</span></td>";
             	   			//급여
             	   			if (ele.p_employtype === '정규직') {
             	   			  s += "<td width='120'><span class='sub'>월급</span>" + ele.p_pay + "</td>";

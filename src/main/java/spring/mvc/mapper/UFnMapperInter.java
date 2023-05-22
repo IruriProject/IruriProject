@@ -66,7 +66,7 @@ public interface UFnMapperInter {
 	
 	//맞춤 일자리
 	public int countSearchCustomJob(String p_type);//검색 된 공고 수
-	public List<PostingDto> searchCustomJobList (String p_type);//검색 된 공고
+	public List<Map<String, Object>> searchCustomJobList (String p_type);//검색 된 공고
 	
 	//열람
 	public void insertViewer(ViewerDto dto);

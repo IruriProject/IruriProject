@@ -453,7 +453,7 @@ public class UFnController {
 	
 	@GetMapping("/customjobaction")
 	@ResponseBody
-	public List<PostingDto> customListAction(@RequestParam(value = "p_type", required = false) String p_type) {
+	public List<Map<String, Object>> customListAction(@RequestParam(value = "p_type", required = false) String p_type) {
 		String [] p_types=p_type.split(",");
 		/*
 		 * System.out.println(p_type);
