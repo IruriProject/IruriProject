@@ -13,19 +13,47 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style type="text/css">
-  .formbold-form-select {
-  	float:left;
-    width: 100%;
-  	padding: 8px 16px;
-    border-radius: 5px;
-    border: 1px solid #dde3ec;
-    background: #ffffff;
-    font-size: 14px;
-    color: #536387;
-    outline: none;
-    resize: none;
-    cursor: pointer;
-  }
+.alink {
+	color: black;
+}
+
+.alink:hover {
+	color: #416442;
+	text-decoration: none;
+}
+
+#enterprise-name {
+	color: gray;
+	margin-top: 5px;
+	margin-left: 10px;
+	display: block;
+}
+
+#posting-title {
+	font-size: 1.1em;
+}
+
+.sub {
+	margin-right: 5px;
+	padding: 3px 10px;
+	background-color: #e3f2c9;
+	border-radius: 16px;
+}
+
+.formbold-form-select {
+	float: left;
+	width: 100%;
+	padding: 8px 16px;
+	border-radius: 5px;
+	border: 1px solid #dde3ec;
+	background: #ffffff;
+	font-size: 14px;
+	color: #536387;
+	outline: none;
+	resize: none;
+	cursor: pointer;
+}
+
 .countst {
 	font-weight: 500;
 	color: gray;
@@ -33,29 +61,32 @@
 	letter-spacing: -.005em;
 	line-height: 24px;
 	padding: 10px 0px;
-	line-height:50px; 
+	line-height: 50px;
 }
 
 .pagination {
-  display: inline-block;
+	display: inline-block;
 }
 
 .pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	transition: background-color .3s;
 }
 
 .pagination a.active {
-  background-color: #4E9F3D;
-  color: white;
-  text-decoration: none;
+	background-color: #4E9F3D;
+	color: white;
+	text-decoration: none;
 }
 
-.pagination a:hover:not(.active) {text-decoration: none; color:#416442; background-color:#e3f2c9;}
-
+.pagination a:hover:not(.active) {
+	text-decoration: none;
+	color: #416442;
+	background-color: #e3f2c9;
+}
 </style>
 <script>
 function updateUrl() {
@@ -129,27 +160,32 @@ function updateUrl() {
 				<c:forEach var="dto" items="${list }">
 
 					<tr>
-						<td width="60">${dto.p_addr }</td>
-						
-						<td width="400">
-						<span id="posting-title"> 
-						<a href="/posting/detailpage?p_num=${dto.p_num}">${dto.p_title }</a>
+						<td width="100">${dto.p_addr }</td>
+					<td width="400">
+					<span id="posting-title">
+						<a href="/posting/detailpage?p_num=${dto.p_num}"  class="alink">${dto.p_title }</a>
 						</span> <br> 
-						<span id="enterprise-name">[${dto.p_type }] 단회사번호 ${dto.e_num }</span>
+						<span id="enterprise-name"><span class="sub">${dto.p_type }</span>${dto.e_name }</span>
 						</td>
 						
-						<td width="120">
-						<c:if test="${dto.p_employtype=='정규직' }">
-							[월급]
-						</c:if> 
-						<c:if test="${dto.p_employtype=='기간제' }">
-							[시급]
-						</c:if> 
-						${dto.p_pay }
-						</td>
-						
-						<td width="150">${dto.p_starttime } - ${dto.p_endtime }</td>
-						
+					<td width="200">
+					<c:if test="${dto.p_employtype=='정규직' }">
+					<span class="sub">월급</span>
+					</c:if>
+					<c:if test="${dto.p_employtype=='계약직' }">
+					<span class="sub">시급</span>
+					</c:if>
+					<fmt:formatNumber value="${dto.p_pay }" type="number"/>
+					</td>
+					
+					
+							<td width="150">
+					<fmt:parseDate value="${dto.p_starttime }" var="p_starttime" pattern="HH:mm"/>
+					<fmt:formatDate value="${p_starttime}" pattern="HH:mm"/>  -
+					<fmt:parseDate value="${dto.p_endtime }" var="p_endtime" pattern="HH:mm"/>
+					<fmt:formatDate value="${p_endtime }" pattern="HH:mm"/>
+
+					</td>
 						<td width="100">
 						<fmt:formatDate value="${dto.p_writeday }" pattern="yyyy-MM-dd" />
 						</td>
@@ -158,9 +194,6 @@ function updateUrl() {
 			</c:if>
 
 		</table>
-     	
-     	<!-- 지역별 필터링 후 테이블 나오는 부분 -->
-     	<div id="addr-box"></div>
    		
 		<!-- 페이징 -->
 		<c:if test="${totalCount>0}">
