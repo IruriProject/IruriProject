@@ -75,7 +75,7 @@ div {
 			
 					
 					<div id="addr-box"></div>
-						<table class="table" id="response">
+						<table class="table" id="basic-list">
 						<caption>
 							<c:if test="${totalCount>0}">
 					   		총 ${totalCount }개의 글이 있습니다.
@@ -87,7 +87,6 @@ div {
 									<th scope="col" style="text-align: center;">No.</th>
 									<th scope="col" style="text-align: center;">지원일</th>
 									<th scope="col" style="text-align: center;">공고 제목</th>
-									<!-- <th scope="col" style="text-align: center;">직무</th> -->
 									<th scope="col" style="text-align: center;">이력서 제목</th>
 									<th scope="col" style="text-align: center;">모집 마감 일</th>
 									<th scope="col" style="text-align: center;">급여</th>

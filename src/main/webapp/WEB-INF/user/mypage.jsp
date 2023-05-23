@@ -330,13 +330,14 @@ line-height:60px;
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h6 class="mb-0">관심 기업</h6>
-					<a href="/enterLike">더보기</a>
 				</div>
 				<div class="table-responsive">
-					<table
-						class="table text-start align-middle table-bordered table-hover mb-0">
+					<table class="table" id="basic-list">
 						<thead>
+						<caption>
+							관심 기업 
+							<a href="/enterLike" style="float: right;">더보기</a>
+						</caption>
 							<tr class="text-dark">
 								<th scope="col" style="text-align: center;"><input
 									class="form-check-input" type="checkbox"></th>
@@ -368,13 +369,14 @@ line-height:60px;
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h6 class="mb-0">관심 공고</h6>
-					<a href="/scrap">더보기</a>
 				</div>
 				<div class="table-responsive">
-					<table
-						class="table text-start align-middle table-bordered table-hover mb-0">
+					<table class="table" id="basic-list">
 						<thead>
+						<caption>
+							관심 공고 
+							<a href="/scrap" style="float: right;">더보기</a>
+						</caption>
 							<tr class="text-dark">
 								<th scope="col" style="text-align: center;"><input
 									class="form-check-input" type="checkbox"></th>
