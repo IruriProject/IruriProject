@@ -303,7 +303,7 @@
 		                     <a href="/posting/postinglist" style="float: right;" class="atag">더보기</a>                  
 		                  </caption>
 		                  <tr class="text-dark">
-			                  	<th scope="col" style="text-align: center" width="40%">공고제목</th>
+			                  	<th scope="col" style="text-align: center" width="50%">공고제목</th>
 								<th scope="col" style="text-align: center">직종</th>
 								<th scope="col" style="text-align: center">공고일</th>
 								<th scope="col" style="text-align: center">공고마감일</th>
