@@ -75,7 +75,7 @@ div {
 }
 
 div td{
-	border: 1px solid gray;
+	border: 0px solid gray;
 }
 </style>
 </head>
@@ -92,20 +92,19 @@ div td{
 				</div>
 				<div class="table-responsive">
 				<c:if test="${totalCount>0 }">
-					<table class="table" id="basic-list" style="width: 900px;">
+					<table class="table" id="basic-list" >
 						<thead>
 						<caption style=" margin-bottom : 10px;">
-							<h4 class="mb-5" style="color: black; display: inline;"><b>총 ${totalCount }개의 관심 기업</b></h4>
+							<h4 class="mb-5" style="color: black; display: inline;"><b>총 <b style="color: #4E9F3D; font-weight: 600">${totalCount }개</b>의 관심 기업</b></h4>
 						</caption>
 						<tr class="text-dark">
-							<th scope="col" style="text-align: center;">
+							<th scope="col" style="text-align: center; width: 30px;">
 								<input class="form-check-input" type="checkbox" id="allcheck">
 							</th>
-							<th scope="col" style="text-align: center;">No.</th>
-							<th scope="col" style="text-align: center;">기업명</th>
-							<th scope="col" style="text-align: center;">주소</th>
-							<th scope="col" style="text-align: center;">전화번호</th>
-							<th scope="col" style="text-align: center;">이메일</th>
+							<th scope="col" style="text-align: center; width: 200px;">기업명</th>
+							<th scope="col" style="text-align: center; width: 350px;">주소</th>
+							<th scope="col" style="text-align: center; width: 170px;">전화번호</th>
+							<th scope="col" style="text-align: center; width: 300px;">이메일</th>
 
 						</tr>
 						</thead>
@@ -113,13 +112,12 @@ div td{
 							<c:forEach var="dto" items="${list }" varStatus="i">
 								<tr>
 									<input type="hidden" class="h_num" value="${dto.h_num }">
-									<td style="text-align: center;"><input class="form-check-input del" type="checkbox"></td>
-									<td style="text-align: center;">${no }</td>
-									<c:set value="${no-1 }" var="no" />
-									<td style="text-align: center;"><a href="/enterprise/enterprisepage?e_num=${dto.e_num }">${dto.e_name }</a></td>
-									<td style="text-align: center;">${dto.e_addr }</td>
-									<td style="text-align: center;">${dto.e_tel }</td>
-									<td style="text-align: center;">${dto.e_email }</td>
+									<td style="text-align: center; width: 30px;"><input class="form-check-input del" type="checkbox"></td>
+									<td style="text-align: center; width: 200px;">
+									<a href="/enterprise/enterprisepage?e_num=${dto.e_num }" style="color: #416442; font-weight: 600">${dto.e_name }</a></td>
+									<td style="text-align: center; width: 350px;">${dto.e_addr }</td>
+									<td style="text-align: center; width: 170px;">${dto.e_tel }</td>
+									<td style="text-align: center; width: 300px;">${dto.e_email }</td>
 								</tr>
 
 							</c:forEach>

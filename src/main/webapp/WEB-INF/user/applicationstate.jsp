@@ -61,6 +61,10 @@ div {
 	color: #416442;
 	background-color: #e3f2c9;
 }
+
+div td{
+	border: 0px solid gray;
+}
 </style>
 </head>
 <body>
@@ -69,24 +73,26 @@ div {
 		<div class="bg-light text-center rounded p-4">
 			<div class="d-flex align-items-center justify-content-between mb-4"></div>
 			<div class="table-responsive">
+				<c:if test="${totalCount==0}">
+					<h3 class="no">지원 현황이 없습니다. 지원해보세요! :)</h3>
+				</c:if>
 				<c:if test="${totalCount>0}">
-					<table class="table" id="basic-list" style="width: 900px;">
+					<table class="table" id="basic-list">
 						<thead>
 						<caption style=" margin-bottom : 10px;">
-							<h4 class="mb-5" style="color: black; display: inline;"><b>총 ${totalCount }개의 지원</b></h4>
+							<h4 class="mb-5" style="color: black; display: inline;"><b>총 <b style="color: #4E9F3D; font-weight: 600">${totalCount }개</b>의 지원</b></h4>
 						</caption>
 							<tr class="text-dark">
 								<th scope="col" style="text-align: center;">
 									<input class="form-check-input" type="checkbox" id="allcheck">
 								</th>
-								<th scope="col" style="text-align: center;">No.</th>
-								<th scope="col" style="text-align: center;">지원일</th>
-								<th scope="col" style="text-align: center;">공고 제목</th>
-								<th scope="col" style="text-align: center;">이력서 제목</th>
-								<th scope="col" style="text-align: center;">모집 마감 일</th>
-								<th scope="col" style="text-align: center;">급여</th>
-								<th scope="col" style="text-align: center;">고용형태</th>
-								<th scope="col" style="text-align: center;">근무요일</th>
+								<th scope="col" style="text-align: center; width: 100px;">지원일</th>
+								<th scope="col" style="text-align: center; width: 300px;">공고 제목</th>
+								<th scope="col" style="text-align: center; width: 300px;">이력서 제목</th>
+								<th scope="col" style="text-align: center; width: 100px;">모집 마감 일</th>
+								<th scope="col" style="text-align: center; width: 100px;">급여</th>
+								<th scope="col" style="text-align: center; width: 80px;">고용형태</th>
+								<th scope="col" style="text-align: center; width: 70px;">근무요일</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -94,14 +100,17 @@ div {
 								<tr>
 									<input type="hidden" class="a_num" value="${adto.a_num }">
 									<td style="text-align: center;"><input class="form-check-input del" type="checkbox"></td>
-									<td style="text-align: center;">${i.count }</td>
-									<td style="text-align: center;"><fmt:formatDate value="${adto.a_writeday}" pattern="yyyy-MM-dd" /></td>
-									<td style="text-align: center;"><a href="posting/detailpage?p_num=${adto.p_num}">${adto.p_title }</a></td>
-									<td style="text-align: center;"><a href="resume/detail?r_num=${adto.r_num}">${adto.r_title }</a></td>
-									<td style="text-align: center;">${adto.p_enddate}</td>
-									<td style="text-align: center;">${adto.p_pay}</td>
-									<td style="text-align: center;">${adto.p_employtype}</td>
-									<td style="text-align: center;"><c:if test="${adto.p_workday=='월/화/수/목/금'}">평일</c:if> 
+									<td style="text-align: center; width: 100px;"><fmt:formatDate value="${adto.a_writeday}" pattern="yyyy-MM-dd" /></td>
+									<td style="text-align: center; width: 300px;">
+									<a href="posting/detailpage?p_num=${adto.p_num}"
+									style="color: #416442; font-weight: 600">${adto.p_title }</a></td>
+									<td style="text-align: center; width: 300px;">
+									<a href="resume/detail?r_num=${adto.r_num}"
+									style="color: #416442; font-weight: 600; width: 100px;">${adto.r_title }</a></td>
+									<td style="text-align: center; width: 100px;">${adto.p_enddate}</td>
+									<td style="text-align: center; width: 100px;">${adto.p_pay}</td>
+									<td style="text-align: center; width: 80px;">${adto.p_employtype}</td>
+									<td style="text-align: center; width: 70px;"><c:if test="${adto.p_workday=='월/화/수/목/금'}">평일</c:if> 
 									<c:if test="${adto.p_workday=='토/일'}">주말</c:if> 
 									<c:if test="${adto.p_workday!='토/일' && adto.p_workday!='월/화/수/목/금'}">${adto.p_workday }</c:if>
 									</td>
@@ -143,9 +152,6 @@ div {
 
 				</c:if>
 
-				<c:if test="${totalCount==0}">
-					<h3 class="no">지원 현황이 없습니다. 지원해보세요! :)</h3>
-				</c:if>
 			</div>
 		</div>
 	</div>
@@ -163,7 +169,6 @@ div {
 		});
 
 		$("#btnAppDel").click(function() {
-			//alert("지원 취소 하고 싶다");
 
 			//체크 한 기업 개수 구하기
 			var cnt = $(".del:checked").length;
@@ -197,7 +202,7 @@ div {
 
 			});
 
-			alert("삭제되었습니다 :)")
+			alert("지원 취소되었습니다 :)")
 
 		});
 	</script>
