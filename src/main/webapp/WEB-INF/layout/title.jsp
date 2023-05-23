@@ -90,7 +90,7 @@
 
 .usernav {
 	float: right;
-	width: 270px;
+	width: 370px;
 	height: 100%;
 	padding: 50px 30px 30px 0px;
 	margin-top: -10px;

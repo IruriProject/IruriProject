@@ -15,10 +15,17 @@
 
 <title>Insert title here</title>
 <style type="text/css">
+
+body {
+  overflow-x: hidden;
+}
 * {
 	list-style: none;
 }
 
+a{
+   text-decoration: none;
+}
 .nav_header {
 	float: left;
 	width: 60%;
@@ -64,7 +71,7 @@
 	float: left;
 	position: relative;
 	width: 130px;
-	height: 50px;
+	height: 40px;
 	text-align: center;
 	line-height: 40px;
 }
