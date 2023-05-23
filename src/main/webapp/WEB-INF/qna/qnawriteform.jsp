@@ -419,7 +419,7 @@ $(document).ready(function() {
 								${a.q_content }
 								</a>
 							   <c:if test="${a.q_file!='no'}">
-					           <span class="glyphicon glyphicon-download-alt" style="margin-left:1px; color:#416442; font-size:12px;"></span>
+					           <span class="glyphicon glyphicon-download-alt" style="margin-left:1px; color:#416442; font-size:10px;"></span>
 					          	</c:if>
 					          
 								</td>

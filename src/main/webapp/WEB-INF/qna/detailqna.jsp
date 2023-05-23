@@ -361,7 +361,7 @@ function list() {
 <table style="width: 80%; margin:0 auto;">
 		<tr>
 		<td style="display: flex; height: 90px; justify-content: space-between; align-items: center;">
-    <h2 style="margin: 0; font-weight: bold;">${qdto.q_title}</h2>
+    <h2 style="margin: 0; padding:10px; font-weight: bold;">${qdto.q_title}</h2>
     <c:if test="${sessionScope.loginStatus!=null}">
     <c:if test="${sessionScope.loginId==qdto.q_loginid and sessionScope.loginId!='admin'}">
         <div class="dropdown">
@@ -398,20 +398,20 @@ function list() {
 			
 		<c:if test="${qdto.q_file != 'no' }">
 		    <br><br>
-		    <span style="float:right; padding:10px;">
-		        파일<span class="glyphicon glyphicon-triangle-right toggle-button" onclick="toggleFileList()"></span>
-		    </span>
-		    <br>
-		    <div id="file-list" style="float:right; display:none;">
-		        <c:forEach var="fileUrl" items="${fileUrls}">
-		            <a href="download?clip=${fileUrl}" style="color:gray; font-size:12px;">
-		                <span class="glyphicon glyphicon-download-alt"></span>
-		                <b>${fileUrl}</b>
-		            </a><br>
-		        </c:forEach>
-		    </div>
-		</c:if>
-				
+				<div style="text-align: right;">
+			    <span style="display: inline-block; padding: 10px;">
+			        첨부파일<span class="glyphicon glyphicon-triangle-right toggle-button" style="padding-left: 3px; font-size: 0.8em;" onclick="toggleFileList()"></span>
+			    </span>
+			    <div id="file-list" style="display: none; z-index: 1; overflow: auto;">
+			        <c:forEach var="fileUrl" items="${fileUrls}">
+			            <a href="download?clip=${fileUrl}" style="color: gray; font-size: 12px;">
+			                <span class="glyphicon glyphicon-download-alt" style="font-weight:500;"></span>
+			                <b style="font-weight:500;">${fileUrl}</b>
+			            </a><br>
+			        </c:forEach>
+			    </div>
+			</div>
+			</c:if>
 			<br>
 				<hr>
 				</td>
@@ -481,7 +481,7 @@ function list() {
 				<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId!='admin'}">
 				<button type="button" class="btn btn-default"
 					onclick="location.href='qnawriteform?currentPage=${currentPage}'"
-					style="margin: 0 auto; width: 30%;">목록</button>
+					style="margin: 0 auto; border:1px solid #416442; color:#416442; ">목록</button>
 				</c:if>
 				
 			</td>

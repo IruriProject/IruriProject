@@ -465,7 +465,7 @@ function list() {
 <table style="width: 80%; margin:0 auto;">
 		<tr>
 		<td style="display: flex; height: 90px; justify-content: space-between; align-items: center;">
-    <h2 style="margin: 0; font-weight: bold;">${bdto.b_title}</h2>
+    <h2 style="margin: 0;  padding:10px; font-weight: bold;">${bdto.b_title}</h2>
    <c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId!='admin'}">
         <c:if test="${sessionScope.loginId==bdto.b_loginid}">
         <div class="dropdown">
@@ -554,33 +554,8 @@ function list() {
 		</tr>
 		
 	</table>
-			
-			
-			
-		<%-- 	<c:if test="${'admin'!=bdto.b_loginid}">
-			<div style="width:60%; height:50px; margin:0 auto; text-align:center; line-height:50px;  border-radius:10px;  border:1px solid gray;">
-				<c:if test="${prevNum == 0 }">
-				이전게시물이 없습니다.
-				</c:if>
 				
-				<c:if test="${prevNum != 0 }">
-				<a href="detailboard?b_num=${prevNum }&currentPage=${currentPage}" style="float:left; padding-left:20px;">이전 ${prevTitle}</a>
-				</c:if>
-				
-				
-				<c:if test="${nextNum != 0 }">
-				<a href="detailboard?b_num=${nextNum }&currentPage=${currentPage}" style="float:right; padding-right:20px;">${nextTitle} 다음</a>
-				</c:if>
-				
-				<c:if test="${nextNum == 0 }">
-				다음게시물이 없습니다.
-				</c:if>
-			</div>
-			</c:if> --%>
-			
-			
 			<c:if test="${'admin'!=bdto.b_loginid}">
-			<br><br><br><br>
 			
 			<div style="width:80%; height:50px; margin:0 auto; text-align:center; line-height:50px;  border-top:1px solid lightgray;  border-bottom:1px solid lightgray;">
 				<c:if test="${prevNum == 0 }">
@@ -588,15 +563,15 @@ function list() {
 				</c:if>
 				
 				<c:if test="${prevNum != 0 }">
-				<a href="detailboard?b_num=${prevNum }&currentPage=${currentPage}" style="float:left; padding-left:20px; color:black; text-decoration:none;">이전글
-				&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-up" style="font-size:8px;"></i>&nbsp;&nbsp;&nbsp;&nbsp;<b>${prevTitle}</b></a>
+				<a href="detailboard?b_num=${prevNum }&currentPage=${currentPage}" style="float:left; padding-left:20px; color:#4E9F3D; text-decoration:none;">이전글
+				&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-up" style="font-size:8px;"></i>&nbsp;&nbsp;&nbsp;&nbsp;<b style="color:#416442;">${prevTitle}</b></a>
 				</c:if>
 				
 				</div>
 				<div style="width:80%; height:50px; margin:0 auto; text-align:center; line-height:50px;  border-bottom:1px solid lightgray;">
 				<c:if test="${nextNum != 0 }">
-				<a href="detailboard?b_num=${nextNum }&currentPage=${currentPage}" style="float:left; padding-left:20px; color:black; text-decoration:none;">다음글
-				&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-down" style="font-size:8px;"></i>&nbsp;&nbsp;&nbsp;&nbsp;<b>${nextTitle}</b></a>
+				<a href="detailboard?b_num=${nextNum }&currentPage=${currentPage}" style="float:left; padding-left:20px; color:#4E9F3D; text-decoration:none;">다음글
+				&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-down" style="font-size:8px;"></i>&nbsp;&nbsp;&nbsp;&nbsp;<b style="color:#416442;">${nextTitle}</b></a>
 				</c:if>
 				
 				<c:if test="${nextNum == 0 }">
@@ -608,7 +583,7 @@ function list() {
 			
 			<br><br><br><br>
 			<div style="margin:0 auto;">
-			<button type="button" class="btn btn-default" onclick="location.href='boardlist?currentPage=${currentPage}'" style="margin: 0 auto;">목록</button>
+			<button type="button" class="btn btn-default" onclick="location.href='boardlist?currentPage=${currentPage}'" style="margin: 0 auto; border:1px solid #416442; color:#416442;">목록</button>
 			</div>
 			
 			
@@ -641,7 +616,7 @@ function list() {
 		        <div class="modal-footer">
 		         <button type="button" class="btn btn-info" 
 					data-dismiss="modal" id="btnupdateinfo" style="background-color: #4E9F3D; margin-left: 100px;">수정하기</button>
-		          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		          <button type="button" class="btn btn-default" data-dismiss="modal" style="border:1px solid #4E9F3D; color:#4E9F3D;">닫기</button>
 		        </div>
 		      </div>
 		      
