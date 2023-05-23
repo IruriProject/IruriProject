@@ -50,7 +50,7 @@ div a:hover{
 	color: gray; 
 	background-color: #f9ffef; 
 	padding: 20px; 
-	margin-top: 50px;
+	margin-top: 70px;
 	border-radius: 20px;
 	
 }
