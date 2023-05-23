@@ -155,13 +155,13 @@ border:0px solid gray;
 					<div class="h-100 rounded p-4">
 						<div data-rnum="${rdto.r_num}">
 							<c:if test="${rdto.r_title==null}">
-								<h3>대표이력서가 없습니다.</h3>
+								<span style="font-size: 2em; color: #416442; font-weight: 600;
+							white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">대표이력서가 없습니다.</span><br>
 								<button type="button" class="sm-border-btn" style="width:150px;" onclick="location.href='resumelist'">대표이력서
 									설정하기</button>
 								<!-- 이력서 목록 페이지로 -->
 							</c:if>
 							<c:if test="${rdto.r_title!=null}">
-							<br>
 							<span style="font-size: 2em; color: #416442; font-weight: 600;
 							white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${rdto.r_title}</span><br>
 								<c:set var="writeday"><fmt:formatDate value="${rdto.r_writeday }" pattern="yyyy-MM-dd"/></c:set>
