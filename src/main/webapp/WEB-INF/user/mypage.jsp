@@ -267,14 +267,16 @@ line-height:60px;
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h4 class="mb-5"><b>이력서 목록</b></h4>
-					<a href="resumelist">더보기</a>
 				</div>
 				<div class="table-responsive">
 					<table
 						class="table"
 						style="table-layout: fixed">
 						<thead>
+						<caption style=" margin-bottom : 10px;">
+							<h4 class="mb-5" style="color: black; display: inline;"><b>이력서 목록</b></h4>
+							<a href="/resumelist" style="float: right;">더보기</a>
+						</caption>
 							<tr class="text-dark">
 								<th scope="col" style="width: 50px;">번호</th>
 								<th scope="col" style="width: 200px;">제목</th>
@@ -339,9 +341,9 @@ line-height:60px;
 				<div class="table-responsive">
 					<table class="table" id="basic-list">
 						<thead>
-						<caption>
-							관심 기업 
-							<a href="/enterLike" style="float: right;">더보기</a>
+						<caption style=" margin-bottom : 10px;">
+							<h4 class="mb-5" style="color: black; display: inline;"><b>관심 기업</b></h4>
+							<a href="/enterLike" style="float: right;">더보기</a>	
 						</caption>
 							<tr class="text-dark">
 								<th scope="col" style="text-align: center;"><input
@@ -378,9 +380,9 @@ line-height:60px;
 				<div class="table-responsive">
 					<table class="table" id="basic-list">
 						<thead>
-						<caption>
-							관심 공고 
-							<a href="/scrap" style="float: right;">더보기</a>
+						<caption style=" margin-bottom : 10px;">
+							<h4 class="mb-5" style="color: black; display: inline;"><b>관심 공고</b></h4>
+							<a href="/scrap" style="float: right;">더보기</a>						
 						</caption>
 							<tr class="text-dark">
 								<th scope="col" style="text-align: center;"><input

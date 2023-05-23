@@ -81,9 +81,11 @@ div {
 					<div class="table-responsive">
 						
 							<c:if test="${totalCount>0 }">
-							<table class="table" id="basic-list">
+							<table class="table" id="basic-list" style="width: 1100px;">
 							<thead>
-							<caption>총 ${totalCount }개의 관심 공고</caption>
+							<caption style=" margin-bottom : 10px;">
+								<h4 class="mb-5" style="color: black; display: inline;"><b>총 ${totalCount }개의 관심 공고</b></h4>
+							</caption>
 								<tr class="text-dark">
 									<th scope="col" style="text-align: center;"><input class="form-check-input"
 										type="checkbox" id="allcheck"></th>
@@ -130,7 +132,7 @@ div {
 							
 							<tr>
 								<td colspan="11" >
-								<button id="btnScrapDel">스크랩 해제</button>
+								<button id="btnScrapDel" class="sm-delete-btn" style="float: right; width: 100px;">스크랩 해제</button>
 								</td>							
 							</tr>
 								</tbody>
