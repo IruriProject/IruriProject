@@ -351,8 +351,8 @@
 					        <c:set var="no" value="${no-1}" />
 					        <td align="center">${no+1}</td>
 					        <td align="center">${a.q_loginid}</td>
-					        <td style="width:100%; height:40px; float:left; color:gray; overflow: hidden;">
-					          <a href="detailqna?q_num=${a.q_num}&currentPage=${currentPage}" style="color:#000;">
+					        <td style="width:100%; height:40px; float:left; color:#416442; font-weight:600; overflow: hidden;">
+					          <a href="detailqna?q_num=${a.q_num}&currentPage=${currentPage}" style="color:#416442;">
 					            ${a.q_title}
 					          </a>
 					          <c:if test="${a.q_file!='no'}">

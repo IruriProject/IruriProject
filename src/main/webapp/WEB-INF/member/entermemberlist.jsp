@@ -42,6 +42,16 @@
    line-height:29px;
    border-radius: 3px;
 }
+
+.chkbox{
+	width: 15px;
+	height: 15px;
+	margin-right: 16px;
+	margin-top: 2px;
+	border: 0.7px solid #4E9F3D;
+	border-radius: 3px;
+	accent-color: #4E9F3D;
+}
 </style>
 
 </head>
@@ -59,7 +69,7 @@
 			<th style="text-align:center;width: 350px;">주소</th>
 			<th style="text-align:center;width: 200px;">이메일</th>
 			<th style="text-align:center;width: 30px;">
-			<input type="checkbox" id="allcheck"></th>
+			<input type="checkbox" class="chkbox" id="allcheck"></th>
 		</tr>
 		
 		<c:forEach var="dto" items="${list }" varStatus="i">
@@ -71,14 +81,14 @@
 				<td>${dto.e_addr }</td>
 				<td>${dto.e_email }</td>
 				
-				<td><input type="checkbox" class="del" name="chk"  num="${dto.e_num }"></td>
+				<td><input type="checkbox" class="del chkbox" name="chk"  num="${dto.e_num }"></td>
 				
 			</tr>
 		</c:forEach>
 	</table>
 	
 	<div style="text-align: right; margin-top:30px;">
-		<button type="button" class="sm-delete-btn" id="btnmemberdel" onclick="deleteMembers()">DELETE</button>
+		<button type="button" class="sm-delete-btn" id="btnmemberdel" onclick="deleteMembers()">삭제</button>
 	</div>
 					
 				<!-- 페이징 -->
