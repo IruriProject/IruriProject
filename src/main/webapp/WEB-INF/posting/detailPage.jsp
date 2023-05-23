@@ -143,7 +143,7 @@ body {
 }
 
 .fa-star{
-   color: #416442;
+   color: orange;
 }
 .support{
  	cursor: pointer;
@@ -157,6 +157,15 @@ tr,td{
 	text-align: center;
 }
 
+.pbtn{
+	height:40px; 
+	line-height: 40px; 
+	width: 90px; 
+	border: 1px solid #4E9F3D; 
+	color: #4E9F3D; 
+	background-color: white; 
+	border-radius: 5px;"
+}
 
 
 </style>
@@ -307,7 +316,7 @@ tr,td{
 						   
 						   <!-- 지원하기 -->
 						   <c:if test="${rsize==0 }">
-						   <span class="support" onclick="noResume()">지원하기 <i class="fa-solid fa-envelope-open-text"></i></span>&nbsp;&nbsp;
+						   <button class="support pbtn" onclick="noResume()">지원하기 <i class="fa-solid fa-envelope-open-text"></i></button>&nbsp;&nbsp;
 						   
 						   <script type="text/javascript">
 						   function noResume(){
@@ -324,19 +333,20 @@ tr,td{
 						   
 			               </c:if>
 			               
+			               <!-- 지원하기 버튼 -->
 			               <c:if test="${rsize>0 }">
-                           <button class="support sm-border-btn" style="height:36px; line-height:36px;" data-toggle="modal" data-target="#myModal">지원하기 <i class="fa-solid fa-envelope-open-text"></i></button>&nbsp;&nbsp;
+                           <button class="support pbtn" data-toggle="modal" data-target="#myModal">지원하기 <i class="fa-solid fa-envelope-open-text"></i></button>&nbsp;&nbsp;
 			               </c:if>
 
                            <!-- 기스크랩 시 스크랩 해제 -->
                            <c:if test="${s_num!=null }">
                            <input type="hidden" id="s_num" value="${s_num }">
-                           <button class="star sm-border-btn" style="height:36px; line-height:36px; width: 110px;" id="btnUnScrap">스크랩 해제 <i class="fa-solid fa-star"></i></button>&nbsp;&nbsp;
+                           <button class="star pbtn" id="btnUnScrap" style="width: 110px;">스크랩 해제 <i class="fa-solid fa-star"></i></button>&nbsp;&nbsp;
                            </c:if>
                            
                            <!-- 비스크랩 시 스크랩 가능 -->
                            <c:if test="${s_num==null }">
-                           <button class="star sm-border-btn" style="height:36px; line-height:36px; width: 90px;"  id="btnScrap">스크랩<i class="fa-regular fa-star"></i></button>&nbsp;&nbsp;
+                           <button class="star pbtn" style="width: 80px;" id="btnScrap">스크랩 <i class="fa-regular fa-star"></i></button>&nbsp;&nbsp;
                            </c:if>
                            
                         </c:if>
@@ -350,7 +360,7 @@ tr,td{
 
                         <c:if
                            test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
-                        <button class="link sm-border-btn" style="height:36px; line-height:36px;" onclick="copyUrl()">링크 복사 <i class="fa-solid fa-link"></i></button>&nbsp;&nbsp;
+                        <button class="link pbtn" style="width: 100px;" onclick="copyUrl()">링크 복사 <i class="fa-solid fa-link"></i></button>&nbsp;&nbsp;
                         </c:if>
 
                      </div>
@@ -373,7 +383,7 @@ tr,td{
                               "u_num":u_num
                            },
                            success:function(res){
-                              alert("스크랩 성공");
+                              alert("스크랩되었습니다.");
                               location.reload();
                            }
                         })
@@ -393,7 +403,7 @@ tr,td{
                               "s_num":s_num
                            },
                            success:function(res){
-                              alert("스크랩 해제");
+                              alert("스크랩이 해제되었습니다.");
                               location.reload();
                            }
                         })
@@ -600,15 +610,15 @@ tr,td{
                      <!-- 기좋아요 시 좋아요 해제 -->
                      <c:if test="${hdto.h_num!=null }">
                         <input type="hidden" id="h_num" value="${h_num }">
-                        <span class="heart" id="btnUnLikeEnter">좋아요 <i
-                           class="fa-solid fa-heart"></i></span>
+                        <button class="heart pbtn" id="btnUnLikeEnter">좋아요 <i
+                           class="fa-solid fa-heart"></i></button>
                      </c:if>
 
 
                      <!-- 비좋아요 시 좋아요 가능 -->
                      <c:if test="${hdto.h_num==null }">
-                        <span class="heart" id="btnLikeEnter">좋아요 <i
-                           class="fa-regular fa-heart"></i></span>
+                        <button class="heart pbtn" id="btnLikeEnter">좋아요 <i
+                           class="fa-regular fa-heart"></i></button>
                      </c:if>
 
                   </c:if>
@@ -632,7 +642,7 @@ tr,td{
             },
             url:"/hinsert",
             success:function(res){
-               alert("좋아요성공");
+               alert("좋아요가 완료되었습니다.");
                location.reload();
                //$(this).addClass("fa-solid");
                //$(this).removeClass("fa-regular");
@@ -655,7 +665,7 @@ tr,td{
                },
                url:"/hdelete",
                success:function(res){
-                  alert("좋아요 해제");
+                  alert("좋아요가 해제되었습니다.");
                   location.reload();
                }
                

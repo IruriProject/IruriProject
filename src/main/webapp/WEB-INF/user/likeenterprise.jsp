@@ -181,7 +181,6 @@ div td{
 		});
 		
 		$("#btnEnterDel").click(function(){
-			//alert("삭제 하고 싶어요");
 			
 			//체크한 기업 개수 구하기
 			var cnt=$(".del:checked").length;
@@ -213,7 +212,7 @@ div td{
 				
 			})
 			
-			alert("좋아요가 해제되었습니다 :)")
+			alert("관심 기업이 해제되었습니다 :)")
 			
 		});
 		

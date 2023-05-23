@@ -80,10 +80,6 @@ font-size: 1.2em;
 font-weight: 600;
 line-height:60px;
 }
-
-div td{
-   border: 0px solid gray;
-
 .myresume2{
 font-size: 1.2em;
 font-weight: 600;
@@ -93,7 +89,6 @@ cursor: pointer;
 }
 div{
 border:0px solid gray;
-
 }
 </style>
 </head>
@@ -329,7 +324,7 @@ border:0px solid gray;
                   </thead>
                   <c:if test="${list.size()==0 }">
                      <tr align="center">
-                        <td colspan="4" style="color: #416442; font-weight: 600">이력서가 존재하지 않습니다.<br>
+                        <td colspan="4">이력서가 존재하지 않습니다.<br>
                         대표 이력서를 등록해보세요!</td>
                      </tr>
                   </c:if>
@@ -389,30 +384,26 @@ border:0px solid gray;
                      <a href="/enterLike" style="float: right;">더보기</a>   
                   </caption>
                      <tr class="text-dark">
-                        <th scope="col" style="text-align: center; width: 100px;">기업명</th>
-                        <th scope="col" style="text-align: center; width: 240px;">주소</th>
-                        <th scope="col" style="text-align: center; width: 100px;">전화번호</th>
-                        <th scope="col" style="text-align: center; width: 180px;">이메일</th>
+                        <th scope="col" style="text-align: center;"><input
+                           class="form-check-input" type="checkbox"></th>
+                        <th scope="col" style="text-align: center;">기업명</th>
+                        <th scope="col" style="text-align: center;">주소</th>
+                        <th scope="col" style="text-align: center;">전화번호</th>
+                        <th scope="col" style="text-align: center;">이메일</th>
                      </tr>
                   </thead>
-                  
-                  <c:if test="${countLikeEnter==0}">
-                  <tr align="center">
-                        <td colspan="4" style="color: #416442; font-weight: 600">관심 기업이 없습니다. <br>
-                        관심 기업을 추가해보세요!</td>
-                     </tr>
-                  </c:if>   
-                  <c:forEach var="edto" items="${getMypageLikeEnter }">               
-                  <c:if test="${countLikeEnter>0}">
+                  <tbody>
+                  <c:forEach var="edto" items="${getMypageLikeEnter }">
                      <tr>
-                        <td style="text-align: center; width: 100px;">
-                        <a href="/enterprise/enterprisepage?e_num=${edto.e_num }" style="color: #416442; font-weight: 600">${edto.e_name}</a></td>
-                        <td style="text-align: center; width: 240px;">${edto.e_addr}</td>
-                        <td style="text-align: center; width: 100px;">${edto.e_tel}</td>
-                        <td style="text-align: center; width: 180px;">${edto.e_email}</td>
+                        <td style="text-align: center;"><input class="form-check-input" type="checkbox"></td>
+                        <td style="text-align: center;"><a href="/enterprise/enterprisepage?e_num=${edto.e_num }">${edto.e_name}</a></td>
+                        <td style="text-align: center;">${edto.e_addr}</td>
+                        <td style="text-align: center;">${edto.e_tel}</td>
+                        <td style="text-align: center;">${edto.e_email}</td>
                      </tr>
-                  </c:if>
                   </c:forEach>
+                     
+                  </tbody>
                </table>
             </div>
          </div>
@@ -431,39 +422,34 @@ border:0px solid gray;
                      <h4 class="mb-5" style="color: black; display: inline;"><b>관심 공고</b></h4>
                      <a href="/scrap" style="float: right;">더보기</a>                  
                   </caption>
-                     <tr class="text-dark tb" >
-                           <th scope="col" style="text-align: center; width: 200px;">기업명</th>
-                           <th scope="col" style="text-align: center; width: 500px;">공고 제목</th>
-                           <th scope="col" style="text-align: center; width: 150px;">직무</th>
-                           <th scope="col" style="text-align: center; width: 110px;">급여</th>
-                           <th scope="col" style="text-align: center; width: 100px;">계약기간</th>
-                           <th scope="col" style="text-align: center; width: 120px;">근무요일</th>
-                           <th scope="col" style="text-align: center; width: 250px;">근무시간</th>
-                           <th scope="col" style="text-align: center; width: 100px;">고용형태</th>
+                     <tr class="text-dark">
+                        <th scope="col" style="text-align: center;"><input
+                           class="form-check-input" type="checkbox"></th>
+                           <th scope="col" style="text-align: center;">회사명</th>
+                           <th scope="col" style="text-align: center;">공고 제목</th>
+                           <th scope="col" style="text-align: center;">직무</th>
+                           <th scope="col" style="text-align: center;">급여</th>
+                           <th scope="col" style="text-align: center;">계약기간</th>
+                           <th scope="col" style="text-align: center;">근무요일</th>
+                           <th scope="col" style="text-align: center;">근무시간</th>
+                           <th scope="col" style="text-align: center;">고용형태</th>
                      </tr>
                   </thead>
-                  
-                  <c:if test="${countPosting==0}">
-                  <tr align="center">
-                        <td colspan="8" style="color: #416442; font-weight: 600">관심 공고가 없습니다. <br>
-                        관심 공고를 추가해보세요!</td>
-                     </tr>
-                  </c:if>   
+                  <tbody>
                      <c:forEach var="pdto" items="${getMypageScrapPosting }">
-                     <c:if test="${countPosting>0}">
                      <tr>
-                        <td style="text-align: center; width: 200px;">${pdto.e_name }</td>
-                        <td style="text-align: center; width: 500px">
-                        <a href="posting/detailpage?p_num=${pdto.p_num}" style="color: #416442; font-weight: 600">${pdto.p_title}</a></td>
-                        <td style="text-align: center; width: 150px;">${pdto.p_type }</td>
-                        <td style="text-align: center; width: 110px;">${pdto.p_pay }</td>
-                        <td style="text-align: center; width: 100px;">${pdto.p_period }</td>
-                        <td style="text-align: center; width: 120px;">${pdto.p_workday}</td>
-                        <td style="text-align: center; width: 250px;">${pdto.p_starttime } ~ ${pdto.p_endtime }</td>
-                        <td style="text-align: center; width: 100px;">${pdto.p_employtype}</td>
-                     </tr>
-                     </c:if>   
+                        <td style="text-align: center;"><input class="form-check-input" type="checkbox"></td>
+                        <td style="text-align: center;">${pdto.e_name }</td>
+                        <td style="text-align: center;"><a href="posting/detailpage?p_num=${pdto.p_num}">${pdto.p_title}</a></td>
+                        <td style="text-align: center;">${pdto.p_type }</td>
+                        <td style="text-align: center;">${pdto.p_pay }</td>
+                        <td style="text-align: center;">${pdto.p_period }</td>
+                        <td style="text-align: center;">${pdto.p_workday}</td>
+                        <td style="text-align: center;">${pdto.p_starttime } ~ ${pdto.p_endtime }</td>
+                        <td style="text-align: center;">${pdto.p_employtype}</td>
+                     </tr>   
                      </c:forEach>
+                  </tbody>
                </table>
             </div>
          </div>
