@@ -68,6 +68,10 @@ div {
 	color:#416442; 
 	background-color:#e3f2c9;
 } 
+
+div td{
+	border: 1px solid gray;
+}
 </style>
 </head>
 <body>
@@ -81,7 +85,7 @@ div {
 					<div class="table-responsive">
 						
 							<c:if test="${totalCount>0 }">
-							<table class="table" id="basic-list" style="width: 100%;">
+							<table class="table" id="basic-list" style="width: 900px;">
 							<thead>
 							<caption style=" margin-bottom : 10px;">
 								<h4 class="mb-5" style="color: black; display: inline;"><b>총 ${totalCount }개의 관심 공고</b></h4>

@@ -128,6 +128,7 @@ body {
 
 .heart {
    cursor: pointer;
+  
    font-weight: 500px;
 }
 
@@ -136,22 +137,27 @@ body {
 }
 
 .star{
+	
    cursor: pointer;
+   
 }
 
 .fa-star{
-   color: yellow;
+   color: #416442;
 }
 .support{
  	cursor: pointer;
 }
 .link{
  	cursor: pointer;
+ 	width: 100px;
 }
 
 tr,td{
 	text-align: center;
 }
+
+
 
 </style>
 <script type="text/javascript">
@@ -319,18 +325,18 @@ tr,td{
 			               </c:if>
 			               
 			               <c:if test="${rsize>0 }">
-                           <span class="support" data-toggle="modal" data-target="#myModal">지원하기 <i class="fa-solid fa-envelope-open-text"></i></span>&nbsp;&nbsp;
+                           <button class="support sm-border-btn" style="height:36px; line-height:36px;" data-toggle="modal" data-target="#myModal">지원하기 <i class="fa-solid fa-envelope-open-text"></i></button>&nbsp;&nbsp;
 			               </c:if>
 
                            <!-- 기스크랩 시 스크랩 해제 -->
                            <c:if test="${s_num!=null }">
                            <input type="hidden" id="s_num" value="${s_num }">
-                              <span class="star" id="btnUnScrap">공고 스크랩 해제 <i class="fa-solid fa-star"></i></span>&nbsp;&nbsp;
+                           <button class="star sm-border-btn" style="height:36px; line-height:36px; width: 110px;" id="btnUnScrap">스크랩 해제 <i class="fa-solid fa-star"></i></button>&nbsp;&nbsp;
                            </c:if>
                            
                            <!-- 비스크랩 시 스크랩 가능 -->
                            <c:if test="${s_num==null }">
-                              <span class="star" id="btnScrap">공고 스크랩 <i class="fa-regular fa-star"></i></span>&nbsp;&nbsp;
+                           <button class="star sm-border-btn" style="height:36px; line-height:36px; width: 90px;"  id="btnScrap">스크랩<i class="fa-regular fa-star"></i></button>&nbsp;&nbsp;
                            </c:if>
                            
                         </c:if>
@@ -341,7 +347,7 @@ tr,td{
                            <button type="button" style="width: 80px;" class="sm-border-btn mt-2" onclick="location.href='confirmpw?p_num=${dto.p_num}'">삭제</button>
                            <button type="button" class="sm-color-btn mt-2" onclick="reloadAlert()">끌어올리기</button>
                         </c:if>
-                        <span class="link" onclick="copyUrl()">링크 복사 <i class="fa-solid fa-link"></i></span>&nbsp;&nbsp;
+                        <button class="link sm-border-btn" style="height:36px; line-height:36px;" onclick="copyUrl()">링크 복사 <i class="fa-solid fa-link"></i></button>&nbsp;&nbsp;
                      </div>
                   </div>
                   
