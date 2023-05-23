@@ -20,9 +20,9 @@
 	    SELECT b_title FROM BOARD WHERE b_num > #{b_num} and b_notice=0 ORDER BY b_num ASC LIMIT 1;
 	</select>
 	
-	<!--최근업로드 게시물3개 -->
+	<!--최근업로드 게시물4개 -->
 	<select id="recentBoard" resultType="bdto">
-	select * from BOARD order by b_writeday desc limit 3
+	select * from BOARD order by b_writeday desc limit 4
 	</select>
 	
 	<select id="getTotalCount" resultType="int" parameterType="Map">

@@ -46,7 +46,7 @@
     <div class="recent" style="height: 40%; padding: 20px; display: flex; flex-wrap: wrap;">
         <c:forEach var="posting" items="${recentPostings}">
             <div style="width: 23%; margin:10px; height: 100%; background-color:#fbfbfb; border-radius: 10px; padding: 20px;" onclick="location.href='posting/detailpage?p_num=${posting.p_num}&currentPage=${currentPage}'">
-                <h4 style="font-weight:700; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${posting.p_title}</h4>
+                <h4 style="font-weight:700; margin-bottom:20px;  white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${posting.p_title}</h4>
                 <span style="color: gray;">${posting.p_addr}</span>
                 <c:if test="${posting.p_employtype=='정규직'}">
                 <b style="color:#4E9F3D; font-weight: 400;">연봉</b>          
@@ -69,13 +69,14 @@
     <h2 style="text-align:center;color:#416442; font-weight: bold;">일자리이야기</h2>
     <a href="/board/boardlist" style="float:right; margin-right:30px; color:#4E9F3D;">더보기</a>
     </div>
-    <br><br> 
-    <div class="recentboard" style="height: 80%; padding: 20px;display: flex;">
+    <br><br>
+    
+    <div class="recentboard" style="height: 70%; padding: 10px;display: flex;">
       <c:forEach var="board" items="${recentboards}">
-            <div style="width: 33%; margin:5px; height: 100%; background-color:#fbfbfb; border-radius: 10px; padding: 20px;" onclick="location.href='board/detailboard?b_num=${board.b_num }&currentPage=${currentPage}'">
-                 <h4 style="font-weight:700; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${board.b_title}</h4>
-                <span style="color:gray;"> <fmt:formatDate value="${board.b_writeday}" pattern="yyyy-MM-dd" /></span>
-                 <span>조회 ${board.b_readcount}</span> <span>댓글 ${board.b_acount}</span><br>
+            <div style="width: 23%; margin:10px; height: 100%; border:1px solid #e3f2c9; background-color:#fff; border-radius: 10px; padding: 20px;" onclick="location.href='board/detailboard?b_num=${board.b_num }&currentPage=${currentPage}'">
+                 <h4 style="font-weight:700; margin-bottom:20px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${board.b_title}</h4>
+                 <span style="color:gray;"> <fmt:formatDate value="${board.b_writeday}" pattern="yyyy-MM-dd" /></span>
+                 <span>조회 ${board.b_readcount}</span>&nbsp;<span>댓글 ${board.b_acount}</span><br>
             </div>
         </c:forEach>
     </div>
