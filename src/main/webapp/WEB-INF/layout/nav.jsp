@@ -137,13 +137,11 @@
 </head>
 <body>
 <!-- 일반,기업회원 nav  -->
-<c:if test="${sessionScope.loginId!='admin'}">
+<c:if test="${sessionScope.loginStatus!='enterprise'&&sessionScope.loginId!='admin'}">
 	<nav class="nav_header">
 		<ul>
 			<li><a href="/posting/search" class="mainMenu">채용정보</a>
-				<ul class="subMenu">
-					<li><a href="/posting/search">공고검색</a></li>
-				</ul></li>
+				<ul class="subMenu"></ul></li>
 			<li>
 				<c:if test="${sessionScope.loginStatus=='enterprise' }">
 					<a href="/enterprise" class="mainMenu">기업서비스</a>
@@ -242,13 +240,24 @@
 				</c:if>
 			</li>
 				
-			<li><a href="/customjob" class="mainMenu">맞춤 일자리</a>
-				<ul class="subMenu">
-					
-				</ul></li>
+			<c:if test="${sessionScope.loginStatus!='enterprise'}">
+				<li>
+					<a href="/customjob" class="mainMenu">맞춤 일자리</a>
+					<ul class="subMenu"></ul>
+				</li>
+			</c:if>
+			<c:if test="${sessionScope.loginStatus=='enterprise'}">
+				<li>
+					<a href="/posting/postinglist" class="mainMenu">공고관리</a>
+					<ul class="subMenu"></ul>
+				</li>
+				<li>
+					<a href="/enterprise/applicant" class="mainMenu">지원자관리</a>
+					<ul class="subMenu"></ul>
+				</li>
+			</c:if>
 			<li><a href="/board/boardlist" class="mainMenu">일자리이야기</a>
-				<ul class="subMenu">
-				</ul>
+				<ul class="subMenu"></ul>
 			</li>
 				
 				
@@ -263,6 +272,38 @@
 				</ul>
 				</li>
 			</c:if>
+			
+		</ul>
+	</nav>
+  </c:if>
+  
+  <!-- 기업회원 nav  -->
+<c:if test="${sessionScope.loginStatus=='enterprise'}">
+	<nav class="nav_header" style="width: 70%">
+		<ul>
+			<li>
+				<a href="/posting/search" class="mainMenu">채용정보</a>
+			</li>
+			
+			<li>
+				<a href="/enterprise" class="mainMenu">기업서비스</a>
+			</li>
+				
+			<li>
+				<a href="/posting/postinglist" class="mainMenu">공고관리</a>
+			</li>
+			
+			<li>
+				<a href="/enterprise/applicant" class="mainMenu">지원자관리</a>
+			</li>
+			
+			<li>
+				<a href="/board/boardlist" class="mainMenu">일자리이야기</a>
+			</li>
+
+			<li>
+				<a href="/qna/qnawriteform" class="mainMenu">1:1문의</a>
+			</li>
 			
 		</ul>
 	</nav>
@@ -317,7 +358,7 @@
 	<nav class="othermenu">
 		<ul class="o_menu">
 		<c:if test="${sessionScope.loginStatus!='enterprise' }">
-			<li id="insertResume"><a href="${root }/insertresume">이력서등록</a></li>
+			<li id="insertResume" style="width: 130px"><a href="${root }/insertresume">이력서등록</a></li>
 			<c:if test="${not empty message}">
 				<script type="text/javascript">
 					alert("${message}");

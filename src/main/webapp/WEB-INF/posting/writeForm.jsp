@@ -14,6 +14,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Anton&family=Edu+VIC+WA+NT+Beginner:wght@600&family=Gamja+Flower&family=Single+Day&family=Jua&family=Nanum+Pen+Script&display=swap"
 	rel="stylesheet"/>
+<link href="${root }/css/usercss/style.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/2663817d27.js"
+      crossorigin="anonymous"></script>
 <script>
 $(function(){
 	if(${eAuth}==0){
@@ -178,21 +181,21 @@ $(function(){
 	      <div class="modal-content">
 	        <div class="modal-header">
 	          <button type="button" class="close" data-dismiss="modal">&times;</button>
-	          <h4 class="modal-title">임시저장 공고 목록 (${draftList.size() }개)</h4>
+	          <h4 class="modal-title" style="color: #416442"><b>임시저장 공고 목록</b> (${draftList.size() }개)</h4>
 	        </div>
 	        <div class="modal-body">
 	         	<table class="table table-hover">
 	         	<c:forEach var="draftDto" items="${draftList }">
 	         		<tr>
 	                	<td>
-	                    	<input type="radio" name="draft" value="${draftDto.p_num }"> ${draftDto.p_title } (${draftDto.p_type })&nbsp;&nbsp;<span style="font-size: 0.8em; color: gray"><fmt:formatDate value="${draftDto.p_writeday }" pattern="yy-MM-dd"/></span><button style="float: right" type="button" p_num="${draftDto.p_num }" class="btn btn-info btn-xs draftdel">임시저장 삭제</button>
+	                    	<input type="radio" style="accent-color:#4E9F3D;" name="draft" value="${draftDto.p_num }"> ${draftDto.p_title } (${draftDto.p_type })&nbsp;&nbsp;<span style="font-size: 0.8em; color: gray"><fmt:formatDate value="${draftDto.p_writeday }" pattern="yy-MM-dd"/></span><span style="float: right; cursor:pointer; color:#E74646; width: 20px; height: 20px;" type="button" p_num="${draftDto.p_num }" class="draftdel"><i class="fas fa-times"></i></span>
 	                    </td>
 	                </tr>
 	         	</c:forEach>
 	            </table>
 	        </div>
 	        <div class="modal-footer">
-	          <button type="button" class="btn btn-default" data-dismiss="modal" id="draftListbtn">선택</button>
+	          <button type="button" class="sm-color-btn" data-dismiss="modal" id="draftListbtn">선택</button>
 	        </div>
 	      </div>
 	      
@@ -207,21 +210,21 @@ $(function(){
 	      <div class="modal-content">
 	        <div class="modal-header">
 	          <button type="button" id="closePhraseModal" class="close" data-dismiss="modal">&times;</button>
-	          <h4 class="modal-title">자주쓰는 문구 목록</h4>
+	          <h4 class="modal-title" style="color: #416442"><b>자주쓰는 문구 목록</b></h4>
 	        </div>
 	        <div class="modal-body">
 	         	<table class="table table-hover">
 	         	<c:forEach var="flist" items="${phraseList }">
 	         		<tr>
 	                	<td>
-	                    	<input type="radio" name="phrase" value="${flist.f_num }"> ${flist.f_phrase }
+	                    	<input type="radio" style="accent-color:#4E9F3D;" name="phrase" value="${flist.f_num }"> ${flist.f_phrase }
 	                    </td>
 	                </tr>
 	         	</c:forEach>
 	            </table>
 	        </div>
 	        <div class="modal-footer">
-	          <button type="button" class="btn btn-default" data-dismiss="modal" id="phraseListbtn">선택</button>
+	          <button type="button" class="sm-color-btn" data-dismiss="modal" id="phraseListbtn">선택</button>
 	        </div>
 	      </div>
 	      

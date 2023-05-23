@@ -293,29 +293,28 @@
 
 
 		<!-- Recent Sales Start -->
-		<div class="container-fluid pt-4 px-4">
-			<div class="bg-light text-center rounded p-4">
-				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h4 class="mb-5"><b>공고현황</b></h4>
-					<a class="atag" href="/posting/postinglist">더보기</a>
-				</div>
-				<div class="table-responsive">
-					<table
-						class="table text-start align-middle table-bordered table-hover mb-0">
-						<thead>
-							<tr class="text-dark">
-								<th scope="col" style="text-align: center" width="40%">공고제목</th>
+	      <div class="container-fluid pt-4 px-4">
+	         <div class="bg-light text-center rounded p-4">
+	            <div class="table-responsive">
+	               <table class="table" id="basic-list">
+	                  <thead>
+		                  <caption style=" margin-bottom : 10px;">
+		                     <h4 class="mb-5" style="color: black; display: inline;"><b>공고현황</b></h4>
+		                     <a href="/posting/postinglist" style="float: right;" class="atag">더보기</a>                  
+		                  </caption>
+		                  <tr class="text-dark">
+			                  	<th scope="col" style="text-align: center" width="40%">공고제목</th>
 								<th scope="col" style="text-align: center">직종</th>
 								<th scope="col" style="text-align: center">공고일</th>
 								<th scope="col" style="text-align: center">공고마감일</th>
-								<th scope="col" style="text-align: center">공고상태</th>
-							</tr>
-						</thead>
-						<tbody>
-						<c:if test="${postingCount==0 }">
-						<tr><td colspan="5">게시한 공고가 없습니다.</td></tr>
-						</c:if>
-							<c:forEach var="post" items="${postings }">
+								<th scope="col" style="text-align: center">공고상태</th>                     
+						  </tr>
+	                  </thead>
+	                  <tbody>
+							<c:if test="${postingCount==0 }">
+								<tr><td colspan="5">게시한 공고가 없습니다.</td></tr>
+							</c:if>
+	                   		<c:forEach var="post" items="${postings }">
 								<tr>
 									<td style="text-align: left" class="title">
 										<a class="atag" href="posting/detailpage?p_num=${post.p_num }">&nbsp;&nbsp;
@@ -344,40 +343,39 @@
 									</td>
 								</tr>
 								
-								 <script type="text/javascript">
-							        $(function(){
-							            var p_num = "${post.p_num}";
-							            $.ajax({
-							                type:"get",
-							                data:{"p_num":p_num},
-							                dataType:"json",
-							                url:"/enterprise/counting",
-							                success:function(res){
-							                    $(".viewer[p_num='"+p_num+"']").text("열람 : "+res.viewercounting+"명");
-							                    $(".scrap[p_num='"+p_num+"']").text("스크랩 : "+res.scrapcounting+"명");
-							                }
-							            });
-							            
-							            $(".pStatus").change(function(){ 
-							            	if($(this).val()=="지원마감"){
-							            		 $(this).closest("tr").find(".titlestatus").css("text-decoration", "line-through red");
-												 $(this).closest("tr").find(".titlestatusSpan").css("display", "inline");
-							            	} else{
-							            		 $(this).closest("tr").find(".titlestatus").css("text-decoration", "");
-												 $(this).closest("tr").find(".titlestatusSpan").css("display", "none");
-							            	}
-											 
-							            })
-
-							        });
-							    </script>
-							    
-								
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
+								<script type="text/javascript">
+								        $(function(){
+								            var p_num = "${post.p_num}";
+								            $.ajax({
+								                type:"get",
+								                data:{"p_num":p_num},
+								                dataType:"json",
+								                url:"/enterprise/counting",
+								                success:function(res){
+								                    $(".viewer[p_num='"+p_num+"']").text("열람 : "+res.viewercounting+"명");
+								                    $(".scrap[p_num='"+p_num+"']").text("스크랩 : "+res.scrapcounting+"명");
+								                }
+								            });
+								            
+								            $(".pStatus").change(function(){ 
+								            	if($(this).val()=="지원마감"){
+								            		 $(this).closest("tr").find(".titlestatus").css("text-decoration", "line-through red");
+													 $(this).closest("tr").find(".titlestatusSpan").css("display", "inline");
+								            	} else{
+								            		 $(this).closest("tr").find(".titlestatus").css("text-decoration", "");
+													 $(this).closest("tr").find(".titlestatusSpan").css("display", "none");
+								            	}
+												 
+								            })
 	
+								        });
+								  </script>
+	                     	</c:forEach>
+	                  </tbody>
+	               </table>
+	            </div>
+	         </div>
+	      </div>
 		<!-- Recent Sales End -->
 		
 		<script>

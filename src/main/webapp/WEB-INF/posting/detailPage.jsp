@@ -341,7 +341,10 @@ tr,td{
                            <button type="button" style="width: 80px;" class="sm-border-btn mt-2" onclick="location.href='confirmpw?p_num=${dto.p_num}'">삭제</button>
                            <button type="button" class="sm-color-btn mt-2" onclick="reloadAlert()">끌어올리기</button>
                         </c:if>
+                        <c:if
+                           test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
                         <span class="link" onclick="copyUrl()">링크 복사 <i class="fa-solid fa-link"></i></span>&nbsp;&nbsp;
+                        </c:if>
                      </div>
                   </div>
                   
