@@ -35,9 +35,6 @@ td {
    font-size: 1.2em;
 }
 
-#personality td{
-cursor:pointer;
-}
 
 .autoResume td {
    font-size: 1em;
@@ -53,6 +50,12 @@ margin-top:3px;
 	border: 0.7px solid #4E9F3D;
 	border-radius: 3px;
 	accent-color: #4E9F3D;
+}
+#personality td, #career td, #motivation td{
+cursor:pointer;
+border-bottom: 1px solid #cce891;
+padding: 10px 0;
+color:#416442;
 }
 </style>
 </head>
@@ -1445,7 +1448,7 @@ margin-top:3px;
                   <label for="r_content" class="formbold-form-label"> 자기소개서</label>
 
                <ul class="introduceTab__list">
-                  <li><button type="button" id="direct" class="sm-color-btn first on">직접입력</button></li>
+                  <li><button style="margin-left:-40px; "type="button" id="direct" class="sm-color-btn first on">직접입력</button></li>
                   <li><button type="button" id="auto" class="sm-border-btn">1분 자동완성</button></li>
                </ul>
 				<br><br>
@@ -1494,44 +1497,44 @@ margin-top:3px;
                   <div class="resizable-textarea" style="display: flex; flex-direction: row;">
                      <br>
                      <div style="width:90px; height: 180px;">
-                        <ul>
-                           <li id="defaultLi" role="button" value="성격">성 격</li>
-                           <li role="button" value="경력사항">경력사항</li>
-                           <li role="button" value="지원동기">지원동기</li>
+                       <ul>
+                           <li id="defaultLi" role="button" value="성격" style="color:#416442; margin-top:10px;"><b>성 격</b></li>
+                           <li role="button" value="경력사항" style="color:#416442; margin-top:10px;"><b>경력사항</b></li>
+                           <li role="button" value="지원동기" style="color:#416442; margin-top:10px;"><b>지원동기</b></li>
                         </ul>
                      </div>
                      <div class="autoResume"
-                        style="overflow: scroll; width: 450px; height: 200px;">
-                        <table id="personality">
+                        style="overflow: scroll; width: 500px; height: 200px;">
+       <table id="personality">
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">주위 사람들의 기분을 좋게 하는 명쾌하고 활발한 성격을 지니고 있습니다.</td>
+                              <td style="border-top: 1px solid #cce891">주위 사람들의 기분을 좋게 하는 명쾌하고 활발한 성격을 지니고 있습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">주어진 일만 하는 소극적인 모습보다는 스스로 찾아서 하는 적극적인 성격을 지니고 있습니다.</td>
+                              <td>주어진 일만 하는 소극적인 모습보다는 스스로 찾아서 하는 적극적인 성격을 지니고 있습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">시작한 일은 끝까지 마무리하며, 사소한 일도 최선을 다해 이루어내는 강한 마인드로 집중해 나가는 편입니다.</td>
+                              <td>시작한 일은 끝까지 마무리하며, 사소한 일도 최선을 다해 이루어내는 강한 마인드로 집중해 나가는 편입니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">손과 발이 빨라 업무의 효율성이 다른 사람들보다 높으며, 두 사람 이상의 몫을 혼자 해결한다는 평가를 듣곤 합니다.</td>
+                              <td>손과 발이 빨라 업무의 효율성이 다른 사람들보다 높으며, 두 사람 이상의 몫을 혼자 해결한다는 평가를 듣곤 합니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">환한 미소와 함께 타인을 배려하며 매사에 적극적으로 도전해 나가는 편입니다.</td>
+                              <td>환한 미소와 함께 타인을 배려하며 매사에 적극적으로 도전해 나가는 편입니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">긍정적인 마인드와 함께 밝은 모습을 지니고 있어 주위 사람들에게 항상 즐거움을 만들어주는 장점을 지니고 있습니다.</td>
+                              <td>긍정적인 마인드와 함께 밝은 모습을 지니고 있어 주위 사람들에게 항상 즐거움을 만들어주는 장점을 지니고 있습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">항상 '최선을 다한다.'는 각오로 임하기 때문에 주위 사람들이 저만의 강한 열정과 끈기를 부러워하는 경우가 많습니다.</td>
+                              <td>항상 '최선을 다한다.'는 각오로 임하기 때문에 주위 사람들이 저만의 강한 열정과 끈기를 부러워하는 경우가 많습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">적극적이고 활발한 성격 덕분에 새로운 사람들과도 짧은 기간 동안 친밀한 관계를 형성하는 장점을 지니고 있습니다.</td>
+                              <td>적극적이고 활발한 성격 덕분에 새로운 사람들과도 짧은 기간 동안 친밀한 관계를 형성하는 장점을 지니고 있습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">시간 관념과 약속 준수 등을 통하여 주위 사람들에게 강한 신뢰감을 만들어 주기 위해서 끊임없이 노력하고 있습니다.</td>
+                              <td>시간 관념과 약속 준수 등을 통하여 주위 사람들에게 강한 신뢰감을 만들어 주기 위해서 끊임없이 노력하고 있습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">적극적인 성격으로 매사에 직접 부딪히면서 반드시 끝맺음 하는 편입니다.</td>
+                              <td>적극적인 성격으로 매사에 직접 부딪히면서 반드시 끝맺음 하는 편입니다.</td>
                            </tr>
                            <!-- 1px solid gray css 한번에 주기 -->
                         </table>
@@ -1539,72 +1542,72 @@ margin-top:3px;
                         <hr>
                         <table id="career">
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">머리로만 지식을 쌓는 것보다 직접 온 몸으로 다양한 노하우를 쌓는 것이 의미 있다는 것을 사회생활을 통해 깨달을 수 있었습니다.</td>
+                              <td style="border-top: 1px solid #cce891">머리로만 지식을 쌓는 것보다 직접 온 몸으로 다양한 노하우를 쌓는 것이 의미 있다는 것을 사회생활을 통해 깨달을 수 있었습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">긍정적인 마인드를 가지고 매 순간 집중하며 최선을 다하여 맡은 일처리를 깔끔하게 수행하였습니다.</td>
+                              <td>긍정적인 마인드를 가지고 매 순간 집중하며 최선을 다하여 맡은 일처리를 깔끔하게 수행하였습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">매장에서 일어나는 다양한 상황에 대처하며 직접적으로 관리하고 효율적으로 업무를 추진하였습니다.</td>
+                              <td>매장에서 일어나는 다양한 상황에 대처하며 직접적으로 관리하고 효율적으로 업무를 추진하였습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">다양한 경험을 쌓기 위해 매장 서빙과 주방 보조 등 매장에서 할 수 있는 업무는 주저하지 않고 모두 수행하였습니다.</td>
+                              <td>다양한 경험을 쌓기 위해 매장 서빙과 주방 보조 등 매장에서 할 수 있는 업무는 주저하지 않고 모두 수행하였습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">항상 환한 웃음으로 모든 사람을 대하기 위해 밝고 진실된 모습을 유지하였습니다.</td>
+                              <td>항상 환한 웃음으로 모든 사람을 대하기 위해 밝고 진실된 모습을 유지하였습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">실무 경험을 직접 쌓으며 보다 가치 있는 나만의 노하우로 업그레이드할 수 있었습니다.</td>
+                              <td>실무 경험을 직접 쌓으며 보다 가치 있는 나만의 노하우로 업그레이드할 수 있었습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">짧은 기간이지만 특성에 따른 공정 수행과 효율적인 생산관리 경험을 통해 저만의 장점으로 승화시킬 수 있었습니다.</td>
+                              <td>짧은 기간이지만 특성에 따른 공정 수행과 효율적인 생산관리 경험을 통해 저만의 장점으로 승화시킬 수 있었습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">엑셀, 워드, 파워포인트 등의 문서작성 능력과 인터넷 정보검색 능력이 뛰어납니다.</td>
+                              <td>엑셀, 워드, 파워포인트 등의 문서작성 능력과 인터넷 정보검색 능력이 뛰어납니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">적극적인 성격을 바탕으로 스케쥴관리나 보고 서류정리 등의 일상적인 비서 업무 이외에 다양한 업무를 직접 담당하였습니다.</td>
+                              <td>적극적인 성격을 바탕으로 스케쥴관리나 보고 서류정리 등의 일상적인 비서 업무 이외에 다양한 업무를 직접 담당하였습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">저만의 창의적인 아이디어로 비효율적인 부분을 개선하면서 좋은 평가를 받을 수 있었습니다.</td>
+                              <td>저만의 창의적인 아이디어로 비효율적인 부분을 개선하면서 좋은 평가를 받을 수 있었습니다.</td>
                            </tr>
                         </table>
                         <table id="motivation">
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">지금까지 다양한 경험을 통하여 끊임없이 노력하며 제 자신을 업그레이드해 왔습니다.</td>
+                              <td style="border-top: 1px solid #cce891">지금까지 다양한 경험을 통하여 끊임없이 노력하며 제 자신을 업그레이드해 왔습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">귀사에서 최고의 역량과 가치만을 보여 드리기 위해서 과감히 도전합니다.</td>
+                              <td>귀사에서 최고의 역량과 가치만을 보여 드리기 위해서 과감히 도전합니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">기회를 스스로 만들고 넓은 세상을 직접 경험하기 위해서 과감히 도전해 보고자 합니다.</td>
+                              <td>기회를 스스로 만들고 넓은 세상을 직접 경험하기 위해서 과감히 도전해 보고자 합니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">급변하는 환경에 대한 민첩한 대응을 할 수 있다는 강한 자신감으로 지원하게 되었습니다.</td>
+                              <td>급변하는 환경에 대한 민첩한 대응을 할 수 있다는 강한 자신감으로 지원하게 되었습니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">실무 경험을 통하여 저만의 차별적인 노하우를 쌓을 수 있다고 자신합니다.</td>
+                              <td>실무 경험을 통하여 저만의 차별적인 노하우를 쌓을 수 있다고 자신합니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">제 능력과 잠재력을 귀사에서 가장 크게 발휘할 수 있다는 자신감이 생겨 이렇게 과감히 도전해 봅니다.</td>
+                              <td>제 능력과 잠재력을 귀사에서 가장 크게 발휘할 수 있다는 자신감이 생겨 이렇게 과감히 도전해 봅니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">한 단계 더 제 자신을 업그레이드하여 차별적인 경쟁력을 만들 수 있다는 강한 자신감이 생겨 과감히 도전하고자 합니다.</td>
+                              <td>한 단계 더 제 자신을 업그레이드하여 차별적인 경쟁력을 만들 수 있다는 강한 자신감이 생겨 과감히 도전하고자 합니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">지치지 않는 열정과 항상 끊임없이 노력하고 배우는 모습을 꾸준히 유지해 나갈 것입니다.</td>
+                              <td>지치지 않는 열정과 항상 끊임없이 노력하고 배우는 모습을 꾸준히 유지해 나갈 것입니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">깊이 있게 배워 다른 경쟁자들보다 빠르게 업무에 적응할 수 있다고 강하게 자신합니다.</td>
+                              <td>깊이 있게 배워 다른 경쟁자들보다 빠르게 업무에 적응할 수 있다고 강하게 자신합니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">저는 끊임없이 자기계발에 집중하고, 적극적으로 행동하기 때문에 이 업무에 가장 적합한 인물이라고 생각합니다.</td>
+                              <td>저는 끊임없이 자기계발에 집중하고, 적극적으로 행동하기 때문에 이 업무에 가장 적합한 인물이라고 생각합니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">제가 귀사의 밝은 미래와 차별적인 경쟁력을 동시에 만들어갈 수 있는 핵심인재로 거듭 태어난다면 장기적인 비전과 목표를 설정하고 지치지 않는 열정과 끊임없이 노력하고 배우는 모습을 꾸준히 유지해 나갈 것입니다.</td>
+                              <td>제가 귀사의 밝은 미래와 차별적인 경쟁력을 동시에 만들어갈 수 있는 핵심인재로 거듭 태어난다면 장기적인 비전과 목표를 설정하고 지치지 않는 열정과 끊임없이 노력하고 배우는 모습을 꾸준히 유지해 나갈 것입니다.</td>
                            </tr>
                            <tr>
-                              <td style="border-bottom: 1px solid gray;">진정한 프로의 모습으로 성장하기 위해서는 이론적인 기본과 동시에 실무 경험을 통하여 자신만의 차별적인 노하우를 쌓아가는 것을 중요하게 생각합니다.</td>
+                              <td>진정한 프로의 모습으로 성장하기 위해서는 이론적인 기본과 동시에 실무 경험을 통하여 자신만의 차별적인 노하우를 쌓아가는 것을 중요하게 생각합니다.</td>
                            </tr>
 
                         </table>
