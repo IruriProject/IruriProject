@@ -140,26 +140,13 @@
 <c:if test="${sessionScope.loginStatus!='enterprise'&&sessionScope.loginId!='admin'}">
 	<nav class="nav_header">
 		<ul>
-			<li><a href="/posting/search" class="mainMenu">채용정보</a>
-				<ul class="subMenu"></ul></li>
+			<li><a href="/posting/search" class="mainMenu">채용정보</a></li>
 			<li>
 				<c:if test="${sessionScope.loginStatus=='enterprise' }">
 					<a href="/enterprise" class="mainMenu">기업서비스</a>
-					<ul class="subMenu">
-						<li><a href="/posting/postinglist">공고관리</a></li>
-						<li><a href="/enterprise/applicant">지원자관리</a></li>
-						<li><a href="/posting/messagelist/">쪽지관리</a></li>
-						<li><a href="/phrases/list">자주쓰는문구관리</a></li>
-					</ul>
 				</c:if>
 				<c:if test="${sessionScope.loginStatus!='enterprise'}">
 					<a style="cursor: pointer" class="mainMenu" onclick="checkLogin()">회원서비스</a>
-					<ul class="subMenu">
-						<li><a style="cursor: pointer" onclick="checkLogin2()">개인정보 관리</a></li>
-						<li><a style="cursor: pointer" onclick="checkLogin3()">이력서 관리</a></li>
-						<li><a style="cursor: pointer" onclick="checkLogin4()">관심 기업</a></li>
-						<li><a style="cursor: pointer" onclick="checkLogin5()">지원현황</a></li>
-					</ul>
 					
 					<script type="text/javascript">
 					function checkLogin() {
@@ -243,21 +230,21 @@
 			<c:if test="${sessionScope.loginStatus!='enterprise'}">
 				<li>
 					<a href="/customjob" class="mainMenu">맞춤 일자리</a>
-					<ul class="subMenu"></ul>
+					
 				</li>
 			</c:if>
 			<c:if test="${sessionScope.loginStatus=='enterprise'}">
 				<li>
 					<a href="/posting/postinglist" class="mainMenu">공고관리</a>
-					<ul class="subMenu"></ul>
+					
 				</li>
 				<li>
 					<a href="/enterprise/applicant" class="mainMenu">지원자관리</a>
-					<ul class="subMenu"></ul>
+				
 				</li>
 			</c:if>
 			<li><a href="/board/boardlist" class="mainMenu">일자리이야기</a>
-				<ul class="subMenu"></ul>
+			
 			</li>
 				
 				
@@ -267,9 +254,6 @@
 			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId!='admin'}">
 			<a href="/qna/qnawriteform" class="mainMenu">1:1문의</a>
 			</c:if>
-			
-				<ul class="subMenu">
-				</ul>
 				</li>
 			</c:if>
 			
@@ -313,42 +297,17 @@
    <c:if test="${sessionScope.loginId=='admin'}">
 	<nav class="nav_header">
 		<ul>
-			<li><a href="/posting/search" class="mainMenu">채용정보</a>
-				<ul class="subMenu">
-					<li><a href="/posting/search">공고검색</a></li>
-				</ul></li>
+			<li><a href="/posting/search" class="mainMenu">채용정보</a></li>
 				
-			<li><a href="/customjob" class="mainMenu">맞춤 일자리</a>
-				<ul class="subMenu">
-					
-				</ul></li>
-			<li><a href="/board/boardlist" class="mainMenu">일자리이야기</a>
-				<ul class="subMenu">
-				</ul>
-			</li>
+			<li><a href="/customjob" class="mainMenu">맞춤 일자리</a></li>
+			
+			<li><a href="/board/boardlist" class="mainMenu">일자리이야기</a></li>
 				
-				
-			<c:if test="${sessionScope.loginStatus!=null}">
-			<li>
+			<li><a href="/qna/adminqnalist"  class="mainMenu">1:1문의</a></li>
 			
-			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId!='admin'}">
-			<a href="/qna/qnawriteform" class="mainMenu">1:1문의</a>
-			</c:if>
+			<li><a href="/member/usermemberlist" class="mainMenu">일반회원관리</a></li>
 			
-			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
-			<a href="/qna/adminqnalist"  class="mainMenu">1:1관리자</a>
-			</c:if>
-				<ul class="subMenu">
-				</ul>
-				</li>
-			</c:if>
-			
-			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
-			<li><a href="/member/usermemberlist" class="mainMenu">일반회원관리</a>
-				<ul class="subMenu">
-					<li><a href="/member/entermemberlist">기업회원관리</a></li>
-				</ul></li>
-			</c:if>
+			<li><a  href="/member/entermemberlist" class="mainMenu">기업회원관리</a></li>
 		</ul>
 	</nav>
   </c:if>  
