@@ -57,7 +57,7 @@ div a:hover{
 						style="width: 800px; table-layout: fixed" >
 						<thead>
 						<caption style=" margin-bottom : 10px;">
-							<h4 class="mb-5" style="color: black; display: inline;"><b>내 이력서 목록 (${list.size() }/5)</b></h4>
+							<h4 class="mb-5" style="color: black; display: inline;"><b>내 이력서 목록 (<b style="color: #4E9F3D; font-weight: 600">${list.size() }</b>/5)</b></h4>
 							</caption>
 							<tr class="text-dark">
 								<th scope="col" style=" width:30px; text-align: center;">

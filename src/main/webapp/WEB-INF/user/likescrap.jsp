@@ -68,6 +68,10 @@ div {
 	color:#416442; 
 	background-color:#e3f2c9;
 } 
+
+div td{
+	border: 0px solid gray;
+}
 </style>
 </head>
 <body>
@@ -81,24 +85,23 @@ div {
 					<div class="table-responsive">
 						
 							<c:if test="${totalCount>0 }">
-							<table class="table" id="basic-list" style="width: 1100px;">
+							<table class="table" id="basic-list">
 							<thead>
 							<caption style=" margin-bottom : 10px;">
-								<h4 class="mb-5" style="color: black; display: inline;"><b>총 ${totalCount }개의 관심 공고</b></h4>
+								<h4 class="mb-5" style="color: black; display: inline;"><b>총 <b style="color: #4E9F3D; font-weight: 600">${totalCount }개</b>의 관심 공고</b></h4>
 							</caption>
 								<tr class="text-dark">
 									<th scope="col" style="text-align: center;"><input class="form-check-input"
 										type="checkbox" id="allcheck"></th>
-									<th scope="col" style="text-align: center;">No.</th>
-									<th scope="col" style="text-align: center;">회사명</th>
-									<th scope="col" style="text-align: center;">공고 제목</th>
-									<th scope="col" style="text-align: center;">모집 마감 일</th>
-									<th scope="col" style="text-align: center;">직무</th>
-									<th scope="col" style="text-align: center;">급여</th>
-									<th scope="col" style="text-align: center;">고용형태</th>
-									<th scope="col" style="text-align: center;">계약기간</th>
-									<th scope="col" style="text-align: center;">근무요일</th>
-									<th scope="col" style="text-align: center;">근무시간</th>
+									<th scope="col" style="text-align: center; width: 100px;">회사명</th>
+									<th scope="col" style="text-align: center; width: 200px;">공고 제목</th>
+									<th scope="col" style="text-align: center; width: 90px;">모집 마감 일</th>
+									<th scope="col" style="text-align: center; width: 70px;">직무</th>
+									<th scope="col" style="text-align: center; width: 90px;">급여</th>
+									<th scope="col" style="text-align: center; width: 80px;">고용형태</th>
+									<th scope="col" style="text-align: center; width: 70px;">계약기간</th>
+									<th scope="col" style="text-align: center; width: 70px;">근무요일</th>
+									<th scope="col" style="text-align: center; width: 150px;">근무시간</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -106,16 +109,16 @@ div {
 							<tr>
 									<input type="hidden" class="s_num" value="${pdto.s_num }">
 									<td style="text-align: center;"><input class="form-check-input del" type="checkbox"></td>
-									<td style="text-align: center;">${no }</td>
-									<c:set value="${no-1 }" var="no" />
-									<td style="text-align: center;">${pdto.e_name }</td>
-									<td style="text-align: center;"><a href="posting/detailpage?p_num=${pdto.p_num}">${pdto.p_title}</a></td>
-									<td style="text-align: center;">${pdto.p_enddate}</td>
-									<td style="text-align: center;">${pdto.p_type }</td>
-									<td style="text-align: center;">${pdto.p_pay }</td>
-									<td style="text-align: center;">${pdto.p_employtype}</td>
-									<td style="text-align: center;">${pdto.p_period }</td>
-									<td style="text-align: center;">
+									<td style="text-align: center; width: 100px; white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">${pdto.e_name }</td>
+									<td style="text-align: center; width: 200px;">
+									<a href="posting/detailpage?p_num=${pdto.p_num}" 
+									style="color: #416442; font-weight: 600; white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">${pdto.p_title}</a></td>
+									<td style="text-align: center; width: 90px;">${pdto.p_enddate}</td>
+									<td style="text-align: center; width: 70px;">${pdto.p_type }</td>
+									<td style="text-align: center; width: 90px ;">${pdto.p_pay }</td>
+									<td style="text-align: center; width: 80px;">${pdto.p_employtype}</td>
+									<td style="text-align: center; width: 70px;">${pdto.p_period }</td>
+									<td style="text-align: center; width: 70px;">
 									<c:if test="${pdto.p_workday=='월/화/수/목/금'}">
 										평일
 									</c:if>
@@ -126,7 +129,7 @@ div {
 										${adto.p_workday }
 									</c:if>
 									</td>
-									<td style="text-align: center;">${pdto.p_starttime } ~ ${pdto.p_endtime }</td>
+									<td style="text-align: center;  width: 150px;">${pdto.p_starttime } ~ ${pdto.p_endtime }</td>
 								</tr>
 							</c:forEach>
 							

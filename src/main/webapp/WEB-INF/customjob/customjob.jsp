@@ -298,67 +298,72 @@ body {
 <body>
 
 	<script type="text/javascript">
+	$(function() {
+		 updateList();
 
-      $(function(){
-          $("input:checkbox[name='p_type']").click(function() {
-             var p_types = [];
-             $("input:checkbox[name='p_type']:checked").each(function() {
-             	p_types.push($(this).val());
-                var p_type=p_types.join(",");
-                 
-                 $.ajax({
-                 	type:"get",
-                 	url:"/customjobaction",
-                 	dataType:"json",
-                 	data:{"p_type":p_type},
-                 	success:function(res){
-                 		let s="";
-            			s+="<table class='table'>";
-            			/* s+="<caption>"+res.length+"개의 검색 결과가 있습니다.</caption>"; */
-            			s+="<tr align='center'><td width='120'>지역</td><td width='400'>모집내용/기업명</td><td width='120'>급여</td>";
-            	   		s+="<td width='150'>근무시간</td><td width='100'>등록일</td></tr>";
-	            	   		$.each(res,function(i,ele){
-	            	   			$.each(ele.list, function(j, obj) {
-		            	   			//주소
-		            	   			s+="<tr><td width='120'>"+obj.p_addr+"</td>";
-		            	   			//제목
-		            	   			s+="<td width='400'><span id='posting-title'>";
-		            	   			s+="<a href='/posting/detailpage?p_num="+obj.p_num+"' class='alink'>"+obj.p_title+"</a></span><br>";
-		            	   			s+="<span id='enterprise-name'><span class='sub'>"+obj.p_type+"</span>"+obj.e_name+"</span></td>";
-		            	   			//급여
-		            	   			if (obj.p_employtype === '정규직') {
-		            	   			  s += "<td width='120'><span class='sub'>월급</span>" + obj.p_pay + "</td>";
-		            	   			} else if (obj.p_employtype === '계약직') {
-		            	   			  s += "<td width='120'><span class='sub'>시급</span>" + obj.p_pay + "</td>";
-		            	   			} 
-		            	   			//업무시간
-		            	   			s+="<td width='160'>"+moment('2000-01-01 '+obj.p_starttime).format('HH:mm')+"-"+moment('2000-01-01 '+obj.p_endtime).format('HH:mm')+"</td>";
-		            				//공고등록일	   			
-		            	   			s+="<td width='100'>"+moment(obj.p_writeday).format('YYYY-MM-DD')+"</td></tr>";
-		            	   			
-		            	   		});
-	            			})
-            			
-            			s+="</table>";
-            			
-            			
-            			
-            			
-            			
-            			
-            			
-            			
-            			$("#result").html(s);
+		  $("input:checkbox[name='p_type']").click(function() {
+		    updateList();
+		  });
 
-                 	}
-                 
-                 })
+		  // allchk 체크박스를 처음에 선택되도록 설정
+		  $("#allchk").prop("checked", true);
 
-               });
-              
-               
-          });
-      })
+		  // 클릭 이벤트 처리
+		  $("#allchk").click(function() {
+		    if ($(this).is(":checked")) {
+		      $("input:checkbox[name='p_type']").prop("checked", true);
+		    } else {
+		      $("input:checkbox[name='p_type']").prop("checked", false);
+		      $("#result").empty(); // 결과를 비워주는 부분 추가
+		      return;
+		    }
+		    updateList(); // updateList() 함수 호출 추가
+		  });
+		
+	    function updateList() {
+	        var p_types = [];
+	        $("input:checkbox[name='p_type']:checked").each(function() {
+	            p_types.push($(this).val());
+	        });
+
+	        var p_type = p_types.join(",");
+
+	        $.ajax({
+	            type: "get",
+	            url: "/customjobaction",
+	            dataType: "json",
+	            data: { "p_type": p_type },
+	            success: function(res) {
+	                let s = "";
+	                s += "<table class='table'><br>";
+	                s += "<tr align='center'><td width='120'>지역</td><td width='400'>모집내용/기업명</td><td width='120'>급여</td>";
+	                s += "<td width='150'>근무시간</td><td width='100'>등록일</td></tr>";
+
+	                $.each(res, function(i, ele) {
+	                    $.each(ele.list, function(j, obj) {
+	                        s += "<tr align='center'><td width='120'>" + obj.p_addr + "</td>";
+	                        s += "<td width='400' style='text-align:left'><span id='posting-title'>";
+	                        s += "<a href='/posting/detailpage?p_num=" + obj.p_num + "' class='alink'>" + obj.p_title + "</a></span><br>";
+	                        s += "<span id='enterprise-name'><span class='sub'>" + obj.p_type + "</span>" + obj.e_name + "</span></td>";
+
+	                        if (obj.p_employtype === '정규직') {
+	                            s += "<td width='120'><span class='sub'>월급</span>" + obj.p_pay + "</td>";
+	                        } else if (obj.p_employtype === '계약직') {
+	                            s += "<td width='120'><span class='sub'>시급</span>" + obj.p_pay + "</td>";
+	                        }
+
+	                        s += "<td width='160'>" + moment('2000-01-01 ' + obj.p_starttime).format('HH:mm') + "-" + moment('2000-01-01 ' + obj.p_endtime).format('HH:mm') + "</td>";
+	                        s += "<td width='100'>" + moment(obj.p_writeday).format('YYYY-MM-DD') + "</td></tr>";
+	                    });
+	                });
+
+	                s += "</table>";
+	                $("#result").html(s);
+	            }
+	        });
+	    }
+
+	});
 
    </script>
 	
@@ -367,14 +372,15 @@ body {
 				<div class="formbold-mb-3">
 	               <label class="formbold-form-label">직무</label>
 	               <div style="border: 1px solid #dde3ec; border-radius:5px; padding: 11px; width: 1000px;">
-						<input type="checkbox" name="p_type" class="chkbox serach" value="건설/건축"> 건설/건축&nbsp;&nbsp;&nbsp;
-						<input type="checkbox" name="p_type" class="chkbox serach" value="공공/복지/봉사/교육"> 공공/복지/봉사/교육&nbsp;&nbsp;&nbsp;
-						<input type="checkbox" name="p_type" class="chkbox serach" value="금융/보험"> 금융/보험&nbsp;&nbsp;&nbsp;
-						<input type="checkbox" name="p_type" class="chkbox serach" value="기술"> 기술&nbsp;&nbsp;&nbsp;
-						<input type="checkbox" name="p_type" class="chkbox serach" value="농업/어업"> 농업/어업&nbsp;&nbsp;&nbsp;
-						<input type="checkbox" name="p_type" class="chkbox serach" value="법무"> 법무&nbsp;&nbsp;&nbsp;
-						<input type="checkbox" name="p_type" class="chkbox serach" value="사무"> 사무&nbsp;&nbsp;&nbsp;
-						<input type="checkbox" name="p_type" class="chkbox serach" value="서비스"> 서비스&nbsp;&nbsp;&nbsp;
+	               		<input type="checkbox" name="p_type" class="chkbox" id="allchk"> 전체&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="건설/건축"> 건설/건축&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="공공/복지/봉사/교육"> 공공/복지/봉사/교육&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="금융/보험"> 금융/보험&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="기술"> 기술&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="농업/어업"> 농업/어업&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="법무"> 법무&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="사무"> 사무&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="p_type" class="chkbox serach" value="서비스"> 서비스&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="checkbox" name="p_type" class="chkbox serach" value="생산/제조"> 생산/제조&nbsp;&nbsp;&nbsp;
 						<input type="checkbox" name="p_type"class="chkbox serach" value="운송"> 운송&nbsp;&nbsp;&nbsp;
 						<input type="checkbox" name="p_type" class="chkbox serach" value="의료"> 의료
