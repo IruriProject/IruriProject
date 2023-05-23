@@ -396,14 +396,14 @@ border:0px solid gray;
                      </tr>
                   </thead>
                   
-                  <c:if test="${getMypageLikeEnter.size()==0}">
+                  <c:if test="${countLikeEnter==0}">
                   <tr align="center">
                         <td colspan="4" style="color: #416442; font-weight: 600">관심 기업이 없습니다. <br>
                         관심 기업을 추가해보세요!</td>
                      </tr>
                   </c:if>   
                   <c:forEach var="edto" items="${getMypageLikeEnter }">               
-                  <c:if test="${getMypageLikeEnter>0}">
+                  <c:if test="${countLikeEnter>0}">
                      <tr>
                         <td style="text-align: center; width: 100px;">
                         <a href="/enterprise/enterprisepage?e_num=${edto.e_num }" style="color: #416442; font-weight: 600">${edto.e_name}</a></td>
