@@ -414,12 +414,12 @@ $(document).ready(function() {
 								<td align="center">${no+1 }</td>
 								<td align="center">${a.q_title }</td>
 
-								<td style="width:100%; height:30px; float:left; line-height:30px; color:gray; overflow: hidden;" >
-								<a href="detailqna?q_num=${a.q_num }&currentPage=${currentPage}" style="color:#000;">
+								<td style="width:100%; height:30px; overflow:hidden; float:left;color:gray;" >
+								<a href="detailqna?q_num=${a.q_num }&currentPage=${currentPage}" style="color:#416442; font-weight:600; text-decoration:none; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
 								${a.q_content }
 								</a>
 							   <c:if test="${a.q_file!='no'}">
-					           <span class="glyphicon glyphicon-download-alt" style="margin-left:1px; font-size:12px;"></span>
+					           <span class="glyphicon glyphicon-download-alt" style="margin-left:1px; color:#416442; font-size:12px;"></span>
 					          	</c:if>
 					          
 								</td>

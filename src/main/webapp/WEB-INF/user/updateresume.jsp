@@ -97,17 +97,18 @@ color:#416442;
 				<c:set var="year"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set> 
 				<c:set var="birth"><fmt:formatDate value="${dto.u_birth }" pattern="yyyy"/></c:set>
 				(${year-birth+1 }세)
+				<br><br>
                <table style="border: 0px solid red;">
                   <tr>
-                     <td width=100>연락처</td>
+                     <td width="100" height="40">연락처</td>
                      <td>${dto.u_hp }</td>
                   </tr>
                   <tr>
-                     <td>이메일</td>
+                     <td height="40">이메일</td>
                      <td>${dto.u_email }</td>
                   </tr>
                   <tr>
-                     <td>주소</td>
+                     <td height="40">주소</td>
                      <td>${dto.u_addr }</td>
                   </tr>
                </table>

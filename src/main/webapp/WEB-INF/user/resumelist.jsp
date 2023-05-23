@@ -38,10 +38,10 @@ text-align: center;
    border: 0px solid gray;
 }
 div a{
-	color:black;
+	color:#416442;
 }
 div a:hover{
-	color:black;
+	color:#416442;
 	text-decoration: none;
 }
 
@@ -49,7 +49,6 @@ div a:hover{
 </head>
 <body>
 	
-	<h3>내 이력서 목록 (${list.size() }/5)</h3>
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light rounded p-4">
 				<div class="table-responsive">
@@ -57,6 +56,9 @@ div a:hover{
 						class="table"
 						style="width: 800px; table-layout: fixed" >
 						<thead>
+						<caption style=" margin-bottom : 10px;">
+							<h4 class="mb-5" style="color: black; display: inline;"><b>내 이력서 목록 (${list.size() }/5)</b></h4>
+							</caption>
 							<tr class="text-dark">
 								<th scope="col" style=" width:30px; text-align: center;">
 								<input class="form-check-input" type="checkbox" id="allcheck"></th>
@@ -69,7 +71,7 @@ div a:hover{
 						</thead>
 						<c:if test="${list.size()==0 }">
 							<tr align="center">
-								<td colspan="5">이력서가 존재하지 않습니다.<br>
+								<td colspan="6">이력서가 존재하지 않습니다.<br>
 								대표 이력서를 등록해보세요!</td>
 							</tr>
 						</c:if>

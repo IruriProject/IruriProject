@@ -320,7 +320,7 @@
 					<label for="p_enddate" class="formbold-form-label" > 이미지 </label>
 					 <input type="file" name="upload" id="b_photo" multiple="multiple" onchange="checkFileCount(event)"
 						class="formbold-form-input" />
-					<div id="image-preview"></div>
+					<div id="image-preview" style="text-align:center;"></div>
 				</div>
 				
 				<button type="button" class="formbold-cancel-btn" onclick="location.href='boardlist?currentPage=${currentPage}'" style="margin-left:10px;">취소</button>

@@ -67,7 +67,7 @@ border: 0px solid gray;
 		이용제한 및 징계에 관한 기록은 일정기간 보관합니다.<br>
 		<br>
 		<button type="submit" class="formbold-btn"
-		style="width: 100px; height: 45px; line-height: 0px;">탈퇴</button>
+		style="width: 100px; height: 45px; line-height: 0px; background-color: #E74646;">탈퇴</button>
 		</div>
 	</form>
 </div>

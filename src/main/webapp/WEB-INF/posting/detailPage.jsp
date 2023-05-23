@@ -343,11 +343,16 @@ tr,td{
 
                         <c:if
                            test="${sessionScope.loginStatus=='enterprise'&&sessionScope.loginId==dto.e_id }">
-                           <button type="button" style="width: 80px;" class="sm-border-btn mt-2" onclick="location.href='/posting/update?p_num=${dto.p_num}'">수정</button>
-                           <button type="button" style="width: 80px;" class="sm-border-btn mt-2" onclick="location.href='confirmpw?p_num=${dto.p_num}'">삭제</button>
+                           <button type="button" style="width: 60px;" class="sm-border-btn mt-2" onclick="location.href='/posting/update?p_num=${dto.p_num}'">수정</button>
+                           <button type="button" style="width: 60px;" class="sm-border-btn mt-2" onclick="location.href='confirmpw?p_num=${dto.p_num}'">삭제</button>
                            <button type="button" class="sm-color-btn mt-2" onclick="reloadAlert()">끌어올리기</button>
                         </c:if>
+
+                        <c:if
+                           test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
                         <button class="link sm-border-btn" style="height:36px; line-height:36px;" onclick="copyUrl()">링크 복사 <i class="fa-solid fa-link"></i></button>&nbsp;&nbsp;
+                        </c:if>
+
                      </div>
                   </div>
                   
