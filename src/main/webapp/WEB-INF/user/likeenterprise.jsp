@@ -88,7 +88,7 @@ div {
 				</div>
 				<div class="table-responsive">
 				<c:if test="${totalCount>0 }">
-					<table class="table" id="basic-list" style="width: 1100px;">
+					<table class="table" id="basic-list" style="width: 100%;">
 						<thead>
 						<caption style=" margin-bottom : 10px;">
 							<h4 class="mb-5" style="color: black; display: inline;"><b>총 ${totalCount }개의 관심 기업</b></h4>

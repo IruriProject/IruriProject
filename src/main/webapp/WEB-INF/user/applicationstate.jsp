@@ -73,12 +73,11 @@ div {
 </head>
 <body>
 			
-					
-					<div id="addr-box"></div>
-						<table class="table" id="basic-list" style="width: 1100px;">
+						<table class="table" id="basic-list" style="width: 100%;">
 						<caption>
 							<c:if test="${totalCount>0}">
 					   		총 ${totalCount }개의 글이 있습니다.
+					   		</c:if>
 					   	</caption>
 							<thead>
 								<tr class="text-dark">
