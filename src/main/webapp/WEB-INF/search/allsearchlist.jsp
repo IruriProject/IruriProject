@@ -109,19 +109,21 @@ function updateUrl() {
 </head>
 <body>
 
- <div style="margin: 30px 30px;">
+ <div style="margin: 0 auto;">
 
-
-
-
-		<div style="width: 100%; height: 50px; padding: 0 6%;">
+		<div style="width: 100%; height: 50px;">
 
 			<c:if test="${totalCount>0 }">
 				<b class="countst">총<b style="color: #4E9F3D;">&nbsp;${totalCount }</b>건
 				</b>
 			</c:if>
+			
+			<div style="float:right; line-height:35px; text-align:center;">
+				<button type="button" class="btn btn-default"  style="padding:8px;"onclick="location.href='/search/allsearchlist'">초기화</button>
+			</div>
+			
 
-			<div style="width: 12%; line-height:50px; float: right;">
+			<div style="width: 14%; line-height:50px; float: right;  margin-right:8px;">
 				<form action="allsearchlist" method="get" class="form-inline">
 					<select class="formbold-form-select" name="sort" id="sort"
 						onchange="updateUrl()">
@@ -131,9 +133,6 @@ function updateUrl() {
 				</form>
 			</div>
 			
-			<div style="width:10%; float:right; line-height:35px; text-align:center;">
-			<button type="button" class="btn btn-default"  style="padding:7px;"onclick="location.href='/search/allsearchlist'">초기화</button>
-			</div>
 		</div>
 
 		<table class="table table-info"  style="width:1000px;  margin: 0 auto;">
@@ -159,8 +158,8 @@ function updateUrl() {
 			<c:if test="${totalCount>0 }">
 				<c:forEach var="dto" items="${list }">
 
-					<tr>
-						<td width="100">${dto.p_addr }</td>
+					<tr >
+					<td width="100" style="height:60px; line-height:60px; text-align:center;">${dto.p_addr }</td>
 					<td width="400">
 					<span id="posting-title">
 						<a href="/posting/detailpage?p_num=${dto.p_num}"  class="alink">${dto.p_title }</a>
@@ -168,7 +167,7 @@ function updateUrl() {
 						<span id="enterprise-name"><span class="sub">${dto.p_type }</span>${dto.e_name }</span>
 						</td>
 						
-					<td width="200">
+					<td width="200" style="line-height:60px;  text-align:center;">
 					<c:if test="${dto.p_employtype=='정규직' }">
 					<span class="sub">월급</span>
 					</c:if>
@@ -179,14 +178,14 @@ function updateUrl() {
 					</td>
 					
 					
-							<td width="150">
+					<td width="150" style="line-height:60px;  text-align:center;">
 					<fmt:parseDate value="${dto.p_starttime }" var="p_starttime" pattern="HH:mm"/>
 					<fmt:formatDate value="${p_starttime}" pattern="HH:mm"/>  -
 					<fmt:parseDate value="${dto.p_endtime }" var="p_endtime" pattern="HH:mm"/>
 					<fmt:formatDate value="${p_endtime }" pattern="HH:mm"/>
 
 					</td>
-						<td width="100">
+						<td width="100" style="line-height:60px;  text-align:center;">
 						<fmt:formatDate value="${dto.p_writeday }" pattern="yyyy-MM-dd" />
 						</td>
 					</tr>

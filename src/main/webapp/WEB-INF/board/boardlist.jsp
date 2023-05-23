@@ -13,6 +13,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style type="text/css">
+a{
+   text-decoration: none;
+}
 
 .pagination {
   display: inline-block;
@@ -102,19 +105,19 @@ function updateUrl() {
 		<c:if test="${sessionScope.loginStatus!=null }">
 			<div style="float: right; width: 40%; padding-top: 20px;">
 				<button type="button" class="btn btn-default"
-					style="float: right; width: 100px;" onclick="location.href='form'">글쓰기</button>
+					style="float: right; width: 100px; background-color:#4E9F3D; border:none; color:white;" onclick="location.href='form'">글쓰기</button>
 			</div>
 		</c:if>
 	</div>
 	
 	<div style="width: 100%; height: 50px; padding: 0 6%;">
-		<b class="countst">총<b style="color: #4E9F3D;">&nbsp;${totalCount }</b> 건</b>
+		<b class="countst">총<b style="color: #4E9F3D;">&nbsp;${totalCount}</b> 건</b>
 		
-		<div style="width:7%; float:right; line-height:35px; text-align:center;">
-			<button type="button" class="btn btn-default"  style="padding:7px;"onclick="location.href='/board/boardlist'">초기화</button>
+		<div style="float:right; line-height:35px; text-align:center;">
+			<button type="button" class="btn btn-default" style="padding:8px;" onclick="location.href='/board/boardlist'">초기화</button>
 		</div>
 		
-		<div style="width: 30%; float: right;">
+		<div style="width: 30%; float: right; margin-right:8px;">
 		<form action="boardlist" method="get" class="form-inline">
 		  <input type="text" name="keyword" id="keyword" placeholder="제목+본문검색" class="formbold-b_search-input" style="width:58%;" value="${param.keyword}" />
 		  <select class="formbold-form-select" name="sort" id="sort" style="width:39%;" onchange="updateUrl()">
@@ -155,19 +158,19 @@ function updateUrl() {
 			          </c:if>
 			        </a>
 			      </td>
-			      <td style="height:60px; line-height:60px;" align="center">
-			      <span style="color:gray;"><fmt:formatDate value="${dto.b_writeday }" pattern="yyyy-MM-dd" /></span>
+			      <td style=" height:60px; line-height:60px; padding:10px;" align="right">
+			      <span style="color:gray; padding-right:14px;"><fmt:formatDate value="${dto.b_writeday }" pattern="yyyy-MM-dd" /></span>
 			      </td>
 			    </tr>
 			  </c:forEach>
 			  </c:if>
 
 				<c:forEach var="dto" items="${list }">
-				<tr style=" vertical-align:middle;  height:70px; line-height:70px; font-size:14px;">
+				<tr style=" vertical-align:middle;  height:60px; line-height:60px; font-size:14px;">
 					
 					<c:set var="no" value="${no-1 }"/>
 					
-					<td style="height:70px; line-height:70px; "> 
+					<td style="height:60px; line-height:60px; padding:0 30px; "> 
 					
 					<a href="detailboard?b_num=${dto.b_num }&currentPage=${currentPage}" style="color:#000; text-decoration: none;">
 					<b style="font-size:18px; font-weight:500; color:#416442;">${dto.b_title }</b>
@@ -176,23 +179,23 @@ function updateUrl() {
 					</c:if>
 					
 				  	<c:if test="${dto.newFlag}">
-                        <img src="${root }/image/newicon.png" alt="newpng" style="width:21px; margin-bottom:4px; padding:1px;" />
+                        <img src="${root }/image/newicon.png" alt="newpng" style="width:21px; margin-bottom:5px; padding:1px;" />
                     </c:if>
                     <c:if test="${dto.b_acount>0 }">
 					<span style="color:red;">[${dto.b_acount}]</a></span>
 					</c:if>
 					
-                    <br>
-					<div style="width:100%; height:30px; float:left; line-height:30px; color:gray; overflow: hidden;">${dto.b_content } </div>
+					<div style="width:100%; height:20px; float:left; line-height:20px; color:gray; overflow: hidden;">${dto.b_content } </div>
 					</a>	
-					
-					<br>
-					<div style="width:100%; height:30px; float:left; line-height:30px; color:gray;">
-					${dto.b_loginid }  <span style="color:#bebebe;"> <span style=" padding:1px;font-size:0.8em;">|</span> ${dto.b_time }</span>
+
+					<div style="width:100%; height:60px; float:left; line-height:60px; color:gray;">
+					${dto.b_loginid }  
+					<span style="color:#bebebe;">
+					 <span style=" padding:1px;font-size:0.8em;">|</span> ${dto.b_time }</span>
 					</div>
 					</td>
 					
-					<td style=" height:70px; line-height:70px; "align="center">
+					<td style="width: 30%; height:60px; line-height:60px;" align="center">
 					<span style="color:#bebebe; float: right; font-size: 13px; padding: 10px;">
 					<i class="	glyphicon glyphicon-eye-open"></i>&nbsp;${dto.b_readcount }</span>
 				
