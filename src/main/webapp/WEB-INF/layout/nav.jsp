@@ -324,7 +324,9 @@ a{
 	<nav class="othermenu">
 		<ul class="o_menu">
 		<c:if test="${sessionScope.loginStatus!='enterprise' }">
-			<li id="insertResume" style="width: 130px"><a href="${root }/insertresume">이력서등록</a></li>
+			<li id="insertResume" style="width: 130px">
+				<a href="${root }/insertresume">이력서등록</a>
+			</li>
 			<c:if test="${not empty message}">
 				<script type="text/javascript">
 					alert("${message}");
