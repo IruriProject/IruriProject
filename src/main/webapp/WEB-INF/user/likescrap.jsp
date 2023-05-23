@@ -44,6 +44,30 @@ div {
 	margin-top: 50px;
 	border-radius: 20px;
 }
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: #4E9F3D;
+  color: white;
+  text-decoration: none;
+}
+
+.pagination a:hover:not(.active) {
+	text-decoration: none; 
+	color:#416442; 
+	background-color:#e3f2c9;
+} 
 </style>
 </head>
 <body>
@@ -56,10 +80,10 @@ div {
 					</div>
 					<div class="table-responsive">
 						
-							<c:if test="${countScrapPosting>0 }">
+							<c:if test="${totalCount>0 }">
 							<table class="table" id="basic-list">
 							<thead>
-							<caption>총 ${countScrapPosting }개의 관심 공고</caption>
+							<caption>총 ${totalCount }개의 관심 공고</caption>
 								<tr class="text-dark">
 									<th scope="col" style="text-align: center;"><input class="form-check-input"
 										type="checkbox" id="allcheck"></th>
@@ -80,7 +104,8 @@ div {
 							<tr>
 									<input type="hidden" class="s_num" value="${pdto.s_num }">
 									<td style="text-align: center;"><input class="form-check-input del" type="checkbox"></td>
-									<td style="text-align: center;">${i.count }</td>
+									<td style="text-align: center;">${no }</td>
+									<c:set value="${no-1 }" var="no" />
 									<td style="text-align: center;">${pdto.e_name }</td>
 									<td style="text-align: center;"><a href="posting/detailpage?p_num=${pdto.p_num}">${pdto.p_title}</a></td>
 									<td style="text-align: center;">${pdto.p_enddate}</td>
@@ -110,9 +135,35 @@ div {
 							</tr>
 								</tbody>
 						</table>
+
+
+					<!-- 페이징 -->
+					<div class="pagination" style="display: flex; justify-content: center; width: 100%; text-align: center;">
+
+						<!-- 이전 -->
+						<c:if test="${startPage > 1 }">
+							<a href="/scrap?p_num=${p_num }&currentPage=${startPage - 1 }">&laquo;</a>
+						</c:if>
+
+						<c:forEach var="pp" begin="${startPage }" end="${endPage }">
+							<c:if test="${pp == currentPage }">
+								<a class="active" href="/scrap?p_num=${p_num }&currentPage=${pp }">${pp }</a>
+							</c:if>
+							<c:if test="${pp != currentPage }">
+								<a href="/scrap?p_num=${p_num }&currentPage=${pp }">${pp }</a>
+							</c:if>
+						</c:forEach>
+
+						<!-- 다음 -->
+						<c:if test="${endPage < totalPage }">
+							<a href="/scrap?p_num=${p_num }&currentPage=${endPage + 1 }">&raquo;</a>
+						</c:if>
+
+					</div>
+
 							</c:if>
 							
-							<c:if test="${countScrapPosting==0 }">
+							<c:if test="${totalCount==0 }">
 							<tr>
 									<h3 class="no">관심 공고가 없습니다. 관심 공고를 추가해보세요! :)</h3>
 							</tr>

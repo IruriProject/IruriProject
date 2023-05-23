@@ -46,25 +46,27 @@ public interface UFnMapperInter {
 	
 	//관심 기업
 	public int countLikeEnterprise(String u_num);//관심기업 수
-	public List<Map<String, Object>> getLikeEnterprise(String u_num);//기업 데이터 가져오기
+	public List<Map<String, Object>> getLikeEnterprise(Map<String, Object> map);//기업 데이터 가져오기
 	public void insertLikeEnter(HeartDto dto);//관심기업 인서트
 	public void deleteLikeEnter(String h_num);//관심기업 딜리트
 	public HeartDto checkLikeEnter (Map<String, String> map);//좋아요했는지 체크
 	public List<EnterpriseDto> getMypageLikeEnter(String u_num);//마이페이지에 관심기업
 	
 	//관심 공고(스크랩)
-	public int countScrapPosting(String s_num);//관심공고 수
-	public List<Map<String, Object>> getScrapPosting(String u_num);//관심 공고 데이터 가져오기
+	public int countScrapPosting(String u_num);//관심공고 수
+	public List<Map<String, Object>> getScrapPosting(Map<String, Object> map);//관심 공고 데이터 가져오기
 	public void insertScrapPosting(ScrapDto dto);//관심공고 인서트
 	public void deleteScrapPosting(String s_num);//관심공고 딜리트
 	public ScrapDto checkScrapPosting(Map<String, String> map);//스크랩했는지 체크
 	public List<Map<String, Object>> getMypageScrapPosting (String u_num);
 	
 	//지원현황
-	public void deleteApply(String a_num);
-	public List<Map<String, Object>> getApplicantList(String u_num);//유저별 지원현황 리스트
+	public int countApplicantList(String u_um);//지원 수
+	public void deleteApply(String a_num);//지원 취소
+	public List<Map<String, Object>> getApplicantList(Map<String, Object> map);//유저별 지원현황 리스트
 	
 	//맞춤 일자리
+	public int countCustomJobList(String p_num);//검색 공고 수
 	public List<Map<String, Object>> searchCustomJobList (String p_type);//검색 된 공고
 	
 	//열람

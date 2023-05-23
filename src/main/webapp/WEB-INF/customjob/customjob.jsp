@@ -341,6 +341,13 @@ body {
             			
             			s+="</table>";
             			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
             			$("#result").html(s);
 
                  	}
