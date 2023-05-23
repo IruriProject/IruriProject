@@ -158,8 +158,8 @@ function updateUrl() {
 			          </c:if>
 			        </a>
 			      </td>
-			      <td style="height:60px; line-height:60px;" align="center">
-			      <span style="color:gray;"><fmt:formatDate value="${dto.b_writeday }" pattern="yyyy-MM-dd" /></span>
+			      <td style=" height:60px; line-height:60px; padding:10px;" align="right">
+			      <span style="color:gray; padding-right:14px;"><fmt:formatDate value="${dto.b_writeday }" pattern="yyyy-MM-dd" /></span>
 			      </td>
 			    </tr>
 			  </c:forEach>
@@ -195,8 +195,8 @@ function updateUrl() {
 					</div>
 					</td>
 					
-					<td style=" height:60px; line-height:60px;" align="center">
-					<span style="color:#bebebe; float: right; font-size: 13px; padding: 10px; margin-right:30px;">
+					<td style="width: 30%; height:60px; line-height:60px;" align="center">
+					<span style="color:#bebebe; float: right; font-size: 13px; padding: 10px;">
 					<i class="	glyphicon glyphicon-eye-open"></i>&nbsp;${dto.b_readcount }</span>
 				
 					
