@@ -308,7 +308,7 @@
 					<label for="b_file" class="formbold-form-label" > 이미지 </label>
 					 <input type="file" name="upload" id="b_photo" multiple="multiple"  onchange="checkFileCount(event)"
 						class="formbold-form-input"/>
-						<div id="image-preview">
+						<div id="image-preview" style="text-align:center;">
 						<c:forEach var="photoUrls" items="${photoUrls}">
 							<img alt="" src="/photo/${photoUrls}" style="width:100px; padding:15px;">
 							</c:forEach>

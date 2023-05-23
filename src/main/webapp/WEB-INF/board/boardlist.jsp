@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style type="text/css">
+
 .pagination {
   display: inline-block;
 }
@@ -147,10 +148,10 @@ function updateUrl() {
 			        <!-- 게시물 제목과 내용 출력 -->
 			        <a href="detailboard?b_num=${dto.b_num}&currentPage=${currentPage}" style="color:#000; text-decoration:none;">
 			        <b style="margin-left:20px; padding:10px 20px; background-color:#fff; border-radius:16px;">공지</b>
-			          <b style="font-size:16px; font-weight:500; padding:20px;">${dto.b_title}</b>
+			          <b style="font-size:16px; font-weight:500; padding:10px;">${dto.b_title}</b>
 			          <!-- 첨부 사진 아이콘 -->
 			          <c:if test="${dto.b_photo!='no'}">
-			            <span class="glyphicon glyphicon-picture" style="color:gray; font-size:15px;"></span>
+			            <span class="glyphicon glyphicon-picture" style="color:#416442; font-size:15px;"></span>
 			          </c:if>
 			        </a>
 			      </td>
@@ -168,17 +169,17 @@ function updateUrl() {
 					
 					<td style="height:70px; line-height:70px; "> 
 					
-					<a href="detailboard?b_num=${dto.b_num }&currentPage=${currentPage}" style="color:#000;">
-					<b style="font-size:16px; font-weight:500;">${dto.b_title }</b>
+					<a href="detailboard?b_num=${dto.b_num }&currentPage=${currentPage}" style="color:#000; text-decoration: none;">
+					<b style="font-size:18px; font-weight:500; color:#416442;">${dto.b_title }</b>
 					<c:if test="${dto.b_photo!='no' }">
-					<span class="glyphicon glyphicon-picture" style="color:gray; font-size:15px;"></span>
+					<span class="glyphicon glyphicon-picture" style="color:#416442; font-size:15px;"></span>
 					</c:if>
 					
 				  	<c:if test="${dto.newFlag}">
                         <img src="${root }/image/newicon.png" alt="newpng" style="width:21px; margin-bottom:4px; padding:1px;" />
                     </c:if>
                     <c:if test="${dto.b_acount>0 }">
-					<span><a href="detailboard?b_num=${dto.b_num }&currentPage=${currentPage}"  style="color:red;">[${dto.b_acount}]</a></span>
+					<span style="color:red;">[${dto.b_acount}]</a></span>
 					</c:if>
 					
                     <br>
