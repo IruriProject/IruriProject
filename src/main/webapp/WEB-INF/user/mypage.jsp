@@ -36,6 +36,9 @@
 div {
 	border: 0px solid gray;
 }
+div span{
+color:#416442;
+}
 
 .fa-heart {
    color: red;
@@ -62,23 +65,30 @@ div {
 	background-color: #e3f2c9;
 	border-radius: 10px;
 }
-.spanbutton{
-cursor: pointer;
-}
 .text-dark th{
 text-align: center;
 }
 div a{
-color:black;
+color:#416442;
 }
 div a:hover{
-color:black;
+color:#416442;
 text-decoration: none;
 }
 .myresume{
 font-size: 1.2em;
 font-weight: 600;
 line-height:60px;
+}
+.myresume2{
+font-size: 1.2em;
+font-weight: 600;
+}
+.myresume div, .myresume2 div{
+cursor: pointer;
+}
+div{
+border:0px solid gray;
 }
 </style>
 </head>
@@ -152,10 +162,10 @@ line-height:60px;
 							</c:if>
 							<c:if test="${rdto.r_title!=null}">
 							<br>
-							<span style="font-size: 2em; font-weight: 600;
+							<span style="font-size: 2em; color: #416442; font-weight: 600;
 							white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${rdto.r_title}</span><br>
 								<c:set var="writeday"><fmt:formatDate value="${rdto.r_writeday }" pattern="yyyy-MM-dd"/></c:set>
-								<span style="font-size: 1.2em; font-weight: 600;">최종수정일 : ${writeday }</span><br>
+								<span style="font-size: 1.2em; font-weight: 600; color: #416442;">최종수정일 : ${writeday }</span><br>
 							</c:if>
 						</div>
 					</div>
@@ -191,20 +201,48 @@ line-height:60px;
                      })
                   })
                </script>
-               <br>
-               <br><br>
-               <div class="myresume" style="border: 0px solid gray; width:650px;">
-                  <span class="spanbutton" onclick="location.href='insertresume'" style="margin-left: 30px;">
-                  <img alt="" src="/image/resume.png" style="width:40px; height:40px;">
-                  이력서 등록
-                  </span>
-                  <span class="spanbutton" onclick="location.href='resumelist'" style="margin-left: 70px;">이력서 목록</span>
-                  <span class="spanbutton" onclick="location.href='applicationstate'" style="margin-left: 70px;">지원현황</span>
+               <div class="myresume" style="border: 0px solid gray; width:650px; display: flex;">
+               
+               	  <div style="width:140px; height:140px; text-align: center; background-color:white;
+               	  	   border:0px solid green; border-radius:200%; padding:20px;" onclick="location.href='insertresume'">
+	                  <span class="spanbutton" >
+	                  <img alt="" src="/image/resume.png" style="width:40px; height:40px;">
+	                  <h4>이력서 등록</h4>
+	                  </span>
+                  </div>
+                  
+                  <div style="width:140px; height:140px; text-align: center; background-color:white;
+                  	   border:0px solid green; border-radius:200%; padding:20px; margin-left:40px;" onclick="location.href='resumelist'">
+	                  <span class="spanbutton"  >
+	                  <img alt="" src="/image/list.png" style="width:40px; height:40px; margin-bottom:5px;">
+	                  <h4>이력서 목록</h4>
+	                  </span>
+                  </div>
+                  
+                  <div style="width:140px; height:140px; text-align: center; background-color:white;
+                  	   border:0px solid green; border-radius:200%; padding:20px; margin-left:40px;" onclick="location.href='applicationstate'">
+                  	<span class="spanbutton">
+                  	<img alt="" src="/image/mail.png" style="width:50px; height:50px; margin-bottom:5px;">
+                  	<h4>지원 현황</h4>
+                  	</span>
+                  </div>
                </div>
             </div>
-               <div class="myresume" style="border: 0px solid gray; text-align: center;" >
-                  <span class="spanbutton" onclick="location.href='enterLike'">관심기업 ${countLikeEnter }</span><br>
-               	  <span class="spanbutton" onclick="location.href='scrap'">관심공고 ${countPosting }</span>
+               <div class="myresume2" style="border: 0px solid gray; text-align: center; float:right; margin-right:40px;"><br>
+               	<div style="width: 110px;  background-color: white; border-radius:10px; padding:5px 20px 10px;"
+               	 onclick="location.href='enterLike'">               	
+                  <span class="spanbutton"><h4>관심기업</h4> 
+                  <img alt="" src="/image/heart.png" style="width:16px; height:16px; margin-bottom: 5px;">
+                  ${countLikeEnter }
+                  </span>
+               	</div><br>
+               	<div style="width: 110px;  background-color: white; border-radius:10px; padding:5px 20px 10px;"
+               	 onclick="location.href='scrap'">
+               	  <span class="spanbutton"><h4>관심공고</h4>
+               	  <img alt="" src="/image/star.png" style="width:18px; height:18px; margin-bottom: 5px;">
+               	   ${countPosting }
+               	  </span>
+                </div>
                </div>
          </div>
       </div>
