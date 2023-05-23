@@ -136,15 +136,13 @@
 
 </head>
 <body>
-
+<!-- 일반,기업회원 nav  -->
+<c:if test="${sessionScope.loginId!='admin'}">
 	<nav class="nav_header">
 		<ul>
 			<li><a href="/posting/search" class="mainMenu">채용정보</a>
 				<ul class="subMenu">
 					<li><a href="/posting/search">공고검색</a></li>
-					<li><a href="hi">sub메뉴</a></li>
-					<li><a href="hi">sub메뉴</a></li>
-					<li><a href="hi">sub메뉴</a></li>
 				</ul></li>
 			<li>
 				<c:if test="${sessionScope.loginStatus=='enterprise' }">
@@ -156,7 +154,7 @@
 						<li><a href="/phrases/list">자주쓰는문구관리</a></li>
 					</ul>
 				</c:if>
-				<c:if test="${sessionScope.loginStatus!='enterprise' }">
+				<c:if test="${sessionScope.loginStatus!='enterprise'}">
 					<a style="cursor: pointer" class="mainMenu" onclick="checkLogin()">회원서비스</a>
 					<ul class="subMenu">
 						<li><a style="cursor: pointer" onclick="checkLogin2()">개인정보 관리</a></li>
@@ -246,10 +244,7 @@
 				
 			<li><a href="/customjob" class="mainMenu">맞춤 일자리</a>
 				<ul class="subMenu">
-					<li><a href="hi">sub메뉴</a></li>
-					<li><a href="hi">sub메뉴</a></li>
-					<li><a href="hi">sub메뉴</a></li>
-					<li><a href="hi">sub메뉴</a></li>
+					
 				</ul></li>
 			<li><a href="/board/boardlist" class="mainMenu">일자리이야기</a>
 				<ul class="subMenu">
@@ -263,19 +258,61 @@
 			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId!='admin'}">
 			<a href="/qna/qnawriteform" class="mainMenu">1:1문의</a>
 			</c:if>
-			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
-			<a href="/qna/adminqnalist"  class="mainMenu">관리자일대일</a>
-			</c:if>
+			
 				<ul class="subMenu">
-						<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
-						<li><a href="/member/usermemberlist">일반회원관리</a></li>
-						<li><a href="/member/entermemberlist">기업회원관리</a></li>
-						</c:if>
 				</ul>
 				</li>
-				</c:if>
+			</c:if>
+			
 		</ul>
 	</nav>
+  </c:if>  
+   
+    <!-- 관리자 nav  -->
+   <c:if test="${sessionScope.loginId=='admin'}">
+	<nav class="nav_header">
+		<ul>
+			<li><a href="/posting/search" class="mainMenu">채용정보</a>
+				<ul class="subMenu">
+					<li><a href="/posting/search">공고검색</a></li>
+				</ul></li>
+				
+			<li><a href="/customjob" class="mainMenu">맞춤 일자리</a>
+				<ul class="subMenu">
+					
+				</ul></li>
+			<li><a href="/board/boardlist" class="mainMenu">일자리이야기</a>
+				<ul class="subMenu">
+				</ul>
+			</li>
+				
+				
+			<c:if test="${sessionScope.loginStatus!=null}">
+			<li>
+			
+			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId!='admin'}">
+			<a href="/qna/qnawriteform" class="mainMenu">1:1문의</a>
+			</c:if>
+			
+			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
+			<a href="/qna/adminqnalist"  class="mainMenu">1:1관리자</a>
+			</c:if>
+				<ul class="subMenu">
+				</ul>
+				</li>
+			</c:if>
+			
+			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
+			<li><a href="/member/usermemberlist" class="mainMenu">일반회원관리</a>
+				<ul class="subMenu">
+					<li><a href="/member/entermemberlist">기업회원관리</a></li>
+				</ul></li>
+			</c:if>
+		</ul>
+	</nav>
+  </c:if>  
+     
+    
     
 	<nav class="othermenu">
 		<ul class="o_menu">
