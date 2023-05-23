@@ -134,6 +134,15 @@
 	background-color:#fff;
 	border-radius: 3px;
 }
+.xs-color-btn{
+	border: none;
+	color:#fff;
+	width:42px;
+	height:26px;
+	background-color:#4e9f3d;
+	line-height:23px;
+	border-radius: 3px;
+}
 .sm-delete-btn{
 	border: 1px solid #E74646;
 	color: #E74646;

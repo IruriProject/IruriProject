@@ -91,31 +91,29 @@ line-height:60px;
 				<div class="col-sm-12 col-md-3 col-xl-4 w-25" style="text-align: center;">
 					<c:if test="${dto.u_photo==null }">
 						<img src="/image/nophoto.png"
-						style="width: 170px; height: 170px; border-radius: 500px;">
+						style="width: 170px; height: 170px; border-radius: 500px; margin-bottom: 4px;">
 					</c:if>
 					<c:if test="${dto.u_photo!=null }">
 							<img alt="" src="/photo/${dto.u_photo}"
-							style="width: 170px; height: 170px; border-radius: 500px;">
+							style="width: 170px; height: 170px; border-radius: 500px; margin-bottom: 4px;">
 					</c:if><br>
-					<h4>${sessionScope.loginName }</h4>
-					
+					<b style="font-size: 1.2em;">${sessionScope.loginName } &nbsp;</b>
 					<c:if test="${dto.u_gender!=null && dto.u_birth!=null }">
-						<h5>${dto.u_gender } /
+						${dto.u_gender } /
 						<c:set var="now" value="<%=new java.util.Date()%>" />
 						<c:set var="year"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set> 
 						<c:set var="birth"><fmt:formatDate value="${dto.u_birth }" pattern="yyyy"/></c:set>
 						${year-birth+1 }세
-						</h5>
+						<br><br>
 					</c:if>
 					
 					<c:if test="${dto.u_gender==null || dto.u_birth==null }">
 						<b style="color: red">개인정보를 수정해주세요.</b>
 					</c:if>
 					
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myPhoto">사진
+					<button type="button" class="sm-border-btn" data-toggle="modal" data-target="#myPhoto">사진
 						변경</button>
-					<button type="button" class="btn btn-default" onclick="location.href='update'">개인정보
-						수정</button>
+					<button type="button" class="sm-border-btn" onclick="location.href='update'">정보수정</button>
 					<div>
 						<!-- Modal -->
 						<div class="modal fade" id="myPhoto" role="dialog">
@@ -153,7 +151,9 @@ line-height:60px;
 								<!-- 이력서 목록 페이지로 -->
 							</c:if>
 							<c:if test="${rdto.r_title!=null}">
-							<span style="font-size: 2em; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${rdto.r_title}</span><br>
+							<br>
+							<span style="font-size: 2em; font-weight: 600;
+							white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${rdto.r_title}</span><br>
 								<c:set var="writeday"><fmt:formatDate value="${rdto.r_writeday }" pattern="yyyy-MM-dd"/></c:set>
 								<span style="font-size: 1.2em; font-weight: 600;">최종수정일 : ${writeday }</span><br>
 							</c:if>
@@ -192,15 +192,20 @@ line-height:60px;
                   })
                </script>
                <br>
-               <br><br><br><br>
-               <div class="myresume" style="border: 1px solid gray;">
-                  <span class="spanbutton" onclick="location.href='insertresume'">이력서 등록</span>
-                  <span class="spanbutton" onclick="location.href='resumelist'" >이력서 목록</span>
-                  <span class="spanbutton" onclick="location.href='applicationstate'">지원현황</span>
-                  <span class="spanbutton" onclick="location.href='enterLike'">관심기업 ${countLikeEnter }</span>
-               	  <span class="spanbutton" onclick="location.href='scrap'">관심공고 ${countPosting }</span>
+               <br><br>
+               <div class="myresume" style="border: 0px solid gray; width:650px;">
+                  <span class="spanbutton" onclick="location.href='insertresume'" style="margin-left: 30px;">
+                  <img alt="" src="/image/resume.png" style="width:40px; height:40px;">
+                  이력서 등록
+                  </span>
+                  <span class="spanbutton" onclick="location.href='resumelist'" style="margin-left: 70px;">이력서 목록</span>
+                  <span class="spanbutton" onclick="location.href='applicationstate'" style="margin-left: 70px;">지원현황</span>
                </div>
             </div>
+               <div class="myresume" style="border: 0px solid gray; text-align: center;" >
+                  <span class="spanbutton" onclick="location.href='enterLike'">관심기업 ${countLikeEnter }</span><br>
+               	  <span class="spanbutton" onclick="location.href='scrap'">관심공고 ${countPosting }</span>
+               </div>
          </div>
       </div>
       <script src="https://kit.fontawesome.com/2663817d27.js"
