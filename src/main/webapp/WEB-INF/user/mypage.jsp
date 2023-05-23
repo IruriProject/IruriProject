@@ -156,7 +156,7 @@ border:0px solid gray;
 						<div data-rnum="${rdto.r_num}">
 							<c:if test="${rdto.r_title==null}">
 								<h3>대표이력서가 없습니다.</h3>
-								<button type="button" onclick="location.href='resumelist'">대표이력서
+								<button type="button" class="sm-border-btn" style="width:150px;" onclick="location.href='resumelist'">대표이력서
 									설정하기</button>
 								<!-- 이력서 목록 페이지로 -->
 							</c:if>
@@ -324,7 +324,7 @@ border:0px solid gray;
 						</thead>
 						<c:if test="${list.size()==0 }">
 							<tr align="center">
-								<td colspan="5">이력서가 존재하지 않습니다.<br>
+								<td colspan="4">이력서가 존재하지 않습니다.<br>
 								대표 이력서를 등록해보세요!</td>
 							</tr>
 						</c:if>

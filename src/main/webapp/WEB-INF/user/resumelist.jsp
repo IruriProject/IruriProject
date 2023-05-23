@@ -71,7 +71,7 @@ div a:hover{
 						</thead>
 						<c:if test="${list.size()==0 }">
 							<tr align="center">
-								<td colspan="5">이력서가 존재하지 않습니다.<br>
+								<td colspan="6">이력서가 존재하지 않습니다.<br>
 								대표 이력서를 등록해보세요!</td>
 							</tr>
 						</c:if>
