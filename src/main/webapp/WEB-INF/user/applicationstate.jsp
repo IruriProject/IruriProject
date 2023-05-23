@@ -32,6 +32,7 @@ div {
 
 .no {
 	color: gray;
+	width: 600px; 
 	background-color: #f9ffef;
 	padding: 20px;
 	margin-top: 50px;

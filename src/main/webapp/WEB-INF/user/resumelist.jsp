@@ -45,6 +45,16 @@ div a:hover{
 	text-decoration: none;
 }
 
+.no{
+
+	color: gray; 
+	background-color: #f9ffef; 
+	padding: 20px; 
+	margin-top: 50px;
+	border-radius: 20px;
+	
+}
+
 </style>
 </head>
 <body>
@@ -52,14 +62,20 @@ div a:hover{
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light rounded p-4">
 				<div class="table-responsive">
+				<c:if test="${list.size()==0 }">
+							<h3 class="no" style="text-align: center;">이력서가 존재하지 않습니다. 대표 이력서를 등록해보세요! :)</h3>
+				</c:if>
 					<table 
 						class="table"
 						style="width: 800px; table-layout: fixed" >
+						
+						<c:if test="${list.size()!=0 }">
+						<c:forEach var="dto" items="${list }" varStatus="i">
 						<thead>
-						<caption style=" margin-bottom : 10px;">
+						<caption style=" margin-bottom : 10px; ">
 							<h4 class="mb-5" style="color: black; display: inline;"><b>내 이력서 목록 (<b style="color: #4E9F3D; font-weight: 600">${list.size() }</b>/5)</b></h4>
-							</caption>
-							<tr class="text-dark">
+						</caption>
+						<tr class="text-dark">
 								<th scope="col" style=" width:30px; text-align: center;">
 								<input class="form-check-input" type="checkbox" id="allcheck"></th>
 								<th scope="col" style="width:50px;">번호</th>
@@ -69,13 +85,6 @@ div a:hover{
 								<th scope="col" style="width:110px;">이력서 관리</th>
 							</tr>
 						</thead>
-						<c:if test="${list.size()==0 }">
-							<tr align="center">
-								<td colspan="6">이력서가 존재하지 않습니다.<br>
-								대표 이력서를 등록해보세요!</td>
-							</tr>
-						</c:if>
-						<c:forEach var="dto" items="${list }" varStatus="i">
 							<tr data-rnum="${dto.r_num}", data-rpresume="${dto.r_presume }", data-rprivate="${dto.r_private }">
 								<td style="text-align: center; height:32px; line-height:32px;"><input class="form-check-input del" type="checkbox"></td>
 								<td style="text-align: center; height:32px;
@@ -126,7 +135,8 @@ div a:hover{
 								<td colspan="6">
 									<button style="float:right; margin-top:10px; margin-right:22px;" class="sm-delete-btn" id="btnEnterDel">삭제</button>
 								</td>
-							</tr>
+							</tr>	
+						</c:if>
 					</table>
 				</div>
 			</div>
