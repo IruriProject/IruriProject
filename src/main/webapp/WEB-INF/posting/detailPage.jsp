@@ -24,6 +24,7 @@
 <link href="${root }/css/postingDetailStyles.css" rel="stylesheet" />
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e307bbbc3f0eb499cc6f855a21cc9478&libraries=services"></script>
+<link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style>
 body {
    position: relative;
@@ -336,9 +337,9 @@ tr,td{
 
                         <c:if
                            test="${sessionScope.loginStatus=='enterprise'&&sessionScope.loginId==dto.e_id }">
-                           <button type="button" class="btn btn-info mt-2" onclick="location.href='/posting/update?p_num=${dto.p_num}'">수정</button>
-                           <button type="button" class="btn btn-info mt-2" onclick="location.href='confirmpw?p_num=${dto.p_num}'">삭제</button>
-                           <button type="button" class="btn btn-info mt-2" onclick="reloadAlert()">끌어올리기</button>
+                           <button type="button" style="width: 80px;" class="sm-border-btn mt-2" onclick="location.href='/posting/update?p_num=${dto.p_num}'">수정</button>
+                           <button type="button" style="width: 80px;" class="sm-border-btn mt-2" onclick="location.href='confirmpw?p_num=${dto.p_num}'">삭제</button>
+                           <button type="button" class="sm-color-btn mt-2" onclick="reloadAlert()">끌어올리기</button>
                         </c:if>
                         <span class="link" onclick="copyUrl()">링크 복사 <i class="fa-solid fa-link"></i></span>&nbsp;&nbsp;
                      </div>
@@ -560,7 +561,7 @@ tr,td{
             <div class="withbtn">
                <div class="withbtnTitle">상세내용</div>
                <div>
-                  <button type="button" class="btn btn-info" onclick="window.open('detaillarge?p_num=${dto.p_num}','detailLarge', 'width=800,height=500')">확대하기 +</button>
+                  <button type="button" class="sm-color-btn" onclick="window.open('detaillarge?p_num=${dto.p_num}','detailLarge', 'width=800,height=500')">확대하기 +</button>
                </div>
             </div>
 
