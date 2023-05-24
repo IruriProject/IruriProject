@@ -65,5 +65,6 @@ public interface EnterpriseMapperInter {
 	public UserDto getDataByNum(String e_num);
 	
 	public void updateRegistnum(Map<String, String> map);
+	public void updateEnterInfo(String e_id);
 }
 

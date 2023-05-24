@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<link href="${root }/css/usercss/style.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Edu+VIC+WA+NT+Beginner:wght@600&family=Gamja+Flower&family=Single+Day&family=Jua&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
@@ -101,7 +102,7 @@
 	  }
 
 	.sub-wrapper {
-		margin: 10px 30px;
+		margin: 10px 80px;
 	}
 	
 	select {
@@ -513,15 +514,17 @@
 <h4>검색어로 검색하기</h4><br>
 <form action="/posting/search" method="get">
 	<div class="form-inline" >
-		<select class="form-control" style="width: 150px;" name="searchcolumn">
+		<select class="form-control" style="width: 100px;" name="searchcolumn">
 		  <option value="p_title">제목</option>
 		  <option value="p_content">내용</option>
 		</select>
 		&nbsp;&nbsp;&nbsp;
 		<input type="text" name="searchword" class="formbold-form-input formbold-mb-3" style="width: 200px;" placeholder="검색어를 입력하세요">
+		<div style="float: right;">
 		<button type="submit" class="w-btn w-btn-indigo" >검색</button>
 		<button type="button" onclick="location.href='/posting/search'"
 		class="w-btn w-btn-indigo">초기화</button>
+		</div>
 	</div>
 </form>
 </div>
@@ -530,7 +533,7 @@
 <script type="text/javascript">
 
 //지역별 검색
-$("li").click(function(){
+$("li[role='button']").click(function(){
 	$(this).css("background-color","#cce891");
 	$(this).css("color","white");
 	$(this).siblings().css("background-color","white");
@@ -658,7 +661,7 @@ $(".gu").click(function(){
    		<c:if test="${searchCount>0}">총 ${searchCount }개의 공고가 있습니다.</c:if>
    		<c:if test="${sessionScope.loginStatus=='enterprise' }">
    		<span style="float: right;"><button type="button"
-   		onclick="location.href='/posting/write'">공고 등록</button></span>
+   		onclick="location.href='/posting/write'" class="sm-border-btn">공고 등록</button></span>
    		</c:if>
    		</caption>
    		
@@ -693,7 +696,7 @@ $(".gu").click(function(){
 		<fmt:formatDate value="${dto.p_starttime }" pattern="HH:mm"/> - 
 		<fmt:formatDate value="${dto.p_endtime }" pattern="HH:mm"/>
 		</td>
-		<td width="100"><fmt:formatDate value="${dto.p_writeday }" pattern="yyyy-MM-dd"/></td>
+		<td width="100"><fmt:formatDate value="${dto.p_writeday }" pattern="yyyy-MM-dd" /></td>
    		</tr>
    		</c:forEach>
    		

@@ -453,7 +453,7 @@
 		function findWorkers(access){
 			
 			if(access==0){
-				alert("하단의 열람권을 신청해주세요.")
+				alert("열람권을 신청해주세요.")
 				return;
 			}else{
 				location.href='/enterprise/findworker';
