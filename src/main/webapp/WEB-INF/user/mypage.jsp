@@ -330,7 +330,7 @@ border:0px solid gray;
                     
                     </c:if>
                      <c:forEach var="dto" items="${getMypageBoard }" varStatus="i">
-                      <c:if test="${getMypageBoard.size()>0 }">
+                      <c:if test="${i.count<=3 }">
                   
                      <tr>
                         <td style="text-align: center; width: 160px;">${i.count}</td>
