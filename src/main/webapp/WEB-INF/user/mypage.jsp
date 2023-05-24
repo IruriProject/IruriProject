@@ -504,7 +504,14 @@ border:0px solid gray;
                         <td style="text-align: center; width: 150px;">${pdto.p_type }</td>
                         <td style="text-align: center; width: 110px;">${pdto.p_pay }</td>
                         <td style="text-align: center; width: 100px;">${pdto.p_period }</td>
-                        <td style="text-align: center; width: 120px;">${pdto.p_workday}</td>
+                        <td style="text-align: center; width: 120px;">
+                        <c:if test="${pdto.p_workday=='월/화/수/목/금'}">평일</c:if> 
+						<c:if test="${pdto.p_workday=='토/일'}">주말</c:if>
+						<c:if test="${pdto.p_workday=='월/화/수/목/금/토/일'}">전일</c:if> 
+						<c:if test="${pdto.p_workday!='토/일' && pdto.p_workday!='월/화/수/목/금' && pdto.p_workday!='월/화/수/목/금/토/일' }">${pdto.p_workday }</c:if>
+						</td>
+                        
+                        </td>
                         <td style="text-align: center; width: 250px;">${pdto.p_starttime } ~ ${pdto.p_endtime }</td>
                         <td style="text-align: center; width: 100px;">${pdto.p_employtype}</td>
                      </tr>
