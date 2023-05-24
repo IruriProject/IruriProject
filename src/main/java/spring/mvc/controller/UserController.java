@@ -48,7 +48,7 @@ public class UserController {
 		mview.addObject("resume", ufn_service.getResumeOfRNum(r_num));
 		mview.addObject("user", service.findUserByNum(u_num));
 		
-		mview.setViewName("/enterprise/resumeDetail");
+		mview.setViewName("/newpage/enterprise/resumeDetail");
 		return mview;
 	}
 	

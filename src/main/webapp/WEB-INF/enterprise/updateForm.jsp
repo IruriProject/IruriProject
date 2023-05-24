@@ -9,11 +9,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
 
   .formbold-mb-3 {
     margin-bottom: 15px;
@@ -165,6 +160,10 @@
   .formbold-w-45 {
     width: 45%;
   }
+  
+  #idcheck,#pwcheck{
+    color: red;
+  }
 </style>
 	
 <title>Insert title here</title>
@@ -175,28 +174,16 @@
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
   <div class="formbold-form-wrapper">
-    <form action="action/enter" method="POST">
-
-      <div class="formbold-input-wrapp formbold-mb-3">
-        <label class="formbold-form-label"> 아이디 </label>
-        <div>
-          <input
-            type="text"
-            name="e_id"
-            placeholder="가입할 아이디를 입력해주세요"
-            class="formbold-form-input"
-          />
-          <button type="button" class="formbold-btn btn-s">중복확인</button>
-        </div>
-      </div>
+    <form action="/enterprise/updateinfo" method="POST">
 
       <div class="formbold-mb-3">
-        <label class="formbold-form-label"> 비밀번호 </label>
+        <label class="formbold-form-label"> 비밀번호 변경 </label>
         <input
           type="password"
           id="pw1"
           name="e_pw"
-          placeholder="비밀번호를 입력해주세요"
+          placeholder="영문, 숫자가 포함된 6-12자의 비밀번호를 입력해주세요(특수문자 가능)"
+          onkeyup="checkPw();" onkeydown="checkPw();"
           class="formbold-form-input"
         />
       </div>
@@ -206,10 +193,51 @@
         <input
           type="password"
           id="pw2"
+          minlength="6" maxlength="12" required
           placeholder="비밀번호를 동일하게 입력해주세요"
           class="formbold-form-input"
         />
+        <div id="pwcheck"></div>
+        <input type="hidden" id="pwChecked" value="ok">
       </div>
+      
+      <script type="text/javascript">
+
+      $("#pw1").keyup(function(){
+
+		    pw1=$("#pw1").val();
+		    pw2=$("#pw2").val();
+		    
+	    	$('#pwcheck').html('');
+	    	$("#pwChecked").val("no");
+	    	
+	    	if(pw2.length!=0){
+				if(pw1!=pw2){
+				 $("#pwcheck").html("비밀번호가 일치하지 않습니다.").css("color","red");
+				 $("#pwChecked").val("no");
+				}else{
+				 $("#pwcheck").html("유효한 비밀번호입니다.").css("color","green");
+				 $("#pwChecked").val("ok");
+				}
+	    	}
+      })
+    
+	    $("#pw2").keyup(function(){
+
+		    pw1=$("#pw1").val();
+		    pw2=$("#pw2").val();
+		      
+		      if(pw1!=pw2){
+		    	  $("#pwcheck").html("비밀번호가 일치하지 않습니다.").css("color","red");
+	    		  $("#pwChecked").val("no");
+	    	  }else{
+	    		  $("#pwcheck").html("유효한 비밀번호입니다.").css("color","green");
+	    		  $("#pwChecked").val("ok");
+	    	  }
+	      })
+          
+      </script>
+      
 
       <div class="formbold-mb-3">
         <label class="formbold-form-label"> 회사/점포명 </label>
@@ -217,7 +245,8 @@
           type="text"
           id="e_name"
           name="e_name"
-          placeholder="이름을 입력해주세요"
+          value="${dto.e_name }"
+          placeholder="이름을 입력해주세요" disabled
           class="formbold-form-input"
         />
       </div>
@@ -228,7 +257,8 @@
           type="text"
           name="e_registnum"
           id="e_registnum"
-          placeholder="사업자등록번호를 입력해주세요"
+          value="${dto.e_registnum }"
+          placeholder="사업자등록번호를 입력해주세요" required
           class="formbold-form-input"
         />
       </div>
@@ -241,10 +271,11 @@
             type="text"
             name="e_tel"
             id="e_tel"
-            placeholder="- 없이 전화번호를 입력해주세요"
+            value="${dto.e_tel }"
+            placeholder="번호를 - 없이 입력해주세요" required
+			onkeyup="characterCheck(this);" onkeydown="characterCheck(this);"
             class="formbold-form-input"
           />
-          
         </div>
       </div>
 
@@ -254,7 +285,8 @@
           type="email"
           name="e_email"
           id="e_email"
-          placeholder="example@email.com 형태로 입력해주세요"
+          value="${dto.e_email }"
+          placeholder="example@email.com 형태로 입력해주세요" required
           class="formbold-form-input"
         />
       </div>
@@ -265,14 +297,15 @@
         <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input" style="width: 300px;">
 		<input type="button" class="formbold-btn btn-s" onclick="sample6_execDaumPostcode()" value="검색"><br>
         </div>
-		<input type="text" id="sample6_address" name="addr1" placeholder="주소" class="formbold-form-input" disabled ><br><br>
-		<input type="text" id="sample6_detailAddress" name="addr2" placeholder="상세주소" class="formbold-form-input">
-		<input type="text" id="sample6_extraAddress" name="addr3" placeholder="참고항목" class="formbold-form-input" disabled >
+		<input type="text" id="sample6_address" name="addr1" placeholder="주소" class="formbold-form-input" readonly="readonly"
+		><br><br>
+		<input type="text" id="sample6_detailAddress" name="addr2" placeholder="상세주소" class="formbold-form-input" value="${dto.e_addr }">
+		<input type="text" id="sample6_extraAddress" name="addr3" placeholder="참고항목" class="formbold-form-input" readonly="readonly" >
       </div>
 
 	<br><br>
 
-      <button class="formbold-btn btn-m">가입하기</button>
+      <button type="submit" class="formbold-btn btn-m" id="btnjoin">변경하기</button>
     </form>
   </div>
 </div>
@@ -282,6 +315,28 @@
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+	
+	$("#btnjoin").click(function(){
+		//아이디 중복확인 버튼 클릭 여부 확인
+		if(document.joinform.isDuplication.value!='isChecked'){
+			alert("아이디 중복확인을 해주세요");
+			return false;
+		};
+	
+		//비밀번호 일치 여부 확인
+		if($("#pwChecked").val()=='no' || $("#pw1").val()!=$("#pw2").val()){
+			alert("비밀번호를 확인해주세요");
+			return false;
+		}
+		
+		//핸드폰 번호 유효성 확인
+		if($("#phone").val().toString().length!=11){
+			alert("핸드폰 번호를 확인해주세요.");
+			return false;
+		}
+	})
+
+	//주소 api
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
