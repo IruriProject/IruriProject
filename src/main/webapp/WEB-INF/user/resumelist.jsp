@@ -70,11 +70,10 @@ div a:hover{
 						style="width: 800px; table-layout: fixed" >
 						
 						<c:if test="${list.size()!=0 }">
-						<c:forEach var="dto" items="${list }" varStatus="i">
-						<thead>
 						<caption style=" margin-bottom : 10px; ">
 							<h4 class="mb-5" style="color: black; display: inline;"><b>내 이력서 목록 (<b style="color: #4E9F3D; font-weight: 600">${list.size() }</b>/5)</b></h4>
 						</caption>
+						<thead>
 						<tr class="text-dark">
 								<th scope="col" style=" width:30px; text-align: center;">
 								<input class="form-check-input" type="checkbox" id="allcheck"></th>
@@ -85,6 +84,7 @@ div a:hover{
 								<th scope="col" style="width:110px;">이력서 관리</th>
 							</tr>
 						</thead>
+						<c:forEach var="dto" items="${list }" varStatus="i">
 							<tr data-rnum="${dto.r_num}", data-rpresume="${dto.r_presume }", data-rprivate="${dto.r_private }">
 								<td style="text-align: center; height:32px; line-height:32px;"><input class="form-check-input del" type="checkbox"></td>
 								<td style="text-align: center; height:32px;
