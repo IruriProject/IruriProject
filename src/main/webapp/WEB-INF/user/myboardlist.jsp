@@ -98,7 +98,7 @@ div td{
                   style="table-layout: fixed">
                   <thead>
       				<caption style=" margin-bottom : 10px;">
-								<h4 class="mb-5" style="color: black; display: inline;"><b>총 <b style="color: #4E9F3D; font-weight: 600">${totalCount}개</b>의 게시글</b></h4>
+								<h4 class="mb-5" style="color: black; display: inline;"><b>총 <b style="color: #4E9F3D; font-weight: 600">${totalCount}개</b>의 내가 쓴 게시글</b></h4>
 					 </caption>
                         <tr class="text-dark tb" >
                            <th scope="col" style="text-align: center; width: 150px;">번호</th>
