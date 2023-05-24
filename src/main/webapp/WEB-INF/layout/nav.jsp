@@ -114,6 +114,7 @@ a{
 	font-weight: 700;
 	cursor: pointer;
 	margin-top: 5px;
+	padding-right: 10px;
 }
 
 .o_menu li:hover {
@@ -259,7 +260,7 @@ a{
 			<li>
 			
 			<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId!='admin'}">
-			<a href="/qna/qnawriteform" class="mainMenu">1:1문의</a>
+			<a href="/qna/qnawriteform" class="mainMenu">1:1 문의</a>
 			</c:if>
 				</li>
 			</c:if>
@@ -293,7 +294,7 @@ a{
 			</li>
 
 			<li>
-				<a href="/qna/qnawriteform" class="mainMenu">1:1문의</a>
+				<a href="/qna/qnawriteform" class="mainMenu">1:1 문의</a>
 			</li>
 			
 		</ul>
@@ -310,7 +311,7 @@ a{
 			
 			<li><a href="/board/boardlist" class="mainMenu">일자리이야기</a></li>
 				
-			<li><a href="/qna/adminqnalist"  class="mainMenu">1:1문의</a></li>
+			<li><a href="/qna/adminqnalist"  class="mainMenu">1:1 문의</a></li>
 			
 			<li><a href="/member/usermemberlist" class="mainMenu">일반회원관리</a></li>
 			

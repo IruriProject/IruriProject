@@ -305,17 +305,17 @@ if (allkeyword === "null") {
 	
 	<!-- 로그인 상태 / 개인 -->
 	<c:if test="${sessionScope.loginStatus=='user' }">
-	${sessionScope.loginName }님 안녕하세요
+	<b style="color: #416442">${sessionScope.loginName }</b>님 안녕하세요
 	<span class="glyphicon glyphicon-envelope" style="padding:0 10px; cursor: pointer;"
 	onclick="location.href='/mymessage'"></span> <br>
-	<a href="/logout" style="padding-left: 100px;">로그아웃</a>
+	<a href="/logout" style="padding-left: 100px; color: #E74646;">로그아웃</a>
 	</c:if>
 	
 	<!-- 로그인 상태 / 기업 -->
 	<c:if test="${sessionScope.loginStatus=='enterprise' }">
-	${sessionScope.loginName }님 안녕하세요 <br>
+	<b style="color: #416442">${sessionScope.loginName }</b>님 안녕하세요 <br>
 	[기업회원]
-	<a href="/logout">로그아웃</a>
+	<a href="/logout" style="color: #E74646;">로그아웃</a>
 	</c:if>
 </div>
 </body>
