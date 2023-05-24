@@ -96,10 +96,10 @@ img{
 <hr>
 	<div id="title-left">
 	<c:if test="${user.u_photo!=null }">
-	<img src="../경로/${user.u_photo }">
+	<img src="../photo/${user.u_photo }">
 	</c:if>
 	<c:if test="${user.u_photo==null }">
-	<img src="../경로/${user.u_photo }">
+	<img src="/image/nophoto.png">
 	</c:if>
 	</div>
 		<div id="title-right">
