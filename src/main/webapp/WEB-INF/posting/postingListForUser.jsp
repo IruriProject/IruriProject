@@ -10,6 +10,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link href="${root }/css/usercss/style.css" rel="stylesheet">
 </head>
 <style>
 .atag {
@@ -31,6 +32,30 @@
 	color: #416442;
 	font-size: 0.8em;
 }
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: #4E9F3D;
+  color: white;
+  text-decoration: none;
+}
+
+.pagination a:hover:not(.active) {
+	text-decoration: none;
+	color:#416442;
+	background-color:#e3f2c9;
+}
 </style>
 <body>
 <form class="form-inline" action="/posting/postinglistforuser" method="get" style="width: 100%; margin: 0 auto">
@@ -41,14 +66,14 @@
 		</select>
 		<input type="text"
 			placeholder="검색어 입력" class="form-control" name="searchword">
-		<button type="submit" class="btn btn-info">검색</button>
-		<button type="button" class="btn btn-info" onclick="location.href='/posting/postinglistforuser?e_num=${e_num}'">초기화</button>
+		<button type="submit" style="width: 70px;" class="sm-border-btn">검색</button>
+		<button type="button" style="width: 80px;" class="sm-border-btn" onclick="location.href='/posting/postinglistforuser?e_num=${e_num}'">초기화</button>
 	</form>
 	<br>
 	<table class="table" style="width: 100%; margin: 0 auto;">
 		<tr>
 			<th style="text-align: center">No.</th>
-			<th style="text-align: center; width: 40%">공고제목</th>
+			<th style="text-align: center; width: 50%">공고제목</th>
 			<th style="text-align: center">직종</th>
 			<th style="text-align: center">공고일</th>
 			<th style="text-align: center">공고마감일</th>
@@ -110,59 +135,50 @@
 	
 	
 	<c:if test="${searchCount>0 }">
-	<!-- 페이징 -->
-	<div style="width: 800px; text-align: center;" class="container">
-		<ul class="pagination">
-			<!-- 이전 -->
-			<c:if test="${startPage>1}">
-			<li>
-				<c:if test="${keyword!=null }">
-					<a href="postinglistforuser?e_num=${e_num}&currentPage=${startPage-1 }&searchcolumn=${column}&searchword=${keyword}">이전</a>
+		<!-- 페이징 -->
+		<div class="pagination" style=" display: flex; justify-content: center; width:100%; text-align: center;">
+	
+				<!-- 이전 -->
+				<c:if test="${startPage>1}">
+					<c:if test="${keyword!=null }">
+						<a href="postinglistforuser?currentPage=${startPage-1 }&searchcolumn=${column}&searchword=${keyword}">&laquo;</a>
+					</c:if>
+					<c:if test="${keyword==null }">
+						<a href="postinglistforuser?currentPage=${startPage-1 }">&laquo;</a>
+					</c:if>
 				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="postinglistforuser?e_num=${e_num}&currentPage=${startPage-1 }">이전</a>
+				
+				<c:forEach var="pp" begin="${startPage}" end="${endPage}">
+				  <c:if test="${pp==currentPage }">
+					 <c:if test="${keyword!=null }">
+				    	<a class="active" href="postinglistforuser?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
+					</c:if>
+					<c:if test="${keyword==null }">
+						<a class="active" href="postinglistforuser?currentPage=${pp}">${pp}</a>
+					</c:if> 
+				  </c:if>
+				  
+				  <c:if test="${pp!=currentPage }">
+				    <c:if test="${keyword!=null }">
+				   		<a href="postinglistforuser?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
+					</c:if>
+					<c:if test="${keyword==null }">
+						<a href="postinglistforuser?currentPage=${pp}">${pp}</a>
+					</c:if>
+				  </c:if>
+				</c:forEach>
+	
+				<!-- 다음 -->
+				<c:if test="${endPage<totalPage }">
+					<c:if test="${keyword!=null }">
+						<a href="postinglistforuser?currentPage=${endPage+1}&searchcolumn=${column}&searchword=${keyword}">&raquo;</a>
+					</c:if>
+					<c:if test="${keyword==null }">
+						<a href="postinglistforuser?currentPage=${endPage+1}">&raquo;</a>
+					</c:if>
 				</c:if>
-			</li>
-			</c:if>
+			</div>
 			
-			<c:forEach var="pp" begin="${startPage}" end="${endPage}">
-			  <c:if test="${pp==currentPage }">
-				<li class="active">
-				 <c:if test="${keyword!=null }">
-			    <a href="postinglistforuser?e_num=${e_num}&currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
-				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="postinglistforuser?e_num=${e_num}&currentPage=${pp}">${pp}</a>
-				</c:if>
-				</li>  
-			  </c:if>
-			  <c:if test="${pp!=currentPage }">
-			    <li>
-			    <c:if test="${keyword!=null }">
-			    <a href="postinglistforuser?e_num=${e_num}&currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
-				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="postinglistforuser?e_num=${e_num}&currentPage=${pp}">${pp}</a>
-				</c:if>
-				 
-				</li>
-			  </c:if>
-			</c:forEach>
-
-			<!-- 다음 -->
-			<c:if test="${endPage<totalPage }">
-				<li>
-				<c:if test="${keyword!=null }">
-					<a href="postinglistforuser?e_num=${e_num}&currentPage=${endPage+1}&searchcolumn=${column}&searchword=${keyword}">다음</a>
-				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="postinglistforuser?e_num=${e_num}&currentPage=${endPage+1}">다음</a>
-				</c:if>
-				</li>
-			</c:if>
-		</ul>
-		</div>
-		
 		</c:if>
 
 </body>

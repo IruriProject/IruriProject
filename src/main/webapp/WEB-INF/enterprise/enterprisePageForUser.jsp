@@ -213,35 +213,53 @@ $(function(){
 <body>
 	<div>
 
-		<!-- Content Start -->
 		<div class="container-fluid pt-4 px-4">
-			<div class="row g-4 hi">
-				<div class="col-sm-12 col-md-6 col-xl-7 w-25">
-					<div style="width: 150px; height: 100%">
-						<img src="/photo/${dto.e_logo }" width="100%">
+			<div class="row g-4" style="border: 1px solid #f0f9de; background-color:#f9ffef; border-radius: 10px; padding:20px 0px 20px 25px;">
+			
+				<div class="h-100 rounded p-4 withbtn" style="background-color: #f9ffef">
+					<div>
+						<span style="font-size: 2em; font-weight: 600; color: #416442; background-color:#f9ffef;">&nbsp;&nbsp;${dto.e_name }&nbsp;&nbsp;</span>
+						<c:if test="${dto.e_auth==0 }">
+							<span style="color: #E74646; font-weight: 600; font-size: 1em;">기업미인증</span>
+						</c:if>
+						<c:if test="${dto.e_auth==1 }">
+							<span style="color: #3E54AC; font-weight: 600; font-size: 1em;">기업인증완료</span>
+						</c:if>
 					</div>
 
 				</div>
-				<div class="col-sm-12 col-md-6 col-xl-7 w-75">
-					<div class="h-100 bg-light rounded p-4">
-						기업명 : ${dto.e_name }&nbsp;&nbsp;&nbsp;
-						<c:if test="${dto.e_auth==0 }">
-							<span style="color: red; font-weight: 600; font-size: 0.8em;">기업미인증</span>
-						</c:if>
-						<c:if test="${dto.e_auth==1 }">
-							<span style="color: green; font-weight: 600; font-size: 0.8em;">기업인증완료</span>
-						</c:if>
-						
-						<br>
+			
+				<br>
+			
+				<div class="col-sm-12 col-md-3 col-xl-4 w-25" style="text-align: center">
+
+					<c:if test="${dto.e_logo==null }">
+						<img src="/image/nophoto.png"
+						style="width: 170px; height: 170px; border-radius: 500px;">
+					</c:if>
+					<c:if test="${dto.e_logo!=null }">
+							<img alt="" src="/photo/${dto.e_logo}"
+							style="width: 170px; height: 170px; border-radius: 500px;">
+					</c:if><br>
+				</div>
+	
+				<div class="col-sm-12 col-md-6 col-xl-7 w-75" style="padding-left: 70px;">
+					<div class="rounded p-4" style="background-color:#f9ffef;">
+						<span style="font-size: 1.2em; font-weight: 600; color: #416442;">Tel.</span><span style="font-size: 1.2em;">&nbsp;&nbsp;${dto.e_tel }</span>
 					</div>
-					<br>
-					<div class="h-100 bg-light rounded p-4">
-						전화번호 : ${dto.e_tel } <br>
+					<div class="rounded p-4" style="background-color:#f9ffef;">
+						<span style="font-size: 1.2em; font-weight: 600; color: #416442;">Addr.</span><span style="font-size: 1.2em;">&nbsp;&nbsp;${dto.e_addr }</span>
 					</div>
-					<br>
-					<div class="h-100 bg-light rounded p-4">위치 : ${dto.e_addr }</div>
-					<br>
-					<div class="h-100 bg-light rounded p-4">관심기업으로 선정한 인재 : <span id="heartList">${heartCount } 명</span></div>
+					<div class="rounded p-4" style="background-color:#f9ffef;">
+						<span style="font-size: 1.2em; font-weight: 600; color: #416442;">E-mail.</span><span style="font-size: 1.2em;">&nbsp;&nbsp;${dto.e_email }</span>
+					</div>
+					<div class="rounded p-4" style="background-color:#f9ffef;">
+						<span style="font-size: 1.2em; font-weight: 600; color: #416442;">열람권 유무 :</span><span style="font-size: 1.2em;">&nbsp;&nbsp;${dto.e_res_access==1?"O":"X" }</span>&nbsp;&nbsp;
+					</div>
+					<div class="rounded p-4" style="background-color:#f9ffef;">
+						<span style="font-size: 1.2em; font-weight: 600; color: #416442;">관심기업으로 선정한 인재 : <span id="heartList" title="인재목록보기" color: #4E9F3D;">&nbsp;${heartCount } 명</span></span>
+					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -259,7 +277,7 @@ $(function(){
 						class="table text-start align-middle table-bordered table-hover mb-0">
 						<thead>
 							<tr class="text-dark">
-								<th scope="col" style="text-align: center" width="40%">공고제목</th>
+								<th scope="col" style="text-align: center" width="50%">공고제목</th>
 								<th scope="col" style="text-align: center">직종</th>
 								<th scope="col" style="text-align: center">공고일</th>
 								<th scope="col" style="text-align: center">공고마감일</th>
