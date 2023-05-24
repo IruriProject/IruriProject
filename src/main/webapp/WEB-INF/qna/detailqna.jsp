@@ -326,7 +326,7 @@ function list() {
 		                s += "<button type='button' style='text-align:center;' id='qnacommentdeletebtn'>삭제</button>";
 		                s += "</div></div>";
 		                }
-						s +="<br><span class='content'><p style='padding:0 24px;'>"+ dto.qc_content + "</p></span><br><hr>";     
+						s +="<br><span class='content'><p style='padding:0 24px 0 12px;'>"+ dto.qc_content + "</p></span><br><hr>";     
 						});
  
 					$("div.alist").html(s);

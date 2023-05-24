@@ -429,7 +429,7 @@ function list() {
                 	
                     s += "<pre style='border:none; background-color:#fff; margin-bottom:-10px;'><p style='padding:0 16px;'>"+indent+indent+ dto.bc_content + "</p></pre>";
                 } else {
-                    s += "<pre style='border:none; background-color:#fff; margin-bottom:-10px;'><p>"+indent+indent+ dto.bc_content + "</p></pre>";
+                    s += "<pre style='border:none; background-color:#fff; padding:10px 4px; margin-bottom:-18px;'><p>"+indent+indent+ dto.bc_content + "</p></pre>";
                 }
               
                 
