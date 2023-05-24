@@ -122,23 +122,21 @@ div td{
                     </c:if>
                     
                      <c:forEach var="dto" items="${list }" varStatus="i">
-                     <script>
-					    var dateString = "${dto.b_writeday}";
-					    var formattedDate = dateString.substring(0, 10); // 날짜 부분만 추출
-					   $(".formattedDate").text(formattedDate);
-					</script>
+                     
                     <c:if test="${totalCount>0 }"> 
                   
                      <tr>
                         <td style="width: 150px;">${i.count}</td>
                         <td style="width: 600px">
                         <a href="board/detailboard?b_num=${dto.b_num }" style="float:left; text-align:left;  color: #416442; font-weight: 600">${dto.b_title}</a></td>
-                        <td style="text-align: center; width: 150px;"><span class="formattedDate"></span>
-                        <%-- <fmt:formatDate value="${dto.b_writeday }" pattern="yyyy-MM-dd"/>  --%>
-                    <%--    moment(${dto.b_writeday}).format('YYYY-MM-DD') --%>
-                   <%--      ${dto.b_writeday } --%>
-                    <%--   <fmt:formatDate value="${dto.b_writeday }" pattern="yyyy-MM-dd"/>  --%>
-                        </td>
+                        <td style="text-align: center; width: 150px;">
+					        <span class="formattedDate-${i.index}"></span>
+					    </td>
+					      <script>
+					        dateString = "${dto.b_writeday}";
+					        formattedDate = dateString.substring(0, 10); // 날짜 부분만 추출
+					        $(".formattedDate-${i.index}").text(formattedDate);
+					      </script>
                      </tr>
                    </c:if> 
               
