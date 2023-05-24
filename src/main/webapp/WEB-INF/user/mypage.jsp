@@ -88,9 +88,6 @@ div td{
 font-size: 1.2em;
 font-weight: 600;
 }
-.myresume div, .myresume2 div{
-cursor: pointer;
-}
 div{
 border:0px solid gray;
 
@@ -207,7 +204,7 @@ border:0px solid gray;
                </script>
                <div class="myresume" style="border: 0px solid gray; width:650px; display: flex;">
                
-                    <div style="width:140px; height:140px; text-align: center; background-color:white;
+                    <div style="cursor:pointer; width:140px; height:140px; text-align: center; background-color:white;
                           border:0px solid green; border-radius:200%; padding:20px;" onclick="location.href='insertresume'">
                      <span class="spanbutton" >
                      <img alt="" src="/image/resume.png" style="width:40px; height:40px;">
@@ -215,7 +212,7 @@ border:0px solid gray;
                      </span>
                   </div>
                   
-                  <div style="width:140px; height:140px; text-align: center; background-color:white;
+                  <div style="cursor:pointer; width:140px; height:140px; text-align: center; background-color:white;
                         border:0px solid green; border-radius:200%; padding:20px; margin-left:40px;" onclick="location.href='resumelist'">
                      <span class="spanbutton"  >
                      <img alt="" src="/image/list.png" style="width:40px; height:40px; margin-bottom:5px;">
@@ -223,7 +220,7 @@ border:0px solid gray;
                      </span>
                   </div>
                   
-                  <div style="width:140px; height:140px; text-align: center; background-color:white;
+                  <div style="cursor:pointer; width:140px; height:140px; text-align: center; background-color:white;
                         border:0px solid green; border-radius:200%; padding:20px; margin-left:40px;" onclick="location.href='applicationstate'">
                      <span class="spanbutton">
                      <img alt="" src="/image/mail.png" style="width:50px; height:50px; margin-bottom:5px;">
@@ -233,14 +230,14 @@ border:0px solid gray;
                </div>
             </div>
                <div class="myresume2" style="border: 0px solid gray; text-align: center; float:right; margin-right:40px;"><br>
-                  <div style="width: 110px;  background-color: white; border-radius:10px; padding:5px 20px 10px;"
+                  <div style="cursor:pointer; width: 110px;  background-color: white; border-radius:10px; padding:5px 20px 10px;"
                    onclick="location.href='enterLike'">                  
                   <span class="spanbutton"><h4>관심기업</h4> 
                   <img alt="" src="/image/heart.png" style="width:16px; height:16px; margin-bottom: 5px;">
                   ${countLikeEnter }
                   </span>
                   </div><br>
-                  <div style="width: 110px;  background-color: white; border-radius:10px; padding:5px 20px 10px;"
+                  <div style="cursor:pointer; width: 110px;  background-color: white; border-radius:10px; padding:5px 20px 10px;"
                    onclick="location.href='scrap'">
                     <span class="spanbutton"><h4>관심공고</h4>
                     <img alt="" src="/image/star.png" style="width:18px; height:18px; margin-bottom: 5px;">
