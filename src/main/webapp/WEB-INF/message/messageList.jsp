@@ -99,7 +99,7 @@ $(function(){
 			<c:set value="${no-1 }" var="no"/>
 			<td>
 				<c:if test="${dto.r_num!=null }">
-					<a style="color: #416442; font-weight: 600" href="/resume/detail?r_num=${dto.r_num }" title="해당 인재 대표이력서 확인">${dto.u_name }</a>
+					<a style="color: #416442; font-weight: 600" href="/resume/detail?r_num=${dto.r_num }" onclick="window.open(this.href, '_blank', 'menubar=no, toolbar=no, width=500, height=300'); return false;" title="해당 인재 대표이력서 확인">${dto.u_name }</a>
 				</c:if>
 				
 				<c:if test="${dto.r_num==null }">

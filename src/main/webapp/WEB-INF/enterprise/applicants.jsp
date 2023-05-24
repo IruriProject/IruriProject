@@ -33,7 +33,7 @@
 				<td>${i.count }</td>
 				<td>${adto.u_name}</td>
 				<td><a style="color: #416442; href="/posting/detailpage?p_num=${adto.p_num }">${adto.p_title}</a></td>
-				<td><a style="color: #416442; font-weight: 600" href="/resume/detail?r_num=${adto.r_num }" onclick="window.open(this.href, '_blank', 'menubar=no, toolbar=no'); return false;">${adto.r_title }</a></td>
+				<td><a style="color: #416442; font-weight: 600" href="/resume/detail?r_num=${adto.r_num }" onclick="window.open(this.href, '_blank', 'menubar=no, toolbar=no, width=500, height=300'); return false;">${adto.r_title }</a></td>
 				<td><fmt:formatDate value="${adto.a_writeday }" pattern="yyyy.MM.dd"/></td>
 				<td><button type="button" class="sm-color-btn setMainOff"
 						onclick="location.href='../posting/writemessage?u_id=${dto.u_id}'">쪽지보내기</button></td>
