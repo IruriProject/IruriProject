@@ -142,6 +142,8 @@ div td{
               
                      </c:forEach>
                </table>
+             
+			
             </div>
          </div>
       </div>
@@ -168,7 +170,10 @@ div td{
 							<a href="/myboardlist?b_num=${b_num }&currentPage=${endPage + 1 }">&raquo;</a>
 						</c:if>
 
-					</div>			
+					</div>		
+			
+				<button type="button" class="btn btn-default" onclick="location.href='mypage'" style="margin: 0 auto; border:1px solid #416442; color:#416442;">목록</button>
+		
 
 </body>
 </html>
