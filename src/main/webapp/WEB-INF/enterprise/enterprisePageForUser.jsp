@@ -218,7 +218,7 @@ $(function(){
 			<div class="row g-4 hi">
 				<div class="col-sm-12 col-md-6 col-xl-7 w-25">
 					<div style="width: 150px; height: 100%">
-						<img src="${dto.e_logo }" width="100%">
+						<img src="/photo/${dto.e_logo }" width="100%">
 					</div>
 
 				</div>
