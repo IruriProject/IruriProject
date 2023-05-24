@@ -474,7 +474,7 @@ function list() {
 				<c:if test="${sessionScope.loginStatus!=null and sessionScope.loginId=='admin'}">
 				<button type="button" class="btn btn-default"
 					onclick="location.href='adminqnalist?currentPage=${currentPage}'"
-					style="margin: 0 auto; width: 30%;">목록</button>
+					style="margin: 0 auto;  border:1px solid #416442; color:#416442;">목록</button>
 				</c:if>
 				
 				
@@ -516,7 +516,7 @@ function list() {
 		        <div class="modal-footer">
 		         <button type="button" class="btn btn-info" 
 					data-dismiss="modal" id="btnupdateqnainfo" style="background-color: #4E9F3D; margin-left: 100px;">수정하기</button>
-		          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		          <button type="button" class="btn btn-default" data-dismiss="modal" style=" border:1px solid #416442; color:#416442;">닫기</button>
 		        </div>
 		      </div>
 		      
