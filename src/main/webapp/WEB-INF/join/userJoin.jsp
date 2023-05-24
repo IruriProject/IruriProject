@@ -66,7 +66,7 @@
   }
   .formbold-form-input {
     width: 100%;
-    padding: 13px 22px;
+    padding: 10px 15px;
     border-radius: 5px;
     border: 1px solid #dde3ec;
     background: #ffffff;
@@ -255,7 +255,7 @@
           id="pw1"
           name="u_pw" 
           minlength="6" maxlength="12" required
-          placeholder="영문, 숫자가 포함된 6-12자의 비밀번호를 입력해주세요(특수문자 가능)"
+          placeholder="영문, 숫자 포함 6-12자를 입력해주세요 (특수문자 가능)"
           onkeyup="checkPw();" onkeydown="checkPw();"
           class="formbold-form-input"
         />

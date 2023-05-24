@@ -334,8 +334,26 @@ public class EnterpriseController {
 	}
 
 	@GetMapping("/update")
-	public String updateForm() {
-		return "/enterprise/updateForm";
+	public ModelAndView updateForm(HttpSession session) {
+		
+		ModelAndView model=new ModelAndView();
+		
+		String e_id=(String)session.getAttribute("loginId");
+		EnterpriseDto dto=service.findEnterdataById(e_id);
+		
+		model.addObject("dto", dto);
+		
+		model.setViewName("/enterprise/updateForm");
+		return model;
+	}
+	
+	@PostMapping("/updateinfo")
+	public String updateInfo(HttpSession session) {
+		
+		String e_id=(String)session.getAttribute("loginId");
+		
+		service.updateEnterInfo(e_id);
+		return "redirect:/";
 	}
 
 	@GetMapping("/applyaccess")

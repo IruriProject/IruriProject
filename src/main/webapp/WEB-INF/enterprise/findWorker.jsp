@@ -11,6 +11,10 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style type="text/css">
 
+	td{
+		text-align: center;
+	}
+	
 	.pagination {
 	  display: inline-block;
 	}
@@ -108,7 +112,7 @@
 	<br><br><br><br><hr>
 	
 	<script type="text/javascript">
-	$("li").click(function(){
+	$("li[role='button']").click(function(){
 		$("#r_ltask").val($(this).attr("value"));
 
 		$(this).css("background-color","#cce891");
@@ -138,7 +142,7 @@
 	</c:if>
 	
 	<c:if test="${not empty list }">
-	<table class="table table-borderless">
+	<table class="table table-borderless" style="width: 800px;">
 	
 	<tr align="center">
 	  <td width="80">이름</td>
@@ -176,29 +180,29 @@
 		<div class="pagination">
 			<!-- 이전 -->
 			<c:if test="${startPage>1}">
-				<c:if test="${keyword!=null }">
-					<a href="search?currentPage=${startPage-1 }&searchcolumn=${column}&searchword=${keyword}">이전</a>
+				<c:if test="${r_larea!=null || r_ltask!=null || r_ltype!=null}">
+					<a href="/enterprise/findworker?currentPage=${startPage-1 }&searchcolumn=${column}&searchword=${keyword}">이전</a>
 				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="search?currentPage=${startPage-1 }">이전</a>
+				<c:if test="${!(r_larea!=null || r_ltask!=null || r_ltype!=null) }">
+					<a href="/enterprise/findworker?currentPage=${startPage-1 }">이전</a>
 				</c:if>
 			</c:if>
 			
 			<c:forEach var="pp" begin="${startPage}" end="${endPage}">
 			  <c:if test="${pp==currentPage }">
-				 <c:if test="${keyword!=null }">
-			    <a href="search?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
+				 <c:if test="${r_larea!=null || r_ltask!=null || r_ltype!=null }">
+			    <a class="active" href="/enterprise/findworker?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
 				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="search?currentPage=${pp}">${pp}</a>
+				<c:if test="${!(r_larea!=null || r_ltask!=null || r_ltype!=null) }">
+					<a class="active" href="/enterprise/findworker?currentPage=${pp}">${pp}</a>
 				</c:if>
 			  </c:if>
 			  <c:if test="${pp!=currentPage }">
-			    <c:if test="${keyword!=null }">
-			    <a href="search?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
+			    <c:if test="${r_larea!=null || r_ltask!=null || r_ltype!=null}">
+			    <a href="/enterprise/findworker?currentPage=${pp}&searchcolumn=${column}&searchword=${keyword}">${pp}</a>
 				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="search?currentPage=${pp}">${pp}</a>
+				<c:if test="${!(r_larea!=null || r_ltask!=null || r_ltype!=null)}">
+					<a href="/enterprise/findworker?currentPage=${pp}">${pp}</a>
 				</c:if>
 				 
 			  </c:if>
@@ -206,11 +210,11 @@
 
 			<!-- 다음 -->
 			<c:if test="${endPage<totalPage }">
-				<c:if test="${keyword!=null }">
-					<a href="search?currentPage=${endPage+1}&searchcolumn=${column}&searchword=${keyword}">다음</a>
+				<c:if test="${r_larea!=null || r_ltask!=null || r_ltype!=null}">
+					<a href="/enterprise/findworker?currentPage=${endPage+1}&searchcolumn=${column}&searchword=${keyword}">다음</a>
 				</c:if>
-				<c:if test="${keyword==null }">
-					<a href="search?currentPage=${endPage+1}">다음</a>
+				<c:if test="${!(r_larea!=null || r_ltask!=null || r_ltype!=null)}">
+					<a href="/enterprise/findworker?currentPage=${endPage+1}">다음</a>
 				</c:if>
 			</c:if>
 		</div>

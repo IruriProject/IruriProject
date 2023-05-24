@@ -164,4 +164,8 @@ public class EnterpriseService {
 		
 		mapper.updateRegistnum(map);
 	}
+	
+	public void updateEnterInfo(String e_id) {
+		mapper.updateEnterInfo(e_id);
+	}
 }

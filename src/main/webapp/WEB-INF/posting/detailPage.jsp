@@ -316,7 +316,7 @@ font-size: 1.1em;
                         <input type="hidden" id="p_num" value="${dto.p_num }">
                      <div>
                         <c:if
-                           test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user' }">
+                           test="${sessionScope.loginStatus!=null&&sessionScope.loginStatus=='user'&&sessionScope.loginId!='admin' }">
 						   
 						   <!-- 지원하기 -->
 						   <c:if test="${rsize==0 }">
