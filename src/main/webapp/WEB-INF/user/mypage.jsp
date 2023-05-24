@@ -301,6 +301,56 @@ border:0px solid gray;
       </div>
       <!-- Widgets End -->
 
+  <!-- 내가 쓴 게시글  -->
+	  <!-- Recent Sales Start -->
+      <div class="container-fluid pt-4 px-4">
+         <div class="bg-light text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+            </div>
+            <div class="table-responsive">
+               <table
+                  class="table"
+                  style="table-layout: fixed">
+                  <thead>
+                  <caption style=" margin-bottom : 10px;">
+                     <h4 class="mb-5" style="color: black; display: inline;"><b>내가 쓴 게시글</b></h4>
+                     <a href="/myboardlist" style="float: right;">더보기</a>
+                  </caption>
+                        <tr class="text-dark tb" >
+                           <th scope="col" style="text-align: center; width: 160px;">번호</th>
+                           <th scope="col" style="text-align: center; width: 600px;">제목</th>
+                           <th scope="col" style="text-align: center; width: 150px;">작성일</th>
+                     </tr>
+                  </thead>
+                    <c:if test="${getMypageBoard.size()==0 }">
+                     <tr align="center">
+                        <td colspan="3" style="color: #416442; font-weight: 600">등록된 게시글이 없습니다. <br>
+                        게시글을 등록해보세요!</td>
+                     </tr>
+                    
+                    </c:if>
+                     <c:forEach var="dto" items="${getMypageBoard }" varStatus="i">
+                      <c:if test="${getMypageBoard.size()>0 }">
+                  
+                     <tr>
+                        <td style="text-align: center; width: 160px;">${i.count}</td>
+                        <td style=" width: 600px">
+                        <a href="#" style="float:left; text-align:left; color: #416442; font-weight: 600">${dto.b_title}</a></td>
+                        <td style="text-align: center; width: 150px;">
+                        <fmt:formatDate value="${dto.b_writeday }" pattern="yyyy-MM-dd"/>
+                        </td>
+                     </tr>
+                     </c:if>
+              
+                     </c:forEach>
+               </table>
+            </div>
+         </div>
+      </div>
+      <!-- Recent Sales End -->
+	
+
+
       <!-- 이력서 목록 -->
       <!-- Recent Sales Start -->
       <div class="container-fluid pt-4 px-4">
