@@ -1456,7 +1456,7 @@ color:#416442;
             <div class="formbold-mb-3">
                   <label for="r_content" class="formbold-form-label"> 자기소개서</label>
                <ul class="introduceTab__list">
-                  <li><button style="margin-left:-40px;  type="button" id="direct" class="sm-color-btn first on">직접입력</button></li>
+                  <li><button style="margin-left:-40px;"  type="button" id="direct" class="sm-color-btn first on">직접입력</button></li>
                   <li><button type="button" id="auto" class="sm-border-btn">1분 자동완성</button></li>
                </ul>
 		       <br><br>
