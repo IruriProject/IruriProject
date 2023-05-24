@@ -622,9 +622,9 @@ $(".gu").click(function(){
 	   			s+="<span id='enterprise-name'><span class='sub'>"+ele.p_type+"</span>"+ele.e_name+"</span></td>";
 	   			//급여
 	   			if (ele.p_employtype === '정규직') {
-	   			  s += "<td width='120'><span class='sub'>월급</span>" + ele.p_pay + "</td>";
+	   			  s += "<td width='150'><span class='sub'>연봉</span>" + ele.p_pay + "</td>";
 	   			} else if (ele.p_employtype === '계약직') {
-	   			  s += "<td width='120'><span class='sub'>시급</span>" + ele.p_pay + "</td>";
+	   			  s += "<td width='150'><span class='sub'>월급</span>" + ele.p_pay + "</td>";
 	   			} 
 	   			//업무시간
 	   			s+="<td width='160'>"+moment('2000-01-01 '+ele.p_starttime).format('HH:mm')+"-"+moment('2000-01-01 '+ele.p_endtime).format('HH:mm')+"</td>";
@@ -685,10 +685,10 @@ $(".gu").click(function(){
 		</td>
 		<td width="200">
 		<c:if test="${dto.p_employtype=='정규직' }">
-		<span class="sub">월급</span>
+		<span class="sub">연봉</span>
 		</c:if>
 		<c:if test="${dto.p_employtype=='계약직' }">
-		<span class="sub">시급</span>
+		<span class="sub">월급</span>
 		</c:if>
 		<fmt:formatNumber value="${dto.p_pay }" type="number"/>
 		</td>
