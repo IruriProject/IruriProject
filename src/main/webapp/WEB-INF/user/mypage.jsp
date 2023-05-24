@@ -330,7 +330,7 @@ border:0px solid gray;
                     
                     </c:if>
                      <c:forEach var="dto" items="${getMypageBoard }" varStatus="i">
-                      <c:if test="${getMypageBoard.size()>0 }">
+                      <c:if test="${i.count<=3 }">
                   
                      <tr>
                         <td style="text-align: center; width: 160px;">${i.count}</td>
@@ -474,7 +474,7 @@ border:0px solid gray;
                <table class="table" id="basic-list">
                   <thead>
                   <caption style=" margin-bottom : 10px;">
-                     <h4 class="mb-5" style="color: black; display: inline;"><b>관심 공고</b></h4>
+                     <h4 class="mb-5" style="color: black; display: inline;"><b>스크랩</b></h4>
                      <a href="/scrap" style="float: right;">더보기</a>                  
                   </caption>
                      <tr class="text-dark tb" >
