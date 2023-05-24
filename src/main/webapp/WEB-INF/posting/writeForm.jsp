@@ -289,7 +289,7 @@ $(function(){
 					<label for="p_pay" class="formbold-form-label"> 급여 </label>
 					<input
 						type="number" name="p_pay" id="p_pay" step="50"
-						placeholder="연봉을 입력해주세요 (ex: 28000000)" class="formbold-form-input" required="required" />
+						placeholder="급여를 입력해주세요 (ex: 28000000)" class="formbold-form-input" required="required" />
 				</div>
 				
 				<div class="formbold-mb-3">
