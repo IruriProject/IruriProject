@@ -99,11 +99,11 @@ $(function(){
 			<c:set value="${no-1 }" var="no"/>
 			<td>
 				<c:if test="${dto.r_num!=null }">
-					<a href="/resume/detail?r_num=${dto.r_num }" title="해당 인재 대표이력서 확인">${dto.u_name }</a>
+					<a style="color: #416442; font-weight: 600" href="/resume/detail?r_num=${dto.r_num }" title="해당 인재 대표이력서 확인">${dto.u_name }</a>
 				</c:if>
 				
 				<c:if test="${dto.r_num==null }">
-					<a href="#" title="해당 인재 대표이력서 없음" onclick="alert('해당 인재는 대표이력서가 없습니다.')">${dto.u_name }</a>
+					<a style="color: #416442; font-weight: 600" href="#" title="해당 인재 대표이력서 없음" onclick="alert('해당 인재는 대표이력서가 없습니다.')">${dto.u_name }</a>
 				</c:if>
 			</td>
 			<td><span class="longsentence mcontent" flag="0" style="cursor: pointer;" title="자세히보기">${dto.m_content }</span></td>
