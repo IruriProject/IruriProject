@@ -111,9 +111,11 @@ div td{
 									<td style="text-align: center; width: 100px;">${adto.p_enddate}</td>
 									<td style="text-align: center; width: 100px;">${adto.p_pay}</td>
 									<td style="text-align: center; width: 80px;">${adto.p_employtype}</td>
-									<td style="text-align: center; width: 70px;"><c:if test="${adto.p_workday=='월/화/수/목/금'}">평일</c:if> 
-									<c:if test="${adto.p_workday=='토/일'}">주말</c:if> 
-									<c:if test="${adto.p_workday!='토/일' && adto.p_workday!='월/화/수/목/금'}">${adto.p_workday }</c:if>
+									<td style="text-align: center; width: 70px;">
+									<c:if test="${adto.p_workday=='월/화/수/목/금'}">평일</c:if> 
+									<c:if test="${adto.p_workday=='토/일'}">주말</c:if>
+									<c:if test="${adto.p_workday=='월/화/수/목/금/토/일'}">전일</c:if> 
+									<c:if test="${adto.p_workday!='토/일' && adto.p_workday!='월/화/수/목/금' && adto.p_workday!='월/화/수/목/금/토/일' }">${adto.p_workday }</c:if>
 									</td>
 								</tr>
 							</c:forEach>
