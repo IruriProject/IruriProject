@@ -92,6 +92,7 @@ div td{
 
 </head>
 <body>
+
 	  <!-- 내가 쓴 게시글  -->
 	  <!-- Recent Sales Start -->
       <div class="container-fluid pt-4 px-4">
@@ -105,7 +106,12 @@ div td{
                   <thead>
       				<caption style=" margin-bottom : 10px;">
 								<h4 class="mb-5" style="color: black; display: inline;"><b>총 <b style="color: #4E9F3D; font-weight: 600">${totalCount}개</b>의 내가 쓴 게시글</b></h4>
+								<div style="text-align:right; float:right;">
+				<button type="button" class="btn btn-default" onclick="location.href='mypage'" style="margin: 0 auto; border:1px solid #416442; color:#416442;">목록</button>
+		</div>
 					 </caption>
+					 
+					 
                         <tr class="text-dark tb" >
                            <th scope="col" style="text-align: center; width: 150px;">번호</th>
                            <th scope="col" style=" text-align: center;  width: 600px;">제목</th>
@@ -171,9 +177,7 @@ div td{
 						</c:if>
 
 					</div>		
-			
-				<button type="button" class="btn btn-default" onclick="location.href='mypage'" style="margin: 0 auto; border:1px solid #416442; color:#416442;">목록</button>
-		
+
 
 </body>
 </html>
