@@ -206,11 +206,6 @@ public class UFnController {
 					// 메서드 불러오기
 					List<Map<String, Object>> list =bservice.getMypagedetailBoard(dto.getU_id(), start, perpage);
 					
-					//System.out.println(list);
-					
-					//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // 포맷팅할 형식을 정의합니다.
-					//String formattedDate = formatter.format(bdto.getB_writeday()); // 타임스탬프를 지정한 형식으로 포맷팅합니다.
-					
 					// 게시글 앞에 붙을 번호
 					int no = totalCount - (currentPage - 1) * perpage;
 					
