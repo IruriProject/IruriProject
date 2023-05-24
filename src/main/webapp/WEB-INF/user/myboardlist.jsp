@@ -29,6 +29,10 @@
 
 <!-- Template Stylesheet -->
 <link href="${root }/css/usercss/style.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 <style type="text/css">
 div {
 	border: 0px solid gray;
@@ -84,6 +88,8 @@ div td{
 }
 
 </style>
+
+
 </head>
 <body>
 	  <!-- 내가 쓴 게시글  -->
@@ -116,18 +122,28 @@ div td{
                     </c:if>
                     
                      <c:forEach var="dto" items="${list }" varStatus="i">
+                     
                     <c:if test="${totalCount>0 }"> 
                   
                      <tr>
                         <td style="width: 150px;">${i.count}</td>
                         <td style="width: 600px">
                         <a href="board/detailboard?b_num=${dto.b_num }" style="float:left; text-align:left;  color: #416442; font-weight: 600">${dto.b_title}</a></td>
-                        <td style="text-align: center; width: 150px;">${dto.b_writeday }</td>
+                        <td style="text-align: center; width: 150px;">
+					        <span class="formattedDate-${i.index}"></span>
+					    </td>
+					      <script>
+					        dateString = "${dto.b_writeday}";
+					        formattedDate = dateString.substring(0, 10); // 날짜 부분만 추출
+					        $(".formattedDate-${i.index}").text(formattedDate);
+					      </script>
                      </tr>
                    </c:if> 
               
                      </c:forEach>
                </table>
+             
+			
             </div>
          </div>
       </div>
@@ -154,7 +170,10 @@ div td{
 							<a href="/myboardlist?b_num=${b_num }&currentPage=${endPage + 1 }">&raquo;</a>
 						</c:if>
 
-					</div>			
+					</div>		
+			
+				<button type="button" class="btn btn-default" onclick="location.href='mypage'" style="margin: 0 auto; border:1px solid #416442; color:#416442;">목록</button>
+		
 
 </body>
 </html>
