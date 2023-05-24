@@ -174,7 +174,7 @@ public class UFnController {
 		  UserDto dto = service.findUserdataById(myId);
 		  //BoardDto bdto= bservice.getData(myId);
 			    String u_num=service.findUserdataById(myId).getU_num();
-				System.out.println(u_num);
+				//System.out.println(u_num);
 				
 				 if(myId!=null && loginStatus.equals("user")) {
 			
