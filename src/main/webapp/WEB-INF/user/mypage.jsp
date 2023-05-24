@@ -239,7 +239,7 @@ border:0px solid gray;
                   </div><br>
                   <div style="cursor:pointer; width: 110px;  background-color: white; border-radius:10px; padding:5px 20px 10px;"
                    onclick="location.href='scrap'">
-                    <span class="spanbutton"><h4>관심공고</h4>
+                    <span class="spanbutton"><h4>스크랩</h4>
                     <img alt="" src="/image/star.png" style="width:18px; height:18px; margin-bottom: 5px;">
                      ${countPosting }
                     </span>
