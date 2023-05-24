@@ -167,6 +167,10 @@ tr,td{
 	border-radius: 5px;"
 }
 
+p > b {
+font-size: 1.1em;
+}
+
 
 </style>
 <script type="text/javascript">
@@ -537,7 +541,10 @@ tr,td{
             	<c:if test="${dto.p_workday == '토/일' }">
             		주말
             	</c:if>
-            	<c:if test="${dto.p_workday != '월/화/수/목/금' && dto.p_workday != '토/일'}">
+            	<c:if test="${dto.p_workday == '월/화/수/목/금/토/일' }">
+            		전일
+            	</c:if>
+            	<c:if test="${dto.p_workday != '월/화/수/목/금' && dto.p_workday != '토/일' && dto.p_workday != '월/화/수/목/금/토/일'}">
             		${dto.p_workday }
             	</c:if>
             </div>
@@ -567,15 +574,16 @@ tr,td{
          </nav>
          <div id="section1" class="container-fluid scpy">
             <h2>모집조건</h2>
-            <p>직종: ${dto.p_type }</p>
-            <p>고용형태: ${dto.p_employtype }</p>
+            <br>
+            <p><b>직종</b>&emsp;&emsp;&emsp;${dto.p_type }</p>
+            <p><b>고용형태</b>&emsp; ${dto.p_employtype }</p>
             <p>
-               모집기간:
+               <b>모집기간</b>&emsp;
                <fmt:formatDate value="${dto.p_startdate }" pattern="yyyy-MM-dd" />
                ~
                <fmt:formatDate value="${dto.p_enddate }" pattern="yyyy-MM-dd" />
             </p>
-            <p>채용인원: ${dto.p_hirenum }명</p>
+            <p><b>채용인원</b>&emsp;&nbsp;${dto.p_hirenum }명</p>
          </div>
 
          <div id="section2" class="container-fluid scpy">
@@ -585,7 +593,7 @@ tr,td{
                   <button type="button" class="sm-color-btn" onclick="window.open('detaillarge?p_num=${dto.p_num}','detailLarge', 'width=800,height=500')">확대하기 +</button>
                </div>
             </div>
-
+			<br>
 			<p id="txt">${dto.p_content }</p>
 			
 			<script>
@@ -601,6 +609,7 @@ tr,td{
          <div id="section3" class="container-fluid scpy">
             <div class="withbtn">
                <div class="withbtnTitle">기업정보</div>
+               <br>
                <div class="likeEnter">
                   <input type="hidden" id="u_num" value="${u_num }"> <input
                      type="hidden" id="e_num" value="${dto.e_num }">
@@ -674,11 +683,11 @@ tr,td{
          
    </script>
 
-            <p>기업명: ${dto.e_name }</p>
-            <p>사업자등록번호: ${dto.e_registnum }</p>
-            <p>전화번호: ${dto.e_tel }</p>
-            <p>회사주소: ${dto.e_addr }</p>
-            <p>이메일: ${dto.e_email }</p>
+            <p><b>기업명</b>&emsp;&emsp;&emsp;&emsp;&emsp;${dto.e_name }&emsp;<button class="sm-border-btn" type="button" style="color: #4E9F3D; width: 100px; height: 20px; line-height:0px; font-size: 0.8em;" onclick="location.href='/enterprise/enterprisepage?e_num=${dto.e_num }'">기업정보 더보기</button></p>
+            <p><b>사업자등록번호</b>&nbsp;&ensp;${dto.e_registnum }</p>
+            <p><b>전화번호</b>&emsp;&emsp;&emsp;&emsp;${dto.e_tel }</p>
+            <p><b>회사주소</b>&emsp;&emsp;&emsp;&emsp;${dto.e_addr }</p>
+            <p><b>이메일</b>&emsp;&emsp;&emsp;&emsp;&emsp;${dto.e_email }</p>
          </div>
       </div>
 
@@ -708,7 +717,7 @@ tr,td{
       </section>
 
    </div>
-   <button type="button" onclick="location.href='/posting/search?currentPage=${currentPage}'" class="btn btn-default" style="width: 100px;">뒤로가기</button>
+   <button type="button" onclick="location.href='/posting/search?currentPage=${currentPage}'" class="sm-border-btn" style="width: 100px;">뒤로가기</button>
    </div>
    </div>
 
