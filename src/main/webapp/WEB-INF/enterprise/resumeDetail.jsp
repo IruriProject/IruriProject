@@ -70,6 +70,10 @@ img{
 @media print {
   @page { margin: 0mm 25mm 0mm 0mm; }
 }
+
+.resumebox{
+	margin-bottom: 50px;
+}
 </style>
 
 <title>Insert title here</title>
@@ -125,24 +129,14 @@ img{
 
 <br>
 <h2 class="title">자기소개서</h2>
-<div class="box">
+<div class="box resumebox">
 ${resume.r_content }
 </div>
 
-<!-- 본인 이력서일때 -->
-<c:if test="${sessionScope.loginStatus!=null && sessionScope.loginStatus==user.u_id }">
- 수정 삭제 인쇄 공개여부변경 대표여부변경 버튼 / 현재 공개, 대표 여부 표시
-</c:if>
-
-<!-- 기업 입장에서  -->
-<c:if test="${sessionScope.loginStatus!=null && sessionScope.loginId=='d' }">
-<div id="footer">
-<button type="button">쪽지보내기</button>
-<button type="button">지원자 정보보기</button>
-</div>
-</c:if>
 </div>
 </body>
+
+
 <script>
 window.onbeforeprint = function () { 
     // 프린트 할 영역 필터링 

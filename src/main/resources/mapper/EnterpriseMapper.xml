@@ -154,4 +154,9 @@
 		update ENTERPRISE set e_registnum=#{e_registnum} where e_num=#{e_num}
 	</update>
 	
+	<!-- 기업회원 정보수정 -->
+	<update id="updateEnterInfo" parameterType="String">
+	update ENTERPRISE set e_pw=#{e_pw},e_registnum=#{e_registnum},e_tel=#{e_tel},e_addr=#{e_addr},e_email=#{e_email} where e_id=#{e_id}
+	</update>
+	
 </mapper>

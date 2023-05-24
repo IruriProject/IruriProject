@@ -254,7 +254,7 @@
           type="password"
           id="pw1"
           name="e_pw"
-          placeholder="영문, 숫자가 포함된 6-12자의 비밀번호를 입력해주세요(특수문자 가능)"
+          placeholder="영문, 숫자 포함 6-12자를 입력해주세요 (특수문자 가능)"
           onkeyup="checkPw();" onkeydown="checkPw();"
           class="formbold-form-input"
         />
