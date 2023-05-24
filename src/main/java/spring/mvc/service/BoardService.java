@@ -201,5 +201,38 @@ public class BoardService {
 		mapperInter.deletechildComment(bc_regroup);
 	}
 
+	//마이페이지
+	  public List<Map<String, Object>> getMypagedetailBoard(String b_loginid,int start, int perpage){
+		 Map<String, Object> map = new HashMap<>();  
+		 map.put("b_loginid", b_loginid); 
+		 map.put("start", start); 
+		 map.put("perpage",perpage);
+		 
+		   return  mapperInter.getMypagedetailBoard(map);
+	}
+	
+	
+	public List<BoardDto> getMypageBoard(String b_loginid){
 
+		   return  mapperInter.getMypageBoard(b_loginid);
+	}
+	
+	public int getCountMypageBoard(String b_loginid) {
+		
+		return mapperInter.getCountMypageBoard(b_loginid);
+	}
+	 
+	 
+		/*
+		 * public List<BoardDto> getMypagedetailBoard(String b_loginid, int start, int
+		 * perpage){
+		 * 
+		 * Map<String, Object> map = new HashMap<>();
+		 * 
+		 * map.put("b_loginid", b_loginid); map.put("start", start); map.put("perpage",
+		 * perpage);
+		 * 
+		 * return mapperInter.getMypageBoard(b_loginid); }
+		 */
+	   
 }

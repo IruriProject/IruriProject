@@ -52,5 +52,11 @@ public interface BoardMapperInter {
 	public void deletechildComment(int bc_regroup);
 	
 	
+	//mypage
+	public List<BoardDto> getMypageBoard(String b_loginid);
+	//public List<BoardDto> getMypagedetailBoard(Map<String, Object> map);
+	
+	public List<Map<String, Object>> getMypagedetailBoard(Map<String, Object> map);
+	public int getCountMypageBoard(String b_loginid);
 	
 }

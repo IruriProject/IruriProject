@@ -140,4 +140,21 @@
 		delete from B_COMMENT where bc_regroup=#{bc_regroup}
 	</delete>
 	
+	<!--마이페이지  -->
+	
+	<select id="getMypageBoard" resultType="bdto" parameterType="String">
+	  select * from BOARD where b_loginid=#{b_loginid} 
+   </select>
+   
+   <select id="getMypagedetailBoard" resultType="Map" parameterType="HashMap">
+	  select * from BOARD where b_loginid=#{b_loginid} 
+	   <if test="start != null and perpage != null">
+	    LIMIT #{start}, #{perpage}
+	  </if>
+   </select>
+   
+   <select id="getCountMypageBoard" resultType="int" parameterType="String">
+   	select count(*) from BOARD where b_loginid=#{b_loginid} 
+   </select>
+   
 </mapper>

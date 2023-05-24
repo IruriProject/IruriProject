@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.mvc.dto.ApplicantDto;
+import spring.mvc.dto.BoardDto;
 import spring.mvc.dto.EnterpriseDto;
 import spring.mvc.dto.ResumeDto;
 import spring.mvc.dto.ScrapDto;
@@ -34,6 +35,7 @@ import spring.mvc.dto.HeartDto;
 import spring.mvc.dto.MessageDto;
 import spring.mvc.dto.PostingDto;
 import spring.mvc.dto.UserDto;
+import spring.mvc.service.BoardService;
 import spring.mvc.service.EnterpriseService;
 import spring.mvc.service.UFnService;
 import spring.mvc.service.UserService;
@@ -49,7 +51,9 @@ public class UFnController {
    
 	@Autowired
 	EnterpriseService e_service;
-
+	
+	@Autowired
+	BoardService bservice;
 
    // 마이페이지 이동
    @GetMapping("/mypage")
@@ -63,7 +67,8 @@ public class UFnController {
       //List<Map<String, Object>> getEnterlist =uservice.getLikeEnterprise(u_id); //기업데이터
       List<EnterpriseDto> getMypageLikeEnter=uservice.getMypageLikeEnter(dto.getU_num());//세션의 아이디 통해 dto를 갖고오고 그 dto통해 U_num갖고오기, U_num통해 관심 기업과 관심 공고 갖고옴
       List<Map<String, Object>> getMypageScrapPosting=uservice.getMypageScrapPosting(dto.getU_num());
-     
+      List <BoardDto>getMypageBoard= bservice.getMypageBoard(u_id);
+      
       model.addObject("mlist", uservice.getMessageByUserNum(dto.getU_num()));
       model.addObject("list", list);
       model.addObject("dto", dto);
@@ -73,7 +78,7 @@ public class UFnController {
       //마이페이지에 관심기업, 관심 공고 불러오기
       model.addObject("getMypageLikeEnter", getMypageLikeEnter);
       model.addObject("getMypageScrapPosting", getMypageScrapPosting);
-      
+      model.addObject("getMypageBoard", getMypageBoard);
       //좋아요한 기업 수 
       if (u_id!=null && loginStatus.equals("user")) {
     	  
@@ -89,6 +94,7 @@ public class UFnController {
 	      int countPosting = uservice.countScrapPosting(u_num);
 	      model.addObject("countPosting", countPosting);
       }
+      
       
       return model;
    }
@@ -156,6 +162,76 @@ public class UFnController {
 	    
 	    return model;
 	}
+	
+	//내가 쓴 게시글 디테일페이지
+	@GetMapping("/myboardlist")
+	public ModelAndView myboardlist(HttpSession session,
+			  @RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
+		
+	      ModelAndView model = new ModelAndView();
+	      String myId = (String) session.getAttribute("loginId");
+		  String loginStatus = (String) session.getAttribute("loginStatus");
+		  UserDto dto = service.findUserdataById(myId);
+		  //BoardDto bdto= bservice.getData(myId);
+			    String u_num=service.findUserdataById(myId).getU_num();
+				System.out.println(u_num);
+				
+				 if(myId!=null && loginStatus.equals("user")) {
+			
+					   
+			      	int totalCount = bservice.getCountMypageBoard(myId);	
+			      	int totalPage; // 총 페이지수
+					int startPage; // 각 블럭(1,2,3..)의 시작페이지
+					int endPage;
+					
+					// 각 블럭의 마지막 페이지
+					int start; // 각 페이지의 시작번호
+					int perpage = 5; // 한 페이지당 보여질 글 개수
+					int perBlock = 5; // 한 블럭당 보여지는 페이지 개수
+	
+					// 총 페이지 개수
+					totalPage = totalCount / perpage + (totalCount % perpage == 0 ? 0 : 1);
+	
+					// 각 블럭의 시작페이지 -> 현재페이지가 3 -> s:1, e:5 / 6 -> s:6, e:10
+					startPage = (currentPage - 1) / perBlock * perBlock + 1;
+					endPage = startPage + perBlock - 1;
+	
+					// 총 페이지가 8이면 (6~10 -> end페이지를 8로 수정)
+					if (endPage > totalPage)
+						endPage = totalPage;
+	
+					// 각페이지에서 불러올 시작번호
+					start = (currentPage - 1) * perpage;
+	
+					// 메서드 불러오기
+					List<Map<String, Object>> list =bservice.getMypagedetailBoard(dto.getU_id(), start, perpage);
+					
+					//System.out.println(list);
+					
+					//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // 포맷팅할 형식을 정의합니다.
+					//String formattedDate = formatter.format(bdto.getB_writeday()); // 타임스탬프를 지정한 형식으로 포맷팅합니다.
+					
+					// 게시글 앞에 붙을 번호
+					int no = totalCount - (currentPage - 1) * perpage;
+					
+					// 출력에 필요한 변수들 model에 저장
+					model.addObject("u_num", u_num);
+					model.addObject("totalCount", totalCount);
+					model.addObject("list", list);
+					model.addObject("totalPage", totalPage);
+					model.addObject("startPage", startPage);
+					model.addObject("endPage", endPage);
+					model.addObject("perBlock", perBlock);
+					model.addObject("currentPage", currentPage);
+					model.addObject("no", no);
+					model.setViewName("/user/myboardlist");
+		  
+	
+				 }
+		 return model;
+	}
+
+	
 	
 	@GetMapping("/resumelist")
 	public ModelAndView resumeList(HttpSession session) {
@@ -327,7 +403,7 @@ public class UFnController {
 	  if(myId!=null && loginStatus.equals("user")) {
 		  
 		  String u_num=service.findUserdataById(myId).getU_num();
-	      
+		  
 	      	int totalCount = uservice.countLikeEnterprise(u_num);
 
 			int totalPage; // 총 페이지수
