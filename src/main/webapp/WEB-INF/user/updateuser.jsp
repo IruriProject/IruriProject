@@ -249,12 +249,20 @@ text-decoration: none;
         <label class="formbold-form-label">성별</label>
 
         <select class="formbold-form-input" name="u_gender">
-        <c:if test="${dto.u_gender=='여'}">
+        <c:if test="${dto.u_gender=='남' }">
+          <option value="남" selected="selected">남성</option>
           <option value="여">여성</option>
         </c:if>
-        <c:if test="${dto.u_gender=='남'}">
+        <c:if test="${dto.u_gender=='여' }">
           <option value="남">남성</option>
+          <option value="여" selected="selected">여성</option>
         </c:if>
+        <c:if test="${dto.u_gender==null }">
+        <option value="남">남성</option>
+          <option value="여">여성</option>
+        </c:if>
+         
+         
         </select>
       </div>
       
