@@ -89,7 +89,7 @@ div td{
 							<table class="table" id="basic-list">
 							<thead>
 							<caption style=" margin-bottom : 10px;">
-								<h4 class="mb-5" style="color: black; display: inline;"><b>총 <b style="color: #4E9F3D; font-weight: 600">${totalCount }개</b>의 관심 공고</b></h4>
+								<h4 class="mb-5" style="color: black; display: inline;"><b>총 <b style="color: #4E9F3D; font-weight: 600">${totalCount }개</b>의 스크랩</b></h4>
 							</caption>
 								<tr class="text-dark">
 									<th scope="col" style="text-align: center;"><input class="form-check-input"

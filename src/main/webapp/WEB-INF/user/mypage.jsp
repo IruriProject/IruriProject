@@ -474,7 +474,7 @@ border:0px solid gray;
                <table class="table" id="basic-list">
                   <thead>
                   <caption style=" margin-bottom : 10px;">
-                     <h4 class="mb-5" style="color: black; display: inline;"><b>관심 공고</b></h4>
+                     <h4 class="mb-5" style="color: black; display: inline;"><b>스크랩</b></h4>
                      <a href="/scrap" style="float: right;">더보기</a>                  
                   </caption>
                      <tr class="text-dark tb" >
