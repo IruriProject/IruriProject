@@ -7,6 +7,7 @@
 <meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Edu+VIC+WA+NT+Beginner:wght@600&family=Gamja+Flower&family=Single+Day&family=Jua&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link href="${root }/css/usercss/style.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style type="text/css">
 
@@ -82,14 +83,14 @@ img{
 <c:set var="year"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set> 
 <c:set var="birth"><fmt:formatDate value="${user.u_birth }" pattern="yyyy"/></c:set>
 						
-<button type="button" id="printResume">인쇄</button>
+<button type="button" class="sm-border-btn" id="printResume">인쇄</button>
 <script type="text/javascript">
 	$("#printResume").click(function(){
 		window.print();
 	})
 </script>
  <div id="pdfDiv" style="width:800px;"><!-- 출력div -->
-<h2 class="resTitle">기본정보</h2>
+<h2 class="title">기본정보</h2>
 <div class="box">
 <h3>${resume.r_title }</h3>
 <hr>

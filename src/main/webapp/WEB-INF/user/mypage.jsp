@@ -88,9 +88,6 @@ div td{
 font-size: 1.2em;
 font-weight: 600;
 }
-.myresume div, .myresume2 div{
-cursor: pointer;
-}
 div{
 border:0px solid gray;
 
@@ -156,40 +153,39 @@ border:0px solid gray;
                </div>
             </div>
 
-            <div class="col-sm-12 col-md-6 col-xl-7 w-50" >
-               <div class="h-100 rounded p-4">
-                  <div data-rnum="${rdto.r_num}">
-                     <c:if test="${rdto.r_title==null}">
-                        <h3>대표이력서가 없습니다.</h3>
-                        <button type="button" class="sm-border-btn" style="width:150px;" onclick="location.href='resumelist'">대표이력서
-                           설정하기</button>
-                        <!-- 이력서 목록 페이지로 -->
-                     </c:if>
-                     <c:if test="${rdto.r_title!=null}">
-                     <br>
-                     <span style="font-size: 2em; color: #416442; font-weight: 600;
-                     white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${rdto.r_title}</span><br>
-                        <c:set var="writeday"><fmt:formatDate value="${rdto.r_writeday }" pattern="yyyy-MM-dd"/></c:set>
-                        <span style="font-size: 1.2em; font-weight: 600; color: #416442;">최종수정일 : ${writeday }</span><br>
-                     </c:if>
-                  </div>
-               </div>
-               <script type="text/javascript">
-                  $(".setPrivate").click(function() {
-                     var r_num = $(this).closest("div").data("rnum");
-                     $.ajax({
-                        type : "post",
-                        dataType : "html",
-                        data : {
-                           "r_num" : r_num
-                        },
-                        url : "/updatePrivate",
-                        success : function() {
-                           location.reload();
-                        }
-                     })
-                  })
-
+				<div class="col-sm-12 col-md-6 col-xl-7 w-50" >
+					<div class="h-100 rounded p-4">
+						<div data-rnum="${rdto.r_num}">
+							<c:if test="${rdto.r_title==null}">
+								<span style="font-size: 2em; color: #416442; font-weight: 600;
+							white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">대표이력서가 없습니다.</span><br>
+								<button type="button" class="sm-border-btn" style="width:150px;" onclick="location.href='resumelist'">대표이력서
+									설정하기</button>
+								<!-- 이력서 목록 페이지로 -->
+							</c:if>
+							<c:if test="${rdto.r_title!=null}">
+							<span style="font-size: 2em; color: #416442; font-weight: 600;
+							white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${rdto.r_title}</span><br>
+								<c:set var="writeday"><fmt:formatDate value="${rdto.r_writeday }" pattern="yyyy-MM-dd"/></c:set>
+								<span style="font-size: 1.2em; font-weight: 600; color: #416442;">최종수정일 : ${writeday }</span><br>
+							</c:if>
+						</div>
+					</div>
+					<script type="text/javascript">
+						$(".setPrivate").click(function() {
+							var r_num = $(this).closest("div").data("rnum");
+							$.ajax({
+								type : "post",
+								dataType : "html",
+								data : {
+									"r_num" : r_num
+								},
+								url : "/updatePrivate",
+								success : function() {
+									location.reload();
+								}
+							})
+						})
 
                   $(".setPublic").click(function() {
                      var r_num = $(this).closest("div").data("rnum");
@@ -208,7 +204,7 @@ border:0px solid gray;
                </script>
                <div class="myresume" style="border: 0px solid gray; width:650px; display: flex;">
                
-                    <div style="width:140px; height:140px; text-align: center; background-color:white;
+                    <div style="cursor:pointer; width:140px; height:140px; text-align: center; background-color:white;
                           border:0px solid green; border-radius:200%; padding:20px;" onclick="location.href='insertresume'">
                      <span class="spanbutton" >
                      <img alt="" src="/image/resume.png" style="width:40px; height:40px;">
@@ -216,7 +212,7 @@ border:0px solid gray;
                      </span>
                   </div>
                   
-                  <div style="width:140px; height:140px; text-align: center; background-color:white;
+                  <div style="cursor:pointer; width:140px; height:140px; text-align: center; background-color:white;
                         border:0px solid green; border-radius:200%; padding:20px; margin-left:40px;" onclick="location.href='resumelist'">
                      <span class="spanbutton"  >
                      <img alt="" src="/image/list.png" style="width:40px; height:40px; margin-bottom:5px;">
@@ -224,7 +220,7 @@ border:0px solid gray;
                      </span>
                   </div>
                   
-                  <div style="width:140px; height:140px; text-align: center; background-color:white;
+                  <div style="cursor:pointer; width:140px; height:140px; text-align: center; background-color:white;
                         border:0px solid green; border-radius:200%; padding:20px; margin-left:40px;" onclick="location.href='applicationstate'">
                      <span class="spanbutton">
                      <img alt="" src="/image/mail.png" style="width:50px; height:50px; margin-bottom:5px;">
@@ -234,14 +230,14 @@ border:0px solid gray;
                </div>
             </div>
                <div class="myresume2" style="border: 0px solid gray; text-align: center; float:right; margin-right:40px;"><br>
-                  <div style="width: 110px;  background-color: white; border-radius:10px; padding:5px 20px 10px;"
+                  <div style="cursor:pointer; width: 110px;  background-color: white; border-radius:10px; padding:5px 20px 10px;"
                    onclick="location.href='enterLike'">                  
                   <span class="spanbutton"><h4>관심기업</h4> 
                   <img alt="" src="/image/heart.png" style="width:16px; height:16px; margin-bottom: 5px;">
                   ${countLikeEnter }
                   </span>
                   </div><br>
-                  <div style="width: 110px;  background-color: white; border-radius:10px; padding:5px 20px 10px;"
+                  <div style="cursor:pointer; width: 110px;  background-color: white; border-radius:10px; padding:5px 20px 10px;"
                    onclick="location.href='scrap'">
                     <span class="spanbutton"><h4>관심공고</h4>
                     <img alt="" src="/image/star.png" style="width:18px; height:18px; margin-bottom: 5px;">

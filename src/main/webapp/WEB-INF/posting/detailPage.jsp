@@ -445,8 +445,8 @@ tr,td{
                                        <td><c:if test="${udto.r_presume==1 }">
                                        <b class="highlight">대표</b></c:if>
                                           ${udto.r_title } <br></td>
-                                       <td><c:if test="${udto.r_private==0 }"><b class="highlight">X</b></c:if> <c:if
-                                             test="${udto.r_private==1 }"><b class="highlight">O</b></c:if></td>
+                                       <td><c:if test="${udto.r_private==0 }"><b class="highlight">O</b></c:if> <c:if
+                                             test="${udto.r_private==1 }"><b class="highlight">X</b></c:if></td>
                                        <td><fmt:formatDate value="${udto.r_writeday}"
                                              pattern="yyyy.MM.dd" /></td>
                                     </tr>
