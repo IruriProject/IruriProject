@@ -12,6 +12,7 @@
 <script src="https://kit.fontawesome.com/f071d37f7a.js"
 	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link href="${root }/css/usercss/style.css" rel="stylesheet">
 <style>
 .func {
 	font-size: 1.5em;
@@ -94,8 +95,8 @@ $(function(){
 </head>
 <body>
 	<div>
-		<button style="float: right; margin-bottom: 10px;" type="button"
-			class="btn btn-info" id="insertbtn">문구등록</button>
+		<button style="float: right; margin-bottom: 10px; width: 100px; height: 40px;" type="button"
+			class="sm-color-btn" id="insertbtn">문구등록</button>
 	</div>
 	<table class="table" style="width: 80%; margin: 0 auto;">
 		<tr>
