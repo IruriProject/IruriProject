@@ -99,7 +99,7 @@
 	<!-- 주소 변경 -->
 	<update id="updateUserNoAddr" parameterType="Map">
 		update USER set
-		u_hp=#{u_hp}, u_birth=#{u_birth}, u_email=#{u_email} where
+		u_hp=#{u_hp}, u_gender=#{u_gender}, u_birth=#{u_birth}, u_email=#{u_email} where
 		u_id=#{u_id}
 	</update>
 
