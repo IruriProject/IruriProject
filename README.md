@@ -58,7 +58,7 @@
         - 사업자등록번호 기반 기업인증 기능 <br>
         - 쪽지 전송 및 확인 기능 <br>
       </td>
-        <td align="center"> <a href="https://github.com/hesoo98"><img src="https://avatars.githubusercontent.com/u/8851063?v=4" width="140px" /><br/>안정빈</a></td>
+        <td align="center"> <a href="https://github.com/jungbee2"><img src="https://avatars.githubusercontent.com/u/8851063?v=4" width="140px" /><br/>안정빈</a></td>
       <td>
         - 메인페이지 및 로고 디자인 <br>
         - 메인페이지 내 전체검색 기능 <br>
