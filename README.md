@@ -169,8 +169,7 @@
 [맞춤일자리 예시]<br>
 <img src="https://github.com/IruriProject/IruriProject/assets/102898757/70e9f663-cc03-484f-8d75-5ee1dbe394d6" width="800" height="500"/>
 
-
- <br><br>
+<br><br>
 
 ### 기업회원 - 기업페이지
 |기능|설명|
