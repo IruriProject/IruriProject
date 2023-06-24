@@ -167,8 +167,7 @@
 |검색|- 원하는 직무 카테고리를 checkbox로 선택하고 해당하는 직무에 대한 공고만 표출|
 <br>
 [맞춤일자리 예시]<br>
-<img src="https://github.com/IruriProject/IruriProject/assets/102898757/5b8247f1-9830-4b90-8bd8-9a40933b9855" width="800" height="500"/>
-
+<img src="https://github.com/IruriProject/IruriProject/assets/102898757/7a1575fc-a27d-47bf-8851-a0b3326f4dc1" width="800" height="500"/>
 
 <br><br>
 
