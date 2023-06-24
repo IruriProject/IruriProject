@@ -165,6 +165,10 @@
 |기능|설명|
 |-------|---------------------------|
 |검색|- 원하는 직무 카테고리를 checkbox로 선택하고 해당하는 직무에 대한 공고만 표출|
+<br>
+[맞춤일자리 예시]
+<img src="https://github.com/IruriProject/IruriProject/assets/102898757/70e9f663-cc03-484f-8d75-5ee1dbe394d6)
+
 
  <br><br>
 
@@ -179,9 +183,9 @@
 
   <br>
   [기업페이지 예시]
- <img src="https://github.com/IruriProject/IruriProject/assets/126458406/798f0ed8-64da-45ee-887c-1274d96e853e"/>
- 
- <br>
+ <img src="https://github.com/IruriProject/IruriProject/assets/126458406/798f0ed8-64da-45ee-887c-1274d96e853e" width="800" height="500"/>
+
+ <br><br>
 
 ### 기업회원 - 공고 등록
 |기능|설명|
