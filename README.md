@@ -161,6 +161,16 @@
 
   <br><br>
 
+[좋아요 / 스크랩 리스트 예시]<br>
+<img src="https://github.com/IruriProject/IruriProject/assets/102898757/d1d9bf06-2443-4a4c-a90d-9c9387fb45eb" width="800" height="500"/><br>
+<img src="https://github.com/IruriProject/IruriProject/assets/102898757/87a63b19-4c50-4c4c-bad2-70728ff5420a" width="800" height="500"/><br>
+
+<br><br>
+[지원현황 예시]<br>
+<img src="https://github.com/IruriProject/IruriProject/assets/102898757/30a1df48-859d-4a41-82a3-bf42514a0436" width="800" height="500"/><br>
+
+<br><br>
+
 ### 맞춤일자리 페이지
 |기능|설명|
 |-------|---------------------------|
